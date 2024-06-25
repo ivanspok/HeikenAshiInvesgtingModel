@@ -26,9 +26,15 @@ def daterange(start_date, end_date):
 
 def save_df(stock_df, ticker, period, interval, folder_name):
     parent_path = pathlib.Path(__file__).parent
+
     folder_path = pathlib.Path.joinpath(parent_path, folder_name)
     if not(os.path.isdir(folder_path)):
         os.mkdir(folder_path)
+
+    folder_path = pathlib.Path.joinpath(folder_path, f'period{period}interval{interval}')
+    if not(os.path.isdir(folder_path)):
+        os.mkdir(folder_path)
+
     file_path = pathlib.Path.joinpath(folder_path, f'df_stock_{ticker}_period{period}_interval{interval}.pkl')
     file = open(file_path, 'wb')
     pickle.dump(stock_df, file)
@@ -63,8 +69,22 @@ if __name__ == '__main__':
     # local parameters:
     folder_name = 'historical_data'
     # stock_name_list  = ['AAPL','V', 'AMD', 'MSFT', 'MA', 'NVDA']
-    stock_name_list  = ['GOOGL','CVS', 'AMZN', 'CRM', 'DIS', 'MCD']
-   
+    # stock_name_list  = ['GOOGL','CVS', 'AMZN', 'CRM', 'DIS', 'MCD']
+ 
+    # stock_name_list = ['AAPL' ,'MSFT','AMZN', 'NVDA','TSLA','GOOGL', 'META']
+    stock_name_list = []
+    stock_name_list += ['GOOG','JPM','XOM','UNH','JNJ','V','AVGO','PG','LLY','MA','HD','CVX','MRK', 
+                       'PEP','COST','ABBV','ADBE','KO','CRM','WMT','MCD','CSCO','BAC','PFE','TMO','ACN','NFLX','ABT','AMD','LIN','ORCL','CMCSA',
+                       'TXN','DIS','WFC','DHR','PM','NEE','VZ','INTC','RTX','HON','LOW','UPS','INTU','SPGI','NKE','COP','QCOM','BMY','CAT','UNP','BA','ISRG',
+                        'GE','IBM','AMGN','AMAT','MDT','SBUX','PLD','NOW','MS','DE','BLK','GS','T','LMT','AXP','BKNG','SYK','ADI','TJX','ELV','MDLZ','GILD','ADP','MMC',
+                        'C','AMT','CVS','VRTX','SCHW','LRCX','MO','TMUS','SLB', 'ETN', 'ZTS', 'CI', 'PYPL']
+
+    stock_name_list += ['FI','CB','SO','REGN','BSX','EQIX','BDX','PANW','DUK','EOG','MU','AON','ITW','CSX','SNPS','PGR','APD','KLAC','CME','NOC','CDNS','ICE','ATVI',
+                       'CL','SHW','WM','HCA','TGT','FCX','FDX','F','ORLY','MMM','CMG','EW','GM','MCK','NXPI','MCO','NSC','HUM','EMR','DXCM','PNC','PH','MPC','APH',
+                       'ROP','FTNT','MCHP','PXD','USB','CCI','MAR','MSI','GD','PSA','JCI','PSX','SRE','ADSK','AZO','TDG','ECL','AJG','KMB','TEL','TT','AEP','EL','PCAR',
+                       'OXY','TFC','CARR','D','IDXX','GIS','ON','COF','ADM','MNST','NUE','CTAS','AIG','EXC','VLO','MRNA','ANET','WMB','O','STZ','IQV','HLT','CHTR','WELL',
+                       'BIIB','SPG','MSCI','DHI','ROK']
+    
     period = '2y'
     interval = '1h'
     start_date = date(2022, 5, 22)
