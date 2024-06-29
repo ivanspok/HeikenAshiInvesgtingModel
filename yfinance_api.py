@@ -1,10 +1,6 @@
 import yfinance as yf
 # import matplotlib
 
-ticker ='AAPL'
-insturument = yf.Ticker(ticker)
-hist = insturument.history(period="2y", interval = '1h')
-
 import datetime, time
 import pandas as pd
 pd.options.mode.chained_assignment = None 
