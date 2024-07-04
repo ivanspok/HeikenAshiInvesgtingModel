@@ -1,0 +1,1998 @@
+,ticker,figi,type,name,country_of_rick
+0,CNX,BBG000CKVSG8,shares,CNX Resources Corporation,US
+1,SLM,BBG000BBCQD7,shares,SLM Corp,US
+2,ACLS,BBG000DW34S2,shares,Axcelis Technologies,US
+3,AMPH,BBG000BW90S6,shares,Amphastar Pharmaceuticals,US
+4,RELY,BBG012C7JST2,shares,Remitly Global,US
+5,MDT,BBG000BNWG87,shares,Medtronic,US
+6,AJG,BBG000BBHXQ3,shares,Arthur J. Gallagher & Co,US
+7,GWRE,BBG001C7PM75,shares,Guidewire Software Inc,US
+8,PAYC,BBG0064N0ZZ5,shares,Paycom Software Inc,US
+9,NCNO,BBG014GJ8XH2,shares,nCino,US
+10,DNLI,BBG008P7F869,shares,Denali Therapeutics Inc,US
+11,MTD,BBG000BZCKH3,shares,Mettler Toledo,US
+12,THS,BBG000GQGJT4,shares,TreeHouse Foods Inc,US
+13,APH,BBG000B9YJ35,shares,Amphenol,US
+14,AVT,BBG000BCPB71,shares,Avnet,US
+15,DPZ,BBG000P458P3,shares,Domino's Pizza Inc,US
+16,C,BBG000FY4S11,shares,Citigroup,US
+17,R,BBG000BRVP70,shares,Ryder System,US
+18,IP,BBG000BM5SR2,shares,International Paper,US
+19,KEX,BBG000BMQCP6,shares,Kirby Corp,US
+20,EPC,BBG000BRW644,shares,Edgewell Personal Care Co,US
+21,WGO,BBG000BWS3F3,shares,Winnebago Industries Inc,US
+22,BCRX,BBG000BLYWX6,shares,BioCryst Pharmaceuticals,US
+23,MLAB,BBG000BP3PW7,shares,Mesa Laboratories Inc,US
+24,VNT,BBG00RRGSJR4,shares,Vontier Corporation,US
+25,ETD,BBG000BBVDT8,shares,Ethan Allen Interiors Inc,US
+26,KZIZP,TCS007940839,shares,Красногорский завод им. С.А. Зверева - привилегированные акции,RU
+27,OGN,BBG00ZQRGW24,shares,Organon & Co.,US
+28,BMY,BBG000DQLV23,shares,Bristol-Myers Squibb,US
+29,AVTR,BBG00G2HHYD7,shares,Avantor Inc,US
+30,WTW,BBG000DB3KT1,shares,Willis Towers Watson,US
+31,APLE,BBG006473QX9,shares,Apple Hospitality REIT,US
+32,CHE,BBG000C19QW1,shares,Chemed Corp,US
+33,CTVA,BBG00BN969C1,shares,Corteva Inc,US
+34,TGTX,BBG000FVZQY1,shares,TG Therapeutics,US
+35,PZZA,BBG000BFWF13,shares,Papa John's International Inc,US
+36,DG,BBG000NV1KK7,shares,Dollar General,US
+37,DDS,BBG000BS4MP5,shares,Dillard's Inc,US
+38,RH,BBG002293PJ4,shares,RH,US
+39,BWA,BBG000BJ49H3,shares,BorgWarner,US
+40,CNH,TCS110545661,shares,CNH Industrial N.V.,GB
+41,IRM,BBG000KCZPC3,shares,Iron Mountain REIT,US
+42,FATE,BBG000QP35H2,shares,Fate Therapeutics Inc,US
+43,ABM,BBG000B9YYH7,shares,ABM Industries,US
+44,WSO,BBG000DJN7L9,shares,Watsco Inc,US
+45,6690,BBG00Y6QRDM9,shares,Haier Smart Home,CN
+46,CENTA,BBG000KTYB56,shares,Central Garden & Pet Co,US
+47,CVM,BBG000H5G6L5,shares,CEL SCI Corporation,US
+48,SNY,BBG000BBD5N1,shares,Sanofi,FR
+49,FLGT,BBG00DR7LTG2,shares,Fulgent Genetics,US
+50,BOH,BBG000C8D8G9,shares,Bank of Hawaii,US
+51,DXCM,BBG000QTF8K1,shares,DexCom Inc,US
+52,FAF,BBG000V78V75,shares,First American Financial Corporation,US
+53,IRKT,BBG000FWGSZ5,shares,Яковлев,RU
+54,OVV,BBG00R2NHQ65,shares,Ovintiv Inc.,US
+55,VAL,BBG010JW9K49,shares,Valaris Limited,BM
+56,BJ,BBG00FQ8T4G3,shares,"BJs Wholesale Club Holdings, Inc.",US
+57,IRBT,BBG000HXJB21,shares,iRobot Corp,US
+58,ALE,BBG000CYW7N5,shares,"ALLETE, Inc.",US
+59,HPQ,BBG000KHWT55,shares,HP,US
+60,NTR,BBG00JM9XLN6,shares,Nutrien,CA
+61,AOUT,BBG00QV8FS02,shares,American Outdoor Brands Inc,US
+62,SAGE,BBG0025X16Y5,shares,Sage Therapeutics Inc,US
+63,BIGC,BBG00W1PSSJ0,shares,BigCommerce Holdings,US
+64,HEAR,BBG000BM6N47,shares,Turtle Beach Corp,US
+65,1061,BBG000JHS2L3,shares,Essex Bio-Technology,
+66,CAT,BBG000BF0K17,shares,Caterpillar,US
+67,YUMC,BBG00B8N0HG1,shares,Yum China Holdings,CN
+68,EGRX,BBG005Y3XWH9,shares,Eagle Pharmaceuticals Inc,US
+69,VSMO,BBG004S68CV8,shares,ВСМПО-АВИСМА,RU
+70,AZTA,BBG000DX9JV7,shares,Azenta,US
+71,BDTX,BBG00MS4Y0W9,shares,Black Diamond Therapeutics Inc,US
+72,WK,BBG007BVZ8H9,shares,Workiva Inc,US
+73,STWD,BBG000M1J270,shares,Starwood Property Trust REIT,US
+74,UNAC,BBG000Q7ZZY2,shares,Объединенная авиастроительная корпорация,RU
+75,TPR,BBG000BY29C7,shares,Tapestry,US
+76,NTRS,BBG000BQ74K1,shares,Northern Trust,US
+77,FTCI,BBG0320C1036,shares,"FTC Solar, Inc.",US
+78,SXI,BBG000BTT5B8,shares,Standex International Corp,US
+79,PLXS,BBG000BRBX66,shares,Plexus Corp,US
+80,APPF,BBG008GC8CP6,shares,Appfolio Inc,US
+81,BLDP,BBG000BNJRZ8,shares,Ballard Power Systems,CA
+82,TT,BBG000BM6788,shares,Trane Technologies,US
+83,NXST,BBG000DZJVH0,shares,Nexstar Media Group Inc,US
+84,ARRY,BBG001V4SF46,shares,Array Technologies,US
+85,UPS,BBG000L9CV04,shares,United Parcel Service,US
+86,MBUU,BBG005PXTR70,shares,Malibu Boats Inc,US
+87,ARI,BBG000NFPF36,shares,Apollo Commercial Real Estate,US
+88,ZBH,BBG000BKPL53,shares,Zimmer Biomet Holdings,US
+89,HSKA,BBG000BWFH48,shares,Heska Corp,US
+90,CABO,BBG000F02T51,shares,Cable One,US
+91,FDX,BBG000BJF1Z8,shares,FedEx,US
+92,VKCO,TCS00A106YF0,shares,ВК,RU
+93,CIAN@US,TCS0418T1088,shares,Циан АДР,RU
+94,CNI,BBG000HS74G6,shares,Canadian National Railway Co,CA
+95,ZION,BBG000BX9WL1,shares,Zions Bancorporation,US
+96,PARA,BBG000C496P7,shares,Paramount Global,US
+97,DBX,BBG0018SLDN0,shares,Dropbox Inc,US
+98,TTLK,BBG000RJL816,shares,Таттелеком,RU
+99,CNP,BBG000FDBX90,shares,CenterPoint Energy,US
+100,SLAB,BBG000BB99S3,shares,Silicon Laboratories Inc,US
+101,ANSS,BBG000GXZ4W7,shares,ANSYS,US
+102,SDGR,BBG000T88BN2,shares,Schrodinger Inc,US
+103,CROX,BBG000BLY663,shares,Crocs Inc,US
+104,SJW,BBG000BT1ZY7,shares,SJW Group,US
+105,OSIS,BBG000BWPR54,shares,OSI Systems Inc,US
+106,SIG,BBG000C4ZZ10,shares,Signet Jewelers,US
+107,HA,BBG000BC4185,shares,Hawaiian Holdings Inc,US
+108,CWH,BBG00D2Z7X83,shares,"Camping World Holdings, Inc.",US
+109,CLBK,BBG003222R31,shares,Columbia Financial,US
+110,DLTR,BBG000BSC0K9,shares,Dollar Tree,US
+111,GTX,BBG00HY28P97,shares,Garrett Motion Inc,CH
+112,CHGG,BBG0014XR0N5,shares,Chegg Inc,US
+113,KVYO,BBG009WR3FL5,shares,Klaviyo,US
+114,FIXP@GS,TCS0835G2057,shares,Fix Price Group,RU
+115,LOW,BBG000BNDN65,shares,Lowe's,US
+116,MGNT,BBG004RVFCY3,shares,Магнит,RU
+117,AZO,BBG000C7LMS8,shares,AutoZone,US
+118,GS,BBG000C6CFJ5,shares,Goldman Sachs,US
+119,175,BBG000BZ3PX4,shares,Geely Automobile Holdings,CN
+120,MCO,BBG000F86GP6,shares,Moody's,US
+121,CNXC,BBG00RCNQMX3,shares,Concentrix Corporation,US
+122,RDY,BBG000NJ96L6,shares,Dr. Reddy's Laboratories,IN
+123,SPBE,BBG002GHV6L9,shares,СПБ Биржа,RU
+124,ALB,BBG000BJ26K7,shares,Albemarle,US
+125,MELI,BBG000GQPB11,shares,MercadoLibre Inc,AR
+126,916,BBG000P2MRM9,shares,China Longyuan Power Group,CN
+127,UAA,BBG000BXM6V2,shares,Under Armour,US
+128,NTLA,BBG007KC7PB0,shares,Intellia Therapeutics Inc,US
+129,SVCB,TCS00A0ZZAC4,shares,Совкомбанк,RU
+130,FFIN,BBG000BL8476,shares,"First Financial Bankshares, Inc.",US
+131,ECPG,BBG000F369C7,shares,Encore Capital Group Inc,US
+132,291,BBG000BKWM80,shares,China Resources Beer,HK
+133,HIG,BBG000G0Z878,shares,Hartford Financial Services,US
+134,WAT,BBG000FQRVM3,shares,Waters,US
+135,KZIZ,TCS009124010,shares,Красногорский завод им. С.А. Зверева - ао,RU
+136,CDW,BBG001P63B80,shares,CDW Corp,US
+137,DGX,BBG000BN84F3,shares,Quest Diagnostics,US
+138,HOG,BBG000BKZTP3,shares,Harley-Davidson,US
+139,WELL,BBG000BKY1G5,shares,Welltower REIT,US
+140,MED,BBG000BWBW76,shares,Medifast Inc,US
+141,UGI,BBG000BVYN55,shares,UGI Corp,US
+142,LPSN,BBG000BSV0W5,shares,LivePerson Inc,US
+143,ENSG,BBG000K1T9L0,shares,Ensign Group Inc,US
+144,GTLB,BBG00DHTYPH8,shares,GitLab,US
+145,386,BBG000MQF8G6,shares,China Petroleum & Chemical Corp,CN
+146,TEL,BBG000RGM5P1,shares,TE Connectivity,US
+147,EIX,BBG000D7RKJ5,shares,Edison International,US
+148,ODFL,BBG000CHSS88,shares,Old Dominion Freight Line Inc,US
+149,AXSM,BBG00B6G7GL7,shares,Axsome Therapeutics Inc,US
+150,PLL,BBG00YJ7NBQ1,shares,Piedmont Lithium,US
+151,PRFT,BBG000BVXFK6,shares,Perficient Inc,US
+152,RKT,BBG00VY1MYW7,shares,Rocket Companies,US
+153,VIRT,BBG0064N2T78,shares,"Virtu Financial, Inc.",US
+154,GEVO,BBG000P7S7L7,shares,Gevo,US
+155,ABNB,BBG001Y2XS07,shares,"Airbnb, Inc",US
+156,ETLN,BBG001M2SC01,shares,Etalon Group PLC ГДР,RU
+157,2269,BBG00GTY47H0,shares,Wuxi Biologics,CN
+158,700,BBG000BJ35N5,shares,Tencent Holdings,CN
+159,PSMT,BBG000BTKR92,shares,"PriceSmart, Inc.",US
+160,VREX,BBG00CZNLR47,shares,Varex Imaging Corp,US
+161,TRMB,BBG000BNPS52,shares,Trimble Inc,US
+162,WBD,BBG011386VF4,shares,Warner Bros. Discovery,US
+163,CTAS,BBG000H3YXF8,shares,Cintas,US
+164,SHOP,BBG008HBD923,shares,Shopify Inc,CA
+165,ITGR,BBG000BW6JV4,shares,Integer Holdings Corp,US
+166,YUM,BBG000BH3GZ2,shares,Yum!,US
+167,TKR,BBG000BV95H9,shares,Timken Co The,US
+168,HCSG,BBG000BKYVF0,shares,Healthcare Services Group Inc,US
+169,ALRM,BBG007GNPYY7,shares,Alarm com Holdings Inc,US
+170,KZOSP,BBG0029SG1C1,shares,Казаньоргсинтез - акции привилегированные,RU
+171,A,BBG000C2V3D6,shares,Agilent Technologies,US
+172,GEF,BBG000BLFNC0,shares,Greif Inc,US
+173,BXMT,BBG000BGKJ70,shares,Blackstone Mortgage Trust REIT,US
+174,SNOW,BBG007DHGNJ4,shares,Snowflake Inc,US
+175,PATH,BBG00GKS1G03,shares,"UiPath, Inc.",US
+176,WUSH,TCS00A105EX7,shares,Whoosh,RU
+177,COP,BBG000BQQH30,shares,ConocoPhillips,US
+178,ZBRA,BBG000CC7LQ7,shares,Zebra Technologies Corp,US
+179,ASO,BBG00X7L1C14,shares,Academy Sports & Outdoors,US
+180,BLDR,BBG000BKD3K9,shares,Builders FirstSource Inc,US
+181,CSGS,BBG000G3TQV2,shares,CSG Systems International Inc,US
+182,HI,BBG000KT0GV3,shares,Hillenbrand,US
+183,INTU,BBG000BH5DV1,shares,Intuit,US
+184,NHI,BBG000CGWSJ3,shares,National Health Investors REIT,US
+185,ORI,BBG000C4PLF7,shares,Old Republic International Corporation,US
+186,BBSI,BBG000BHJSC4,shares,Barrett Business Services Inc,US
+187,GEMC,TCS00A107JE2,shares,United medical group,RU
+188,CDNA,BBG006JS5785,shares,CareDx Inc,US
+189,UGLD,TCS00A0JPP37,shares,Южуралзолото ГК,RU
+190,TCX,BBG000L69KL5,shares,Tucows Inc,US
+191,PHOR,BBG004S689R0,shares,ФосАгро,RU
+192,OSUR,BBG000J3D1Y8,shares,OraSure Technologies Inc,US
+193,ORLY,BBG000BGYWY6,shares,O'Reilly Automotive,US
+194,AVNS,BBG005L86G05,shares,Avanos Medical Inc,US
+195,ALT,BBG000FXML90,shares,Altimmune,US
+196,DUK,BBG000BHGDH5,shares,Duke Energy Corp,US
+197,HNFG,TCS00A106XF2,shares,HENDERSON,RU
+198,BWXT,BBG000D86F25,shares,BWX Technologies,US
+199,RS,BBG000CJ2181,shares,"Reliance, Inc.",US
+200,HHRU,TCS2207L1061,shares,HeadHunter Group PLC,RU
+201,PRTS,BBG000N26V95,shares,CarParts.com,US
+202,CAH,BBG000D898T9,shares,Cardinal Health,US
+203,868,BBG000LG6G08,shares,Xinyi Glass Holdings,
+204,KEY,BBG000BMQPL1,shares,KeyCorp,US
+205,LNZL,BBG000SK7JS5,shares,Лензолото,RU
+206,ALG,BBG000BJTZX0,shares,Alamo Group Inc.,US
+207,PLCE,BBG000JK9DK4,shares,Children's Place Inc The,US
+208,CACI,BBG000KQY8Y7,shares,CACI International,US
+209,VST,BBG00DXDL6Q1,shares,Vistra,US
+210,WTS,BBG000C4Z6C2,shares,Watts Water Technologies Inc,US
+211,JBSS,BBG000CHPMY5,shares,John B Sanfilippo & Son Inc,US
+212,MDB,BBG0022FDRY8,shares,MongoDB Inc,US
+213,NOK,BBG000BNGBW9,shares,Nokia,FI
+214,WH,BBG00HCY3Q67,shares,Wyndham Hotels & Resorts,US
+215,UDR,BBG000C41023,shares,UDR REIT,US
+216,BLK,BBG000C2PW58,shares,BlackRock,US
+217,SELG,BBG002458LF8,shares,Селигдар,RU
+218,OKE,BBG000BQHGR6,shares,ONEOK,US
+219,OMC,BBG000BS9489,shares,Omnicom Group,US
+220,NIC,BBG000QK0TG5,shares,Nicolet Bankshares,US
+221,TASK,BBG009CL6VK3,shares,TaskUs,US
+222,IOSP,BBG000BMFNP4,shares,Innospec,US
+223,TATNP,BBG004S68829,shares,Татнефть - привилегированные акции,RU
+224,ALLO,BBG00KHRRDX3,shares,Allogene Therapeutics Inc,US
+225,AOS,BBG000BC1L02,shares,A. O. Smith Corporation,US
+226,1099,BBG000VWV3Z5,shares,Sinopharm Group,CN
+227,CB,BBG000BR14K5,shares,Chubb,US
+228,SLAV,TCS009086904,shares,Славнефть,RU
+229,METC,BBG00BCQJ2X3,shares,Ramaco Resources Inc,US
+230,SQ,BBG0018SLC07,shares,Block,US
+231,OLED,BBG000BLRP41,shares,Universal Display Corp,US
+232,DVA,BBG000MQ1SN9,shares,DaVita HealthCare Partners,US
+233,FLWS,BBG000BBR9P6,shares,1-800-Flowers.com Inc,US
+234,CSL,BBG000BGGBT8,shares,Carlisle Companies Incorporated,US
+235,2319,BBG000PXTGY5,shares,China Mengniu Dairy,CN
+236,NYT,BBG000FFC0B3,shares,New York Times,US
+237,LEGH,BBG00MJDR6J9,shares,Legacy Housing Corp,US
+238,SWK,BBG000BTQR96,shares,Stanley Black & Decker,US
+239,MOS,BBG000BFXHL6,shares,Mosaic,US
+240,PRFN,TCS00A0JNXF9,shares,ЧЗПСН,RU
+241,MASI,BBG000C3W281,shares,Masimo Corporation,US
+242,ANF,BBG000H9G7X2,shares,Abercrombie & Fitch,US
+243,2202,BBG006KY4KF4,shares,China Vanke,CN
+244,FSLR,BBG000BFL116,shares,First Solar,US
+245,YEXT,BBG001MKZGY7,shares,Yext Inc,US
+246,KD,BBG012W99DN6,shares,Kyndryl Holdings,US
+247,COLB,BBG000CTGXS2,shares,Columbia Banking System,US
+248,WST,BBG000BX24N8,shares,West Pharmaceutical Services I,US
+249,FLR,BBG000BB1TH9,shares,Fluor,US
+250,UPBD,BBG000BHQJX3,shares,Upbound Group,US
+251,YETI,BBG00D8JC882,shares,YETI Holdings Inc,US
+252,UEC,BBG000LCK3Q2,shares,Uranium Energy Corp,US
+253,ZNTL,BBG00R2K8TF5,shares,Zentalis Pharmaceuticals,US
+254,1109,BBG000HPNDX5,shares,China Resources Land,HK
+255,WDAY,BBG000VC0T95,shares,Workday Inc,US
+256,1299,BBG0016XR1Q8,shares,AIA Group,HK
+257,GPS,BBG000BKLH74,shares,Gap,US
+258,RYN,BBG000BG7L34,shares,Rayonier REIT,US
+259,1347,BBG0078Q6BC4,shares,Hua Hong Semiconductor,CN
+260,EMBC,BBG014L7D4G1,shares,Embecta,US
+261,MAGN,BBG004S68507,shares,Магнитогорский металлургический комбинат,RU
+262,VTBR,BBG004730ZJ9,shares,Банк ВТБ,RU
+263,LUMN,BBG000BGLRN3,shares,Lumen Technologies,US
+264,WMG,BBG00RP2T9T6,shares,Warner Music Group,US
+265,WRLD,BBG000C3G9J2,shares,World Acceptance Corp,US
+266,VSTO,BBG006F8QZK4,shares,Vista Outdoor,US
+267,TPH,BBG0016YQTR5,shares,"Tri Pointe Homes, Inc.",US
+268,AVNT,BBG000C8NJ10,shares,Avient Corporation,US
+269,AAP,BBG000F7RCJ1,shares,Advance Auto Parts,US
+270,AON,BBG00SSQFPK6,shares,Aon,US
+271,TTD,BBG00629NGT2,shares,Trade Desk Inc/The,US
+272,EFX,BBG000BHPL78,shares,Equifax,US
+273,AWH,BBG000BTYP37,shares,Aspira Womens Health,US
+274,MKC,BBG000G6Y5W4,shares,McCormick & Co,US
+275,RPD,BBG009DFHWG6,shares,Rapid7 Inc,US
+276,CARM,TCS00A105NV2,shares,КарМани,RU
+277,MHK,BBG000FLZN98,shares,Mohawk Industries,US
+278,MA,BBG000F1ZSQ2,shares,Mastercard,US
+279,RUAL,BBG008F2T3T2,shares,РУСАЛ,RU
+280,NKHP,BBG00BGKYH17,shares,НКХП,RU
+281,GLBE,BBG00ZKY1P71,shares,Global-E Online Ltd,IL
+282,TGKJ,TCS00A0F61T7,shares,Форвард Энерго,RU
+283,SBAC,BBG000D2M0Z7,shares,SBA Communications REIT,US
+284,AWR,BBG000F964B6,shares,American States Water Co,US
+285,SIGI,BBG000BSZ738,shares,Selective Insurance Group,US
+286,RBA,BBG000C1DF05,shares,RB Global,CA
+287,PLTK,BBG00QQ8C789,shares,Playtika Holding Corp.,US
+288,MNDY,BBG00GF8K4W4,shares,Monday.Com,IL
+289,CGEN,BBG000B9ZLB0,shares,Compugen,IL
+290,ITCI,BBG0026ZFZC4,shares,"Intra-Cellular Therapies, Inc",US
+291,CRMT,BBG000CM6L31,shares,America's Car-Mart Inc TX,US
+292,TOL,BBG000BVHBM1,shares,Toll Brothers Inc,US
+293,SPG,BBG000BJ2D31,shares,Simon Property Group REIT,US
+294,NVR,BBG000BQBYR3,shares,NVR Inc,US
+295,AWK,BBG000TRJ294,shares,American Water Works,US
+296,CTLT,BBG005XR47P5,shares,Catalent Inc,US
+297,BERY,BBG000Q1R1Y9,shares,Berry Global Group Inc,US
+298,SCL,BBG000BSMFN2,shares,Stepan Company,US
+299,CMC,BBG000BFSND8,shares,Commercial Metals Company,US
+300,3908,BBG00B0THY80,shares,China International Capital Corporation,CN
+301,IRWD,BBG000GBZ3J2,shares,Ironwood Pharmaceuticals,US
+302,DASH,BBG005D7QCJ3,shares,DoorDash,US
+303,1044,BBG000CJXNB5,shares,Hengan Group,
+304,EAT,BBG000BK28N7,shares,Brinker International Inc,US
+305,SNAP,BBG00441QMJ7,shares,Snap Inc,US
+306,TSM,BBG000BD8ZK0,shares,Taiwan Semiconductor Manufacturing,TW
+307,SLP,BBG000BS2ZD1,shares,Simulations Plus Inc.,US
+308,HZO,BBG000C1SRH5,shares,"MarineMax, Inc.",US
+309,CPB,BBG000BG4202,shares,Campbell Soup,US
+310,VRT,BBG00L2B8KW8,shares,Vertiv Holdings Co,US
+311,CHD,BBG000BFJT36,shares,Church & Dwight,US
+312,BBWI,BBG000BNGTQ7,shares,Bath & Body Works,US
+313,RUN,BBG0025XVR85,shares,Sunrun Inc,US
+314,AKAM,BBG000BJQWD2,shares,Akamai Technologies,US
+315,CP,BBG000BCVMH9,shares,Canadian Pacific Kansas City,CA
+316,SRE,BBG000C2ZCH8,shares,Sempra,US
+317,ZUMZ,BBG000PYX812,shares,Zumiez Inc,US
+318,MODG,BBG000CPCVY1,shares,Topgolf Callaway Brands,US
+319,USM,BBG000BW6P59,shares,United States Cellular Corp,US
+320,ZYNE,BBG007BBS8B7,shares,Zynerba Pharmaceuticals Inc,US
+321,SKLZ,BBG00RQ732B6,shares,Skillz Inc.,US
+322,16,BBG000BF0155,shares,Sun Hung Kai Properties,CN
+323,BMO,BBG000DLY9B9,shares,Bank of Montreal,CA
+324,2359,BBG00MP10H94,shares,WuXi AppTec,CN
+325,AVXL,BBG000C9K8K4,shares,Anavex Life Sciences Corp.,US
+326,ATI,BBG000LC1FS4,shares,ATI Inc,US
+327,2328,BBG000BYRGX1,shares,PICC Property and Casualty,CN
+328,COIN,BBG00ZGF7771,shares,Coinbase,US
+329,CLSK,BBG001MB89V6,shares,Cleanspark Inc,US
+330,DNMR,BBG00S4VMQT2,shares,Danimer Scientific,US
+331,ATNI,BBG000F8RCH1,shares,"ATN International, Inc",US
+332,CBU,BBG000BF4D19,shares,Community Financial System,US
+333,3690,BBG00LLV9WW6,shares,Meituan,CN
+334,ARNC,BBG00R45JYB7,shares,Arconic,US
+335,MKTX,BBG000BJBZ23,shares,MarketAxess Holdings Inc,US
+336,SILK,BBG0026ZJRY4,shares,Silk Road Medical,US
+337,ENTA,BBG001V9NSB4,shares,Enanta Pharmaceuticals Inc,US
+338,INMD,BBG00PPS73P4,shares,Inmode Ltd,IL
+339,HBAN,BBG000BKWSR6,shares,Huntington Bancshares,US
+340,POOL,BBG000BCVG28,shares,Pool Corp,US
+341,QUOT,BBG001QYNR63,shares,Quotient Technology Inc,US
+342,BECN,BBG000BKTXF2,shares,Beacon Roofing Supply Inc,US
+343,FL,BBG000BX8DC4,shares,Foot Locker,US
+344,1385,BBG000C1FPY4,shares,Shanghai Fudan Microelectronics,CN
+345,J,BBG019C1BQR4,shares,Jacobs Solutions,US
+346,BANEP,BBG004S686N0,shares,Башнефть - привилегированные акции,RU
+347,BRX,BBG001LFLZZ1,shares,Brixmor Property Group REIT,US
+348,APD,BBG000BC4JJ4,shares,Air Products & Chemicals,US
+349,NDSN,BBG000BPWGR1,shares,Nordson Corp,US
+350,RARE,BBG001RWPDW6,shares,Ultragenyx Pharmaceutical Inc,US
+351,CI,BBG00KXRCDP0,shares,Cigna,US
+352,OKEY,BBG00172J7S9,shares,O'Key Group SA,RU
+353,ALRS,BBG004S68B31,shares,АЛРОСА,RU
+354,1658,BBG00DSLKXX3,shares,Postal Savings Bank of China,CN
+355,ANDE,BBG000BF8CN3,shares,Andersons Inc,US
+356,UDMY,BBG0025DTRN5,shares,Udemy,US
+357,SNX,BBG000CL9JV4,shares,SYNNEX Corp,US
+358,UFPI,BBG000BL0T06,shares,"UFP Industries, Inc",US
+359,ALK,BBG000BBL0Y1,shares,Alaska Air Group,US
+360,MAS,BBG000BNNKG9,shares,Masco,US
+361,ELMT,TCS00A102093,shares,Элемент,RU
+362,GRMN,BBG000C4LN67,shares,Garmin,US
+363,MGY,BBG00GNC8DL2,shares,Magnolia Oil & Gas Corp,US
+364,PSEC,BBG000Q3RGN4,shares,Prospect Capital Corporation,US
+365,SRCL,BBG000H3FZM6,shares,Stericycle,US
+366,BDX,BBG000BCZYD3,shares,"Becton, Dickinson and Company",US
+367,SONO,BBG001JZPSQ2,shares,SONOS INC,US
+368,CNNE,BBG00GXRNJP4,shares,Cannae Holdings,US
+369,MLCO,BBG000BHP8J4,shares,Melco Resorts & Entertainment,HK
+370,PCOR,BBG0026ZJ304,shares,Procore Technologies,US
+371,MRKP,BBG000VG1034,shares,Россети Центр и Приволжье,RU
+372,INTC,BBG000C0G1D1,shares,Intel Corporation,US
+373,COKE,BBG000BG1SX2,shares,Coca-Cola Consolidated Inc,US
+374,DOCS,BBG0026ZJQX7,shares,"Doximity, Inc.",US
+375,FR,BBG000CKGDS5,shares,First Industrial REIT,US
+376,AIG,BBG000BBDZG3,shares,American International Group,US
+377,CVCO,BBG000K4WS65,shares,Cavco Industries Inc,US
+378,TRV,BBG000BJ81C1,shares,Travelers Cos,US
+379,SAH,BBG000BBMNG0,shares,Sonic Automotive,US
+380,FLOT,BBG000R04X57,shares,Совкомфлот,RU
+381,BROS,BBG01282ZHB3,shares,Dutch Bros,US
+382,MRNA,BBG003PHHZT1,shares,Moderna Inc,US
+383,SHEN,BBG000BTC2N0,shares,Shenandoah Telecommunications,US
+384,ENS,BBG000PWTD92,shares,EnerSys,US
+385,TRI,BBG000BBS9F6,shares,Thomson Reuters Corporation,CA
+386,XPO,BBG000L5CJF3,shares,"XPO, Inc.",US
+387,LDOS,BBG000C23PB0,shares,Leidos Holdings,US
+388,AAPL,BBG000B9XRY4,shares,Apple,US
+389,WM,BBG000BWVSR1,shares,Waste Management,US
+390,267,BBG000BF0V40,shares,CITIC,HK
+391,BKNG,BBG000BLBVN4,shares,Booking,US
+392,PRTA,BBG003PDKJF7,shares,Prothena Corporation,IE
+393,STAG,BBG000BGLFP7,shares,STAG Industrial REIT,US
+394,ETSY,BBG000N7MXL8,shares,Etsy Inc,US
+395,DLO,BBG00XGCHFV7,shares,DLocal,UY
+396,DIAS,TCS00A107ER5,shares,Диасофт,RU
+397,HE,BBG000BL0P40,shares,"Hawaiian Electric Industries, Inc.",US
+398,YY,BBG003H0XV18,shares,JOYY Inc,CN
+399,TATN,BBG004RVFFC0,shares,Татнефть,RU
+400,NKE,BBG000C5HS04,shares,NIKE,US
+401,DLX,BBG000BH6360,shares,Deluxe Corp,US
+402,FTDR,BBG00H9MNDZ2,shares,"Frontdoor, Inc.",US
+403,KHC,BBG005CPNTQ2,shares,Kraft Heinz,US
+404,MMSI,BBG000C42VX0,shares,MerIt Medical Systems Inc,US
+405,AG,BBG000CH7WB8,shares,First Majestic Silver Corp,CA
+406,BL,BBG0029KJVB0,shares,Blackline Inc,US
+407,RHI,BBG000BS5DR2,shares,Robert Half,US
+408,INGN,BBG0021PH456,shares,Inogen Inc,US
+409,9696,BBG018KZQ6K7,shares,Tianqi Lithium Corporation,CN
+410,SAVE,BBG000BF6RQ9,shares,Spirit Airlines Inc,US
+411,12,BBG000BDWF36,shares,Henderson Land,CN
+412,SIGA,BBG000BKXWV1,shares,SIGA Technologies,US
+413,2388,BBG000F6F1G3,shares,Bank of China (Hong Kong),HK
+414,QRVO,BBG007TJF1N7,shares,Qorvo,US
+415,THG,BBG000FJH8W0,shares,Hanover Insurance Group,US
+416,CG,BBG000BH3F20,shares,Carlyle Group,US
+417,CPAY,TCS199481068,shares,"Corpay, Inc.",US
+418,ENPH,BBG001R3MNY9,shares,Enphase Energy Inc,US
+419,BILL,BBG00QVJV6V4,shares,Bill.com Holdings Inc,US
+420,HYLN,BBG00N9MJTZ9,shares,Hyliion Holdings Corp.,US
+421,670,BBG000BP6D06,shares,China Eastern Airlines,CN
+422,JOUT,BBG000HCXFS4,shares,Johnson Outdoors Inc,US
+423,IPGP,BBG000DCGRL8,shares,IPG Photonics Corporation,US
+424,BMI,BBG000BDGHD9,shares,Badger Meter Inc,US
+425,UNFI,BBG000BXB1M5,shares,United Natural Foods,US
+426,STRA,BBG000GRZDV1,shares,Strategic Education Inc,US
+427,KALU,BBG000PKZDX4,shares,Kaiser Aluminum Corp,US
+428,QLYS,BBG000HT5G06,shares,Qualys Inc,US
+429,EEFT,BBG000BMNBY1,shares,Euronet Worldwide Inc,US
+430,SKT,BBG000D2JB50,shares,Tanger,US
+431,PATK,BBG000BQSBB2,shares,Patrick Industries Inc,US
+432,ABIO,TCS10A0JNAB6,shares,Артген,RU
+433,TECH,BBG000C15114,shares,Bio-Techne,US
+434,TAK,BBG000LF8708,shares,Takeda Pharmaceutical Co Ltd,JP
+435,NWLI,BBG008HNHZ07,shares,National Western Life Group In,US
+436,CARA,BBG001J2QYS9,shares,Cara Therapeutics Inc,US
+437,BTAI,BBG00K20GVD2,shares,BioXcel Therapeutics,US
+438,CASY,BBG000BF0672,shares,Casey's General Stores Inc,US
+439,SLG,BBG000BVP5P2,shares,SL Green REIT,US
+440,KEYS,BBG0059FN811,shares,Keysight Technologies Inc,US
+441,PBH,BBG000QM0RZ4,shares,Prestige Consumer Healthcare I,US
+442,NU,BBG0136WM1M4,shares,Nubank,BR
+443,HII,BBG001KJ2HM9,shares,Huntington Ingalls Industries Inc,US
+444,3988,BBG000NQGF05,shares,Bank of China,CN
+445,UWGN,BBG008HD3V85,shares,ОВК,RU
+446,NVAX,BBG000NVSBL7,shares,Novavax,US
+447,INVH,BBG00FQH6BS9,shares,Invitation Homes REIT,US
+448,UUUU,BBG000BXTPV3,shares,Energy Fuels,US
+449,BNGO,BBG001KWWRS9,shares,"Bionano Genomics, Inc.",US
+450,BHF,BBG00DYPZ4T0,shares,Brighthouse Financial,US
+451,1876,BBG00P4RBR99,shares,Budweiser Brewing,
+452,SKIN,BBG00XKM1DC3,shares,The Beauty Health Company,US
+453,STAA,BBG000C4QB95,shares,STAAR Surgical Co,US
+454,JBT,BBG000VLBCQ1,shares,John Bean Technologies,US
+455,DVEC,BBG000V07CB8,shares,ДЭК,RU
+456,MAA,BBG000BLMY92,shares,Mid-America Apartment REIT,US
+457,CRI,BBG000CTM4J9,shares,Carter's Inc,US
+458,ETLN@GS,TCS0760G1031,shares,Etalon Group PLC ГДР,RU
+459,AMT,BBG000B9XYV2,shares,American Tower REIT,US
+460,XEL,BBG000BCTQ65,shares,Xcel Energy,US
+461,CVGW,BBG000BGPQW1,shares,Calavo Growers Inc,US
+462,RTKM,BBG004S682Z6,shares,Ростелеком,RU
+463,VC,BBG0016T3GQ0,shares,Visteon Corp,US
+464,KMPR,BBG000H3GDJ8,shares,Kemper,US
+465,COOP,BBG002V098F7,shares,Mr. Cooper Group,US
+466,AGO,BBG000CQB185,shares,Assured Guaranty Ltd,BM
+467,SIRI,BBG000BT0093,shares,Sirius XM Holdings Inc,US
+468,FTNT,BBG000BCMBG4,shares,Fortinet Inc,US
+469,BIO,BBG000DY28W5,shares,Bio-Rad Laboratories Inc,US
+470,IOVA,BBG000FTLBV7,shares,Iovance Biotherapeutics Inc,US
+471,ALLY,BBG000BC2R71,shares,Ally Financial Inc,US
+472,AMG,BBG000C060M4,shares,Affiliated Managers Group,US
+473,KOD,BBG00BVR0D02,shares,Kodiak Sciences Inc,US
+474,ZAYM,TCS00A107RM8,shares,МФК Займер,RU
+475,MTSS,BBG004S681W1,shares,МТС,RU
+476,GLTR@GS,TCS1949E2046,shares,Globaltrans Investment PLC,RU
+477,QNCX,BBG00BTK1DT8,shares,Quince Therapeutics,US
+478,CSCO,BBG000C3J3C9,shares,Cisco,US
+479,NFE,BBG00MJH9LC4,shares,New Fortress Energy,US
+480,FSLY,BBG004NLQHL0,shares,Fastly Inc,US
+481,NJR,BBG000BPZVW9,shares,New Jersey Resources Corp,US
+482,CHKP,BBG000K82ZT8,shares,Check Point Software Technologies Ltd,IL
+483,BILI,BBG00K7T3037,shares,Bilibili Inc,CN
+484,TGKN,BBG000RG4ZQ4,shares,ТГК-14,RU
+485,TRNFP,BBG00475KHX6,shares,Транснефть - привилегированные акции,RU
+486,OI,BBG00R2JZG39,shares,O-I Glass,US
+487,EXP,BBG000BJW241,shares,Eagle Materials Inc,US
+488,SXT,BBG000J79P80,shares,Sensient Technologies Corp,US
+489,PHIN,BBG01F6N6NM7,shares,PHINIA,US
+490,3898,BBG000C6Z021,shares,Zhuzhou CRRC Times Electric,CN
+491,WABC,BBG000DD3KP1,shares,Westamerica Bancorporation,US
+492,PMT,BBG000DKDWS5,shares,PennyMac Mortgage Investment REIT,US
+493,PEG,BBG000BQZMH4,shares,Public Service Enterprise Group,US
+494,SYF,BBG00658F3P3,shares,Synchrony Financial,US
+495,2883,BBG000PH54R1,shares,China Oilfield Services Ltd,CN
+496,ADUS,BBG000NJGX84,shares,Addus HomeCare Corp,US
+497,VLO,BBG000BBGGQ1,shares,Valero Energy Corporation,US
+498,MOV,BBG000BL30Y9,shares,Movado Group Inc,US
+499,FTRE,BBG01GZF9VY6,shares,Fortrea Holdings Inc.,US
+500,HIBB,BBG000H001V3,shares,"Hibbett, Inc.",US
+501,AMBA,BBG001QZCPJ2,shares,Ambarella,US
+502,UTL,BBG000BW7X97,shares,Unitil Corporation,US
+503,NVST,BBG00LN4B5N0,shares,Envista Holdings,US
+504,CCK,BBG000BF6756,shares,Crown Holdings Inc,US
+505,AFL,BBG000BBBNC6,shares,Aflac Incorporated,US
+506,REG,BBG000BL46Q4,shares,Regency Centers REIT,US
+507,SAM,BBG000BCZBF1,shares,Boston Beer Co Inc The,US
+508,CINF,BBG000BFPK65,shares,Cincinnati Financial Corporation,US
+509,ACMR,BBG00HPSG933,shares,ACM Research Inc,US
+510,HAE,BBG000C7TF41,shares,Haemonetics Corp,US
+511,9888,BBG00ZMFX1S5,shares,Baidu,CN
+512,TNL,TBG000PV2L86,shares,Travel + Leisure Co.,US
+513,MARA,BBG001K7WBT8,shares,Marathon Digital Holdings,US
+514,SPB@US,BBG000DS5588,shares,Spectrum Brands Holdings Inc,US
+515,JWN,BBG000G8N9C6,shares,Nordstrom,US
+516,ENV,BBG000Q4NZ54,shares,Envestnet Inc,US
+517,RL,BBG000BS0ZF1,shares,Ralph Lauren,US
+518,RPM,BBG000DCNK80,shares,RPM International Inc,US
+519,CCS,BBG006G412Q6,shares,Century Communities,US
+520,FEES,BBG00475JZZ6,shares,ФСК Россети,RU
+521,JNJ,BBG000BMHYD1,shares,Johnson & Johnson,US
+522,OBNE,TCS00A0HG6Z8,shares,Обьнефтегазгеология - ао,RU
+523,KMI,BBG0019JZ882,shares,Kinder Morgan,US
+524,SMPL,BBG00GVP5JL4,shares,Simply Good Foods Co,US
+525,ROKU,BBG001ZZPQJ6,shares,Roku Inc,US
+526,KMX,BBG000BLMZK6,shares,CarMax,US
+527,NWE,BBG000Q1NMJ4,shares,NorthWestern Energy Group,US
+528,DOC,TCS4250P1030,shares,Healthpeak Properties REIT,US
+529,HST,BBG000BL8804,shares,Host Hotels & Resorts REIT,US
+530,TAP,BBG000BS7KS3,shares,Molson Coors Brewing,US
+531,EVH,BBG005CHLM96,shares,Evolent Health Inc,US
+532,MDGL,BBG000QS6NV8,shares,Madrigal Pharmaceuticals Inc,US
+533,9626,BBG00ZNW65W3,shares,Bilibili,CN
+534,Z,BBG009NRSWJ4,shares,Zillow Group Inc,US
+535,UNM,BBG000BW2QX0,shares,Unum,US
+536,PSN,BBG000C3TKY6,shares,Parsons,US
+537,TTEK,BBG000BYZ0Q5,shares,Tetra Tech,US
+538,PMSB,BBG000MZL0Y6,shares,Пермэнергосбыт,RU
+539,SLVM,BBG0122M8031,shares,Sylvamo Corp.,US
+540,MEI,BBG000BNY197,shares,Methode Electronics Inc,US
+541,S,BBG00B6F2F09,shares,"SentinelOne, Inc.",US
+542,NFLX,BBG000CL9VN6,shares,Netflix,US
+543,ED,BBG000BHLYS1,shares,Consolidated Edison,US
+544,INDB,BBG000BM0597,shares,Independent Bank Corp,US
+545,MRK,BBG000BPD168,shares,Merck,US
+546,BCO,BBG000DR5QP5,shares,Brink's Co,US
+547,NPK,BBG000BQ4GG2,shares,National Presto Industries Inc,US
+548,992,BBG000BG4QM5,shares,Lenovo,HK
+549,VIPS,BBG002NLDLV8,shares,Vipshop,CN
+550,ELV,BBG000BCG930,shares,Elevance Health,US
+551,UMBF,BBG000DD8WX1,shares,UMB Financial,US
+552,CFLT,BBG007HWGYQ5,shares,Confluent,US
+553,XRAY,BBG000BX57K1,shares,Dentsply Sirona,US
+554,D,BBG000BGVW60,shares,Dominion Energy Inc,US
+555,GO,BBG00P4R3079,shares,Grocery Outlet Holding Corp,US
+556,BRK.B,BBG000DWG505,shares,Berkshire Hathaway,US
+557,URBN,BBG000BL79J3,shares,Urban Outfitters,US
+558,CE,BBG000JYP7L8,shares,Celanese Corp,US
+559,NXPI,BBG000BND699,shares,NXP Semiconductors NV,NL
+560,CARG,BBG00HQ77DS2,shares,Cargurus Inc,US
+561,AMGN,BBG000BBS2Y0,shares,Amgen,US
+562,HBI,BBG000D2ZTS8,shares,Hanesbrands,US
+563,ZILLP,BBG000QFB4J6,shares,ЗИЛ - акции привилегированные,RU
+564,UNF,BBG000BW29L1,shares,UniFirst Corp MA,US
+565,9633,BBG00WR0QPZ7,shares,Nongfu Spring,CN
+566,MSRS,BBG004S687G6,shares,Россети Московский регион,RU
+567,CLB,BBG01GG28WR3,shares,Core Laboratories Inc.,US
+568,PFSI,BBG00LMYX123,shares,PennyMac Financial Services,US
+569,2313,BBG000JSJ2F6,shares,Shenzhou International Group,HK
+570,CENT,BBG000BFD605,shares,Central Garden & Pet Co,US
+571,AYI,BBG000BJ5HK0,shares,Acuity Brands,US
+572,SU,BBG000BRK7L6,shares,Suncor Energy,CA
+573,TLS,BBG000BK34C7,shares,Telos Corporation,US
+574,PHM,BBG000BR54L0,shares,PulteGroup,US
+575,VRSK,BBG000BCZL41,shares,Verisk Analytics,US
+576,FLYW,BBG002030NC4,shares,Flywire,US
+577,EAF,BBG00KDYT8C4,shares,GrafTech International Ltd,US
+578,ICFI,BBG000BBXVK5,shares,"ICF International, Inc.",US
+579,ATO,BBG000BRNGM2,shares,Atmos Energy Corp,US
+580,INVA,BBG000CG9XT7,shares,Innoviva Inc,US
+581,SYNA,BBG000BQV1S2,shares,Synaptics Inc,US
+582,1810,BBG00KVTBY91,shares,Xiaomi,CN
+583,AIT,BBG000BBHHP9,shares,Applied Industrial Technologies,US
+584,DVN,BBG000BBVJZ8,shares,Devon Energy,US
+585,AVA,BBG000BCNF74,shares,Avista Corporation,US
+586,ARWR,BBG000BRVKH0,shares,Arrowhead Pharmaceuticals Inc,US
+587,NTRA,BBG001J1BQ86,shares,Natera inc,US
+588,BSY,BBG000BMSRR9,shares,Bentley Systems,US
+589,PFG,BBG000NSCNT7,shares,Principal Financial Group,US
+590,CNXN,BBG000BX74M4,shares,PC Connection Inc,US
+591,IRAO,BBG004S68473,shares,Интер РАО ЕЭС,RU
+592,LNN,BBG000FJS1S8,shares,Lindsay Corporation,US
+593,NATL,BBG019Y0WP19,shares,NCR Atleos Corporation,US
+594,MAN,BBG000BNMHS4,shares,ManpowerGroup Inc,US
+595,101,BBG000BDTCX4,shares,Hang Lung,CN
+596,RYTM,BBG007DLZ601,shares,Rhythm Pharmaceuticals Inc,US
+597,PYPL,BBG0077VNXV6,shares,PayPal Holdings,US
+598,KTOS,BBG000C1HQ43,shares,Kratos Defense & Security Solutions,US
+599,1113,BBG007WDD4B5,shares,CK Asset Holdings,CN
+600,VALE,BBG000BN5LG7,shares,Vale SA,BR
+601,AGNC,BBG000TJ8XZ7,shares,AGNC Investment REIT,US
+602,SPSC,BBG000PZGB75,shares,SPS Commerce Inc,US
+603,2600,BBG000CN0Y73,shares,Aluminum Corp of China,CN
+604,PNFP,BBG000C1XKF6,shares,Pinnacle Financial Partners In,US
+605,TRU,BBG002Q7J5Z1,shares,TransUnion,US
+606,6865,BBG00BGJYS07,shares,Flat Glass Group,CN
+607,881,BBG000QCN464,shares,Zhongsheng,CN
+608,ARCH,BBG00DZB5D77,shares,Arch Coal Inc,US
+609,SO,BBG000BT9DW0,shares,Southern,US
+610,FORM,BBG000D1Y3P1,shares,FormFactor Inc,US
+611,TFII,BBG000HJS1F0,shares,TFI International,CA
+612,DOCU,BBG000N7KJX8,shares,DocuSign Inc,US
+613,ZI,BBG00S1HJ3M8,shares,ZoomInfo Technologies Inc,US
+614,BLMN,BBG002VZ68Y2,shares,"Bloomin Brands, Inc.",US
+615,PIPR,BBG000FQXC75,shares,Piper Sandler Companies,US
+616,288,BBG00699M8Q7,shares,WH Group,CN
+617,AVGO,BBG00KHY5S69,shares,Broadcom,US
+618,VPG,BBG000PRQ0V9,shares,Vishay Precision Group Inc,US
+619,CORT,BBG000BKJG33,shares,Corcept Therapeutics Inc,US
+620,REYN,BBG00QVJVYB5,shares,Reynolds Consumer Products Inc.,US
+621,LLY,BBG000BNBDC2,shares,Eli Lilly & Co,US
+622,NSVZ,BBG002BCQK67,shares,Наука-Связь,RU
+623,CRVL,BBG000CVKZY0,shares,CorVel Corp,US
+624,WDC,BBG000BWNFZ9,shares,Western Digital,US
+625,GM,BBG000NDYB67,shares,General Motors,US
+626,AEE,BBG000B9X8C0,shares,Ameren,US
+627,MCRI,BBG000BJ0932,shares,Monarch Casino & Resort Inc,US
+628,6862,BBG00LWM0XR7,shares,Haidilao,CN
+629,MET,BBG000BB6KF5,shares,MetLife,US
+630,GCHE,BBG000RTHVK7,shares,Группа Черкизово,RU
+631,9866,BBG015PB0HH9,shares,NIO Inc,CN
+632,INSM,BBG000BWM5P3,shares,Insmed,US
+633,AEO,BBG000BGXZB5,shares,American Eagle Outfitters Inc,US
+634,GNL,BBG004HXD0G8,shares,Global Net Lease REIT,US
+635,FULC,BBG00DDY1RK9,shares,Fulcrum Therapeutics,US
+636,DAY,TCS5677J1088,shares,"Dayforce, Inc.",US
+637,XYL,BBG001D8R5D0,shares,Xylem,US
+638,ICE,BBG000C1FB75,shares,Intercontinental Exchange,US
+639,NEO,BBG000BKH263,shares,NeoGenomics Inc,US
+640,KO,BBG000BMX289,shares,COCA-COLA,US
+641,ANAB,BBG0026ZDHR0,shares,AnaptysBio Inc,US
+642,SCI,BBG000BTHH16,shares,Service Corp International/US,US
+643,FNF,BBG006N7S6K9,shares,"Fidelity National Financial, Inc.",US
+644,SNGSP,BBG004S681M2,shares,Сургутнефтегаз - привилегированные акции,RU
+645,TSVT,BBG00YV1J622,shares,2seventy bio,US
+646,NEE,BBG000BJSBJ0,shares,NextEra Energy,US
+647,1,BBG0087DLDQ6,shares,CK Hutchison Holdings,CN
+648,ALGN,BBG000BRNLL2,shares,Align Technology,US
+649,NVCR,BBG009XW8PY2,shares,NovoCure Limited,
+650,PCTY,BBG006598YS8,shares,Paylocity Holding Corp,US
+651,EVR,BBG000BP30Y0,shares,Evercore,US
+652,OC,BBG000M44VW8,shares,Owens Corning,US
+653,66,BBG000MKLJD1,shares,MTR Corporation,HK
+654,LEN,BBG000BN5HF7,shares,Lennar,US
+655,MYGN,BBG000D9H9F1,shares,Myriad Genetics Inc,US
+656,WBA,BBG000BWLMJ4,shares,Walgreens Boots Alliance,US
+657,TFX,BBG000BV59Y6,shares,Teleflex Inc,US
+658,APO,BBG00ZNLTFK3,shares,Apollo Global Management,US
+659,EXAS,BBG000CWL0F5,shares,Exact Sciences Corp,US
+660,JCI,BBG000BVWLJ6,shares,Johnson Controls,US
+661,TXG,BBG007WX14X0,shares,10X Genomics Inc,US
+662,LYEL,BBG00RNXFN14,shares,Lyell Immunopharma,US
+663,GRBK,BBG000QGYG84,shares,Green Brick Partners,US
+664,SHLS,BBG00YQ82275,shares,"Shoals Technologies Group, Inc.",US
+665,FHI,BBG000BP0929,shares,Federated Hermes,US
+666,788,BBG00LD1QR26,shares,China Tower Corporation,CN
+667,DAVA,BBG00LBLBBJ7,shares,Endava АДР,US
+668,MPW,BBG000BGRB25,shares,Medical Properties REIT,US
+669,MGM,BBG000C2BXK4,shares,MGM Resorts International,US
+670,RIOT,BBG000BQ4512,shares,Riot Platforms,US
+671,VEEV,BBG001CGB489,shares,Veeva Systems Inc,US
+672,CNK,BBG000QDVR53,shares,Cinemark Holdings Inc,US
+673,AFG,BBG000DPKKK0,shares,American Financial Group,US
+674,KEP,BBG000BCWG90,shares,Korea Electric Power,KR
+675,SMTC,BBG000DBKR53,shares,Semtech Corp,US
+676,NVTK,BBG00475KKY8,shares,НОВАТЭК,RU
+677,EXLS,BBG000NS3P30,shares,ExlService Holdings Inc,US
+678,BYSI,BBG00F9YLST6,shares,BeyondSpring,US
+679,SHAK,BBG0063GCHH8,shares,Shake Shack Inc,US
+680,SON,BBG000D7HF89,shares,Sonoco Products Co,US
+681,ICPT,BBG001J1QN87,shares,Intercept Pharmaceuticals Inc,US
+682,AMWD,BBG000BBX657,shares,American Woodmark Corp,US
+683,ENB,BBG000K5M1S8,shares,Enbridge,CA
+684,UPST,BBG00PKCBY53,shares,Upstart Holdings,US
+685,ORCL,BBG000BQLTW7,shares,Oracle,US
+686,APPS,BBG000HZ3562,shares,Digital Turbine Inc,US
+687,UNKL,BBG002YFXL29,shares,ЮУНК,RU
+688,6969,BBG00VSF90M3,shares,Smoore International,CN
+689,KRG,BBG000BC2KW8,shares,Kite Realty Group REIT,US
+690,NKNC,BBG000GQSRR5,shares,Нижнекамскнефтехим,RU
+691,NTES,BBG000BX72V8,shares,NetEase Inc,CN
+692,PTON,BBG00JG0FFZ2,shares,Peloton Interactive Inc,US
+693,AQUA,BBG000W325F7,shares,ИНАРКТИКА,RU
+694,MGPI,BBG000BXK6C5,shares,MGP Ingredients,US
+695,BEN,BBG000BD0TF8,shares,Franklin Resources,US
+696,FLO,BBG000BB4D72,shares,"Flowers Foods, Inc.",US
+697,GNTX,BBG000BKJ092,shares,Gentex Corporation,US
+698,LVS,BBG000JWD753,shares,Las Vegas Sands Corp,US
+699,BGNE,BBG00B6WF7T5,shares,BeiGene АДР,US
+700,ICUI,BBG000CQV2N4,shares,ICU Medical Inc,US
+701,U,BBG0056JW5G6,shares,Unity Software,US
+702,VRSB,BBG000BX7DH0,shares,ТНС энерго Воронеж,RU
+703,1055,BBG000BY1DP5,shares,China Southern Airlines,CN
+704,MDU,BBG000BNX3R4,shares,"MDU Resources Group, Inc.",US
+705,BYND,BBG003CVJP50,shares,Beyond Meat Inc,US
+706,MSEX,BBG000BPGQ60,shares,Middlesex Water Company,US
+707,PUMP,BBG00FYCQ352,shares,ProPetro Holding Corp,US
+708,EHTH,BBG000P5JQX6,shares,eHealth Inc,US
+709,1066,BBG000LFJVD9,shares,Shandong Weigao Group Medical Polymer,CN
+710,CLOV,BBG00SHY90J5,shares,"Clover Health Investments, Corp.",US
+711,AMN,BBG000BCT197,shares,AMN Healthcare Services Inc,US
+712,CRSR,BBG00HMSHL83,shares,Corsair Gaming Inc,US
+713,168,BBG000BHWDF9,shares,Tsingtao Brewery,CN
+714,1024,BBG00YYT9BD6,shares,Kuaishou Technology,CN
+715,RF,BBG000Q3JN03,shares,Regions Financial,US
+716,GBX,BBG000CF5097,shares,Greenbrier Cos Inc,US
+717,939,BBG000NW2S18,shares,China Construction Bank,CN
+718,HCAT,BBG00LDPZMS6,shares,Health Catalyst,US
+719,BPMC,BBG001MC8YF7,shares,Blueprint Medicines Corp,US
+720,VRTS,BBG000DMFQS2,shares,Virtus Investment Partners,US
+721,LITE,BBG0073F9RT7,shares,Lumentum Holdings Inc,US
+722,NSC,BBG000BQ5DS5,shares,Norfolk Southern,US
+723,KR,BBG000BMY992,shares,Kroger,US
+724,DOCN,BBG00ZGF6SS3,shares,DigitalOcean Holdings,US
+725,KIM,BBG000CN3S73,shares,Kimco Realty REIT,US
+726,DAWN,BBG00V1KSN04,shares,Day One Biopharmaceuticals,US
+727,1398,BBG000Q16VR4,shares,ICBC,CN
+728,TENB,BBG00LBLCD02,shares,Tenable Holdings Inc,US
+729,2331,BBG000PTX047,shares,Li-Ning,CN
+730,CLVT,BBG00P1919G5,shares,Clarivate,GB
+731,CSX,BBG000BGJRC8,shares,CSX Corp,US
+732,EOG,BBG000BZ9223,shares,EOG Resources,US
+733,MBNK,TCS00A0JRH43,shares,МТС-Банк,RU
+734,SYK,BBG000DN7P92,shares,Stryker,US
+735,LANC,BBG000BN1M88,shares,Lancaster Colony,US
+736,PPC,BBG000BFLXV3,shares,Pilgrim's Pride Corp,US
+737,DUOL,BBG003D4V951,shares,Duolingo,US
+738,CMP,BBG000C42WS4,shares,Compass Minerals International,US
+739,PEGA,BBG000H1RYG7,shares,Pegasystems Inc,US
+740,PTCT,BBG000QT15P7,shares,PTC Therapeutics,US
+741,BJRI,BBG000H9LNX1,shares,BJ's Restaurants Inc,US
+742,MOEX,BBG004730JJ5,shares,Московская Биржа,RU
+743,KAI,BBG000BKRSZ3,shares,Kadant Inc.,US
+744,CNQ,BBG000HW5GX3,shares,Canadian Natural Resources,CA
+745,TGT,BBG000H8TVT2,shares,Target,US
+746,PAAS,BBG000C0RGY3,shares,Pan American Silver Corp,CA
+747,ETR,BBG000C1FQS9,shares,Entergy Corporation,US
+748,GBCI,BBG000C3KB84,shares,Glacier Ban,US
+749,PBF,BBG002832GV8,shares,PBF Energy Inc,US
+750,HRMY,BBG00WBPG4C2,shares,Harmony Biosciences Holdings,US
+751,COFS,BBG000LLRNX3,shares,"ChoiceOne Financial Services, Inc.",US
+752,USB,BBG000FFDM15,shares,US Bancorp,US
+753,JHG,BBG00GSNPM07,shares,Janus Henderson Group,
+754,MATX,BBG000BBK401,shares,Matson Inc,US
+755,FORR,BBG000HGNYG8,shares,Forrester Research Inc,US
+756,AXNX,BBG0067QVJ50,shares,Axonics,US
+757,LYV,BBG000FQ7YR4,shares,Live Nation Entertainment Inc,US
+758,SONY,BBG000BT7ZK6,shares,Sony Corp,JP
+759,ROG,BBG000BS9HN3,shares,Rogers Corp,US
+760,PCVX,BBG009PHHPL8,shares,Vaxcyte Inc,US
+761,1378,BBG001DMCGS5,shares,China Hongqiao Group,
+762,FE,BBG000BB6M98,shares,FirstEnergy,US
+763,1093,BBG000C3N3B5,shares,CSPC Pharmaceutical,HK
+764,WTRG,BBG000BRMJN6,shares,"Essential Utilities, Inc.",US
+765,MGRC,BBG000BP02D2,shares,McGrath RentCorp,US
+766,MUSA,BBG001Z0Q6T5,shares,Murphy USA Inc,US
+767,BBY,BBG000BCWCG1,shares,Best Buy Co.,US
+768,MTX,BBG000BB61F7,shares,Minerals Technologies Inc.,US
+769,CCL,BBG000BF6LY3,shares,Carnival,US
+770,ROLO,BBG004Z2RGW8,shares,Русолово,RU
+771,LSCC,BBG000C2D1C1,shares,Lattice Semiconductor Corp,US
+772,ABCB,BBG000CDY3H5,shares,Ameris Bancorp,US
+773,CMCSA,BBG000BFT2L4,shares,Comcast,US
+774,SSTK,BBG002ZCK2V9,shares,Shutterstock Inc,US
+775,GOLD,BBG000BB07P9,shares,Barrick Gold,CA
+776,836,BBG000C1DC75,shares,China Resources Power,HK
+777,LASR,BBG0020BCPX5,shares,nLight Inc,US
+778,CCJ,BBG000DSZTN6,shares,Cameco Corporation,CA
+779,TJX,BBG000BV8DN6,shares,TJX,US
+780,CARS,BBG000HGTH33,shares,Cars.com Inc,US
+781,TYL,BBG000BVWZF9,shares,Tyler Technologies Inc,US
+782,FOLD,BBG000PLF6N0,shares,Amicus Therapeutics,US
+783,WMS,BBG000G7CDN9,shares,Advanced Drainage Systems,US
+784,2238,BBG000V4V0W6,shares,Guangzhou Automobile Group,CN
+785,1177,BBG000C6XDL4,shares,Sino Biopharmaceutical,CN
+786,GLOB,BBG00564Y443,shares,Globant SA,AR
+787,MAC,BBG000BL9C59,shares,Macerich REIT,US
+788,KSS,BBG000CS7CT9,shares,Kohl's Corp,US
+789,BMBL,BBG00Z6RF483,shares,Bumble Inc.,US
+790,OZON,BBG00Y91R9T3,shares,Ozon Holdings PLC,RU
+791,CDNS,BBG000C13CD9,shares,Cadence Design Systems,US
+792,BOKF,BBG000CFZ003,shares,BOK Financial,US
+793,OKTA,BBG001YV1SM4,shares,Okta Inc,US
+794,NTNX,BBG001NDW1Z7,shares,Nutanix Inc,US
+795,HES,BBG000BBD070,shares,Hess,US
+796,CVS,BBG000BGRY34,shares,CVS Health Corporation,US
+797,THO,BBG000BV6R84,shares,Thor Industries Inc,US
+798,QNST,BBG000S9XXB8,shares,QuinStreet Inc,US
+799,OGKB,BBG000RK52V1,shares,Вторая генерирующая компания оптового рынка электроэнергии,RU
+800,IPG,BBG000C90DH9,shares,IPG,US
+801,DDD,BBG000D42FJ0,shares,3D Systems Corp,US
+802,LSPD,BBG00PZ78ZM0,shares,Lightspeed Commerce,CA
+803,NYCB,BBG000BVXPZ8,shares,New York Community Bancorp,US
+804,LOPE,BBG000FV28W9,shares,Grand Canyon Education Inc,US
+805,MTRN,BBG000BDTT76,shares,Materion Corp,US
+806,FNKO,BBG00HXSHDQ9,shares,Funko Inc,US
+807,IRDM,BBG000VC0FC1,shares,Iridium Communications Inc,US
+808,ARE,BBG000BC33T9,shares,Alexandria Real Estate Equities REIT,US
+809,CHX,BBG00JH9TZ56,shares,ChampionX Corporation,US
+810,FVRR,BBG002YSC5M7,shares,Fiverr International,IL
+811,LSTR,BBG000BB2KN0,shares,Landstar System,US
+812,9868,BBG011LRHTM7,shares,XPeng,CN
+813,CLF,BBG000BFRF55,shares,Cleveland-Cliffs,US
+814,NOMP,TCS009084453,shares,Новошип - ао,RU
+815,FTI,BBG00DL8NMV2,shares,TechnipFMC,GB
+816,UAL,BBG000M65M61,shares,United Airlines Holdings,US
+817,IBTX,BBG003981NS4,shares,"Independent Bank Group, Inc.",US
+818,SWTX,BBG00Q011TW9,shares,SpringWorks Therapeutics,US
+819,USFD,BBG00C6H6D40,shares,US Foods Holding Corp,US
+820,PINS,BBG002583CV8,shares,Pinterest Inc,US
+821,DELL,BBG00DW3SZS1,shares,Dell Technologies Inc,US
+822,MO,BBG000BP6LJ8,shares,Altria Group,US
+823,VEON,BBG000QCW561,shares,VEON,RU
+824,DAN,BBG000TCD088,shares,Dana Inc,US
+825,GLTR,BBG000VFX6Y4,shares,Globaltrans Investment PLC,RU
+826,MSM,BBG000BCLYL9,shares,MSC Industrial Direct Co Inc,US
+827,LIN,BBG01FND0CC1,shares,Linde,IE
+828,JD,BBG005YHY0Q7,shares,JD.com,CN
+829,CARR,BBG00RP5HYS8,shares,Carrier Global,US
+830,HAS,BBG000BKVJK4,shares,Hasbro,US
+831,BEAM,BBG00KXC8646,shares,Beam Therapeutics,US
+832,ESS,BBG000CGJMB9,shares,Essex Property REIT,US
+833,DKNG,BBG0134WCM78,shares,DraftKings,US
+834,EVRG,BBG00H433CR2,shares,"Evergy, Inc",US
+835,FCN,BBG000K88H58,shares,FTI Consulting Inc,US
+836,CAR,BBG000FLPRH1,shares,Avis Budget Group,US
+837,HPE,BBG0078W3NQ3,shares,Hewlett Packard Enterprise,US
+838,KAZTP,BBG002B9T6Y1,shares,КуйбышевАзот - Акции привилегированные,RU
+839,PTC,BBG000C2VBB0,shares,PTC Inc,US
+840,HASI,BBG0044K5DM4,shares,Hannon Armstrong REIT,US
+841,OFIX,BBG000G1C210,shares,Orthofix Medical Inc,US
+842,PAR,BBG000BRP9K8,shares,PAR Technology Corporation,US
+843,CRM,BBG000BN2DC2,shares,Salesforce,US
+844,CBSH,BBG000BF3G77,shares,Commerce Bancshares,US
+845,ARCC,BBG000PD6X77,shares,Ares Capital Corp,US
+846,IDA,BBG000BLR3Y7,shares,"IDACORP, Inc.",US
+847,ALV,BBG000BVLRY8,shares,"Autoliv, Inc.",US
+848,ARQT,BBG00QN8K4M4,shares,Arcutis Biotherapeutics,US
+849,LEVI,BBG000BQDF10,shares,Levi Strauss & Co,US
+850,ACI,BBG009KG1750,shares,Albertsons Companies,US
+851,SPT,BBG001K1CT23,shares,Sprout Social,US
+852,TDY,BBG000BMT9T6,shares,Teledyne Technologies Inc,US
+853,FFIV,BBG000CXYSZ6,shares,F5,US
+854,TXRH,BBG000PSJMV7,shares,Texas Roadhouse Inc,US
+855,VRNT,BBG000BCBYT2,shares,Verint Systems Inc,US
+856,CRSP,BBG00DBBGRX1,shares,CRISPR Therapeutics AG,CH
+857,MRC,BBG000BKLTM1,shares,MRC Global Inc,US
+858,ADAP,TCS0653A1079,shares,Adaptimmune Therapeutics АДР,US
+859,CCI,BBG000FV1Z23,shares,Crown Castle REIT,US
+860,VTRS,BBG00Y4RQNH4,shares,Viatris Inc,US
+861,IR,BBG002R1CW27,shares,Ingersoll-Rand,US
+862,CMA,BBG000C75N77,shares,Comerica Incorporated,US
+863,ANGI,BBG00HVKH3Q0,shares,Angi Inc,US
+864,H,BBG000CVRFS4,shares,Hyatt Hotels Corp,US
+865,IQV,BBG00333FYS2,shares,IQVIA Holdings Inc,US
+866,VTR,BBG000FRVHB9,shares,Ventas REIT,US
+867,BLNK,BBG000F9XKN7,shares,Blink Charging Co,US
+868,GTLS,BBG000P1K2X6,shares,Chart Industries Inc,US
+869,SNGS,BBG0047315D0,shares,Сургутнефтегаз,RU
+870,CBOM,BBG009GSYN76,shares,МКБ,RU
+871,DM,TCS5058X3035,shares,Desktop Metal,US
+872,REGN,BBG000C734W3,shares,Regeneron Pharmaceuticals,US
+873,6030,BBG001MM1RL0,shares,CITIC Securities,CN
+874,BURL,BBG004S641N5,shares,Burlington Stores Inc,US
+875,STX,BBG0113JGQF0,shares,Seagate,IE
+876,JJSF,BBG000BMGPW0,shares,J&J Snack Foods Corp,US
+877,TRIP,BBG001M8HHB7,shares,TripAdvisor,US
+878,MLNK,BBG002ZYMKQ5,shares,MeridianLink,US
+879,AMEZ,BBG000RJWGC4,shares,Ашинский метзавод,RU
+880,VET,BBG000PL3C78,shares,Vermilion Energy,CA
+881,9995,BBG00XZZHVS4,shares,RemeGen,CN
+882,1038,BBG000H3CDH4,shares,CK Infrastructure Holdings,CN
+883,SFIX,BBG0046L1KL9,shares,Stitch Fix,US
+884,669,BBG000BFGXV9,shares,Techtronic Industries,CN
+885,FOXA,BBG00JHNJW99,shares,Twenty-First Century Fox (A),US
+886,TGKBP,BBG000Q7GJ60,shares,ТГК-2 - акции привилегированные,RU
+887,ENVX,BBG00YC53854,shares,Enovix,US
+888,UNH,BBG000CH5208,shares,UnitedHealth,US
+889,WING,BBG008N298Y8,shares,Wingstop Inc,US
+890,ABRD,BBG002W2FT69,shares,АбрауДюрсо,RU
+891,PWR,BBG000BBL8V7,shares,Quanta Services,US
+892,9999,BBG00V6PS1F0,shares,NetEase,CN
+893,MCHP,BBG000BHCP19,shares,Microchip Technology,US
+894,PIKK,BBG004S68BH6,shares,ПИК,RU
+895,KMT,BBG000BMWKC5,shares,Kennametal Inc,US
+896,ONTO,BBG000BPRN29,shares,Onto Innovation Inc,US
+897,NUS,BBG000HG21Y3,shares,Nu Skin Enterprises Inc,US
+898,DE,BBG000BH1NH9,shares,Deere & Company,US
+899,LAC,BBG01JLDH7S1,shares,Lithium Americas Corp.,CA
+900,HIMS,BBG00Q53VYM7,shares,Hims & Hers Health,US
+901,PANW,BBG0014GJCT9,shares,Palo Alto Networks,US
+902,DLB,BBG000DGLTG5,shares,Dolby Laboratories Inc,US
+903,ROSN,BBG004731354,shares,Роснефть,RU
+904,VRTX,BBG000C1S2X2,shares,Vertex Pharmaceuticals,US
+905,CF,BBG000BWJFZ4,shares,CF Industries Holdings,US
+906,CYBR,BBG006Q52QV2,shares,CyberArk Software Ltd,IL
+907,WU,BBG000BB5373,shares,Western Union,US
+908,PNW,BBG000BRDSX5,shares,Pinnacle West Capital,US
+909,EUTR,TCS00A1002V2,shares,ЕвроТранс,RU
+910,CELH,BBG000NY37X4,shares,Celsius Holdings,US
+911,OLLI,BBG0098VVDT9,shares,Ollie's Bargain Outlet Holding,US
+912,2688,BBG000N6X3L4,shares,ENN Energy,CN
+913,ATRO,BBG000BCLBY5,shares,Astronics Corp,US
+914,TRMK,BBG004TC84Z8,shares,Трубная Металлургическая Компания,RU
+915,ABT,BBG000B9ZXB4,shares,Abbott,US
+916,CACC,BBG000CS0D96,shares,Credit Acceptance Corp,US
+917,SOFL,TCS00A0ZZBC2,shares,Софтлайн,RU
+918,6881,BBG004JC5VD6,shares,China Galaxy Securities,CN
+919,ZUO,BBG000BT3HG5,shares,Zuora Inc,US
+920,CUZ,BBG000CW9BM7,shares,Cousins Properties REIT,US
+921,ANIP,BBG000KK1L04,shares,ANI Pharmaceuticals Inc,US
+922,SWKS,BBG000KLB4Q1,shares,Skyworks Solutions,US
+923,1801,BBG00M8832B5,shares,Innovent Biologics,CN
+924,PLAY,BBG001WWJTK5,shares,Dave & Buster's Entertainment Inc,US
+925,WOR,BBG000HL7499,shares,Worthington Industries Inc,US
+926,CHPT,BBG00Q741Z16,shares,ChargePoint Holdings,US
+927,VAC,BBG001J2R5H3,shares,Marriott Vacations Worldwide Corporation,US
+928,PAGS,BBG00JM7QBR6,shares,Pagseguro Digital Ltd,BR
+929,MRKU,BBG000VKG4R5,shares,Россети Урал,RU
+930,LAZR,BBG00MS90LK2,shares,Luminar Technologies,US
+931,CLH,BBG000BFRRX8,shares,Clean Harbors Inc,US
+932,HRL,BBG000BLF8D2,shares,Hormel Foods,US
+933,FAST,BBG000BJ8YN7,shares,Fastenal Company,US
+934,OABI,BBG011J3QM39,shares,OmniAb,US
+935,SJM,BBG000BT1715,shares,JM Smucker,US
+936,IRTC,BBG001J19V24,shares,iRhythm Technologies,US
+937,SKX,BBG000C4HKK2,shares,Skechers U.S.A. Inc,US
+938,HCA,BBG000QW7VC1,shares,HCA Healthcare,US
+939,OIS,BBG000BDDN94,shares,Oil States International Inc,US
+940,ETN,BBG000BJ3PD2,shares,Eaton Corporation,US
+941,PII,BBG000D5S4M0,shares,Polaris Industries Inc,US
+942,BCC,BBG000RQKCR4,shares,Boise Cascade,US
+943,APP,BBG006HFPX77,shares,AppLovin Corporation,US
+944,WPC,BBG000BCQM58,shares,WP Carey REIT,US
+945,NEOG,BBG000C1BCK2,shares,Neogen Corp,US
+946,PFE,BBG000BR2B91,shares,Pfizer,US
+947,TREX,BBG000BTGKK9,shares,Trex Co Inc,US
+948,ZLAB,BBG00HFX3N90,shares,Zai Lab Ltd,CN
+949,MTH,BBG000F4F1N0,shares,Meritage Homes Corp,US
+950,DORM,BBG000BM22F5,shares,Dorman Products Inc,US
+951,CHH,BBG000BPBTL2,shares,Choice Hotels International In,US
+952,MNST,BBG008NVB1C0,shares,Monster Beverage,US
+953,VERV,BBG00P33TCZ8,shares,Verve Therapeutics,US
+954,CLX,BBG000BFS7D3,shares,The Clorox Company,US
+955,BLKB,BBG000BGGTW5,shares,Blackbaud Inc,US
+956,KRKNP,BBG002B2J5X0,shares,Саратовский НПЗ - акции привилегированные,RU
+957,RXO,BBG0160DYCH4,shares,"RXO, Inc.",US
+958,CHMF,BBG00475K6C3,shares,Северсталь,RU
+959,TW,BBG00NK8H8T2,shares,Tradeweb Markets,US
+960,FLS,BBG000FFH4P5,shares,Flowserve,US
+961,TWLO,BBG0029ZX840,shares,Twilio Inc,US
+962,CPS,BBG000PSXT64,shares,Cooper-Standard Holdings Inc,US
+963,VZIO,BBG00ZHDJVK4,shares,VIZIO Holding Corp.,US
+964,CLDT,BBG000PT6BR8,shares,Chatham Lodging REIT,US
+965,RLAY,BBG00DSS08K9,shares,Relay Therapeutics Inc,US
+966,LNTH,BBG006Q52RD0,shares,Lantheus Holdings Inc,US
+967,CYTK,BBG000F0R4N9,shares,Cytokinetics,US
+968,VMEO,BBG00ZNSSKP3,shares,Vimeo,US
+969,APA,BBG00YTS96G2,shares,APA Corporation,US
+970,SWX,BBG00FWP4JW4,shares,Southwest Gas Holdings,US
+971,SLDB,BBG00JN4FXG8,shares,Solid Biosciences,US
+972,LPL,BBG000FJ0RK9,shares,LG Display,KR
+973,CAG,BBG000BDXGP9,shares,Conagra Brands,US
+974,WW,BBG000DY6735,shares,"WW International, Inc.",US
+975,MLKN,BBG000BP46T2,shares,MillerKnoll,US
+976,RVNC,BBG001J2MJH8,shares,Revance Therapeutics,US
+977,RIO,BBG000FD28T3,shares,Rio Tinto,GB
+978,MAR,BBG000BGD7W6,shares,Marriott International,US
+979,ENPG,BBG000RMWQD4,shares,Эн+,RU
+980,CHCO,BBG000BFJFX3,shares,City Holding Company,US
+981,POLY,BBG004PYF2N3,shares,Solidcore Resources plc,RU
+982,HUBB,BBG000BLK267,shares,Hubbell,US
+983,NWSA,BBG0035LY913,shares,News Corp (A),US
+984,ALEC,BBG00N0PL198,shares,Alector,US
+985,CR,BBG016G0L0Q5,shares,Crane Company,US
+986,AVIR,BBG00TZNCJ75,shares,Atea Pharmaceuticals,US
+987,NKNCP,BBG000GQSVC2,shares,Нижнекамскнефтехим (привилегированные),RU
+988,ZIM,BBG00YQ7XR05,shares,ZIM Integrated Shipping Services,IL
+989,GTN,BBG000DSQLQ0,shares,Gray Television Inc,US
+990,GVA,BBG000DVB833,shares,Granite Construction Inc,US
+991,GILD,BBG000CKGBP2,shares,GILEAD,US
+992,WCN,BBG000FLHZZ2,shares,Waste Connections,US
+993,AMAT,BBG000BBPFB9,shares,Applied Materials,US
+994,HLT,BBG0058KMH30,shares,Hilton,US
+995,SNA,BBG000BT7JW9,shares,Snap-on,US
+996,AMD,BBG000BBQCY0,shares,AMD,US
+997,BR,BBG000PPFKQ7,shares,Broadridge Financial Solutions,US
+998,ON,BBG000DV7MX4,shares,ON Semiconductor Corp,US
+999,TVTX,BBG000P9D6W9,shares,Travere Therapeutics,US
+1000,NET,BBG001WMKHH5,shares,CloudFlare Inc,US
+1001,CSGP,BBG000D7JKW9,shares,CoStar Group Inc,US
+1002,TSCO,BBG000BLXZN1,shares,Tractor Supply,US
+1003,SPOT,BBG003T4VFC2,shares,Spotify Technology SA,SE
+1004,PODD,BBG000R7XX87,shares,Insulet Corp,US
+1005,OBNEP,TCS00A0HG602,shares,Обьнефтегазгеология - привилегированные акции,RU
+1006,HAL,BBG000BKTFN2,shares,Halliburton,US
+1007,GXO,BBG00YDGX945,shares,"GXO Logistics, Inc.",US
+1008,PNC,BBG000BRD0D8,shares,PNC Financial Services,US
+1009,DOW,BBG00BN96922,shares,Dow Inc,US
+1010,VXRT,BBG000DR0RZ7,shares,Vaxart Inc,US
+1011,LCII,BBG000DNLMB0,shares,LCI Industries,US
+1012,HAIN,BBG000BQW085,shares,Hain Celestial Group Inc,US
+1013,338,BBG000BCHHM0,shares,Sinopec Shanghai Petrochemical,CN
+1014,SLQT,BBG000GTP1B6,shares,SelectQuote,US
+1015,F,BBG000BQPC32,shares,Ford,US
+1016,SYNH,BBG0078Y1D92,shares,Syneos Health Inc,US
+1017,HUM,BBG000BLKK03,shares,Humana,US
+1018,RIVN,BBG00741Y1N2,shares,Rivian Automotive,US
+1019,EW,BBG000BRXP69,shares,Edwards Lifesciences,US
+1020,IGMS,BBG00PNR1BT2,shares,IGM Biosciences Inc,US
+1021,UFOSP,TCS009102396,shares,Уфаоргсинтез - привилегированные акции,RU
+1022,KMG@KT,TCSC00001122,shares,Казмунайгаз,KZ
+1023,AORT,BBG000BMLVJ6,shares,Artivion,US
+1024,VMC,BBG000BWGYF8,shares,Vulcan Materials,US
+1025,NTAP,BBG000FP1N32,shares,NetApp,US
+1026,MRKV,BBG000PKWCQ7,shares,МРСК Волги,RU
+1027,SMG,BBG000BT5PG5,shares,Scotts Miracle-Gro Co The,US
+1028,BAH,BBG000R2YFG7,shares,Booz Allen Hamilton,US
+1029,WMT,BBG000BWXBC2,shares,Wal-Mart Stores,US
+1030,TSN,BBG000DKCC19,shares,Tyson Foods,US
+1031,RXRX,BBG00PQ4XJ45,shares,"Recursion Pharmaceuticals, Inc.",US
+1032,RGLD,BBG000BS5170,shares,Royal Gold,US
+1033,PAY,BBG010MW0N84,shares,Paymentus Holdings,US
+1034,G,BBG000RQBFV2,shares,Genpact Limited,BM
+1035,GLW,BBG000BKFZM4,shares,Corning,US
+1036,WLK,BBG000PXZFW2,shares,Westlake Corporation,US
+1037,QRTEA,BBG000PCQQL6,shares,Qurate Retail Inc,US
+1038,NEM,BBG000BPWXK1,shares,Newmont Goldcorp Corporation,US
+1039,MIDD,BBG000DQN9R3,shares,Middleby Corp The,US
+1040,LYFT,BBG004M9ZHX5,shares,Lyft Inc,US
+1041,CERE,BBG00VCYVLH4,shares,Cerevel Therapeutics Holdings,US
+1042,DIS,BBG000BH4R78,shares,Walt Disney,US
+1043,TKO,BBG01G9JKWV5,shares,TKO Group Holdings,US
+1044,GDEV,BBG00Z5KBW72,shares,GDEV Inc,US
+1045,FIVE@GS,TCS4387E2054,shares,X5 RetailGroup ГДР,RU
+1046,SPR,BBG000PRJ2Z9,shares,Spirit AeroSystems Holdings,US
+1047,BUD,BBG000RYC984,shares,Anheuser-Busch InBev,BE
+1048,FRME,BBG000BBSJ28,shares,First Merchants Corporation,US
+1049,RSG,BBG000BPXVJ6,shares,Republic Services,US
+1050,AI,BBG00Y6G6X31,shares,C3 Ai Inc,US
+1051,MMC,BBG000BP4MH0,shares,Marsh & McLennan,US
+1052,LSRG,BBG004S68C39,shares,Группа ЛСР,RU
+1053,SKY,BBG000BT2TP0,shares,Skyline Champion,US
+1054,BZUN,BBG008HNS333,shares,Baozun Inc,CN
+1055,DRQ,BBG000BVDBY2,shares,Dril-Quip Inc,US
+1056,ELS,BBG000BB7SX7,shares,Equity LifeStyle Properties REIT,US
+1057,WTFC,BBG000HD3DW5,shares,Wintrust Financial,US
+1058,ILMN,BBG000DSMS70,shares,Illumina,US
+1059,PSA,BBG000BPPN67,shares,Public Storage REIT,US
+1060,COLD,BBG000QF05R6,shares,Americold Realty Trust REIT,US
+1061,FBIN,BBG001B4BV87,shares,Fortune Brands Innovations,US
+1062,XP,BBG00QVJYGM9,shares,XP Inc,BR
+1063,BDC,BBG000Q4XNV1,shares,Belden Inc,US
+1064,TCSG,TCS00A107UL4,shares,ТКС Холдинг,RU
+1065,PPL,BBG000BRJL00,shares,PPL,US
+1066,VRNS,BBG001Y04TN6,shares,Varonis Systems Inc,US
+1067,CRL,BBG000BG5BL8,shares,Charles River Laboratories Int,US
+1068,IVZ,BBG000BY2Y78,shares,Invesco,US
+1069,STEM,BBG00XP8NQN4,shares,Stem,US
+1070,DRI,BBG000BBNYF6,shares,Darden Restaurants,US
+1071,DD,BBG00BN961G4,shares,DuPont de Nemours Inc,US
+1072,CNTL,BBG000BBV4M5,shares,Центральный Телеграф,RU
+1073,ATEX,BBG0081NLHR0,shares,Anterix,US
+1074,QDEL,BBG017TGV7M2,shares,QuidelOrtho Corp,US
+1075,TDOC,BBG0019T5SG0,shares,Teladoc Health Inc,US
+1076,IBP,BBG005TJKDZ6,shares,Installed Building Products,US
+1077,SITE,BBG009T22D49,shares,SiteOne Landscape Supply Inc,US
+1078,IART,BBG000BZJQL8,shares,Integra LifeSciences Holdings,US
+1079,USPH,BBG000CSRSG6,shares,US Physical Therapy Inc,US
+1080,CGNX,BBG000BPBVW5,shares,Cognex Corp,US
+1081,FRT,BBG000BJVN28,shares,Federal Realty Investment Trust REIT,US
+1082,SFTL,TCS5407L2079,shares,Noventiq ГДР,US
+1083,BGS,BBG000RKXRQ1,shares,B&G Foods Inc,US
+1084,PRGS,BBG000C4QP94,shares,Progress Software Corp,US
+1085,WCC,BBG000D0FNV3,shares,WESCO International Inc,US
+1086,PFGC,BBG009XW2WB8,shares,Performance Food Group Co,US
+1087,COF,BBG000BGKTF9,shares,Capital One,US
+1088,KIDS,BBG00HFFRW39,shares,OrthoPediatrics Corp,US
+1089,1997,BBG00J76TKS1,shares,Wharf Real Estate,CN
+1090,MSGE,BBG019980TD4,shares,Madison Square Garden Entertainment Corp.,US
+1091,AMP,BBG000G3QLY3,shares,Ameriprise Financial,US
+1092,OZON@US,TCS0269L1044,shares,Ozon Holdings PLC,RU
+1093,SVAV,BBG004S68JR8,shares,СОЛЛЕРС,RU
+1094,PRG,BBG00VSH86G4,shares,PROG Holdings,US
+1095,ABR,BBG000KMVDV1,shares,Arbor Realty Trust REIT,US
+1096,PETQ,BBG00H1CY328,shares,PetIQ Inc,US
+1097,PPG,BBG000BRJ809,shares,PPG Industries,US
+1098,MKSI,BBG000BVMG26,shares,MKS Instruments,US
+1099,SCHW,BBG000BSLZY7,shares,The Charles Schwab Corporation,US
+1100,WYNN,BBG000LD9JQ8,shares,Wynn Resorts,US
+1101,RDN,BBG000BMWV95,shares,Radian Group,US
+1102,SPGI,BBG000BP1Q11,shares,S&P Global,US
+1103,BC,BBG000BCWSS3,shares,Brunswick Corp DE,US
+1104,CSWI,BBG007NLG4L3,shares,CSW Industrials Inc,US
+1105,UNP,BBG000BW3299,shares,Union Pacific Corporation,US
+1106,SAIC,BBG003BW05K6,shares,Science Applications Internati,US
+1107,ACGL,BBG000HXNN20,shares,Arch Capital Group,BM
+1108,SITM,BBG00QNSY1H7,shares,SiTime,US
+1109,O,BBG000DHPN63,shares,Realty Income REIT,US
+1110,ZM,BBG0042V6JM8,shares,Zoom Video Communications Inc,US
+1111,VTS,BBG01B9G0GS3,shares,Vitesse Energy,US
+1112,UHS,BBG000CB8Q50,shares,Universal Health Services,US
+1113,POWI,BBG000BTT3D1,shares,Power Integrations Inc,US
+1114,KTB,BBG00LPTHYD5,shares,Kontoor Brands Inc,US
+1115,PAG,BBG000H6K1B0,shares,Penske Automotive Group,US
+1116,SLB,BBG000BT41Q8,shares,Schlumberger,US
+1117,TM,BBG000BPH299,shares,Toyota Motor Corp,JP
+1118,BXP,BBG000BS5CM9,shares,"BXP, Inc",US
+1119,6185,BBG00NN6QG15,shares,CanSino Biologics,CN
+1120,JBHT,BBG000BMDBZ1,shares,JB Hunt,US
+1121,SPNS,BBG000G3YP84,shares,Sapiens International Corporation N.V.,IL
+1122,FCEL,BBG000HQ1LB3,shares,FuelCell Energy,US
+1123,ASH,BBG00D0Y81M1,shares,Ashland Inc,US
+1124,GRAL,TCS847471014,shares,"GRAIL, Inc.",US
+1125,ET,BBG000BM2FL9,shares,Energy Transfer LP,US
+1126,AXON,BBG000BHJWG1,shares,Axon Enterprise Inc,US
+1127,APPN,BBG001C7PMJ2,shares,Appian Corp,US
+1128,ROST,BBG000BSBZH7,shares,Ross Stores,US
+1129,COTY,BBG000F395V1,shares,Coty,US
+1130,RTKMP,BBG004S685M3,shares,Ростелеком - Привилегированные акции,RU
+1131,FUL,BBG000BJZ7V7,shares,HB Fuller Co,US
+1132,NSP,BBG000BJ41X2,shares,InsperIty Inc,US
+1133,PGR,BBG000BR37X2,shares,Progressive,US
+1134,TRHC,BBG00BT7PPY8,shares,Tabula Rasa HealthCare In,US
+1135,KRC,BBG000BLMXN8,shares,Kilroy Realty Corp REIT,US
+1136,CWT,BBG000D8KTN6,shares,California Water Service,US
+1137,AXP,BBG000BCQZS4,shares,American Express,US
+1138,EBS,BBG000GW06J7,shares,Emergent BioSolutions Inc,US
+1139,CPT,BBG000BB0V03,shares,Camden Property REIT,US
+1140,W,BBG001B17MV2,shares,Wayfair Inc,US
+1141,HOLX,BBG000C3NTN5,shares,Hologic,US
+1142,ANIK,BBG000BBKZD8,shares,Anika Therapeutics Inc,US
+1143,FRPT,BBG001D0HB36,shares,Freshpet Inc,US
+1144,NI,BBG000BPZBB6,shares,NiSource Inc,US
+1145,TMHC,BBG003PGJHP5,shares,Taylor Morrison Home Corp,US
+1146,SBH,BBG000LR8515,shares,Sally Beauty Holdings Inc,US
+1147,WKHS,TCS1138J3059,shares,Workhorse Group Inc,US
+1148,CXW,BBG000BJSJT2,shares,CoreCivic,US
+1149,SHOO,BBG000BLV2Q3,shares,"Steven Madden, Ltd.",US
+1150,VVX,BBG005PG80K4,shares,"V2X, Inc.",US
+1151,GSHD,BBG00KHHBMC5,shares,"Goosehead Insurance, Inc.",US
+1152,DIOD,BBG000G25P51,shares,Diodes Inc,US
+1153,PRLB,BBG000BT13B3,shares,Proto Labs Inc,US
+1154,ZTS,BBG0039320N9,shares,Zoetis,US
+1155,KMAZ,BBG000LNHHJ9,shares,КАМАЗ,RU
+1156,AEM,BBG000DLVDK3,shares,Agnico Eagle Mines,CA
+1157,BRBR,BBG013QNJHP8,shares,BellRing Brands,US
+1158,KZOS,BBG0029SFXB3,shares,Казаньоргсинтез - акции обыкновенные,RU
+1159,CHRW,BBG000BTCH57,shares,C.H. Robinson Worldwide,US
+1160,RAMP,BBG000BB4HM6,shares,LiveRamp Holdings Inc,US
+1161,LII,BBG000BB5B84,shares,Lennox International Inc,US
+1162,FIXP,BBG00ZHCX1X2,shares,Fix Price Group,RU
+1163,EA,BBG000BP0KQ8,shares,Electronic Arts,US
+1164,PACB,BBG000QKXH20,shares,Pacific Biosciences of California,US
+1165,SKM,BBG000BLN497,shares,SK Telecom Co.,US
+1166,PEP,BBG000DH7JK6,shares,PepsiCo,US
+1167,IAC,BBG00S1LR2C3,shares,IAC Inc,US
+1168,MOH,BBG000MBHNC8,shares,Molina Healthcare Inc,US
+1169,DLTH,BBG002GBMZG4,shares,Duluth Holdings Inc,US
+1170,RRX,BBG000BRXTR8,shares,Regal Rexnord,US
+1171,AIR,BBG000BBGQF1,shares,AAR Corp,US
+1172,CBRE,BBG000C04224,shares,CBRE Group,US
+1173,MSGS,BBG007FG0C23,shares,Madison Square Garden Sports Corp.,US
+1174,914,BBG000BVKWW0,shares,Anhui Conch Cement,CN
+1175,SGMO,BBG000BHYT80,shares,Sangamo Therapeutics,US
+1176,CMI,BBG000BGPTV6,shares,Cummins,US
+1177,MHO,BBG000BL9MZ4,shares,M/I Homes Inc,US
+1178,UCTT,BBG000HSLV70,shares,Ultra Clean Holdings Inc,US
+1179,QTWO,BBG005ZVK9P2,shares,Q2 Holdings Inc,US
+1180,ULTA,BBG00FWQ4VD6,shares,Ulta Beauty,US
+1181,VMI,BBG000BWB7V4,shares,Valmont Industries,US
+1182,VRSN,BBG000BGKHZ3,shares,VeriSign,US
+1183,ABBV,BBG0025Y4RY4,shares,AbbVie,US
+1184,LEA,BBG000PTLGZ1,shares,Lear Corp,US
+1185,MGTSP,BBG000PZ0833,shares,МГТС - акции привилегированные,RU
+1186,ZWS,BBG000H8R0N8,shares,Zurn Elkay Water Solutions,US
+1187,OGE,BBG000BQGLS5,shares,OGE Energy Corp.,US
+1188,ELFV,BBG000F6YPH8,shares,ЭЛ5-Энерго,RU
+1189,9992,BBG00Y9WVZ76,shares,Pop Mart,CN
+1190,PKG,BBG000BB8SW7,shares,Packaging Corp of America,US
+1191,KLVZ,TCS00A107KX0,shares,Кристалл,RU
+1192,PENN,BBG000CDZLV8,shares,PENN Entertainment,US
+1193,WFC,BBG000BWQFY7,shares,Wells Fargo & Company,US
+1194,ZYXI,BBG000BJBXZ2,shares,Zynex Inc,US
+1195,USNA,BBG000BX28M0,shares,USANA Health Sciences Inc,US
+1196,AGCO,BBG000DCCZW2,shares,AGCO Corp,US
+1197,HXL,BBG000BLMDQ9,shares,Hexcel Corp,US
+1198,RBLX,BBG001R1GCT0,shares,ROBLOX Corp,US
+1199,IDCC,BBG000HLJ7M4,shares,InterDigital,US
+1200,MTN,BBG000BCMWM1,shares,Vail Resorts Inc,US
+1201,RCL,BBG000BB5792,shares,Royal Caribbean Cruises,US
+1202,NOV,BBG000BJX8C8,shares,National Oilwell Varco,US
+1203,TOST,BBG00BTJVK94,shares,Toast,US
+1204,HWM,BBG00DYNJGH9,shares,Howmet Aerospace,US
+1205,RETA,BBG000R33BD1,shares,Reata Pharmaceuticals Inc,US
+1206,AGRO,BBG007N0Z367,shares,РусАгро,RU
+1207,GOOGL,BBG009S39JX6,shares,Alphabet Class A,US
+1208,IIPR,BBG00F0SW7N8,shares,Innovative Industrial Properties REIT,US
+1209,TAL,BBG0016XJ8S0,shares,TAL Education Group,CN
+1210,GTHX,BBG005F1DK91,shares,G1 Therapeutics Inc,US
+1211,MUR,BBG000BPMH90,shares,Murphy Oil,US
+1212,NDAQ,BBG000F5VVB6,shares,Nasdaq,US
+1213,VEON-RX,BBG00R4Z2NT4,shares,VEON,RU
+1214,FI,TCS377381088,shares,Fiserv,US
+1215,AVY,BBG000BCQ4P6,shares,Avery Dennison,US
+1216,NTZL,TCS002614686,shares,НИТЕЛ,RU
+1217,ESTC,BBG00LWZDYB9,shares,Elastic NV,NL
+1218,CYRX,BBG000PNTXP0,shares,Cryoport,US
+1219,TWOU,TCS2214J2006,shares,2U Inc,US
+1220,LH,TCS049221055,shares,Labcorp Holdings,US
+1221,ORA,BBG000Q5BQ63,shares,Ormat Technologies,US
+1222,CPRT,BBG000BM9RH1,shares,Copart Inc,US
+1223,JLL,BBG000C2L2L0,shares,Jones Lang LaSalle Inc,US
+1224,RACE,BBG009PH3Q86,shares,Ferrari N.V.,IT
+1225,AFRM,BBG00Y7BP8Y1,shares,Affirm Holdings,US
+1226,MATV,BBG000C3CWZ7,shares,Mativ Holdings,US
+1227,DECK,BBG000BKXYX5,shares,Deckers Outdoor Corp,US
+1228,ADP,BBG000JG0547,shares,Automatic Data Processing,US
+1229,MS,BBG000BLZRJ2,shares,Morgan Stanley,US
+1230,CWST,BBG000BT0J38,shares,Casella Waste Systems,US
+1231,RMD,BBG000L4M7F1,shares,ResMed Inc,US
+1232,FARO,BBG000BJD7C2,shares,FARO Technologies Inc,US
+1233,BLNG,BBG000VQWH86,shares,Белон,RU
+1234,EVBG,BBG0022FMPD5,shares,Everbridge Inc,US
+1235,ORMP,BBG000LRYR36,shares,Oramed Pharmaceuticals,US
+1236,NVRO,BBG001K61W36,shares,Nevro,US
+1237,OGS,BBG004WQKD07,shares,ONE Gas,US
+1238,GGG,BBG000BK9W84,shares,Graco,US
+1239,RSKD,BBG011P2TCH8,shares,Riskified,IL
+1240,IDXX,BBG000BLRT07,shares,IDEXX,US
+1241,COUR,BBG002WLDMW5,shares,"Coursera, Inc.",US
+1242,WDFC,BBG000BWNV93,shares,WD-40 Co,US
+1243,PLUG,BBG000C1XSP8,shares,Plug Power Inc,US
+1244,2518,BBG00ZHT7FY2,shares,Autohome,CN
+1245,UTHR,BBG000BV4XJ1,shares,United Therapeutics Corp,US
+1246,DSKY,TCS000BN56Q9,shares,Детский Мир,RU
+1247,PNTG,BBG00P33SY72,shares,Pennant Group Inc,US
+1248,GRNT,TCS10A0JV532,shares,Городские Инновационные Технологии,RU
+1249,MD,BBG000H8LGK2,shares,Pediatrix Medical Group,US
+1250,YNDX@US,TCS609805522,shares,Яндекс,RU
+1251,NVEE,BBG005BT60Y8,shares,NV5 Global Inc,US
+1252,MANU,BBG0035WV4N9,shares,Manchester United Plc,GB
+1253,EMN,BBG000BLW530,shares,Eastman Chemical Company,US
+1254,GPK,BBG000GQ7K93,shares,Graphic Packaging Holding Company,US
+1255,HCCI,BBG000CCFB17,shares,Heritage-Crystal Clean Inc,US
+1256,NABL,BBG00YJKWXD8,shares,N-able,US
+1257,ARW,BBG000BCD3D5,shares,Arrow Electronics Inc,US
+1258,FCFS,BBG0145KL747,shares,FirstCash,US
+1259,FOCS,BBG00L0YTFN8,shares,Focus Financial Partners Inc,US
+1260,ADM,BBG000BB6WG8,shares,Archer-Daniels-Midland Company,US
+1261,PRO,TCS4346Y1038,shares,PROS Holdings,US
+1262,UA,BBG009DTD8H2,shares,Under Armour (C),US
+1263,XOM,BBG000GZQ728,shares,Exxon Mobil Corporation,US
+1264,SMLT,BBG00F6NKQX3,shares,ГК Самолет,RU
+1265,MAT,BBG000BNNYW1,shares,Mattel,US
+1266,CNMD,BBG000BFZVH8,shares,CONMED Corporation,US
+1267,ARCT,BBG00NNW8JK1,shares,Arcturus Therapeutics Holdings,US
+1268,LFUS,BBG000BGFGT8,shares,Littelfuse,US
+1269,SAVA,BBG000BK9YW3,shares,Cassava Sciences,US
+1270,EL,BBG000FKJRC5,shares,The Estee Lauder Companies,US
+1271,BANE,BBG004S68758,shares,Башнефть,RU
+1272,ICLR,BBG000CTSZQ6,shares,ICON plc,IE
+1273,TWST,BBG006KDCHJ4,shares,Twist Bioscience,US
+1274,GHC,BBG000C3FGH9,shares,Graham Holdings Co,US
+1275,AFLT,BBG004S683W7,shares,Аэрофлот,RU
+1276,QS,BBG00VJ17DS2,shares,QuantumScape Corporation,US
+1277,2020,BBG000QWR4M8,shares,Anta Sports Products,CN
+1278,MCK,BBG000DYGNW7,shares,McKesson,US
+1279,CIAN,BBG012YQ6P43,shares,Циан АДР,RU
+1280,TRUP,BBG002BC7WC5,shares,Trupanion Inc,US
+1281,CELL,BBG00HJ8K617,shares,PhenomeX,US
+1282,3800,BBG000TRZNP2,shares,GCL Technology,CN
+1283,ATRC,BBG000BL6CB5,shares,AtriCure,US
+1284,SMAR,BBG00GQK3WB5,shares,Smartsheet Inc,US
+1285,COHR,BBG000BLW102,shares,Coherent Corp,US
+1286,DT,BBG00PNN7C40,shares,Dynatrace Inc,US
+1287,ORUP,BBG001BBGNS2,shares,Обувь России,RU
+1288,GLPI,BBG003MSMCS6,shares,Gaming and Leisure Properties REIT,US
+1289,HLNE,BBG00FX58Q66,shares,Hamilton Lane Incorporated,US
+1290,NMIH,BBG005DLMMZ6,shares,NMI Holdings Inc,US
+1291,PDS,BBG000BBK2X9,shares,Precision Drilling,CA
+1292,VYX,TCS0086E1082,shares,NCR Voyix Corp,US
+1293,AEIS,BBG000FKMP26,shares,Advanced Energy Industries Inc,US
+1294,FG,BBG01BGVGG87,shares,F&G Annuities & Life,US
+1295,EVER,BBG00F17NDH7,shares,EverQuote,US
+1296,WKC,TCS814751064,shares,World Kinect Corporation,US
+1297,LC,BBG001YKDND6,shares,Lending Club,US
+1298,WHR,BBG000BWSV34,shares,Whirlpool,US
+1299,BA,BBG000BCSST7,shares,BOEING,US
+1300,GMED,BBG002V87SD0,shares,Globus Medical Inc,US
+1301,TFC,BBG000BYYLS8,shares,Truist Financial Corporation,US
+1302,DINO,BBG0135B2214,shares,HF Sinclair Corporation,US
+1303,GEHC,BBG01BFR8YV1,shares,GE HealthCare Technologies,US
+1304,ACAD,BBG000BHG9K0,shares,ACADIA Pharmaceuticals Inc,US
+1305,SBER,BBG004730N88,shares,Сбер Банк,RU
+1306,AMCX,BBG000H01H92,shares,AMC Networks Inc,US
+1307,PGNY,BBG002H1K1H1,shares,Progyny Inc,US
+1308,SR,BBG000BN6KG8,shares,Spire Inc.,US
+1309,IBM,BBG000BLNNH6,shares,IBM,US
+1310,NOVA,BBG00PLQ1JR1,shares,Sunnova Energy International,US
+1311,TMUS,BBG000NDV1D4,shares,T-Mobile US Inc,US
+1312,ABG,BBG000BKDWB5,shares,Asbury Automotive Group Inc,US
+1313,RBCM,BBG001DJNR51,shares,РБК,RU
+1314,3,BBG000BDWT45,shares,Hong Kong and China Gas Co.,CN
+1315,MRVL,BBG00ZXBJ153,shares,"Marvell Technology, Inc.",US
+1316,1171,BBG000BKZ1H3,shares,Yankuang Energy Group,CN
+1317,RRR,BBG00B6G8077,shares,Red Rock Resorts,US
+1318,VCEL,BBG000BDCM24,shares,Vericel Corp,US
+1319,AVB,BBG000BLPBL5,shares,AvalonBay Communities REIT,US
+1320,ITRI,BBG000BD2167,shares,Itron Inc,US
+1321,MTB,BBG000D9KWL9,shares,M&T Bank,US
+1322,857,BBG000BFNTD0,shares,PetroChina,CN
+1323,HON,BBG000H556T9,shares,Honeywell,US
+1324,TTC,BBG000BVQRY3,shares,Toro,US
+1325,ACIW,BBG000PMBV39,shares,"ACI Worldwide, Inc.",US
+1326,GECO,TCS00A105BN4,shares,Генетико,RU
+1327,ESAB,BBG0028ZMP45,shares,ESAB Corporation,US
+1328,AN,BBG000BBXLW4,shares,AutoNation,US
+1329,SEE,BBG000C22QV7,shares,Sealed Air,US
+1330,T,BBG000BSJK37,shares,AT&T,US
+1331,EQH,BBG00J7CBVW8,shares,Equitable Holdings,US
+1332,NSIT,BBG000DY3K39,shares,Insight Enterprises Inc,US
+1333,CGNT,BBG00R0ZFHV4,shares,Cognyte Software Ltd.,IL
+1334,SRDX,BBG000BZ2QG2,shares,Surmodics Inc,US
+1335,FCNCA,BBG000BJCDS3,shares,"First Citizens BancShares, Inc.",US
+1336,BNTX,BBG00Q70B3V1,shares,BioNTech SE,DE
+1337,IEX,BBG000C1HN22,shares,IDEX Corp,US
+1338,GTRK,BBG00HY6V6H5,shares,ГТМ,RU
+1339,MVID,BBG004S68CP5,shares,М.видео,RU
+1340,BOX,BBG000PMSK08,shares,Box Inc,US
+1341,KYMR,BBG00SDHC8D1,shares,Kymera Therapeutics,US
+1342,STLD,BBG000HGYNZ9,shares,Steel Dynamics Inc,US
+1343,DFS,BBG000QBR5J5,shares,Discover Financial Services,US
+1344,VCYT,BBG001J2M542,shares,Veracyte Inc,US
+1345,PD,BBG0043BYPB8,shares,Pagerduty Inc,US
+1346,PCRX,BBG0018FQNS6,shares,Pacira BioSciences Inc,US
+1347,LKQ,BBG000PXDL44,shares,LKQ Corporation,US
+1348,WBS,BBG000BWMX63,shares,Webster Financial Corporation,US
+1349,HD,BBG000BKZB36,shares,The Home Depot,US
+1350,IPAR,BBG000GCSWR5,shares,Inter Parfums Inc,US
+1351,NTGR,BBG000C4GBR6,shares,NETGEAR Inc,US
+1352,NARI,BBG009J8K7M0,shares,Inari Medical Inc,US
+1353,RBC,BBG000GMGNB3,shares,RBC Bearings Inc,US
+1354,OXY,BBG000BQQ2S6,shares,Occidental Petroleum,US
+1355,GES,BBG000BC26P7,shares,Guess? Inc,US
+1356,SWN,BBG000BTR593,shares,Southwestern Energy,US
+1357,SWI,BBG00M1CKSK7,shares,SolarWinds Corp,US
+1358,INCY,BBG000BNPSQ9,shares,Incyte,US
+1359,2333,BBG000CYZ1K8,shares,Great Wall Motor,CN
+1360,MYRG,BBG000BC7VW9,shares,MYR Group Inc,US
+1361,FOUR,BBG00TX393L4,shares,Shift4 Payments,US
+1362,SBUX,BBG000CTQBF3,shares,Starbucks Corporation,US
+1363,AMKR,BBG000BCKGW7,shares,Amkor Technology,US
+1364,BFH,BBG000BFNR17,shares,Bread Financial,US
+1365,MSFT,BBG000BPH459,shares,Microsoft Corporation,US
+1366,TER,BBG000BV4DR6,shares,Teradyne Inc,US
+1367,TWNK,BBG00B6KGNN1,shares,Hostess Brands Inc,US
+1368,RY,BBG000BSSC44,shares,Royal Bank of Canada,CA
+1369,CPRI,BBG0029SNR63,shares,Capri Holdings Limited,GB
+1370,ALLK,BBG003QBJKN0,shares,Allakos Inc,US
+1371,QCOM,BBG000CGC1X8,shares,Qualcomm,US
+1372,HUN,BBG000NS26Q8,shares,Huntsman,US
+1373,CBRL,BBG000BF33K1,shares,Cracker Barrel Old Country Sto,US
+1374,BKU,BBG000PQPCM6,shares,"BankUnited, Inc.",US
+1375,SAIA,BBG000P5LMQ0,shares,Saia Inc,US
+1376,SAP,BBG000BDSLD7,shares,АДР SAP,US
+1377,ZIP,BBG010JBYV98,shares,ZipRecruiter Inc,US
+1378,MKL,BBG000FC7366,shares,Markel Group,US
+1379,ERIE,BBG000BBTJZ1,shares,Erie IndemnIty Co,US
+1380,TRGP,BBG0015XMW40,shares,Targa Resources,US
+1381,6618,BBG00Y6QRNM7,shares,JD Health International,CN
+1382,LRCX,BBG000BNFLM9,shares,Lam Research,US
+1383,NRIX,BBG00SDJ8M78,shares,Nurix Therapeutics Inc,US
+1384,PG,BBG000BR2TH3,shares,Procter & Gamble,US
+1385,HRTX,BBG000G2GJT7,shares,Heron Therapeutics Inc,US
+1386,STT,BBG000BKFBD7,shares,State Street,US
+1387,ALGM,BBG00H5S8391,shares,Allegro MicroSystems,US
+1388,JELD,BBG0019GM953,shares,JELD-WEN Holding Inc,US
+1389,TCBI,BBG000DN4ZT1,shares,Texas Capital Bancshares Inc,US
+1390,FELE,BBG000BJGGV8,shares,Franklin Electric Co,US
+1391,ENTG,BBG000CTV4N4,shares,Entegris Inc,US
+1392,IONS,BBG000JH6683,shares,Ionis Pharmaceuticals Inc,US
+1393,ECL,BBG000BHKYH4,shares,Ecolab,US
+1394,PAYX,BBG000BQSQ38,shares,Paychex Inc,US
+1395,OII,BBG000CPBCL8,shares,Oceaneering International Inc,US
+1396,KOPN,BBG000C2SBZ8,shares,Kopin Corporation,US
+1397,NVS,BBG000LYF3S8,shares,Novartis AG,CH
+1398,ALLE,BBG003PS7JV1,shares,Allegion,US
+1399,ALGT,BBG000LJS6B8,shares,Allegiant Travel Co,US
+1400,COR,TCS3073E1055,shares,Cencora,US
+1401,PMSBP,BBG000MZL2S9,shares,Пермэнергосбыт - акции привилегированные,RU
+1402,AMR,BBG00DGWV035,shares,Alpha Metallurgical Resources Inc.,US
+1403,AGIO,BBG000QY4ZD0,shares,Agios Pharmaceuticals Inc,US
+1404,ONL,BBG0118JXCD9,shares,Orion Office REIT,US
+1405,FND,BBG007GJ2F81,shares,Floor & Decor Holdings Inc,US
+1406,HALO,BBG000CZ8W54,shares,Halozyme Therapeutics Inc,US
+1407,M,BBG000C46HM9,shares,Macy's,US
+1408,FIS,BBG000BK2F42,shares,Fidelity National Information,US
+1409,VICR,BBG000C3VHF1,shares,Vicor Corp,US
+1410,SYY,BBG000BTVJ25,shares,Sysco,US
+1411,NRG,BBG000D8RG11,shares,NRG Energy,US
+1412,LRN,BBG000QSXPZ9,shares,"Stride, Inc",US
+1413,MSTT,BBG004S68DD6,shares,Мостотрест,RU
+1414,WWD,BBG000BD53V2,shares,Woodward Inc,US
+1415,6098,BBG00L3B3R02,shares,Country Garden Services,CN
+1416,AUPH,BBG000BCRJM5,shares,Aurinia Pharmaceuticals,CA
+1417,ITW,BBG000BMBL90,shares,Illinois Tool Works,US
+1418,ATGE,BBG000DQBZJ7,shares,Adtalem Global Education Inc,US
+1419,MTLR,BBG004S68598,shares,Мечел,RU
+1420,960,BBG000CHNH78,shares,Longfor,CN
+1421,OMF,BBG005497GZ3,shares,OneMain Holdings,US
+1422,NUE,BBG000BQ8KV2,shares,Nucor,US
+1423,LPLA,BBG000P2TYL8,shares,LPL Financial Holdings,US
+1424,BLZE,BBG0037X6HX3,shares,Backblaze,US
+1425,RRBI,BBG000QKNLB2,shares,Red River Bancshares,US
+1426,ELAN,BBG00LJYS1P8,shares,Elanco Animal Health Inc,US
+1427,POST,BBG001WTBC36,shares,Post Holdings Inc,US
+1428,TTMI,BBG000BYQ0B1,shares,TTM Technologies Inc,US
+1429,ROP,BBG000F1ZSN5,shares,Roper Technologies,US
+1430,1898,BBG000NYJKS4,shares,China Coal Energy,CN
+1431,CBT,BBG000BF3WW4,shares,Cabot Corporation,US
+1432,SBRA,BBG000MTDW24,shares,Sabra Health Care REIT,US
+1433,ATUS,BBG00GFMPRK0,shares,Altice USA Inc,US
+1434,TXT,BBG000BVVQQ8,shares,Textron,US
+1435,ARVN,BBG00LW7YK82,shares,Arvinas Inc,US
+1436,TEX,BBG000C7B436,shares,Terex Corporation,US
+1437,AIZ,BBG000BZX1N5,shares,Assurant,US
+1438,DKS,BBG000F6ZWH2,shares,Dick's Sporting Goods Inc,US
+1439,OSK,BBG000CC53X1,shares,Oshkosh Corporation,US
+1440,XENE,BBG0073DM784,shares,Xenon Pharmaceuticals Inc,US
+1441,WSC,BBG00B0FS947,shares,WillScot Mobile Mini Holdings,US
+1442,IVAT,TCS00A108GD8,shares,IVA Technologies,RU
+1443,AKRN,BBG004S688G4,shares,Акрон,RU
+1444,SFM,BBG001KFKQM7,shares,Sprouts Farmers Market Inc,US
+1445,MSTR,BBG000GQJPZ0,shares,MicroStrategy Inc,US
+1446,MDMG,TCS00Y3XYV94,shares,Мать и дитя,RU
+1447,SNBR,BBG000DM2BF3,shares,Sleep Number Corp,US
+1448,AMH,BBG003NXJNH6,shares,American Homes 4 Rent REIT,US
+1449,GAZP,BBG004730RP0,shares,Газпром,RU
+1450,CTSH,BBG000BBDV81,shares,Cognizant Technology Solutions,US
+1451,UI,BBG001R72SR9,shares,Ubiquiti Inc,US
+1452,CMS,BBG000BFVXX0,shares,CMS Energy Corporation,US
+1453,RNG,BBG000J094P3,shares,RingCentral Inc,US
+1454,DY,BBG000C4SKT1,shares,Dycom Industries Inc,US
+1455,9988,BBG00QV37ZP9,shares,Alibaba,CN
+1456,HSY,BBG000BLHRS2,shares,Hershey,US
+1457,IBN,BBG000DRM643,shares,ICICI Bank,IN
+1458,STNE,BBG00M4ZQDK0,shares,StoneCo,BR
+1459,SBERP,BBG0047315Y7,shares,Сбер Банк - привилегированные акции,RU
+1460,PH,BBG000BR3KL6,shares,Parker-Hannifin,US
+1461,BH,BBG00JPRDQH1,shares,Biglari Holdings Inc,US
+1462,CHTR,BBG000VPGNR2,shares,Charter Communications,US
+1463,EXPO,BBG000F31Z34,shares,"Exponent, Inc.",US
+1464,CRNC,BBG00MMDJG84,shares,Cerence,US
+1465,RVTY,BBG000FXYF54,shares,Revvity,US
+1466,JNPR,BBG000BY33P5,shares,Juniper Networks,US
+1467,LENT,BBG0063FKTD9,shares,Лента,RU
+1468,AES,BBG000C23KJ3,shares,The AES Corporation,US
+1469,EQR,BBG000BG8M31,shares,Equity Residential REIT,US
+1470,NEU,BBG000BJ5SS8,shares,NewMarket Corp,US
+1471,ESGR,BBG000NQKP71,shares,Enstar Group,BM
+1472,TEAM,BBG00BDQ1H13,shares,Atlassian,AU
+1473,FRPH,BBG000HCVWW4,shares,FRP Holdings Inc,US
+1474,BSPB,BBG000QJW156,shares,Банк Санкт-Петербург,RU
+1475,DV,BBG00ZNRRJM2,shares,"DoubleVerify Holdings, Inc.",US
+1476,KDP,BBG000TJM7F0,shares,Keurig Dr Pepper,US
+1477,AM,BBG00GBNZ4M0,shares,Antero Midstream Corp,US
+1478,ASTR,RU000A106T36,shares,Группа Астра,RU
+1479,GIS,BBG000BKCFC2,shares,General Mills,US
+1480,WIX,BBG005CM7J89,shares,Wix.com Ltd,IL
+1481,RRC,BBG000FVXD63,shares,Range Resources,US
+1482,MOMO,BBG007HTCQT0,shares,Hello Group,CN
+1483,CMCO,BBG000BCWWV0,shares,Columbus McKinnon Corp,US
+1484,BKR,BBG00GBVBK51,shares,Baker Hughes,US
+1485,VFC,BBG000BWCKB6,shares,VF,US
+1486,BTI,BBG000BWPXQ8,shares,British American Tobacco,GB
+1487,RKKE,BBG000LWNRP3,shares,РКК Энергия им.С.П.Королева,RU
+1488,DHI,BBG000DQTXY6,shares,D.R. Horton,US
+1489,EXC,BBG000J6XT05,shares,Exelon Corporation,US
+1490,2899,BBG000DCTP29,shares,Zijin Mining Group,CN
+1491,LSNG,BBG000NLC9Z6,shares,Ленэнерго,RU
+1492,LUV,BBG000BNJHS8,shares,Southwest Airlines,US
+1493,RENI,BBG00QKJSX05,shares,Ренессанс Страхование,RU
+1494,SSD,BBG000JLC8L8,shares,Simpson Manufacturing Co Inc,US
+1495,HRB,BBG000BLDV98,shares,H&R Block,US
+1496,METCB,BBG01GHDJBW6,shares,Ramaco Resources Class B,US
+1497,ALTR,BBG000PN9NB9,shares,Altair Engineering Inc,US
+1498,268,BBG000FQH8C6,shares,Kingdee International Software,CN
+1499,MRKC,BBG000VH7TZ8,shares,Россети Центр,RU
+1500,GKOS,BBG000WG2LQ1,shares,Glaukos Corp,US
+1501,EPAM,BBG000MHTV89,shares,EPAM Systems,US
+1502,KBH,BBG000BMLWX8,shares,KB Home,US
+1503,1336,BBG0028VY3J4,shares,New China Life Insurance,CN
+1504,STZ,BBG000J1QLT0,shares,Constellation Brands,US
+1505,GT,BBG000BKNX95,shares,Goodyear Tire & Rubber,US
+1506,KWR,BBG000DZS2L9,shares,Quaker Chemical Corp,US
+1507,GL,BBG000BVD6X4,shares,Globe Life Inc,US
+1508,CRUS,BBG000C1DHF5,shares,Cirrus Logic Inc,US
+1509,EXR,BBG000PV27K3,shares,Extra Space Storage REIT,US
+1510,ROL,BBG000BSBBP1,shares,Rollins,US
+1511,LNG,BBG000C3HSR0,shares,Cheniere Energy,US
+1512,POSI,TCS00A103X66,shares,Positive Technologies,RU
+1513,BSX,BBG000C0LW92,shares,Boston Scientific Corporation,US
+1514,NFG,BBG000BPYD87,shares,National Fuel Gas Company,US
+1515,WRB,BBG000BD1HP2,shares,WR Berkley,US
+1516,CEVA,BBG000BN3P07,shares,CEVA,US
+1517,CVNA,BBG00GCTWDJ3,shares,Carvana Co,US
+1518,FIGS,BBG004SK5VL9,shares,FIGS,US
+1519,CNS,BBG000BB0WG4,shares,Cohen & Steers Inc,US
+1520,KMB,BBG000BMW2Z0,shares,Kimberly-Clark,US
+1521,MQ,BBG0112Z87D8,shares,"Marqeta, Inc.",US
+1522,PLNT,BBG009H04M17,shares,Planet FItness Inc,US
+1523,ZD,BBG000F3CWW7,shares,Ziff Davis,US
+1524,KROT,BBG000NLB2G3,shares,Красный Октябрь,RU
+1525,KAZT,BBG002B9MYC1,shares,КуйбышевАзот,RU
+1526,APAM,BBG001M6CZY1,shares,Artisan Partners Asset Management,US
+1527,ZG,BBG000D13GN8,shares,Zillow Group Inc,US
+1528,PUBM,BBG001PKMK06,shares,PubMatic,US
+1529,JPM,BBG000DMBXR2,shares,JPMorgan,US
+1530,KFY,BBG000C5QMB5,shares,Korn Ferry,US
+1531,968,BBG001XVDJ15,shares,Xinyi Solar,CN
+1532,FGEN,BBG000FW5ZL6,shares,FIBROGEN INC,US
+1533,SOHU,BBG00L2DB535,shares,Sohu.com,CN
+1534,KNF,BBG002N3N2R4,shares,Knife River Corporation,US
+1535,ABCL,BBG00LLW2MF2,shares,AbCellera Biologics,CA
+1536,27,BBG000BG5LL6,shares,Galaxy Entertainment Group,
+1537,WOLF,BBG000BG14P4,shares,Wolfspeed,US
+1538,MTG,BBG000CBMH27,shares,MGIC Investment Corp,US
+1539,WY,BBG000BX3BL3,shares,Weyerhaeuser REIT,US
+1540,SIBN,BBG004S684M6,shares,Газпром нефть,RU
+1541,OUST,BBG00XRTSTR1,shares,Ouster,US
+1542,VSCO,BBG01103B471,shares,Victorias Secret & Co.,US
+1543,NVRI,TCS158641070,shares,Enviri Corporation,US
+1544,YAKG,BBG002B298N6,shares,ЯТЭК,RU
+1545,EQIX,BBG000MBDGM6,shares,Equinix REIT,US
+1546,ASTS,BBG00Q402TR2,shares,AST SpaceMobile,US
+1547,TGKB,BBG000Q7GG57,shares,ТГК-2,RU
+1548,SBGI,BBG01GJ3NY88,shares,Sinclair,US
+1549,688,BBG000BGD8W4,shares,China Overseas Land & Investment,HK
+1550,GOSS,BBG00MVWLLM2,shares,Gossamer Bio Inc,US
+1551,BRC,BBG000BDNV95,shares,Brady,US
+1552,KLSB,BBG000DBD6F6,shares,Калужская сбытовая компания,RU
+1553,GE,BBG000BK6MB5,shares,GE Aerospace,US
+1554,CHMK,BBG000RP8V70,shares,ЧМК,RU
+1555,KLIC,BBG000BMTX31,shares,Kulicke & Soffa Industries,SG
+1556,MGA,BBG000BNLPJ7,shares,Magna International Inc.,CA
+1557,WIRE,BBG000CQCCK6,shares,Encore Wire Corporation,US
+1558,CPNG,BBG00XMJRPQ8,shares,"Coupang, Inc.",KR
+1559,HIW,BBG000C43744,shares,Highwoods Properties,US
+1560,CALM,BBG000CDMJW6,shares,Cal-Maine Foods Inc,US
+1561,WPM,BBG000PVRDL2,shares,Wheaton Precious Metals,CA
+1562,BALL,BBG000BDDNH5,shares,Ball Corporation,US
+1563,RNFT,BBG00F9XX7H4,shares,РуссНефть,RU
+1564,2601,BBG000KVB7C7,shares,China Pacific Insurance,CN
+1565,2618,BBG010RJL3B5,shares,JD Logistics,CN
+1566,MRVI,BBG00Y1DFV91,shares,Maravai LifeSciences Holdings,US
+1567,DAR,BBG000BN8ZK8,shares,Darling Ingredients Inc,US
+1568,2318,BBG000GD4N44,shares,Ping An,CN
+1569,HGV,BBG00CBYY6M1,shares,Hilton Grand Vacations Inc,US
+1570,ASGN,BBG000CRN8N8,shares,ASGN Inc,US
+1571,DNOW,BBG005BLN209,shares,DNOW,US
+1572,CHDN,BBG000BGXMG9,shares,Churchill Downs Inc,US
+1573,ESPR,BBG004KB3S72,shares,Esperion Therapeutics Inc,US
+1574,CC,BBG005H82GB2,shares,Chemours Company,US
+1575,MRKZ,BBG000TJ6F42,shares,Россети Северо-Запад,RU
+1576,MSI,BBG000BP8Z50,shares,Motorola Solutions,US
+1577,LW,BBG003CVMLQ2,shares,Lamb Weston Holdings Inc,US
+1578,WHD,BBG00JRH1P95,shares,Cactus Inc,US
+1579,APTK,BBG000K3STR7,shares,"Аптечная сеть 36,6",RU
+1580,9618,BBG00VC6RYV6,shares,JD.com,CN
+1581,COST,BBG000F6H8W8,shares,Costco Wholesale,US
+1582,CVX,BBG000K4ND22,shares,Chevron,US
+1583,388,BBG000BGW354,shares,Hong Kong Exchanges and Clearing,HK
+1584,MMI,BBG005GBRSR6,shares,Marcus & Millichap Inc,US
+1585,AIV,BBG000DD3510,shares,Apartment Investment & Management REIT,US
+1586,EGP,BBG000BHRBT4,shares,EastGroup Properties REIT,US
+1587,TNC,BBG000JCZJS2,shares,Tennant Company,US
+1588,RJF,BBG000BS73J1,shares,Raymond James Financial,US
+1589,ROCK,BBG000BKQDQ7,shares,Gibraltar Industries Inc,US
+1590,CME,BBG000BHLYP4,shares,CME GROUP,US
+1591,VERU,BBG000G12J78,shares,Veru Inc,US
+1592,AXGN,BBG000BN46R9,shares,Axogen Inc,US
+1593,FANG,BBG002PHSYX9,shares,Diamondback Energy Inc,US
+1594,CZR,BBG0074Q3NK6,shares,Caesars Entertainment Corporation,US
+1595,ACM,BBG000F61RJ8,shares,AECOM,US
+1596,PLUS,BBG000HN7W02,shares,ePlus Inc,US
+1597,JBL,BBG000BJNGN9,shares,Jabil Inc.,US
+1598,CXT,BBG017BXPZ85,shares,Crane NXT,US
+1599,AAL,BBG005P7Q881,shares,American Airlines Group,US
+1600,HHR,TCS0207L1061,shares,HeadHunter Group PLC,RU
+1601,DEI,BBG000PN1SJ8,shares,Douglas Emmett REIT,US
+1602,FMC,BBG000BJP882,shares,FMC,US
+1603,QIWI,BBG005D1WCQ1,shares,QIWI,RU
+1604,OTIS,BBG00RP60KV0,shares,Otis Worldwide,US
+1605,2382,BBG000C16952,shares,Sunny Optical Technology,CN
+1606,DLR,BBG000Q5ZRM7,shares,Digital Realty REIT,US
+1607,DOV,BBG000BHB3M6,shares,Dover,US
+1608,THRM,BBG000BQLM34,shares,Gentherm Inc,US
+1609,HYDR,BBG00475K2X9,shares,РусГидро,RU
+1610,ADSK,BBG000BM7HL0,shares,Autodesk,US
+1611,FIZZ,BBG000BF8CB6,shares,National Beverage Corp,US
+1612,AZPN,BBG017J18W74,shares,Aspen Technology,US
+1613,ROK,BBG000BBCDZ2,shares,Rockwell Automation,US
+1614,GPI,BBG000BB88K4,shares,Group 1 Automotive Inc,US
+1615,SLGN,BBG000BPDDB6,shares,Silgan Holdings Inc.,US
+1616,SQSP,BBG00389GQ73,shares,"Squarespace, Inc.",US
+1617,HLI,BBG000CZTB66,shares,"Houlihan Lokey, Inc.",US
+1618,PLD,BBG000B9Z0J8,shares,Prologis REIT,US
+1619,UBS,BBG007DJM539,shares,UBS Group,CH
+1620,PCH,BBG000BQX2N3,shares,PotlatchDeltic Corporation REIT,US
+1621,CRWD,BBG00BLYKS03,shares,Crowdstrike Holdings Inc,US
+1622,TROW,BBG000BVMPN3,shares,T Rowe Price Group,US
+1623,SOFI,BBG00YB1ZD58,shares,SoFi Technologies,US
+1624,MC,BBG000RNBH63,shares,Moelis & Co,US
+1625,ATRI,BBG000DTT624,shares,Atrion Corp,US
+1626,SPHR,BBG00L9HLWV8,shares,Sphere Entertainment Co.,US
+1627,LAAC,BBG01JLDJ6X5,shares,Lithium Americas (Argentina),CA
+1628,MVIS,BBG000BVKXQ5,shares,MicroVision,US
+1629,NLMK,BBG004S681B4,shares,НЛМК,RU
+1630,BELU,BBG000TY1CD1,shares,Novabev Group,RU
+1631,WB,BBG0065XPGX9,shares,Weibo Corporation,CN
+1632,LNZLP,BBG000SR0YS4,shares,Лензолото - привилегированные акции,RU
+1633,CCSI,BBG0105XBRH0,shares,Consensus Cloud Solutions,US
+1634,RVMD,BBG00829F4P8,shares,REVOLUTION Medicines Inc,US
+1635,BAX,BBG000BCVJ77,shares,Baxter International,US
+1636,ADBE,BBG000BB5006,shares,Adobe,US
+1637,MCD,BBG000BNSZP1,shares,McDonald’s,US
+1638,VSAT,BBG000HHLBF9,shares,Viasat,US
+1639,GDRX,BBG00X0VP8D9,shares,GoodRx Holdings Inc,US
+1640,DNB,BBG00VCZX9Z6,shares,Dun & Bradstreet Holdings,US
+1641,TTWO,BBG000BS1YV5,shares,Take-Two Interactive Software,US
+1642,WEC,BBG000BWP7D9,shares,WEC Energy Group,US
+1643,HLF,BBG000MM5VL9,shares,Herbalife Ltd.,US
+1644,LFST,BBG01138DGZ7,shares,LifeStance Health Group,US
+1645,FIVN,BBG001KHJM17,shares,Five9 Inc,US
+1646,ESE,BBG000C4S3P3,shares,ESCO Technologies Inc.,US
+1647,BAND,BBG001K003W2,shares,Bandwidth Inc,US
+1648,ITT,BBG00CVQZQ96,shares,ITT,US
+1649,NTCT,BBG000C136Z8,shares,NetScout Systems Inc,US
+1650,RDFN,BBG001Q7HP63,shares,Redfin Corp,US
+1651,ZIMV,BBG014630587,shares,ZimVie,US
+1652,MPC,BBG001DCCGR8,shares,Marathon Petroleum,US
+1653,1928,BBG000PSNMN1,shares,Sands China,CN
+1654,YNDX,BBG006L8G4H1,shares,Яндекс,RU
+1655,CL,BBG000BFQYY3,shares,Colgate-Palmolive,US
+1656,ATKR,BBG000QTFDQ4,shares,Atkore International Group Inc,US
+1657,XPEL,BBG000R5XCX9,shares,XPEL,US
+1658,SF,BBG000BSS5C0,shares,Stifel Financial,US
+1659,SFIN,BBG003LYCMB1,shares,ЭсЭфАй,RU
+1660,LCID,BBG00W7F99V5,shares,Lucid Group,US
+1661,HURN,BBG000PV2M48,shares,Huron Consulting Group Inc,US
+1662,FROG,BBG006PWZX16,shares,JFrog Ltd.,IL
+1663,LEG,BBG000BN53G7,shares,Leggett & Platt,US
+1664,L,BBG000C45984,shares,Loews,US
+1665,MP,BBG00TJGL0F0,shares,MP Materials,US
+1666,FESH,BBG000QF1Q17,shares,ДВМП,RU
+1667,ASAN,BBG00WYHL732,shares,Asana,US
+1668,VOYA,BBG000BCWKD6,shares,Voya Financial,US
+1669,ISRG,BBG000BJPDZ1,shares,Intuitive Surgical,US
+1670,LI,BBG00W0KZD98,shares,Li Auto,CN
+1671,AXTA,BBG0060CPLJ5,shares,Axalta Coating Systems,US
+1672,HOOD,BBG008NMBXN8,shares,"Robinhood Markets, Inc.",US
+1673,ATR,BBG000BGX2S0,shares,AptarGroup,US
+1674,GWW,BBG000BKR1D6,shares,WW Grainger,US
+1675,SUPN,BBG000BP0HX7,shares,Supernus Pharmaceuticals Inc,US
+1676,ALIT,BBG00H00J2N1,shares,Alight,US
+1677,LYB,BBG000WCFV84,shares,LyondellBasell,US
+1678,MDLZ,BBG000D4LWF6,shares,Mondelez,US
+1679,JEF,BBG000BNHSP9,shares,Jefferies Financial Group,US
+1680,TDS,BBG000BV0VK7,shares,Telephone & Data Systems Inc,US
+1681,JAMF,BBG00VSYYVB8,shares,Jamf Holding Corp,US
+1682,DNA,BBG00YPS1KY3,shares,Ginkgo Bioworks Holdings,US
+1683,CMG,BBG000QX74T1,shares,Chipotle Mexican Grill,US
+1684,BX,BBG000BH0106,shares,Blackstone,US
+1685,NWS,BBG0035M2ZB7,shares,News Corp,US
+1686,BRO,BBG000BWSGF4,shares,Brown & Brown,US
+1687,RASP,BBG004S68696,shares,Распадская,RU
+1688,PBA,BBG001732GF9,shares,Pembina Pipeline Corporation,CA
+1689,IBKR,BBG000LV0836,shares,Interactive Brokers Group Inc,US
+1690,2196,BBG001XVDW70,shares,Shanghai Fosun Pharmaceutical,CN
+1691,BLUE,BBG000QGWY50,shares,Bluebird Bio Inc,US
+1692,MMM,BBG000BP52R2,shares,3M Company,US
+1693,HQY,BBG000TYXCT9,shares,HealthEquity Inc,US
+1694,EWBC,BBG000CR20B1,shares,East West Ban,US
+1695,GATX,BBG000BKGXQ4,shares,GATX Corporation,US
+1696,HCC,BBG00GD1JMV4,shares,Warrior Met Coal,US
+1697,BBIO,BBG00P9KDZK6,shares,Bridgebio Pharma,US
+1698,STE,BBG00MRHG523,shares,STERIS,IE
+1699,YELP,BBG000Q2HM09,shares,Yelp Inc,US
+1700,JKHY,BBG000BMH2Q7,shares,Jack Henry & Associates Inc,US
+1701,VZ,BBG000HS77T5,shares,Verizon Communications,US
+1702,MORN,BBG000CGQ4F7,shares,Morningstar,US
+1703,VVV,BBG003DNHV56,shares,Valvoline,US
+1704,ALXO,BBG00VR8SDG8,shares,ALX Oncology Holdings Inc,US
+1705,KNSL,BBG00D8JD9Z9,shares,Kinsale Capital Group,US
+1706,VLTO,BBG019Q32XJ9,shares,Veralto Corporation,US
+1707,SRPT,BBG000BCJ161,shares,Sarepta Therapeutics Inc,US
+1708,AX,BBG000QPHD08,shares,Axos Financial Inc,US
+1709,NOMPP,TCS009177281,shares,Новошип - привилегированные акции,RU
+1710,SHW,BBG000BSXQV7,shares,Sherwin-Williams,US
+1711,JACK,BBG000GZYVY1,shares,Jack in the Box,US
+1712,BIIB,BBG000C17X76,shares,Biogen,US
+1713,WWW,BBG000BX2YN2,shares,Wolverine World Wide Inc,US
+1714,CFG,BBG006Q0HY77,shares,Citizens Financial Group,US
+1715,INGR,BBG000BXPZB7,shares,Ingredion Inc,US
+1716,VTNR,BBG000BGGXH3,shares,"Vertex Energy, Inc.",US
+1717,FICO,BBG000DW76Y6,shares,Fair Isaac Corp,US
+1718,WEX,BBG000BVZP59,shares,WEX Inc,US
+1719,SGZH,BBG0100R9963,shares,Сегежа,RU
+1720,LENZ,TCS2635N1037,shares,"LENZ Therapeutics, Inc.",US
+1721,PM,BBG000J2XL74,shares,Philip Morris,US
+1722,WAB,BBG000BDD940,shares,Wabtec Corp.,US
+1723,BKI,BBG00GX77LW3,shares,Black Knight Inc,US
+1724,TXN,BBG000BVV7G1,shares,Texas Instruments,US
+1725,MLM,BBG000BGYMH7,shares,Martin Marietta Materials,US
+1726,GDDY,BBG006MDLY05,shares,GoDaddy Inc,US
+1727,PRI,BBG000T8ZF80,shares,Primerica,US
+1728,CHRS,BBG0063N8V69,shares,Coherus BioSciences,US
+1729,HSIC,BBG000BNMMJ3,shares,Henry Schein,US
+1730,MANH,BBG000BFV758,shares,Manhattan Associates Inc,US
+1731,ES,BBG000BQ87N0,shares,Eversource Energy,US
+1732,PEN,BBG001BP92V1,shares,Penumbra Inc,US
+1733,ATRA,TCS565132068,shares,Atara Biotherapeutics Inc,US
+1734,OHI,BBG000BGBTC2,shares,Omega Healthcare Investors REIT,US
+1735,IFF,BBG000BLSL58,shares,International Flavors & Fragrances,US
+1736,MSA,BBG000BPDXF8,shares,MSA Safety,US
+1737,CTRA,BBG000C3GN47,shares,Coterra Energy,US
+1738,CWEN,BBG008LJ4TF3,shares,Clearway Energy,US
+1739,BLD,BBG0077VS2C0,shares,TopBuild Corp,US
+1740,PRU,BBG000HCJMF9,shares,Prudential Financial,US
+1741,HEI,BBG000BL16Q7,shares,HEICO,US
+1742,LSNGP,BBG000NLCCM3,shares,Ленэнерго - акции привилегированные,RU
+1743,EYE,BBG00HVQF9K2,shares,National Vision Holdings Inc,US
+1744,PSTG,BBG00212PVZ5,shares,Pure Storage Inc,US
+1745,URI,BBG000BXMFC3,shares,United Rentals,US
+1746,EMR,BBG000BHX7N2,shares,Emerson Electric,US
+1747,MNRO,BBG000C0BZD1,shares,Monro,US
+1748,RIG,BBG000BH5LT6,shares,Transocean,US
+1749,AMED,BBG000B9ZV28,shares,Amedisys Inc,US
+1750,NKTR,BBG000BHCYJ1,shares,Nektar Therapeutics,US
+1751,CEG,BBG014KFRNP7,shares,Constellation Energy,US
+1752,RGNX,BBG007Z9V591,shares,REGENXBIO Inc,US
+1753,1929,BBG00299NPM1,shares,Chow Tai Fook Jewellery,
+1754,FITB,BBG000BJL3N0,shares,Fifth Third Bancorp,US
+1755,LPRO,BBG00VDHLSQ6,shares,Open Lending Corp,US
+1756,BIDU,BBG000QXWHD1,shares,Baidu,CN
+1757,CUBE,BBG000HF28Q9,shares,CubeSmart REIT,US
+1758,GPRO,BBG001LWHLJ8,shares,GoPro,US
+1759,XRX,BBG00NNG2ZJ8,shares,Xerox,US
+1760,SRI,BBG000BB9Q78,shares,Stoneridge Inc,US
+1761,GMKN,BBG004731489,shares,Норильский никель,RU
+1762,KGC,BBG000BB2DM7,shares,Kinross Gold,CA
+1763,ATEN,BBG0060K22C1,shares,A10 Networks Inc,US
+1764,EBAY,BBG000C43RR5,shares,eBay,US
+1765,DAL,BBG000R7Z112,shares,Delta Air Lines,US
+1766,AMSF,BBG000Q0JJQ0,shares,"AMERISAFE, Inc.",US
+1767,MU,BBG000C5Z1S3,shares,Micron Technology,US
+1768,SHEL,BBG0147BN6G2,shares,Shell АДР,US
+1769,BK,BBG000BD8PN9,shares,Bank of New York Mellon,US
+1770,BF.B,BBG000BD2NY8,shares,Brown-Forman,US
+1771,ANET,BBG000N2HDY5,shares,Arista Networks Inc,US
+1772,LGIH,BBG0056655S1,shares,LGI Homes Inc,US
+1773,PCG,BBG000BQWPC5,shares,PG&E,US
+1774,AMCR,BBG00LNJRQ09,shares,Amcor,US
+1775,MTTR,BBG00XS0FV56,shares,Matterport,US
+1776,EG,TCS0223R1088,shares,Everest Group,BM
+1777,BE,BBG000N7KBZ3,shares,Bloom Energy,US
+1778,BAC,BBG000BCTLF6,shares,Bank of America Corp,US
+1779,3968,BBG000DVPPK1,shares,China Merchants Bank,CN
+1780,TREE,BBG000TVRB50,shares,LendingTree Inc,US
+1781,V,BBG000PSKYX7,shares,Visa,US
+1782,GEN,BBG000BH2JM1,shares,Gen Digital,US
+1783,FDS,BBG000BDJL83,shares,FactSet Research Systems Inc,US
+1784,NAVI,BBG004MN1R41,shares,Navient,US
+1785,SNPS,BBG000BSFRF3,shares,Synopsys,US
+1786,GCO,BBG000BK5S78,shares,Genesco Inc,US
+1787,EXPI,BBG001DCTG63,shares,eXp World Holdings,US
+1788,EXEL,BBG000BQ4WF8,shares,Exelixis Inc,US
+1789,LIFE,TCS00A0JR514,shares,Фармсинтез,RU
+1790,CFR,BBG000C2PL98,shares,Cullen/Frost Bankers,US
+1791,AWI,BBG000DW4LB1,shares,Armstrong World Industries Inc,US
+1792,DHR,BBG000BH3JF8,shares,Danaher,US
+1793,RNR,BBG000BFVZ83,shares,RenaissanceRe Holdings,BM
+1794,MSCI,BBG000RTDY25,shares,MSCI Inc,US
+1795,PDCO,BBG000BQY289,shares,Patterson,US
+1796,BRKR,BBG000CL1FG7,shares,Bruker Corp,US
+1797,FNV,BBG000RD3CL8,shares,Franco Nevada Corporation,CA
+1798,RGA,BBG000BDLCQ0,shares,Reinsurance Group of America I,US
+1799,LNC,BBG000BNC3Y9,shares,Lincoln National Corp,US
+1800,UPRO,BBG004S686W0,shares,Юнипро,RU
+1801,WERN,BBG000BWPP85,shares,Werner Enterprises Inc,US
+1802,CM,BBG000FKTHQ1,shares,Canadian Imperial Bank of Commerce,CA
+1803,MRKS,BBG000VJMH65,shares,МРСК Сибири,RU
+1804,VNO,BBG000BWHD54,shares,Vornado REIT,US
+1805,WSM,BBG000FSMWC3,shares,Williams-Sonoma Inc,US
+1806,NOW,BBG000M1R011,shares,ServiceNow Inc,US
+1807,LOGC,TCS006DZTJ56,shares,ContextLogic,US
+1808,1880,BBG0195DR728,shares,China Tourism Group Duty Free,CN
+1809,RKLB,BBG00Y61SZL5,shares,Rocket Lab,US
+1810,EDIT,BBG005MX5GZ2,shares,Editas Medicine Inc,US
+1811,REZI,BBG00HY28K89,shares,Resideo Technologies Inc,US
+1812,LBRDK,BBG006GNSZW5,shares,Liberty Broadband Corporation,US
+1813,K,BBG000BMKDM3,shares,Kellanova,US
+1814,MPWR,BBG000C30L48,shares,Monolithic Power Systems,US
+1815,PBI,BBG000BQTMJ9,shares,Pitney Bowes,US
+1816,GPC,BBG000BKL348,shares,Genuine Parts,US
+1817,TCMD,BBG001B12Z39,shares,Tactile Systems Technology Inc,US
+1818,EXPE,BBG000QY3XZ2,shares,Expedia,US
+1819,FOX,BBG00JHNKJY8,shares,Twenty-First Century Fox,US
+1820,TNET,BBG000BR2040,shares,TriNet Group Inc,US
+1821,SCSC,BBG000BHTPZ4,shares,ScanSource Inc,US
+1822,MSNG,BBG004S687W8,shares,Мосэнерго,RU
+1823,CRS,BBG000BGCQT9,shares,Carpenter Technology Corp,US
+1824,AFKS,BBG004S68614,shares,АФК Система,RU
+1825,2015,BBG0120WC125,shares,Li Auto,CN
+1826,LECO,BBG000BB72K8,shares,Lincoln Electric Holdings,US
+1827,PB,BBG000BHY4D9,shares,Prosperity Bancshares,US
+1828,ENR,BBG006FCB019,shares,Energizer Holdings Inc,US
+1829,BFAM,BBG003LFWP05,shares,Bright Horizons Family Solutio,US
+1830,TDC,BBG000R0L5J4,shares,Teradata,US
+1831,ASTR,BBG00W7FG4V8,shares,Astra Space,US
+1832,DDOG,BBG003NJHZT9,shares,Datadog Inc,US
+1833,PLZL,BBG000R607Y3,shares,Полюс,RU
+1834,KKR,BBG000BCQ6J8,shares,KKR & Co. Inc.,US
+1835,ALC,BBG00NPWH832,shares,Alcon,CH
+1836,SCCO,BBG000BSHH72,shares,Southern Copper Corp,PE
+1837,APEI,BBG000RVD346,shares,American Public Education Inc,US
+1838,CCOI,BBG000D0SMY8,shares,Cogent Communications,US
+1839,XNCR,BBG0026ZG4W0,shares,Xencor Inc,US
+1840,ZS,BBG003338H34,shares,Zscaler Inc,US
+1841,SSNC,BBG000RJ2J04,shares,SS&C Technologies Holdings Inc,US
+1842,1288,BBG000T9PJD5,shares,Agricultural Bank of China,CN
+1843,BIG,BBG000J0D904,shares,Big Lots Inc,US
+1844,LKOH,BBG004731032,shares,ЛУКОЙЛ,RU
+1845,BCE,BBG000BCXNS3,shares,BCE Inc.,CA
+1846,PVH,BBG000BRRG02,shares,PVH,US
+1847,ACN,BBG000D9D830,shares,Accenture,US
+1848,SEIC,BBG000BSQLT9,shares,SEI Investments Company,US
+1849,UBER,BBG002B04MT8,shares,Uber,US
+1850,CHWY,BBG00P19DKZ6,shares,Chewy Inc,US
+1851,AA,BBG00B3T3HD3,shares,Alcoa Corporation,US
+1852,NWL,BBG000BQC9V2,shares,Newell Brands,US
+1853,DELI,TCS00A107J11,shares,Делимобиль,RU
+1854,1088,BBG000BX4MS1,shares,China Shenhua Energy,CN
+1855,FTV,BBG00BLVZ228,shares,Fortive,US
+1856,BOOT,BBG0077SYZV6,shares,Boot Barn Holdings Inc,US
+1857,ALSN,BBG001KY3845,shares,Allison Transmission Holdings,US
+1858,COHU,BBG000DKMJ86,shares,Cohu Inc.,US
+1859,NATI,BBG000DZK6N6,shares,National Instruments,US
+1860,GNRC,BBG000PQ4W72,shares,Generac Holdings Inc,US
+1861,MGKL,TCS00A0JVJQ8,shares,Мосгорломбард,RU
+1862,GMS,BBG009Q036D0,shares,GMS Inc,US
+1863,TRNO,BBG000PV3J62,shares,Terreno REIT,US
+1864,GOGL,BBG000BP83H8,shares,Golden Ocean Group,BM
+1865,WTTR,BBG00G4Y2DC1,shares,Select Water Solutions,US
+1866,LEAS,TCS00A0ZZFS9,shares,Европлан,RU
+1867,RTO,BBG000BVPG41,shares,Rentokil Initial АДР,US
+1868,RCUS,BBG00DQD26W3,shares,Arcus Biosciences,US
+1869,LULU,BBG000R8ZVD1,shares,Lululemon Athletica Inc,CA
+1870,PI,BBG000GRK2Z7,shares,Impinj Inc,US
+1871,PAYO,BBG00Z5JLLB3,shares,Payoneer Global,US
+1872,OMCL,BBG000BTNGZ4,shares,Omnicell Inc,US
+1873,241,BBG000BDZJK6,shares,Alibaba Health Information Technology,BM
+1874,COLM,BBG000BKKQ84,shares,Columbia Sportswear Company,US
+1875,WAL,BBG000Q1KFH4,shares,Western Alliance Bancorp,US
+1876,ARMK,BBG001KY4N87,shares,Aramark,US
+1877,3692,BBG00P78Y7N1,shares,Hansoh Pharmaceutical,
+1878,NGVT,BBG009LM28K6,shares,Ingevity Corp,US
+1879,WRBY,BBG005DWN8K8,shares,Warby Parker,US
+1880,AEP,BBG000BB9KF2,shares,American Electric Power,US
+1881,TPX,BBG000PXGT62,shares,Tempur Sealy International Inc,US
+1882,HUBS,BBG000N7MZ06,shares,HubSpot Inc,US
+1883,1368,BBG000PJKKM9,shares,Xtep,HK
+1884,AAN,BBG00WCNDCZ6,shares,The Aarons Company,US
+1885,AER,BBG000Q9FZL4,shares,AerCap Holdings,IE
+1886,WRK,BBG008NXC572,shares,WestRock,US
+1887,UBSI,BBG000BVXC87,shares,"United Bankshares, Inc.",US
+1888,LGND,BBG000BKF014,shares,Ligand Pharmaceuticals Inc,US
+1889,UDMN,TCS009046502,shares,Удмуртнефть,RU
+1890,LAD,BBG000K3BC83,shares,LIthia Motors Inc,US
+1891,CHEF,BBG001MFW6D6,shares,Chefs' Warehouse Inc,US
+1892,NLY,BBG000BJFJ98,shares,Annaly Capital Management REIT,US
+1893,BCPC,BBG000BCY878,shares,Balchem Corp,US
+1894,POR,BBG000BCRMW7,shares,Portland General Electric,US
+1895,EME,BBG000BBRPL4,shares,EMCOR Group,US
+1896,KLAC,BBG000BMTFR4,shares,KLA-Tencor,US
+1897,PINC,BBG000G7QX50,shares,Premier Inc,US
+1898,AOSL,BBG000QLW222,shares,Alpha and Omega Semiconductor,US
+1899,CW,BBG000BGSPS5,shares,Curtiss-Wright,US
+1900,HTHT,BBG000QFPM65,shares,H World Group,CN
+1901,SPCE,TCS3766K4031,shares,Virgin Galactic Holdings Inc Class A,US
+1902,JOBY,BBG00X2MYTC2,shares,Joby Aviation,
+1903,TMO,BBG000BVDLH9,shares,Thermo Fisher Scientific,US
+1904,DXC,BBG00FN64XT9,shares,DXC Technology,US
+1905,AMZN,BBG000BVPV84,shares,Amazon.com,US
+1906,FCX,BBG000BJDB15,shares,Freeport-McMoRan,US
+1907,CVLT,BBG000BG88X9,shares,CommVault Systems Inc,US
+1908,ALNY,BBG000BFGNJ5,shares,Alnylam Pharmaceuticals Inc,US
+1909,2628,BBG000FD8023,shares,China Life Insurance,CN
+1910,GH,BBG006D97VY9,shares,Guardant Health Inc,US
+1911,VNDA,BBG000HT5MG6,shares,Vanda Pharmaceuticals Inc,US
+1912,CNC,BBG000BDXCJ5,shares,Centene Corporation,US
+1913,BMRN,BBG000CZWZ05,shares,BioMarin Pharmaceutical Inc,US
+1914,ALL,BBG000BVMGF2,shares,The Allstate Corporation,US
+1915,KNX,BBG000BFC848,shares,Knight-Swift Transportation,US
+1916,APLS,BBG007KGRPY4,shares,Apellis Pharmaceuticals,US
+1917,CIEN,BBG000BP1152,shares,Ciena Corp,US
+1918,MTCH,BBG00B6WH9G3,shares,Match Group Inc,US
+1919,WMB,BBG000BWVCP8,shares,The Williams Companies,US
+1920,MXL,BBG000BB6R33,shares,MaxLinear Inc,US
+1921,NSSC,BBG000BQ6CT5,shares,Napco Security Technologies,US
+1922,NMTP,BBG004S68BR5,shares,НМТП,RU
+1923,MMS,BBG000BC5WJ4,shares,MAXIMUS Inc,US
+1924,ADI,BBG000BB6G37,shares,Analog Devices,US
+1925,RITM,BBG003T1GM03,shares,Rithm Capital REIT,US
+1926,TGKA,BBG000QFH687,shares,ТГК-1,RU
+1927,VIR,BBG00H2QQ8T5,shares,Vir Biotechnology,US
+1928,FOXF,BBG004T7VS53,shares,Fox Factory Holding Corp,US
+1929,EXPD,BBG000BJ5GK2,shares,Expeditors,US
+1930,FRHC,BBG000N625H8,shares,Freedom Holding Corp/NV,RU
+1931,BABA,BBG006G2JVL2,shares,Alibaba,CN
+1932,PJT,BBG0079T1PZ6,shares,PJT Partners Inc.,US
+1933,KLG,BBG018CYVVW5,shares,WK Kellogg Co,US
+1934,CDLX,BBG00225ZDD0,shares,Cardlytics Inc,US
+1935,KRYS,BBG00HDGRHH7,shares,Krystal Biotech Inc,US
+1936,REX,BBG000D2ZK61,shares,REX American Resources Corp,US
+1937,STLA,BBG0078ZLDG9,shares,Stellantis N.V.,GB
+1938,PRAA,BBG000BNTW77,shares,PRA Group Inc,US
+1939,TPG,BBG0145FSNR1,shares,TPG,US
+1940,AZEK,BBG00RPJPN67,shares,AZEK Company,US
+1941,TGNA,BBG000BK5DP1,shares,TEGNA,US
+1942,RVLV,BBG00M4RHBD0,shares,Revolve Group Inc,US
+1943,CNTLP,BBG0027F0Y27,shares,Центральный Телеграф - акции привилегированные,RU
+1944,TTE,BBG000CHZ857,shares,TotalEnergies SE,FR
+1945,DCI,BBG000BGZP70,shares,Donaldson Co,US
+1946,AZN,BBG000BZ0DK8,shares,AstraZeneca PLC,GB
+1947,SATS,BBG000TGLV00,shares,EchoStar Corporation,US
+1948,APLT,BBG000DD0489,shares,Applied Therapeutics,US
+1949,FWRD,BBG000BRCHB4,shares,Forward Air Corporation,US
+1950,ADPT,BBG001J2PFF5,shares,Adaptive Biotechnologies,US
+1951,HUBG,BBG000G9W6L0,shares,Hub Group Inc,US
+1952,SEDG,BBG0084BBZY6,shares,SolarEdge Technologies Inc,IL
+1953,IT,BBG000BB65D0,shares,Gartner,US
+1954,MRO,BBG000C8H633,shares,Marathon Oil,US
+1955,MODV,BBG000P1B7C8,shares,ModivCare Inc.,US
+1956,MTLRP,BBG004S68FR6,shares,Мечел - Привилегированные акции,RU
+1957,MBC,BBG01B9G42Y3,shares,MasterBrand,US
+1958,1919,BBG000C5K5V6,shares,COSCO SHIPPING Holdings,CN
+1959,LPX,BBG000BNF508,shares,Louisiana-Pacific Corporation,US
+1960,HP,BBG000BLCPY4,shares,Helmerich & Payne,US
+1961,3888,BBG000TF4XZ9,shares,Kingsoft,CN
+1962,HR,BBG000PRJCX9,shares,Healthcare Realty Trust REIT,US
+1963,AIN,BBG000BRWWH3,shares,Albany International Corp.,US
+1964,AME,BBG000B9XG87,shares,AMETEK,US
+1965,PSX,BBG00286S4N9,shares,Phillips 66,US
+1966,LNT,BBG000DW4Q75,shares,Alliant Energy,US
+1967,WAFD,BBG000BWQTD0,shares,"WaFd, Inc.",US
+1968,SBCF,BBG000KK3464,shares,Seacoast Banking Corp of Flori,US
+1969,LOGI,BBG000BQNNP6,shares,Logitech International SA,CH
+1970,UPWK,BBG00FBJ6390,shares,Upwork Inc,US
+1971,RRGB,BBG000MXH9C1,shares,Red Robin Gourmet Burgers Inc,US
+1972,ETRN,BBG00K53L394,shares,Equitrans Midstream Corporation,US
+1973,TSLA,BBG000N9MNX3,shares,Tesla Motors,US
+1974,X,BBG000BX3TD3,shares,United States Steel,US
+1975,MRKY,BBG000C7P5M7,shares,МРСК Юга,RU
+1976,NBIX,BBG000GJS7C1,shares,Neurocrine Biosciences Inc,US
+1977,RGR,BBG000C4FQG6,shares,Sturm Ruger & Co Inc,US
+1978,EQT,BBG000BHZ5J9,shares,EQT Corporation,US
+1979,EGHT,BBG000BCGHH7,shares,8x8 Inc,US
+1980,GDOT,BBG000QDJT53,shares,Green Dot Corp,US
+1981,INSP,BBG00209SZJ7,shares,Inspire Medical Systems Inc,US
+1982,NVDA,BBG000BBJQV0,shares,NVIDIA,US
+1983,MEDP,BBG0065B7K59,shares,Medpace Holdings Inc,US
+1984,SSB,BBG000BNPYN9,shares,SouthState Corp,US
+1985,TPIC,BBG0016MQ7C5,shares,TPI Composites Inc,US
+1986,VUZI,BBG000QKVV49,shares,Vuzix Corp,US
+1987,GPN,BBG000CX0P89,shares,Global Payments,US
+1988,GRPH,BBG00XDH4NZ2,shares,"Graphite Bio, Inc.",US
+1989,APTV,BBG001QD41M9,shares,Aptiv,IE
+1990,TNDM,BBG0019V9M65,shares,Tandem Diabetes Care Inc,US
+1991,ASIX,BBG00CWTTQ41,shares,AdvanSix Inc,US
+1992,2007,BBG000QQCY41,shares,Country Garden Holdings,CN
+1993,AAON,BBG000C2LZP3,shares,AAON,US
+1994,RGEN,BBG000BS48J3,shares,Repligen Corporation,US
+1995,GOOG,BBG009S3NB30,shares,Alphabet Class C,US
+1996,PCAR,BBG000BQVTF5,shares,PACCAR,US

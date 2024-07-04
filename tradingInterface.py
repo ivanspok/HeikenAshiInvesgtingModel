@@ -37,6 +37,8 @@ class TradeInterface():
       'stocks_number' : stocks_number,
       'status' : 'created',
       'id' : 1,
+      'gain_coef': 0,
+      'lose_coef' : 0
     }
 
     if self.platform == 'test':
@@ -44,14 +46,14 @@ class TradeInterface():
       response = 'success'
     
     if response == 'success':    
-      order['status'] = 'placed'
+      order['status'] = 'bought'
       order['id'] = 1   # need connect to SQL database
 
     return order
 
 
   def sell_order(self, order, sell_price):
-    if order['status'] == 'placed':
+    if order['status'] == 'bought':
       if self.platform == 'test':
         order['sell_time'] = datetime.now()
         order['sell_price'] = sell_price

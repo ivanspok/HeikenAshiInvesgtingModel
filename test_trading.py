@@ -36,6 +36,10 @@ stock_name_list_opt = [
   'IDXX', 'GIS', 'CTAS', 'AIG', 'ANET', 'BIIB', 'SPG', 'MSCI', 'DHI'
 ]
 
+stock_name_list_opt = [
+  'GOOG', 'AAPL'
+]
+
 period = '3mo'
 interval = '1h' 
 
@@ -101,6 +105,7 @@ def stock_buy_condition(df, ticker):
   '''
   condition = False
   buy_price = 0
+  sell_price = 0
 
   last_top = df['close'].iloc[0]
   last_top_time = df['close'].index[0]
@@ -140,21 +145,38 @@ def stock_buy_condition(df, ticker):
     buy_price = float(df['close'].iloc[i])
     condition = True
   
-  return condition, buy_price
+  return condition, buy_price, gain_coef, lose_coef
 
 if __name__ == '__main__':
 
-  for ticker in stock_name_list_opt:
-    print(f'Stock is {ticker}')
-    stock_df = get_historical_df(ticker = ticker, period=period, interval=interval)
-    condition, buy_price = stock_buy_condition(stock_df, ticker)
-    c.print(f'condition is {condition}', color='blue')
-    
-    time_is_correct =  (datetime.now().astimezone() - stock_df.index[-1]).seconds / 60  < 5 * 60
-    c.print(f'Time is correct condition {time_is_correct}', color='yellow')
+  while True:
 
-    if condition and buy_price != 0 and time_is_correct:
-      order = ti.buy_order(ticker=ticker, buy_price=buy_price, buy_sum=1000)
+    for ticker in stock_name_list_opt:
+      print(f'Stock is {ticker}')
+      stock_df = get_historical_df(ticker = ticker, period=period, interval=interval)
+      condition, buy_price, gain_coef, lose_coef = stock_buy_condition(stock_df, ticker)
+      c.print(f'condition is {condition}', color='blue')
+      print(f'stock {ticker}, time: {stock_df.index[-1]} last price is {stock_df['close'].iloc[-1]:.2f}')
+      time_is_correct =  (datetime.now().astimezone() - stock_df.index[-1]).seconds / 60  < 5 * 60
+      c.print(f'Time is correct condition {time_is_correct}', color='yellow')
 
-    # print(df_stocks_dict[stock].shape)
+      if condition and buy_price != 0 and time_is_correct:
+        order = ti.buy_order(ticker=ticker, buy_price=buy_price, buy_sum=1000)
+        order['gain_coef'] = gain_coef
+        order['lose_coef'] = lose_coef
+        ti.record_order(order)
+        # if order['status'] == 'bought':
+
+      # write module that monitors all bought orders and trying to sell them
+
+  
+  def sell_stock_condition():
+    pass
+    # load current df with all orders
+
+    # select orders with status: bought
+
+    # if price close than specific margin but sell order as fun(gain_coef, lose_coef)
+
+    # check that order correct under broker account
 

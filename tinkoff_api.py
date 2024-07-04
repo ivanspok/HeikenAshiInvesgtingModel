@@ -1,58 +1,84 @@
 import os
-from datetime import timedelta
+from datetime import timedelta, timezone
+from zoneinfo import ZoneInfo
 import pandas as pd
 
 from tinkoff.invest import CandleInterval, Client
 from tinkoff.invest.schemas import CandleSource
 from tinkoff.invest.utils import now
 from personal_settings import personal_settings as ps
+from tinkoff.invest import Client, InstrumentStatus, SharesResponse, InstrumentIdType
+from tinkoff.invest.services import InstrumentsService, MarketDataService
 
 TOKEN = ps.tinkoff
 
-# import pycurl
-# # import StringIO
+class Tinkoff_API():
 
-# # response = StringIO.StringIO()
-# c = pycurl.Curl()
-# c.setopt(c.URL, 'https://invest-public-api.tinkoff.ru/history-data?figi=BBG00QKJSX05&year=2022')
-# # c.setopt(c.WRITEFUNCTION, response.write)
-# c.setopt(c.header, ps.tinkoff)
+    def __init__(self):
+        pass
 
-# c.perform()
-# c.close()
-# print(response.getvalue())
-# response.close()
+    def _convert_tf_price(self, value):
+        return value.units + value.nano / 10**9
+    
+    def get_instrument_id(self, ticker):
+        df = pd.read_csv('tickers_list.csv')
+        figi = df[df['ticker'] == ticker ]['figi'].iloc[0]
+        return figi
 
-# curl -X GET --location "https://invest-public-api.tinkoff.ru/history-data?figi=BBG00QKJSX05&year=2022" \
-# -H "Authorization: Bearer token"
+    def get_hours_candles(self, ticker):
+        instrument_id = self.get_instrument_id(ticker)
+        with Client(TOKEN) as client:
+            candles_list = list(client.get_all_candles(
+                instrument_id=instrument_id,
+                from_=now() - timedelta(days=60),
+                interval=CandleInterval.CANDLE_INTERVAL_HOUR
+            ))
+        columns = ['time','open', 'high', 'low', 'close']
+        df_candles = pd.DataFrame(columns=columns)
+        for candle in candles_list:
+            open = self._convert_tf_price(candle.open)
+            high = self._convert_tf_price(candle.high)
+            low = self._convert_tf_price(candle.low)
+            close = self._convert_tf_price(candle.close)
+            time = candle.time
+            time = time.astimezone(ZoneInfo('US/Eastern'))
+            
+            df_candles = pd.concat([pd.DataFrame([[time, open, high, low, close]], columns=columns), df_candles], ignore_index=True)
 
-import requests
-response = requests.get('https://invest-public-api.tinkoff.ru/history-data?figi=BBG000B9XRY4&year=2022')
-print(response)
+        return df_candles
+    
+    def get_last_candle_close_price(self, ticker, days):
+        instrument_id = self.get_instrument_id(ticker)        
+        with Client(TOKEN) as client:
+            candels_list = list(client.get_all_candles(
+                instrument_id=instrument_id,
+                from_=now() - timedelta(days=1),
+                interval=CandleInterval.CANDLE_INTERVAL_1_MIN
+            ))
+        candel = candels_list[-1]
+        close_price = self._convert_tf_price(candel.close)
+        return close_price
+    
+
+if __name__ == '__main__':
+    ticker = 'AMD'
+    ta = Tinkoff_API()
+    df = ta.get_hours_candles(ticker)
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):  # more options can be specified also
+        print(df)
 
 
-def main():
-    df = pd.DataFrame()
-    client = Client(TOKEN)
-    with Client(TOKEN) as client:
-        for candle in client.get_all_candles(
-            instrument_id="BBG000B9XRY4",
-            from_=now() - timedelta(days=10),
-            interval=CandleInterval.CANDLE_INTERVAL_1_MIN
-        ):
-            print(candle)
-            # df.append(candle)
 
 
 
 
-# if __name__ == "__main__":
-#     main()
 
-# from tinkoff.invest import Client, InstrumentStatus, SharesResponse, InstrumentIdType
-# from tinkoff.invest.services import InstrumentsService, MarketDataService
 
-# TICKER = "AAPL"
+
+
+
+
+
 # def run():
 #     with Client(TOKEN) as cl:
 #         instruments: InstrumentsService = cl.instruments
@@ -62,26 +88,25 @@ def main():
 #         # print(r)
  
 #         l = []
-#         for method in ['shares', 'bonds', 'etfs']: # , 'currencies', 'futures']:
+#         for method in ['shares']: # , 'currencies', 'futures']:
 #             for item in getattr(instruments, method)().instruments:
 #                 l.append({
 #                     'ticker': item.ticker,
 #                     'figi': item.figi,
 #                     'type': method,
 #                     'name': item.name,
+#                     'country_of_rick': item.country_of_risk,
 #                 })
  
-#         df = DataFrame(l)
-#         print(df)
+#         df = pd.DataFrame(l)
+#         # print(df)
 #         # df.to_json()
+#         df.to_csv('tickers_list.csv')
+#         with pd.option_context('display.max_rows', 3000, 'display.max_columns', 3000):  # more options can be specified also
+#             print(df)
  
 #         df = df[df['ticker'] == TICKER]
 #         if df.empty:
 #             print(f"Нет тикера {TICKER}")
 #             return
 #         print(df['figi'].iloc[0])
- 
- 
-# if __name__ == '__main__':
-#     print("** Hola Hey, Azzrael Code YT subs!!!\n")
-#     run()
