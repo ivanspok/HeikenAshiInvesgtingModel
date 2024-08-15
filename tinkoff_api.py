@@ -70,15 +70,6 @@ if __name__ == '__main__':
 
 
 
-
-
-
-
-
-
-
-
-
 # def run():
 #     with Client(TOKEN) as cl:
 #         instruments: InstrumentsService = cl.instruments

@@ -38,24 +38,25 @@ def pct_ratio(value_1 ,value_2, with_sign = 0):
       return (value_2 / value_1 - 1) * 100
 
 def get_heiken_ashi_v2(df):
-  df = df.sort_index()
-  df['ha_c'] = (df['open'] + df['close'] + df['high'] + df['low']) / 4
-  df['ha_o'] = 0.0
-  df['ha_o'] = df['ha_o'].astype('float64')
-  df['ha_pct'] = 0.0
-  df['ha_colour'] = 'green' if df['close'].iloc[0] > df['open'].iloc[0]  else 'red'
-  row = df.iloc[0].name
-  df.at[row, 'ha_o'] = df['open'].iloc[0]
-  
-  for i in range(1, df.shape[0]):
-    row = df.iloc[i].name
-    df.at[row, 'ha_o'] =  (df['ha_o'].iloc[i - 1] + df['ha_c'].iloc[i - 1]) / 2
-    df.at[row, 'ha_colour'] = 'green' if df['ha_o'].iloc[i]  < df['ha_c'].iloc[i] else 'red'
+  if not df.empty:
+    df = df.sort_index()
+    df['ha_c'] = (df['open'] + df['close'] + df['high'] + df['low']) / 4
+    df['ha_o'] = 0.0
+    df['ha_o'] = df['ha_o'].astype('float64')
+    df['ha_pct'] = 0.0
+    df['ha_colour'] = 'green' if df['close'].iloc[0] > df['open'].iloc[0]  else 'red'
+    row = df.iloc[0].name
+    df.at[row, 'ha_o'] = df['open'].iloc[0]
     
-  df['ha_pct'] = np.where(df['ha_o'] < df['ha_c'],  
-                        (df['ha_c'] / df['ha_o'] - 1) * 100,
-                        -(df['ha_o'] / df['ha_c'] - 1) * 100)
-    
+    for i in range(1, df.shape[0]):
+      row = df.iloc[i].name
+      df.at[row, 'ha_o'] =  (df['ha_o'].iloc[i - 1] + df['ha_c'].iloc[i - 1]) / 2
+      df.at[row, 'ha_colour'] = 'green' if df['ha_o'].iloc[i]  < df['ha_c'].iloc[i] else 'red'
+      
+    df['ha_pct'] = np.where(df['ha_o'] < df['ha_c'],  
+                          (df['ha_c'] / df['ha_o'] - 1) * 100,
+                          -(df['ha_o'] / df['ha_c'] - 1) * 100)
+      
   return df
 
 def rma(x, n):

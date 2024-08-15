@@ -69,17 +69,17 @@ if __name__ == '__main__':
  
     # stock_name_list = ['AAPL' ,'MSFT','AMZN', 'NVDA','TSLA','GOOGL', 'META']
     stock_name_list = []
-    # stock_name_list += ['GOOG','JPM','XOM','UNH','JNJ','V','AVGO','PG','LLY','MA','HD','CVX','MRK', 
-    #                    'PEP','COST','ABBV','ADBE','KO','CRM','WMT','MCD','CSCO','BAC','PFE','TMO','ACN','NFLX','ABT','AMD','LIN','ORCL','CMCSA',
-    #                    'TXN','DIS','WFC','DHR','PM','NEE','VZ','INTC','RTX','HON','LOW','UPS','INTU','SPGI','NKE','COP','QCOM','BMY','CAT','UNP','BA','ISRG',
-    #                     'GE','IBM','AMGN','AMAT','MDT','SBUX','PLD','NOW','MS','DE','BLK','GS','T','LMT','AXP','BKNG','SYK','ADI','TJX','ELV','MDLZ','GILD','ADP','MMC',
-    #                     'C','AMT','CVS','VRTX','SCHW','LRCX','MO','TMUS','SLB', 'ETN', 'ZTS', 'CI', 'PYPL']
+    stock_name_list += ['GOOG','JPM','XOM','UNH','JNJ','V','AVGO','PG','LLY','MA','HD','CVX','MRK', 
+                       'PEP','COST','ABBV','ADBE','KO','CRM','WMT','MCD','CSCO','BAC','PFE','TMO','ACN','NFLX','ABT','AMD','LIN','ORCL','CMCSA',
+                       'TXN','DIS','WFC','DHR','PM','NEE','VZ','INTC','RTX','HON','LOW','UPS','INTU','SPGI','NKE','COP','QCOM','BMY','CAT','UNP','BA','ISRG',
+                        'GE','IBM','AMGN','AMAT','MDT','SBUX','PLD','NOW','MS','DE','BLK','GS','T','LMT','AXP','BKNG','SYK','ADI','TJX','ELV','MDLZ','GILD','ADP','MMC',
+                        'C','AMT','CVS','VRTX','SCHW','LRCX','MO','TMUS','SLB', 'ETN', 'ZTS', 'CI', 'PYPL']
 
-    stock_name_list += ['FI','CB','SO','REGN','BSX','EQIX','BDX','PANW','DUK','EOG','MU','AON','ITW','CSX','SNPS','PGR','APD','KLAC','CME','NOC','CDNS','ICE',
-                       'CL','SHW','WM','HCA','TGT','FCX','FDX','F','ORLY','MMM','CMG','EW','GM','MCK','NXPI','MCO','NSC','HUM','EMR','DXCM','PNC','PH','MPC','APH',
-                       'ROP','FTNT','MCHP','PXD','USB','CCI','MAR','MSI','GD','PSA','JCI','PSX','SRE','ADSK','AZO','TDG','ECL','AJG','KMB','TEL','TT','AEP','EL','PCAR',
-                       'OXY','TFC','CARR','D','IDXX','GIS','ON','COF','ADM','MNST','NUE','CTAS','AIG','EXC','VLO','MRNA','ANET','WMB','O','STZ','IQV','HLT','CHTR','WELL',
-                       'BIIB','SPG','MSCI','DHI','ROK']
+    # stock_name_list += ['FI','CB','SO','REGN','BSX','EQIX','BDX','PANW','DUK','EOG','MU','AON','ITW','CSX','SNPS','PGR','APD','KLAC','CME','NOC','CDNS','ICE',
+    #                    'CL','SHW','WM','HCA','TGT','FCX','FDX','F','ORLY','MMM','CMG','EW','GM','MCK','NXPI','MCO','NSC','HUM','EMR','DXCM','PNC','PH','MPC','APH',
+    #                    'ROP','FTNT','MCHP','PXD','USB','CCI','MAR','MSI','GD','PSA','JCI','PSX','SRE','ADSK','AZO','TDG','ECL','AJG','KMB','TEL','TT','AEP','EL','PCAR',
+    #                    'OXY','TFC','CARR','D','IDXX','GIS','ON','COF','ADM','MNST','NUE','CTAS','AIG','EXC','VLO','MRNA','ANET','WMB','O','STZ','IQV','HLT','CHTR','WELL',
+    #                    'BIIB','SPG','MSCI','DHI','ROK']
 
     # stock_name_list = ['WM']
     
@@ -91,9 +91,12 @@ if __name__ == '__main__':
     # code
     for ticker in stock_name_list:
         print(f'Stock is {ticker}')
-        stock_df = get_historical_df(ticker = ticker, period=period, interval=interval, start_date = start_date, end_date = end_date)
-        df_stocks_dict[ticker] = stock_df
-        save_df(stock_df, ticker, period, interval, folder_name)
+        try:
+            stock_df = get_historical_df(ticker = ticker, period=period, interval=interval, start_date = start_date, end_date = end_date)
+            df_stocks_dict[ticker] = stock_df
+            save_df(stock_df, ticker, period, interval, folder_name)
+        except Exception as e:
+            print(e)
         # print(df_stocks_dict[stock].shape)
 
 # :Parameters:

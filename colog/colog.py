@@ -111,6 +111,17 @@ class colog():
             self.FillToSet = fill
         return True
     
+
+    def variable_name(self, variable):
+        name = [name for name, value in locals().items() if value is variable][0]
+        return name
+
+    def green_red_print(self, value, text, style = 'untouch', color = 'untouch', fill = 'untouch'):
+        if value:
+            self.print(f'{text} is True', color = 'green')
+        else:
+            self.print(f'{text} is False', color = 'red')
+
     def print(self, text, style = 'untouch', color = 'untouch', fill = 'untouch'):
         
         if style != 'untouch' and style in self.TextStyleSet:
