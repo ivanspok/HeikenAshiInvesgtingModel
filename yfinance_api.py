@@ -81,7 +81,7 @@ if __name__ == '__main__':
     #                    'OXY','TFC','CARR','D','IDXX','GIS','ON','COF','ADM','MNST','NUE','CTAS','AIG','EXC','VLO','MRNA','ANET','WMB','O','STZ','IQV','HLT','CHTR','WELL',
     #                    'BIIB','SPG','MSCI','DHI','ROK']
 
-    # stock_name_list = ['WM']
+    # stock_name_list = ['PXD']
     
     period = '2y'
     interval = '1h'

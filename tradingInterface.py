@@ -4,7 +4,15 @@ import os, pathlib
 import pickle
 import moomoo as ft
 from colog.colog import colog
+import global_variables as gv
+import pytz
+from zoneinfo import ZoneInfo
+
+from colog.colog import colog
 c = colog()
+warning = colog(TextColor='orange')
+alarm = colog(TextColor='red')
+
 float_columns = ['buy_price', 'buy_sum', 'buy_commission', 'sell_price', 'sell_sum', 'sell_commission', 'gain_coef', 'lose_coef', 'profit']
 
 class TradeInterface():
@@ -26,6 +34,7 @@ class TradeInterface():
       self.moomoo_api = None
 
   def buy_order(self, ticker, buy_price, buy_sum=0, stocks_number=0, **kwargs):
+    response = 'None'
     order = {}
     if buy_sum != 0:
       stocks_number = int(buy_sum / buy_price)
@@ -33,8 +42,8 @@ class TradeInterface():
     buy_sum = stocks_number * buy_price
 
     if buy_sum == 0 and stocks_number == 0:
-      print("Buy sum or stocks numbrer should't be both zero to place the order!")
-
+      alarm.print("Buy sum or stocks numbrer should't be both zero to place the order!")
+    gv.ORDERS_ID += 1
     order = {
       'ticker' : ticker,
       'buy_time' : datetime.now().astimezone(),
@@ -46,7 +55,7 @@ class TradeInterface():
       'sell_commission': 0,
       'stocks_number' : stocks_number,
       'status' : 'created',
-      'id' : 1,
+      'id' : gv.ORDERS_ID,  # Generate by global ID 
       'gain_coef': 0,
       'lose_coef' : 0,
       'sell_sum': 0, 
@@ -63,25 +72,26 @@ class TradeInterface():
     if self.platform == 'moomoo':
       moomoo_order, order_id = self.moomoo_api.place_market_buy_order(ticker, buy_price, stocks_number)
       if not (order_id is None):
-        if moomoo_order['order_status'] == ft.OrderStatus.SUBMITTING \
-          or moomoo_order['order_status'] == ft.OrderStatus.SUBMITTED:
+        if moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTING \
+          or moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTED \
+          or moomoo_order['order_status'].values[0] == ft.OrderStatus.WAITING_SUBMIT:
           response = 'success'
           order['buy_order_id'] = order_id
-          order['buy_price'] = moomoo_order['price']
-          order['buy_sum'] = moomoo_order['price'] * moomoo_order['qty'] 
-          order['stocks_number'] = moomoo_order['qty'] 
-          order['buy_commission'] = 1.111
+          order['buy_price'] = moomoo_order['price'].values[0]
+          order['buy_sum'] = moomoo_order['price'].values[0] * moomoo_order['qty'].values[0]
+          order['stocks_number'] = moomoo_order['qty'].values[0]
+          order['buy_commission'] = 1.111 # defatul commision; real commision will be updated from historical order
       else:
-        print(f'Problem with placing the order for the {ticker}')
+        alarm.print(f'Problem with placing the order for the {ticker}')
         response = 'error'
     
     if response == 'success':    
       order['status'] = 'bought'
-      order['id'] = 1   # need connect to SQL database
 
     return order
 
   def sell_order(self, order, sell_price, **kwargs):
+    response = 'None'
     if order['status'] == 'bought':
       if self.platform == 'test':
         order['sell_time'] = datetime.now().astimezone()
@@ -92,12 +102,15 @@ class TradeInterface():
 
       if self.platform == 'moomoo':
         historical_order = kwargs['historical_order']
-        order['sell_time'] = historical_order['updated_time'].astimezone()
+        tzinfo_ny = pytz.timezone('America/New_York')
+        tzinfo = pytz.timezone('Australia/Melbourne')
+        order['sell_time'] = datetime.strptime(historical_order['updated_time'], '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=tzinfo_ny) # New-York time
+        order['sell_time'] = order['sell_time'].astimezone(tzinfo) # Melbourne Time
         order['sell_price'] = historical_order['dealt_avg_price']
         order['sell_sum'] = historical_order['dealt_avg_price'] * historical_order['qty']
-        sell_commision = self.moomoo_api.order_fee_query(historical_order['order_id'])
+        sell_commision = self.moomoo_api.get_order_commission(historical_order['order_id'])
         if sell_commision is None:
-          sell_commision = 1.01
+          sell_commision = 1.101
         order['sell_commission'] = sell_commision
         if historical_order['order_status'] == ft.OrderStatus.FILLED_ALL:
           response = 'success'
@@ -108,7 +121,6 @@ class TradeInterface():
     return order
   
   def load_trade_history(self):
-
     if not(os.path.isdir(self.folder_path)):
         os.mkdir(self.folder_path)
 
@@ -116,8 +128,10 @@ class TradeInterface():
     if pathlib.Path(file_path).is_file():
       with open(file_path, 'rb') as file:
         df = pickle.load(file)
+        gv.ORDERS_ID  = df['id'].max()
     else:
-      c.print('Trade history do not exist', color='yellow')
+      c.print('Trade history does not exist', color='yellow')
+      gv.ORDERS_ID = 0
       df = pd.DataFrame(
         {
           'id' : pd.Series(dtype='int'),
@@ -142,7 +156,8 @@ class TradeInterface():
       )
     return df
 
-  def __save_orders__(self, df, file_path):
+  def __save_orders__(self, df):
+    file_path = pathlib.Path.joinpath(self.folder_path, self.df_path + '.pkl')
     try:
       with open(file_path, 'wb') as file:
         pickle.dump(df, file)
@@ -152,76 +167,82 @@ class TradeInterface():
           df.to_csv(csv_path)
           c.print('cvs file saved', color='green')
         except Exception as e:
-          c.print(f'{e}')
+          alarm.print(f'{e}')
     except Exception as e:
-        c.print(f'{e}')
+        alarm.print(f'{e}')
 
-  def __update_sql_db__():
+  def __update_sql_db__(self):
     pass
 
-  def update_order(self, order):
+  def update_order(self, df, order):
    
-    if not(os.path.isdir(self.folder_path)):
-      os.mkdir(self.folder_path)
+    # if not(os.path.isdir(self.folder_path)):
+    #   os.mkdir(self.folder_path)
 
     file_path = pathlib.Path.joinpath(self.folder_path, self.df_path + '.pkl')
-    if pathlib.Path(file_path).is_file():
-      with open(file_path, 'rb') as file:
-        df = pickle.load(file)
-        index = df.loc[(df['id'] == order['id']) & (df['buy_time'] == order['buy_time'])].index
-        update_line = pd.DataFrame([order])
-        update_line[float_columns] = update_line[float_columns].astype(float)
-        df.iloc[index] = update_line
-    else:
-      df = pd.DataFrame([order])
-      df[float_columns] = df[float_columns].astype(float)
+    # if pathlib.Path(file_path).is_file():
+    #   with open(file_path, 'rb') as file:
+    #     df = pickle.load(file)
+    #     index = df.loc[(df['id'] == order['id']) & (df['buy_time'] == order['buy_time'])].index
+    #     update_line = pd.DataFrame([order])
+    #     update_line[float_columns] = update_line[float_columns].astype(float)
+    #     df.iloc[index] = update_line
+    # else:
+    #   df = pd.DataFrame([order])
+    #   df[float_columns] = df[float_columns].astype(float)
+    
+    index = df.loc[(df['id'] == order['id']) & (df['buy_time'] == order['buy_time'])].index
+    update_line = pd.DataFrame([order])
+    update_line[float_columns] = update_line[float_columns].astype(float)
+    df.loc[index] = update_line
 
-    self.__save_orders__(df, file_path)
+    self.__save_orders__(df)
     self.__update_sql_db__()
     return df
 
-  def record_order(self, order):
+  def record_order(self, df, order):
 
-    if not(os.path.isdir(self.folder_path)):
-        os.mkdir(self.folder_path)
+    # if not(os.path.isdir(self.folder_path)):
+    #     os.mkdir(self.folder_path)
 
     file_path = pathlib.Path.joinpath(self.folder_path, self.df_path + '.pkl')
-    if pathlib.Path(file_path).is_file():
-      with open(file_path, 'rb') as file:
-        df = pickle.load(file)
-        df2 = pd.DataFrame([order])
-        df2[float_columns] = df2[float_columns].astype(float)
-        df = pd.concat([df, df2], ignore_index=True)
-    else:
-      df = pd.DataFrame([order])
-      df[float_columns] = df[float_columns].astype(float)
-    self.__save_orders__(df, file_path)
+    # if pathlib.Path(file_path).is_file():
+    #   with open(file_path, 'rb') as file:
+    #     df = pickle.load(file)
+    #     df2 = pd.DataFrame([order])
+    #     df2[float_columns] = df2[float_columns].astype(float)
+    #     df = pd.concat([df, df2], ignore_index=True)
+    # else:
+    #   df = pd.DataFrame([order])
+    #   df[float_columns] = df[float_columns].astype(float)
+    df2 = pd.DataFrame([order])
+    df2[float_columns] = df2[float_columns].astype(float)
+    df = pd.concat([df, df2], ignore_index=True)
+    self.__save_orders__(df)
     return df
   
   def stock_is_bought(self, ticker, df):
   
-    df = df[(df['ticker'] == ticker) & (df['status'] == 'bought')]
+    df = df.loc[(df['ticker'] == ticker) & (df['status'] == 'bought')]
     return not(df.empty)
 
   def limit_if_touched_order_set(self, ticker, df):
-    df = df[(df['ticker'] == ticker) & (df['status'] == 'bought') & (df['limit_if_touched_order_id'].iloc[0] != None)]
+    # check why useing iloc[0] !!!
+    df = df[(df['ticker'] == ticker) & (df['status'] == 'bought') & (df['limit_if_touched_order_id'].iloc[0] != 'None')]
     return not(df.empty)
   
   def stop_order_set(self, ticker, df):
+    # check why useing iloc[0] !!!
     df = df[(df['ticker'] == ticker) & (df['status'] == 'bought') & (df['stop_order_id'].iloc[0] != None)]
 
     return not(df.empty)
-
-  # if ticker in bought_stocks \
-# and ticker in df and status is bought 
-# and not ORDER LIMIT and STOP
 
 if __name__ == '__main__':
   ti = TradeInterface(platform='test', df_name='testing')
   df = ti.load_trade_history()
   # Tests:
   order = df[(df['status'] == 'bought')].iloc[0]
-  order['stop_order_id'] = 2343
+  order['stop_order_id'] = None
   order['limit_if_touched_order_id'] = 543
   df = ti.update_order(order)
   print(ti.stock_is_bought('AAPL', df))

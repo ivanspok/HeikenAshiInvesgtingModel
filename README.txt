@@ -1,4 +1,4 @@
-# Curent setup of the model:
+# Current setup of the model:
 
 # File to get historical data: 
 yfinance_api.py 
