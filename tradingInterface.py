@@ -104,15 +104,15 @@ class TradeInterface():
         historical_order = kwargs['historical_order']
         tzinfo_ny = pytz.timezone('America/New_York')
         tzinfo = pytz.timezone('Australia/Melbourne')
-        order['sell_time'] = datetime.strptime(historical_order['updated_time'], '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=tzinfo_ny) # New-York time
+        order['sell_time'] = datetime.strptime(historical_order['updated_time'].values[0], '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=tzinfo_ny) # New-York time
         order['sell_time'] = order['sell_time'].astimezone(tzinfo) # Melbourne Time
-        order['sell_price'] = historical_order['dealt_avg_price']
-        order['sell_sum'] = historical_order['dealt_avg_price'] * historical_order['qty']
-        sell_commision = self.moomoo_api.get_order_commission(historical_order['order_id'])
+        order['sell_price'] = float(historical_order['dealt_avg_price'].values[0])
+        order['sell_sum'] = float(historical_order['dealt_avg_price'].values[0] * historical_order['qty'].values[0])
+        sell_commision = self.moomoo_api.get_order_commission(historical_order['order_id'].values[0])
         if sell_commision is None:
           sell_commision = 1.101
         order['sell_commission'] = sell_commision
-        if historical_order['order_status'] == ft.OrderStatus.FILLED_ALL:
+        if historical_order['order_status'].values[0] == ft.OrderStatus.FILLED_ALL:
           response = 'success'
       
       if response == 'success': 

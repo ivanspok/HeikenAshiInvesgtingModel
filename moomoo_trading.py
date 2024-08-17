@@ -34,12 +34,12 @@ cr = CurrencyConverter()
 rate = cr.convert(1, 'AUD', 'USD')
 
 # Trade settings 
-money_permitted_for_trade = 2200 * rate # in AUD * rate = USD
-default_buy_sum = 1000 * rate # in AUD * rate = USD
-min_buy_sum = 650 * rate # in AUD * rate = USD
-max_buy_sum = 1400 * rate # in AUD * rate = USD
+money_permitted_for_trade = 2300 * rate # in AUD * rate = USD
+default_buy_sum = 2200 * rate # in AUD * rate = USD
+min_buy_sum = 1200 * rate # in AUD * rate = USD
+max_buy_sum = 2200 * rate # in AUD * rate = USD
 stop_trading_profit_value = -30 * rate # in AUD * rate = USD
-max_stock_price = 1000 * rate # in AUD * rate = USD
+max_stock_price = 1100 * rate # in AUD * rate = USD
 
 # Moomoo settings
 moomoo_ps = ps.Moomoo()
@@ -65,17 +65,31 @@ MARKET = 'US.'
 # ]
 
 # Version 2.0
+# stock_name_list_opt = [
+# 'BA', 'ON', 'MCHP', 'ADI', 'PANW', 'DHI', 'ANET', 'AMD', 'LRCX', 'LLY',
+# 'MU', 'TXN', 'AIG', 'WMB', 'BSX', 'NKE', 'OXY', 'TT', 'AMAT', 'ETN', 'DE',
+# 'EL', 'FDX', 'MAR', 'GE', 'NFLX', 'NUE', 'GOOG', 'ECL', 'AVGO', 'CAT', 'SPG',
+# 'ADSK', 'INTU', 'SLB', 'F', 'WMT', 'SBUX', 'SNPS', 'AJG', 'TMUS', 'KLAC', 'CI',
+# 'JCI', 'GILD', 'QCOM', 'ROP', 'MO', 'WM', 'HON', 'ITW', 'GS', 'HCA', 'TJX', 'ICE',
+# 'DXCM', 'IDXX', 'ABBV', 'CDNS', 'CMCSA', 'JNJ', 'EQIX', 'MDLZ', 'NXPI', 'MSI', 'TEL',
+# 'LMT', 'USB', 'MRK', 'HLT', 'APD', 'CTAS', 'MNST', 'NOW', 'AMT', 'PH', 'HUM', 'ADM',
+# 'TDG', 'EMR', 'GM', 'ADP', 'CMG', 'SCHW', 'MSCI', 'EOG', 'UNP', 'INTC', 'CME',
+# 'MA', 'CVS', 'XOM', 'CSCO', 'WELL', 'TMO', 'MRNA', 'PLD', 'APH', 'PEP', 'CRM', 'MMM',
+# 'MMC', 'LIN', 'GIS', 'COST', 'CSX', 'IQV', 'FI', 'MCD', 'VRTX'
+# ]
+
+# Version 3.0
 stock_name_list_opt = [
-'BA', 'ON', 'MCHP', 'ADI', 'PANW', 'DHI', 'ANET', 'AMD', 'LRCX', 'LLY',
-'MU', 'TXN', 'AIG', 'WMB', 'BSX', 'NKE', 'OXY', 'TT', 'AMAT', 'ETN', 'DE',
-'EL', 'FDX', 'MAR', 'GE', 'NFLX', 'NUE', 'GOOG', 'ECL', 'AVGO', 'CAT', 'SPG',
-'ADSK', 'INTU', 'SLB', 'F', 'WMT', 'SBUX', 'SNPS', 'AJG', 'TMUS', 'KLAC', 'CI',
-'JCI', 'GILD', 'QCOM', 'ROP', 'MO', 'WM', 'HON', 'ITW', 'GS', 'HCA', 'TJX', 'ICE',
-'DXCM', 'IDXX', 'ABBV', 'CDNS', 'CMCSA', 'JNJ', 'EQIX', 'MDLZ', 'NXPI', 'MSI', 'TEL',
-'LMT', 'USB', 'MRK', 'HLT', 'APD', 'CTAS', 'MNST', 'NOW', 'AMT', 'PH', 'HUM', 'ADM',
-'TDG', 'EMR', 'GM', 'ADP', 'CMG', 'SCHW', 'MSCI', 'EOG', 'UNP', 'INTC', 'CME',
-'MA', 'CVS', 'XOM', 'CSCO', 'WELL', 'TMO', 'MRNA', 'PLD', 'APH', 'PEP', 'CRM', 'MMM',
-'MMC', 'LIN', 'GIS', 'COST', 'CSX', 'IQV', 'FI', 'MCD', 'VRTX'
+'BA', 'OXY', 'DHI', 'ON', 'PANW', 'AMD', 'MCHP', 'BSX', 'INTU', 'HLT', 'NXPI', 'AIG', 'EL',
+'LLY', 'USB', 'AMAT', 'ADI', 'ANET', 'DXCM', 'LRCX', 'EOG', 'GE', 'MU', 'PSX', 'NUE', 'AVGO',
+'WMB', 'TJX', 'SNPS', 'WMT', 'KLAC', 'MAR', 'SBUX', 'ECL', 'CDNS', 'EMR', 'TT', 'IDXX', 'VLO',
+'TXN', 'F', 'ABBV', 'MPC', 'CAT', 'CSCO', 'NFLX', 'JCI', 'TDG', 'MRK', 'MRNA', 'DE', 'NOW',
+'TMUS', 'GM', 'WELL', 'ETN', 'ICE', 'WM', 'CME', 'PCAR', 'CTAS', 'MSI', 'GILD', 'SLB', 'CMCSA',
+'ROP', 'ADM', 'LOW', 'QCOM', 'VRTX', 'MO', 'EXC', 'CI', 'JNJ', 'CL', 'STZ', 'CMG', 'MMM', 'SCHW',
+'GOOG', 'PH', 'LMT', 'HON', 'PEP', 'COP', 'CRM', 'MSCI', 'UNP', 'APD', 'ADP', 'CVS', 'GS', 'HUM',
+'ADSK', 'TEL', 'IBM', 'ROK', 'MNST', 'CVX', 'ITW', 'ADBE', 'PM', 'SPG', 'TGT', 'PYPL', 'APH', 'FDX',
+'CSX', 'SHW', 'TFC', 'UNH',
+'CME', 'AMT'
 ]
 
 # stock_name_list_opt = ['CME', 'AMT']
@@ -83,7 +97,6 @@ stock_name_list_opt = [
 # settings for historical df from yfinance
 period = '3mo'
 interval = '1h' 
-
 
 # settings for buy condition Version 1.0
 # is_near_global_max_prt = 80
@@ -95,14 +108,22 @@ interval = '1h'
 # number_tries_to_submit_order = {}
 #
 # settings for buy condition Version 2.0
+# is_near_global_max_prt = 96
+# distance_from_last_top  = 0
+# last_top_ratio = 1
+# RIV  = 0.15
+# buy_ratio_border = 0
+# bull_trend_coef = 1.12
+# number_tries_to_submit_order = {}
+#
+# settings for buy condition Version 3.0
 is_near_global_max_prt = 96
 distance_from_last_top  = 0
 last_top_ratio = 1
-RIV  = 0.15
+RIV  = 0.05
 buy_ratio_border = 0
-bull_trend_coef = 1.12
+bull_trend_coef = 1.07
 number_tries_to_submit_order = {}
-#
 
 # Stock candles
 def get_historical_df(ticker='', interval='1h', period='2y', start_date=date.today(), end_date=date.today()):
@@ -184,7 +205,7 @@ def stock_buy_condition(df, ticker):
     lose_coef = 0.95  
   else: # bear trend
     gain_coef = 1.005
-    lose_coef = 0.98
+    lose_coef = 0.95
 
   buy_ratio = float(last_top -  df['open'].iloc[i]) / float(df['ha_pct'].iloc[i])
   if df['ha_pct'].iloc[i] > RIV \
@@ -246,6 +267,7 @@ if __name__ == '__main__':
   # ti = TradeInterface(platform='test', df_name='test', moomoo_api=ma)
   df = ti.load_trade_history() # load previous history
   df = df.drop_duplicates()
+  # df.loc[2, 'limit_if_touched_order_id']  = 'FA1951E253C07B2000'
   ti.__save_orders__(df)
 
   # BUY TEST
@@ -335,11 +357,12 @@ if __name__ == '__main__':
           order_id = ma.place_limit_if_touched_order(ticker, price, qty)
           if not (order_id is None):
             order['limit_if_touched_order_id'] = order_id
-            df = ti.record_order(order)
+            df = ti.record_order(df, order)
         else:
           sell_order = limit_if_touched_sell_orders.loc[limit_if_touched_sell_orders['order_id'] == order['limit_if_touched_order_id']]
-          if sell_order['order_status'].values[0] != ft.OrderStatus.SUBMITTED and \
-              sell_order['order_status'].values[0]  != ft.OrderStatus.SUBMITTING:
+          if sell_order['order_status'].values[0] != ft.OrderStatus.SUBMITTED \
+             and sell_order['order_status'].values[0]  != ft.OrderStatus.SUBMITTING \
+             and sell_order['order_status'].values[0]  != ft.OrderStatus.WAITING_SUBMIT:
             alarm.print(f'{ticker} limit if touched order has not been sumbitted')
             # if order status isn't SUBMITTED after 3 times cancel the order and RESUBMITIT it?
 
@@ -349,11 +372,12 @@ if __name__ == '__main__':
           order_id = ma.place_stop_order(ticker, price, qty)
           if not (order_id is None):
             order['stop_order_id'] = order_id
-            df = ti.record_order(order)
+            df = ti.record_order(df, order)
         else:
           sell_order = stop_sell_orders.loc[stop_sell_orders['order_id'] == order['stop_order_id']]
-          if sell_order['order_status'].values[0] != ft.OrderStatus.SUBMITTED and \
-              sell_order['order_status'].values[0] != ft.OrderStatus.SUBMITTING:
+          if sell_order['order_status'].values[0] != ft.OrderStatus.SUBMITTED \
+              and sell_order['order_status'].values[0] != ft.OrderStatus.SUBMITTING \
+              and sell_order['order_status'].values[0]  != ft.OrderStatus.WAITING_SUBMIT:
             alarm.print(f'{ticker} stop order has not been sumbitted')
             # if order status isn't SUBMITTED after 3 times cancel the order and RESUBMITIT it
       else:
@@ -373,6 +397,32 @@ if __name__ == '__main__':
         print(f'{e}')
         stock_df = None
       
+      # DYNAMIC GAIN COEFFICIENT
+      # if gain_coef\lose_coef doesn't match order's modify the order:
+      if not(stock_df is None):
+        if ticker in bought_stocks_list:
+          i = stock_df.shape[0] - 1
+          if stock_df['close'].iloc[i] / stock_df['close'].iloc[i - 200] > bull_trend_coef: # bull trend
+            gain_coef = 1.02
+            lose_coef = 0.95  
+          else: # bear 
+            gain_coef = 1.005
+            lose_coef = 0.95 
+          if order['gain_coef'] != gain_coef:
+            ma.unlock_trade()
+            order_id = ma.modify_limit_if_touched_order(order, gain_coef)
+            if order_id != order['limit_if_touched_order_id']:
+              order['limit_if_touched_order_id'] = order_id
+            order['gain_coef'] = gain_coef
+            df = ti.update_order(df, order)
+          if order['lose_coef'] != lose_coef:
+            ma.unlock_trade()
+            order_id = ma.modify_stop_order(order, lose_coef)
+            if order_id != order['stop_order_id']:
+              order['stop_order_id'] = order_id
+            order['lose_coef'] = lose_coef
+            df = ti.update_order(df, order)
+
       if not(stock_df is None):
         if not(ticker in bought_stocks_list):
           buy_condition, buy_price, gain_coef, lose_coef = stock_buy_condition(stock_df, ticker)
@@ -448,16 +498,18 @@ if __name__ == '__main__':
               historical_orders['order_id'] == order['stop_order_id']]
            # checking and update limit if touched order
            if historical_limit_if_touched_order.shape[0] > 0 \
-             and  historical_limit_if_touched_order['order_status'].values[0] == ft.OrderStatus.SUBMITTED\
+             and  historical_limit_if_touched_order['order_status'].values[0] == ft.OrderStatus.FILLED_ALL\
              and order['status'] == 'bought':
              sell_price = order['buy_price'] * order['gain_coef']
              order = ti.sell_order(order, sell_price=sell_price, historical_order = historical_limit_if_touched_order)
              df = ti.update_order(df, order)
+             # play sound:
+             winsound.PlaySound('SystemHand', winsound.SND_ALIAS)
              # cancel stop order
              ma.cancel_order(order['stop_order_id'])
           # checking and update stop order
            if historical_stop_order.shape[0] > 0 \
-            and historical_stop_order['order_status'].values[0] == ft.OrderStatus.SUBMITTED\
+            and historical_stop_order['order_status'].values[0] == ft.OrderStatus.FILLED_ALL\
             and order['status'] == 'bought':
              sell_price = order['buy_price'] * order['lose_coef']
              order = ti.sell_order(order, sell_price=sell_price, historical_order = historical_stop_order)

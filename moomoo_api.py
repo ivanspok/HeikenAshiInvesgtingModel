@@ -91,6 +91,64 @@ class Moomoo_API():
             alarm.print(e)
         return order_id
 
+    def modify_limit_if_touched_order(self, order, gain_coef):
+        order_id = order['limit_if_touched_order_id']
+        price =  order['buy_price'] * gain_coef
+        qty = order['stocks_number']
+        ticker = order['ticker']
+        try:
+            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            ret, data = trd_ctx.modify_order(
+                                    modify_order_op=ft.ModifyOrderOp.NORMAL,
+                                    order_id=order_id,
+                                    price=price,
+                                    aux_price=price * 1.0001,
+                                    qty=qty,
+                                    trd_env=self.trd_env,
+                                    adjust_limit=0.01,
+                                    )
+            print(f'Modifying limit if touched order for {ticker}, {order_id}')
+            print(f'Market response is {ret}, data is {data}')
+            if ret == ft.RET_OK:
+                order_id_returned = data['order_id'].values[0]
+                if order_id_returned != order_id:
+                    print(f'order_id is {order_id}, order_id_returned is {order_id_returned}')
+                    order_id = order_id_returned
+            else:
+                alarm.print(data)
+        except Exception as e:
+            alarm.print(e)
+        return order_id
+
+    def modify_stop_order(self, order, lose_coef):
+        order_id = order['stop_order_id']
+        price =  order['buy_price'] * lose_coef
+        qty = order['stocks_number']
+        ticker = order['ticker']
+        try:
+            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            ret, data = trd_ctx.modify_order(
+                                    modify_order_op=ft.ModifyOrderOp.NORMAL,
+                                    order_id=order_id,
+                                    price=price,
+                                    aux_price=price * 0.9995,
+                                    qty=qty,
+                                    trd_env=self.trd_env,
+                                    adjust_limit=0.01,
+                                    )
+            print(f'Modifying stop order for {ticker}, {order_id}')
+            print(f'Market response is {ret}, data is {data}')
+            if ret == ft.RET_OK:
+                order_id_returned = data['order_id'].values[0]
+                if order_id_returned != order_id:
+                    print(f'order_id is {order_id}, order_id_returned is {order_id_returned}')
+                    order_id = order_id_returned
+            else:
+                alarm.print(data)
+        except Exception as e:
+            alarm.print(e)
+        return order_id
+
     def place_stop_order(self, ticker, price, qty):
         order_id = None
         try:
