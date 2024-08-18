@@ -1,3 +1,0 @@
-,ticker,buy_time,buy_price,buy_sum,buy_commission,sell_time,sell_price,sell_commission,stocks_number,status,id,gain_coef,lose_coef,sell_sum,profit,buy_order_id,limit_if_touched_order_id,stop_order_id
-3,CME,2024-08-16 23:54:09.049916+10:00,206.6,619.8,1.0,,,0.0,3.0,bought,2,1.005,0.98,0.0,0.0,FA1951BAA41E7B2000,FA1951CA435784A000,FA1951BFB49BFB2000
-6,AMT,2024-08-17 01:04:42.282858+10:00,220.04,440.08,1.0,,,0.0,2.0,bought,3,1.005,0.98,0.0,0.0,FA1951CACA1BBB2000,FA1951CB1EE044A000,FA1951CB1F203B2000

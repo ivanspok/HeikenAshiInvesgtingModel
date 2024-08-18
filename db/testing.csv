@@ -1,3 +1,0 @@
-,ticker,buy_time,buy_price,buy_sum,buy_commission,sell_time,sell_price,sell_commission,stocks_number,status,id,gain_coef,lose_coef,sell_sum,profit,limit_if_touched_order_id,stop_order_id
-0,AAPL,2024-08-11 19:10:49.153501+10:00,100.0,1000.0,2.0,,,0.0,10,bought,1,0.0,0.0,0.0,0.0,543,
-1,AAPL,2024-08-11 19:10:49.153501+10:00,100.0,1000.0,2.0,,,0.0,10,bought,1,0.0,0.0,0.0,0.0,543,

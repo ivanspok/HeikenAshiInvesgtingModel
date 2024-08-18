@@ -259,16 +259,61 @@ def update_buy_order_based_on_platform_data(order):
       order['buy_commission'] = buy_commission
     return order
 
+def test_trading_simulation(ticker, stock_df, df_test, bought_stocks_list):
+      
+    if not(stock_df is None):
+
+        if not(ticker in bought_stocks_list):
+          buy_condition, buy_price, gain_coef, lose_coef = stock_buy_condition(stock_df, ticker)
+        else:
+          buy_condition = False
+        current_timezone = datetime.now().astimezone().tzinfo
+        time_is_correct =  (datetime.now().astimezone() - stock_df.index[-1].astimezone(current_timezone)).seconds  < 60 * 60 * 1 + 60 * 5 
+
+        if buy_condition and buy_price != 0 and time_is_correct:
+          order = ti_test.buy_order(ticker=ticker, buy_price=buy_price, buy_sum=1000.0)
+          order['gain_coef'] = gain_coef
+          order['lose_coef'] = lose_coef
+          df_test = ti_test.record_order(df_test, order)
+
+        # Checking for sell condition
+        if ticker in bought_stocks_list:
+          order = df_test.loc[(df_test['ticker'] == ticker) & (df_test['status'] == 'bought')].sort_values('buy_time').iloc[-1]
+          order_book_is_available = False
+
+          try:
+            stock_df = get_historical_df(ticker = ticker, period='1d', interval='1m')
+          except Exception as e:
+            print(f'Minute data for stock {ticker} has not been received')
+      
+          current_stock = stock_df.sort_index().iloc[-1]
+          if order_book_is_available:
+            # get current price from order book
+            current_price = 0
+          else:
+            current_price = current_stock['close']
+          sell_condition = sell_stock_condition(order, current_price)
+
+          if sell_condition:
+            order = ti_test.sell_order(order, current_price)
+            df_test = ti_test.update_order(df_test, order)
+
+    return df_test
+
+
 if __name__ == '__main__':
 
   alarm.print('YOU ARE RUNNING REAL TRADE ACCOUNT')
   ma = Moomoo_API(ip, port, trd_env=TRD_ENV, acc_id = ACC_ID)
   ti = TradeInterface(platform='moomoo', df_name='real_trade_db', moomoo_api=ma)
-  # ti = TradeInterface(platform='test', df_name='test', moomoo_api=ma)
   df = ti.load_trade_history() # load previous history
   df = df.drop_duplicates()
   # df.loc[2, 'limit_if_touched_order_id']  = 'FA1951E253C07B2000'
   ti.__save_orders__(df)
+
+  # TEST TRADING
+  ti_test = TradeInterface(platform='test', df_name='test') # test trading
+  df_test = ti_test.load_trade_history()
 
   # BUY TEST
   # order = ti.buy_order(ticker='CWPE', buy_price=1.8, buy_sum=4)
@@ -290,7 +335,6 @@ if __name__ == '__main__':
   #   if row['aux_price'].values[0] > 0:  ##!!!??>
   #     print('ok')  
         
-
   # Moomoo trade algo:
   # 1. Check what stocks are bought based on MooMoo 
   # 2. Check that for all bought stocks placed LIMIT and STOP orders ()
@@ -309,25 +353,8 @@ if __name__ == '__main__':
     alarm.print('YOU ARE RUNNING REAL TRADE ACCOUNT')  
     # 1. Check what stocks are bought based on MooMoo (position list) and df
     positions = ma.get_positions()
-    limit_if_touched_sell_orders, stop_sell_orders = ma.get_sell_orders()
-    # try:
-    #   if limit_if_touched_sell_orders.shape[0] == 0:
-    #     limit_if_touched_sell_orders_list = []
-    #   else:
-    #     limit_if_touched_sell_orders_list = []
-    #     for order in limit_if_touched_sell_orders:
-    #       ticker = order['code'].split('.')[1]
-    #       limit_if_touched_sell_orders_list.append(ticker)
 
-    #   if stop_sell_orders.shape[0] == 0:
-    #     stop_sell_orders_list = []
-    #   else:
-    #     stop_sell_orders_list = []
-    #     for order in stop_sell_orders:
-    #       ticker = order['code'].split('.')[1]
-    #       stop_sell_orders_list.append(ticker)
-    # except:
-    #   pass
+    limit_if_touched_sell_orders, stop_sell_orders = ma.get_sell_orders()
     limit_if_touched_sell_orders_list = []
     for index, row in limit_if_touched_sell_orders.iterrows():
       ticker = row['code'].split('.')[1]
@@ -344,6 +371,13 @@ if __name__ == '__main__':
       bought_stocks_list = bought_stocks.ticker.to_list()
     else:
       bought_stocks_list = []
+    
+    # TEST TRADING
+    if df_test.shape[0] > 0:
+      bought_stocks_test = df_test.loc[df_test['status'] == 'bought']
+      bought_stocks_test_list = bought_stocks_test.ticker.to_list()
+    else:
+      bought_stocks_test_list = []
 
     # 2. Check that for all bought stocks placed LIMIT_IF_TOUCHED and STOP orders
     for code in positions:
@@ -387,12 +421,15 @@ if __name__ == '__main__':
     # 5. Buy condition + day's profit limitation
     for ticker in stock_name_list_opt:
       print(f'Stock is {ticker}')
+      # REAL TRADING
       if ticker in bought_stocks_list:
         order = bought_stocks.loc[bought_stocks['ticker'] == ticker].sort_values('buy_time').iloc[-1]
       else:
         order = []
       try:
         stock_df = get_historical_df(ticker = ticker, period=period, interval=interval)
+        # TEST TRADING
+        df_test = test_trading_simulation(ticker, stock_df, df_test, bought_stocks_test_list)
       except Exception as e:
         print(f'{e}')
         stock_df = None
