@@ -4,9 +4,6 @@ from sqlalchemy import ForeignKey
 from sqlalchemy import Integer, String, Column, DateTime, TIMESTAMP, Float
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
-from sqlalchemy.orm import mapped_column
-from sqlalchemy.orm import relationship
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session 
 from sqlalchemy import select
@@ -31,35 +28,45 @@ class Orders(Base):
     buy_commission = Column(Float)
     sell_time = Column(DateTime) 
     sell_price = Column(Float)
+    sell_sum = Column(Float)
     sell_commission = Column(Float)
     stocks_number = Column(Integer)
     status = Column(String(30))
     gain_coef = Column(Float)
     lose_coef = Column(Float)
-    sell_sum = Column(Float)
     profit = Column(Float)
     buy_order_id = Column(String(30))
     limit_if_touched_order_id = Column(String(30))
     stop_order_id = Column(String(30))
     timezone = Column(String(40))   
-    # id = Column(Integer)
 
     def __repr__(self) -> str:
         return f"Order(id={self.id!r}, order_id={self.order_id!r})"
 
 class DB_connection():
    
-   def __init__(self, folder_path, db_name):
+   def __init__(self, folder_path, db_name, df = None):
       self.folder_path = folder_path
       self.db_name = db_name
+      self.db_path = pathlib.Path.joinpath(folder_path, db_name)
       self.engine_init()
+
+      self.columns = [
+       'ticker', 'id', 'buy_time', 'buy_price', 'buy_sum', 'buy_commission',
+       'sell_time', 'sell_price', 'sell_sum', 'sell_commission', 'stocks_number', 'status',
+       'gain_coef', 'lose_coef', 'profit', 'buy_order_id', 'limit_if_touched_order_id', 'stop_order_id'
+      ]
+
+      if not(pathlib.Path(self.db_path).is_file())\
+        and df is not None:
+         self.update_db_from_df(df)
 
    def engine_init(self):
       if not(os.path.isdir(self.folder_path)):
         os.mkdir(self.folder_path)
       self.engine = create_engine(f'sqlite:///{pathlib.Path.joinpath(self.folder_path, self.db_name)}', echo=True)
-      with self.engine.connect() as conn:
-         pass
+      # with self.engine.connect() as conn:
+      #    pass
       
    def update_db_from_df(self, df):
       
@@ -73,22 +80,59 @@ class DB_connection():
                   con = connection,
                   if_exists='replace')
 
-      # with Session(self.engine) as session:
-        
-      #   for index, row in df.iterrows():
-      #      order = Orders(
-      #         ticker 
-      #  )
-           
-        # session.add_all([test_order])
-        # session.commit()
+   def add_record(self, order):
+     
+    with Session(db.engine) as session:
 
-   def add_record(self):
-      pass
+      if type(order) == dict:
+         for column in self.columns:
+            locals()[column] = order[column]
 
-   def update_record(self):
-      pass  
+      if type(order) == pd.Series:
+          for column in self.columns:
+            locals()[column] = order[column] 
+    
+      order = Orders(
+            ticker = locals()['ticker'],
+            order_id=  locals()['id'],
+            buy_time = locals()['buy_time'],
+            buy_price = locals()['buy_price'],
+            buy_sum = locals()['buy_sum'],
+            buy_commission = locals()['buy_commission'],
+            sell_time = locals()['sell_time'],
+            sell_price = locals()['sell_price'],
+            sell_sum = locals()['sell_sum'],
+            sell_commission = locals()['sell_commission'],
+            stocks_number = locals()['stocks_number'],
+            status = locals()['status'],
+            gain_coef = locals()['gain_coef'],
+            lose_coef = locals()['lose_coef'],
+            profit = locals()['profit'],
+            buy_order_id = locals()['buy_order_id'],
+            limit_if_touched_order_id = locals()['limit_if_touched_order_id'],
+            stop_order_id = locals()['stop_order_id'],
+            timezone = datetime.tzname(locals()['buy_time'])  
+      )
 
+      session.add_all([order])
+      session.commit()
+
+   def update_record(self, order):
+      
+      if type(order) == dict:
+         for column in self.columns:
+            locals()[column] = order[column]
+
+      if type(order) == pd.Series:
+          for column in self.columns:
+            locals()[column] = order[column] 
+
+      with Session(db.engine) as session:
+         sql_order = session.query(Orders).filter_by(order_id= locals()['id'], buy_time=locals()['buy_time']).first()
+         for param in self.columns:
+             if param != 'id':
+              setattr(sql_order, param, locals()[param])
+         session.commit()
 
 if __name__ == "__main__":
   parent_path = pathlib.Path(__file__).parent
@@ -96,40 +140,25 @@ if __name__ == "__main__":
   db = DB_connection(folder_path, 'trade.db')
   Base.metadata.create_all(db.engine)
   
+ 
   df_name = 'real_trade_db.pkl'
   file_path = pathlib.Path.joinpath(parent_path,'db', df_name)
   if pathlib.Path(file_path).is_file():
     with open(file_path, 'rb') as file:
       df = pickle.load(file)
-      db.update_db_from_df(df)
+  print(df)
+  # db.add_record(df.iloc[0])
+  # df['gain_coef'].iloc[0] = 1.005
+  db.update_record(df.iloc[0])
+  # db.add_record(order)
 
-  # Write to db
-  # with Session(db.engine) as session:
-  #     tzinfo = pytz.timezone('Australia/Melbourne')
-  #     test_order = Orders(
-  #         ticker='ORM',
-  #         order_id = '2342efsf3',
-  #         buy_time = datetime.now().astimezone(tz=tzinfo),
-  #         timezone = tzinfo.zone
-  #     )
-  #     session.add_all([test_order])
-  #     session.commit()
-
-  # Update db
-  # with Session(db.engine) as session:
-  #     order = session.query(Orders).filter_by(ticker = 'AAPL').first()
-  #     print(order)
-  #     setattr(order, 'order_id', '1234567')
-  #     session.commit()
+  # add conditions to read files from df
+  if False:
+    df_name = 'real_trade_db.pkl'
+    file_path = pathlib.Path.joinpath(parent_path,'db', df_name)
+    if pathlib.Path(file_path).is_file():
+      with open(file_path, 'rb') as file:
+        df = pickle.load(file)
+        db.update_db_from_df(df)
 
 
-  
-
-#     from sqlalchemy import select
-
-# session = Session(engine)
-
-# stmt = select(Order)
-
-# for item in session.scalars(stmt):
-#     print(item)

@@ -19,6 +19,7 @@ from moomoo_api import Moomoo_API
 import global_variables as gv
 import winsound
 import math
+import sql_db
 
 import warnings
 warnings.filterwarnings('error')
@@ -306,10 +307,19 @@ if __name__ == '__main__':
   alarm.print('YOU ARE RUNNING REAL TRADE ACCOUNT')
   ma = Moomoo_API(ip, port, trd_env=TRD_ENV, acc_id = ACC_ID)
   ti = TradeInterface(platform='moomoo', df_name='real_trade_db', moomoo_api=ma)
+ 
   df = ti.load_trade_history() # load previous history
   df = df.drop_duplicates()
   # df.loc[2, 'limit_if_touched_order_id']  = 'FA1951E253C07B2000'
   ti.__save_orders__(df)
+
+  # SQL INIT
+  try:
+    parent_path = pathlib.Path(__file__).parent
+    folder_path = pathlib.Path.joinpath(parent_path, 'sql')
+    db = sql_db.DB_connection(folder_path, 'trade.db', df)
+  except Exception as e:
+    alarm.print(e)
 
   # TEST TRADING
   ti_test = TradeInterface(platform='test', df_name='test') # test trading

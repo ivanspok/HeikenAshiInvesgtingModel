@@ -7,6 +7,7 @@ from colog.colog import colog
 import global_variables as gv
 import pytz
 from zoneinfo import ZoneInfo
+import sql_db
 
 from colog.colog import colog
 c = colog()
@@ -32,6 +33,13 @@ class TradeInterface():
       self.moomoo_api = kwargs['moomoo_api']
     else:
       self.moomoo_api = None
+
+    # SQL INIT
+    try:
+      folder_path = pathlib.Path.joinpath(self.parent_path, 'sql')
+      self.db = sql_db.DB_connection(folder_path, 'trade.db')
+    except Exception as e:
+      alarm.print(e)
 
   def buy_order(self, ticker, buy_price, buy_sum=0, stocks_number=0, **kwargs):
     response = 'None'
@@ -197,7 +205,12 @@ class TradeInterface():
     df.loc[index] = update_line
 
     self.__save_orders__(df)
-    self.__update_sql_db__()
+    # Update order in the SQL:
+    try:
+      self.__update_sql_db__()
+      self.db.update_record(update_line)
+    except Exception as e:
+      alarm.print(e)
     return df
 
   def record_order(self, df, order):
@@ -219,6 +232,11 @@ class TradeInterface():
     df2[float_columns] = df2[float_columns].astype(float)
     df = pd.concat([df, df2], ignore_index=True)
     self.__save_orders__(df)
+    # Add record to SQL:
+    try:
+      self.db.add_record(df2)
+    except Exception as e:
+      alarm.print(e)
     return df
   
   def stock_is_bought(self, ticker, df):
