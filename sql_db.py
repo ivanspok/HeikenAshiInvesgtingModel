@@ -34,11 +34,13 @@ class Orders(Base):
     stocks_number = Column(Integer)
     status = Column(String(30))
     gain_coef = Column(Float)
+    trailing_LIT_gain_coef = Column(Float)
     lose_coef = Column(Float)
     profit = Column(Float)
     buy_order_id = Column(String(30))
     limit_if_touched_order_id = Column(String(30))
     stop_order_id = Column(String(30))
+    trailing_LIT_order_id = Column(String(30))
     timezone = Column(String(40))   
 
     def __repr__(self) -> str:
@@ -55,7 +57,8 @@ class DB_connection():
       self.columns = [
        'ticker', 'id', 'buy_time', 'buy_price', 'buy_sum', 'buy_commission',
        'sell_time', 'sell_price', 'sell_sum', 'sell_commission', 'stocks_number', 'status',
-       'gain_coef', 'lose_coef', 'profit', 'buy_order_id', 'limit_if_touched_order_id', 'stop_order_id'
+       'gain_coef', 'lose_coef', 'trailing_LIT_gain_coef', 'profit',
+       'buy_order_id', 'limit_if_touched_order_id', 'stop_order_id', 'trailing_LIT_order_id'
       ]
 
       if not(pathlib.Path(self.db_path).is_file())\
@@ -72,7 +75,8 @@ class DB_connection():
    def update_db_from_df(self, df):
       
       # df add column timezone!!!
-      timezone = datetime.tzname(df['buy_time'].iloc[0])
+      # timezone = datetime.tzname(df['buy_time'].iloc[0])
+      timezone = 'E. Australia Standard Time'  # !!!! fix issue with timezone
       if timezone == 'E. Australia Standard Time':
          timezone = 'Australia/Melbourne'
       df['timezone'] = timezone
@@ -108,10 +112,12 @@ class DB_connection():
             status = locals()['status'],
             gain_coef = locals()['gain_coef'],
             lose_coef = locals()['lose_coef'],
+            trailing_LIT_gain_coef = locals()['trailing_LIT_gain_coef'],
             profit = locals()['profit'],
             buy_order_id = locals()['buy_order_id'],
             limit_if_touched_order_id = locals()['limit_if_touched_order_id'],
             stop_order_id = locals()['stop_order_id'],
+            trailing_LIT_order_id = locals()['trailing_LIT_order_id'],
             timezone = datetime.tzname(locals()['buy_time'])  
       )
 

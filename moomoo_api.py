@@ -91,7 +91,7 @@ class Moomoo_API():
             alarm.print(e)
         return order_id
 
-    def place_limit_if_touched_order(self, ticker, price, qty):
+    def place_limit_if_touched_order(self, ticker, price, qty, aux_price_coef = 1.0001):
         order_id = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
@@ -105,7 +105,7 @@ class Moomoo_API():
                                     time_in_force=ft.TimeInForce.GTC,
                                     adjust_limit=0.01,
                                     order_type=ft.OrderType.LIMIT_IF_TOUCHED,
-                                    aux_price=price * 1.0001)
+                                    aux_price=price * aux_price_coef)
             print(f'Placing limit if touched order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
@@ -133,8 +133,13 @@ class Moomoo_API():
             alarm.print(e)
         return status
 
-    def modify_limit_if_touched_order(self, order, gain_coef):
-        order_id = order['limit_if_touched_order_id']
+    def modify_limit_if_touched_order(self, order, gain_coef, aux_price_coef = 1.0001, order_type='limit_if_touched'):
+        order_id = None
+        if order_type == 'limit_if_touched':
+            order_id = order['limit_if_touched_order_id']
+        if order_type == 'trailing_LIT':
+            order_id = order['trailing_LIT_order_id']
+
         price =  order['buy_price'] * gain_coef
         qty = order['stocks_number']
         ticker = order['ticker']
@@ -144,7 +149,7 @@ class Moomoo_API():
                                     modify_order_op=ft.ModifyOrderOp.NORMAL,
                                     order_id=order_id,
                                     price=price,
-                                    aux_price=price * 1.0001,
+                                    aux_price=price * aux_price_coef,
                                     qty=qty,
                                     trd_env=self.trd_env,
                                     adjust_limit=0.01,
@@ -292,6 +297,7 @@ class Moomoo_API():
         limit_if_touched_sell_orders = pd.DataFrame()
         stop_sell_orders = pd.DataFrame()
         limit_if_touched_buy_orders = pd.DataFrame()
+        trailing_LIT_orders = pd.DataFrame()
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=ip, port=port, security_firm=ft.SecurityFirm.FUTUAU)
             ret, data = trd_ctx.order_list_query(acc_id=self.acc_id)
