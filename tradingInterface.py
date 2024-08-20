@@ -51,7 +51,12 @@ class TradeInterface():
 
     if buy_sum == 0 and stocks_number == 0:
       alarm.print("Buy sum or stocks numbrer should't be both zero to place the order!")
-    gv.ORDERS_ID += 1
+    if self.platform == 'test':
+      gv.ORDERS_ID_test += 1
+      id = gv.ORDERS_ID_test
+    else:
+      gv.ORDERS_ID += 1
+      id = gv.ORDERS_ID
     order = {
       'ticker' : ticker,
       'buy_time' : datetime.now().astimezone(),
@@ -63,7 +68,7 @@ class TradeInterface():
       'sell_commission': 0,
       'stocks_number' : stocks_number,
       'status' : 'created',
-      'id' : gv.ORDERS_ID,  # Generate by global ID 
+      'id' : id,  # Generate by global ID 
       'gain_coef': 0,
       'lose_coef' : 0,
       'sell_sum': 0, 
@@ -78,7 +83,7 @@ class TradeInterface():
       response = 'success'
 
     if self.platform == 'moomoo':
-      moomoo_order, order_id = self.moomoo_api.place_market_buy_order(ticker, buy_price, stocks_number)
+      moomoo_order, order_id = self.moomoo_api.place_buy_limit_if_touched_order(ticker, buy_price, stocks_number)
       if not (order_id is None):
         if moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTING \
           or moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTED \
@@ -100,7 +105,7 @@ class TradeInterface():
 
   def sell_order(self, order, sell_price, **kwargs):
     response = 'None'
-    if order['status'] == 'bought':
+    if order['status'] in ['bought', 'filled part']:
       if self.platform == 'test':
         order['sell_time'] = datetime.now().astimezone()
         order['sell_price'] = sell_price
@@ -208,7 +213,7 @@ class TradeInterface():
     # Update order in the SQL:
     try:
       self.__update_sql_db__()
-      self.db.update_record(update_line)
+      self.db.update_record(update_line.iloc[0])
     except Exception as e:
       alarm.print(e)
     return df
@@ -234,7 +239,7 @@ class TradeInterface():
     self.__save_orders__(df)
     # Add record to SQL:
     try:
-      self.db.add_record(df2)
+      self.db.add_record(df2.iloc[0])
     except Exception as e:
       alarm.print(e)
     return df

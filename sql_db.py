@@ -13,6 +13,7 @@ import os
 import pytz
 import pandas as pd
 import pickle
+import numpy as np
 
 class Base(DeclarativeBase):
     pass
@@ -21,7 +22,7 @@ class Orders(Base):
     __tablename__ = "orders"
     id = Column(Integer, primary_key=True)
     ticker = Column(String(20))
-    order_id=  Column(String(50))
+    # order_id=  Column(String(50))
     buy_time = Column(DateTime) 
     buy_price = Column(Float)
     buy_sum = Column(Float)
@@ -82,7 +83,7 @@ class DB_connection():
 
    def add_record(self, order):
      
-    with Session(db.engine) as session:
+    with Session(self.engine) as session:
 
       if type(order) == dict:
          for column in self.columns:
@@ -94,7 +95,7 @@ class DB_connection():
     
       order = Orders(
             ticker = locals()['ticker'],
-            order_id=  locals()['id'],
+            id=  locals()['id'],
             buy_time = locals()['buy_time'],
             buy_price = locals()['buy_price'],
             buy_sum = locals()['buy_sum'],
@@ -119,16 +120,24 @@ class DB_connection():
 
    def update_record(self, order):
       
-      if type(order) == dict:
+      if type(order) == dict \
+      or type(order) == pd.Series:
          for column in self.columns:
-            locals()[column] = order[column]
+            if column in ['buy_time', 'sell_time']:
+              if type(order[column]) == str: 
+                converted_time = datetime.strptime(order[column].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+              else:
+                converted_time = datetime(1,1,1,0,0)
+              locals()[column] = converted_time
+            else:
+              locals()[column] = order[column]
 
-      if type(order) == pd.Series:
-          for column in self.columns:
-            locals()[column] = order[column] 
+      # if type(order) == pd.DataFrame:
+      #     for column in self.columns:
+      #       locals()[column] = order[column].values[0]
 
-      with Session(db.engine) as session:
-         sql_order = session.query(Orders).filter_by(order_id= locals()['id'], buy_time=locals()['buy_time']).first()
+      with Session(self.engine) as session:
+         sql_order = session.query(Orders).filter_by(id= int(locals()['id']), buy_time=locals()['buy_time']).first()
          for param in self.columns:
              if param != 'id':
               setattr(sql_order, param, locals()[param])
