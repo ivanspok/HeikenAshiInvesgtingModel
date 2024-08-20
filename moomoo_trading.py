@@ -98,7 +98,7 @@ opt_stocks_for_bear_trend = ['BA', 'INTU', 'MCHP', 'LLY', 'DHI', 'ANET', 'AIG', 
     'ETN', 'JCI', 'HLT', 'CSCO', 'WMT', 'TDG', 'TT', 'ECL', 'LOW', 'ADSK', 'TJX',
     'VRTX', 'APH', 'ABBV', 'STZ', 'SBUX', 'DE', 'MRK', 'CTAS', 'MNST', 'CME', 'MO', 'TXN', 'ITW']
 
-# stock_name_list_opt = ['AMT']
+# stock_name_list_opt = ['DE']
 
 # settings for historical df from yfinance
 period = '3mo'
@@ -334,7 +334,20 @@ if __name__ == '__main__':
 
   # for index, row in df.iterrows():
   #   ti.update_order(df, row)
+  
+# Index(['id', 'ticker', 'buy_time', 'buy_price', 'buy_sum', 'buy_commission',
+#        'sell_time', 'sell_price', 'sell_sum', 'sell_commission',
+#        'stocks_number', 'status', 'gain_coef', 'lose_coef',
+#        'trailing_LIT_gain_coef', 'profit', 'buy_order_id, 'limit_if_touched_order_id',
+#        'stop_order_id', 'trailing_LIT_order_id'],
+#       dtype='object')
 
+  # df.iloc[0] = [0,'DE', datetime.now(), 374.06, 751, 0, None,0,0,0,2,'bought',1.005, 0.95,1.007,0,
+  # 'FA1956E877FC84A000', 'FA1956E75EBF44A000', 'FA1956E877FC84A000', None] 
+  # df.loc[] = [0,'DE', datetime.now(), 374.06, 751, 0, None,0,0,0,2,'bought',1.005, 0.95,1.007,0,
+  # 'FA1956DF73E03B2000', 'FA1956E75EBF44A000', 'FA1956E877FC84A000', 'FA1956EEE2AC3B2000'] 
+  # df._set_value(0, 'trailing_LIT_order_id' ,'FA1956EEE2AC3B2000')
+  # df.drop(index=1, inplace=True)
   ti.__save_orders__(df)
 
   # SQL INIT
@@ -389,7 +402,8 @@ if __name__ == '__main__':
     positions = ma.get_positions()
 
     # Get current orders and they lists:
-    limit_if_touched_sell_orders, stop_sell_orders, limit_if_touched_buy_orders = ma.get_orders()
+    limit_if_touched_sell_orders, stop_sell_orders, limit_if_touched_buy_orders,\
+        trailing_LIT_orders = ma.get_orders()
     limit_if_touched_sell_orders_list = []
     for index, row in limit_if_touched_sell_orders.iterrows():
       ticker = row['code'].split('.')[1]
@@ -402,11 +416,15 @@ if __name__ == '__main__':
     for index, row in stop_sell_orders.iterrows():
       ticker = row['code'].split('.')[1]
       limit_if_touched_buy_orders_list.append(ticker)
+    trailing_LIT_orders_list = []
+    for index, row in trailing_LIT_orders.iterrows():
+      ticker = row['code'].split('.')[1]
+      trailing_LIT_orders_list.append(ticker)
 
     historical_orders = ma.get_history_orders()
     # Check bought stock based on df 
     if df.shape[0] > 0:
-      bought_stocks = df.loc[(df['status'] == 'bought') | (df['status'] == 'filled part') ]
+      bought_stocks = df.loc[(df['status'] == 'bought') | (df['status'] == 'filled part') | (df['status'] == 'created')]
       bought_stocks_list = bought_stocks.ticker.to_list()
     else:
       bought_stocks_list = []
@@ -425,7 +443,7 @@ if __name__ == '__main__':
         order = bought_stocks.loc[bought_stocks['ticker'] == ticker].sort_values('buy_time').iloc[-1]   
         qty = order['stocks_number']  # stock number should be taken from the trade 
         # Checking limit_if_touched_order
-        if order['limit_if_touched_order_id'] is None \
+        if order['limit_if_touched_order_id'] in [None, ''] \
           and not (ticker in limit_if_touched_sell_orders_list):
           price = order['buy_price'] * order['gain_coef']  # buy price should be taken from the trade platform
           order_id = ma.place_limit_if_touched_order(ticker, price, qty)
@@ -455,14 +473,14 @@ if __name__ == '__main__':
         # Checing trailing_LIT_order
         if order['gain_coef'] > 1.005:
           if order['trailing_LIT_order_id'] is None \
-            and not (ticker in limit_if_touched_buy_orders_list):
+            and not (ticker in trailing_LIT_orders_list):
             price = order['buy_price'] * order['trailing_LIT_gain_coef']  # buy price should be taken from the trade platform
-            order_id = ma.place_limit_if_touched_order(ticker, price, qty, aux_price_coef = 1.0005)
+            order_id = ma.place_limit_if_touched_order(ticker, price, qty, aux_price_coef = 1.0005, remark = 'trailing_LIT')
             if not (order_id is None):
               order['trailing_LIT_order_id'] = order_id
               df = ti.record_order(df, order)
           else:
-            sell_order = limit_if_touched_sell_orders.loc[limit_if_touched_sell_orders['order_id'] == order['trailing_LIT_order_id']]
+            sell_order = trailing_LIT_orders.loc[trailing_LIT_orders['order_id'] == order['trailing_LIT_order_id']]
             if sell_order['order_status'].values[0] != ft.OrderStatus.SUBMITTED \
               and sell_order['order_status'].values[0]  != ft.OrderStatus.SUBMITTING \
               and sell_order['order_status'].values[0]  != ft.OrderStatus.WAITING_SUBMIT:

@@ -1,2 +1,3 @@
 ,id,ticker,buy_time,buy_price,buy_sum,buy_commission,sell_time,sell_price,sell_sum,sell_commission,stocks_number,status,gain_coef,lose_coef,trailing_LIT_gain_coef,profit,buy_order_id,limit_if_touched_order_id,stop_order_id,trailing_LIT_order_id
-0,0.0,DE,2024-08-21 00:39:35.534398,374.06,748.12,1.0,,0.0,0.0,0.0,2.0,bought,1.005,0.95,1.007,0.0,FA1956DF73E03B2000,FA1956E75EBF44A000,FA1956E877FC84A000,FA1956EEE2AC3B2000
+0,0.0,DE,2024-08-21 00:39:35.534398,374.06,751.0,0.0,,0.0,0.0,0.0,2.0,bought,1.005,0.95,1.007,0.0,FA1956E877FC84A000,FA1956E75EBF44A000,FA1956E877FC84A000,FA1956EEE2AC3B2000
+1,,,,,,,,,,,,,,,,,,,,

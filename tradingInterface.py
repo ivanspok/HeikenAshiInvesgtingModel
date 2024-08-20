@@ -168,6 +168,7 @@ class TradeInterface():
           'lose_coef' : pd.Series(dtype='float'),
           'trailing_LIT_gain_coef' : pd.Series(dtype='float'),
           'profit': pd.Series(dtype='float'),
+          'buy_order_id' : pd.Series(dtype='int'), 
           'limit_if_touched_order_id': pd.Series(dtype='int'),
           'stop_order_id' : pd.Series(dtype='int'),         
           'trailing_LIT_order_id' : pd.Series(dtype='int'),         

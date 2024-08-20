@@ -68,11 +68,12 @@ class Moomoo_API():
 
     def place_buy_limit_if_touched_order(self, ticker, price, qty):
         order_id = None
+        order = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
             stock_code = MARKET + ticker
             ret, data = trd_ctx.place_order(
-                                    price=price * 1.0002,
+                                    price=price * 1.0003,
                                     qty=qty,
                                     code=stock_code,
                                     trd_side=ft.TrdSide.BUY,
@@ -80,18 +81,19 @@ class Moomoo_API():
                                     time_in_force=ft.TimeInForce.GTC,
                                     adjust_limit=0.01,
                                     order_type=ft.OrderType.LIMIT_IF_TOUCHED,
-                                    aux_price=price)
+                                    aux_price=price * 1.0002)
             print(f'Placing BUY limit if touched order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
                 order_id = data['order_id'].values[0]
+                order = data
             else:
                 alarm.print(data)
         except Exception as e:
             alarm.print(e)
-        return order_id
+        return order, order_id
 
-    def place_limit_if_touched_order(self, ticker, price, qty, aux_price_coef = 1.0001):
+    def place_limit_if_touched_order(self, ticker, price, qty, aux_price_coef = 1.0001, remark=''):
         order_id = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
@@ -105,7 +107,8 @@ class Moomoo_API():
                                     time_in_force=ft.TimeInForce.GTC,
                                     adjust_limit=0.01,
                                     order_type=ft.OrderType.LIMIT_IF_TOUCHED,
-                                    aux_price=price * aux_price_coef)
+                                    aux_price=price * aux_price_coef,
+                                    remark=remark)
             print(f'Placing limit if touched order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
@@ -309,9 +312,13 @@ class Moomoo_API():
                                  or row['order_status'] == ft.OrderStatus.WAITING_SUBMIT):
                             
                             if row['trd_side'] == ft.TrdSide.SELL:
-                                if row['order_type'] == ft.OrderType.LIMIT_IF_TOUCHED:         
+                                if row['order_type'] == ft.OrderType.LIMIT_IF_TOUCHED \
+                                    and row['remark'] in ['', None]:                                         
                                     # limit_if_touched_sell_orders.append(row)  
                                     limit_if_touched_sell_orders = pd.concat([limit_if_touched_sell_orders, row], axis = 1)
+                                if row['order_type'] == ft.OrderType.LIMIT_IF_TOUCHED \
+                                       and row['remark'] == 'trailing_LIT':      
+                                    trailing_LIT_orders = pd.concat([trailing_LIT_orders, row], axis = 1)
                                 if row['order_type'] == ft.OrderType.STOP: 
                                     stop_sell_orders = pd.concat([stop_sell_orders, row], axis = 1)        
                                     # stop_sell_orders.append(row)
@@ -324,12 +331,13 @@ class Moomoo_API():
                     limit_if_touched_sell_orders = limit_if_touched_sell_orders.transpose()
                     stop_sell_orders = stop_sell_orders.transpose()
                     limit_if_touched_buy_orders.transpose()
+                    trailing_LIT_orders = trailing_LIT_orders.transpose()
             else:
                 alarm.print('order_list_query error: ', data)
             trd_ctx.close()  # Close the current connection
         except Exception as e:
             alarm.print(e)
-        return  limit_if_touched_sell_orders, stop_sell_orders, limit_if_touched_buy_orders
+        return  limit_if_touched_sell_orders, stop_sell_orders, limit_if_touched_buy_orders, trailing_LIT_orders
     
     def get_order_commission(self, order_id):
         commission = None
