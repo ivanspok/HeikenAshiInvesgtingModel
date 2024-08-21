@@ -20,6 +20,7 @@ import global_variables as gv
 import winsound
 import math
 import sql_db
+import pytz
 
 import warnings
 warnings.filterwarnings('error')
@@ -52,33 +53,6 @@ TRD_ENV = ft.TrdEnv.REAL
 MARKET = 'US.'
 # ft.SysConfig.set_all_thread_daemon(True)
 
-# Version 1.0
-# stock_name_list_opt = [
-#   'GOOG', 'JPM', 'XOM', 'UNH', 'AVGO', 'LLY', 'COST',
-#   'CRM', 'TMO', 'NFLX', 'TXN', 'INTU', 'NKE', 'QCOM',
-#   'BA', 'AMGN', 'MDT', 'PLD', 'MS', 'GS', 'LMT', 'ADI', 'TJX', 'ELV', 'C', 'CVS', 'VRTX', 'SCHW', 'LRCX',
-#   'TMUS', 'ETN', 'ZTS', 'CI', 'FI', 'EQIX', 'DUK', 'MU',
-#   'AON', 'ITW', 'SNPS', 'KLAC', 'CL', 'WM', 'HCA', 'MMM',
-#   'CMG', 'EW', 'GM', 'MCK', 'NSC', 'PH', 'MPC', 'ROP', 
-#   'MCHP', 'USB', 'CCI', 'MAR', 'MSI', 'GD', 'JCI', 'PSX', 
-#   'SRE', 'ADSK', 'AJG', 'TEL', 'TT', 'PCAR', 'OXY', 'CARR',
-#   'IDXX', 'GIS', 'CTAS', 'AIG', 'ANET', 'BIIB', 'SPG', 'MSCI', 'DHI'
-# ]
-
-# Version 2.0
-# stock_name_list_opt = [
-# 'BA', 'ON', 'MCHP', 'ADI', 'PANW', 'DHI', 'ANET', 'AMD', 'LRCX', 'LLY',
-# 'MU', 'TXN', 'AIG', 'WMB', 'BSX', 'NKE', 'OXY', 'TT', 'AMAT', 'ETN', 'DE',
-# 'EL', 'FDX', 'MAR', 'GE', 'NFLX', 'NUE', 'GOOG', 'ECL', 'AVGO', 'CAT', 'SPG',
-# 'ADSK', 'INTU', 'SLB', 'F', 'WMT', 'SBUX', 'SNPS', 'AJG', 'TMUS', 'KLAC', 'CI',
-# 'JCI', 'GILD', 'QCOM', 'ROP', 'MO', 'WM', 'HON', 'ITW', 'GS', 'HCA', 'TJX', 'ICE',
-# 'DXCM', 'IDXX', 'ABBV', 'CDNS', 'CMCSA', 'JNJ', 'EQIX', 'MDLZ', 'NXPI', 'MSI', 'TEL',
-# 'LMT', 'USB', 'MRK', 'HLT', 'APD', 'CTAS', 'MNST', 'NOW', 'AMT', 'PH', 'HUM', 'ADM',
-# 'TDG', 'EMR', 'GM', 'ADP', 'CMG', 'SCHW', 'MSCI', 'EOG', 'UNP', 'INTC', 'CME',
-# 'MA', 'CVS', 'XOM', 'CSCO', 'WELL', 'TMO', 'MRNA', 'PLD', 'APH', 'PEP', 'CRM', 'MMM',
-# 'MMC', 'LIN', 'GIS', 'COST', 'CSX', 'IQV', 'FI', 'MCD', 'VRTX'
-# ]
-
 # Version 3.0
 stock_name_list_opt = [
 'BA', 'OXY', 'DHI', 'ON', 'PANW', 'AMD', 'MCHP', 'BSX', 'INTU', 'HLT', 'NXPI', 'AIG', 'EL',
@@ -104,24 +78,6 @@ opt_stocks_for_bear_trend = ['BA', 'INTU', 'MCHP', 'LLY', 'DHI', 'ANET', 'AIG', 
 period = '3mo'
 interval = '1h' 
 
-# settings for buy condition Version 1.0
-# is_near_global_max_prt = 80
-# distance_from_last_top  = 0
-# last_top_ratio = 1
-# RIV  = 0.25
-# buy_ratio_border = 9
-# bull_trend_coef = 1.12
-# number_tries_to_submit_order = {}
-#
-# settings for buy condition Version 2.0
-# is_near_global_max_prt = 96
-# distance_from_last_top  = 0
-# last_top_ratio = 1
-# RIV  = 0.15
-# buy_ratio_border = 0
-# bull_trend_coef = 1.12
-# number_tries_to_submit_order = {}
-#
 # settings for buy condition Version 3.0
 is_near_global_max_prt = 96
 distance_from_last_top  = 0
@@ -253,7 +209,8 @@ def current_profit(df, hours=24):
     else:
       df = df[(df['sell_time'] >= ref_time)]
       current_profit = df['profit'].sum()
-  except:
+  except Exception as e:
+    alarm.print(e)
     current_profit = -12345
   return float(current_profit)
 
@@ -268,6 +225,7 @@ def update_buy_order_based_on_platform_data(order):
       buy_commission = ma.get_order_commission(order['buy_order_id'])             
       order['buy_commission'] = buy_commission
       order['stocks_number'] = int(history_order['qty'].values[0])
+      order['status'] = 'bought'
 
       if history_order['order_status'].values[0] == ft.OrderStatus.CANCELLED_PART:
         ma.modify_limit_if_touched_order(order, order['gain_coef'])
@@ -289,7 +247,7 @@ def test_trading_simulation(ticker, stock_df, df_test, bought_stocks_list):
           order = ti_test.buy_order(ticker=ticker, buy_price=buy_price, buy_sum=1000.0)
           order['gain_coef'] = gain_coef
           order['lose_coef'] = lose_coef
-          df_test = ti_test.record_order(df_test, order)
+          df_test = ti_test.record_order(df_test, order, sim=True)
 
         # Checking for sell condition
         if ticker in bought_stocks_list:
@@ -313,10 +271,31 @@ def test_trading_simulation(ticker, stock_df, df_test, bought_stocks_list):
 
           if sell_condition:
             order = ti_test.sell_order(order, current_price)
-            df_test = ti_test.update_order(df_test, order)
+            df_test = ti_test.update_order(df_test, order, sim=True)
 
     return df_test
 
+  # FUNCTION TO UPDATE times from csv files to df with correct time format
+  # df2 = pd.read_csv('db/real_trade_db - Copy.csv', index_col='Unnamed: 0')
+  # tzinfo = pytz.timezone('Australia/Melbourne')
+  # buy_times_list = []
+  # sell_times_list = []
+  # for index, row in df2.iterrows():
+  #   if type(row['buy_time']) == str and'+' in row['buy_time']:
+  #     dt = datetime.strptime(row['buy_time'].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+  #     buy_times_list.append(np.datetime64(dt))
+  #   else:
+  #     dt = datetime.strptime('1971-01-01 00:00:00.000000', '%Y-%m-%d %H:%M:%S.%f')
+  #     buy_times_list.append(np.datetime64(dt))
+  #   if type(row['sell_time']) == str and '+' in row['sell_time']:
+  #     dt = datetime.strptime(row['sell_time'].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+  #     sell_times_list.append(np.datetime64(dt))
+  #   else:
+  #     dt = datetime.strptime('1971-01-01 00:00:00.000000', '%Y-%m-%d %H:%M:%S.%f')
+  #     sell_times_list.append(np.datetime64(dt))
+  # df2['buy_time'] = buy_times_list
+  # df2['sell_time'] = sell_times_list
+  # df = pd.concat([df, df2])
 
 if __name__ == '__main__':
 
@@ -326,28 +305,17 @@ if __name__ == '__main__':
 
   df = ti.load_trade_history() # load previous history
   df = df.drop_duplicates()
-  # df.loc[2, 'limit_if_touched_order_id']  = 'FA1951E253C07B2000'
-  # df.drop(index=df.loc[df['status'] == 'created'].index, inplace=True)
-  # df.drop(labels='Unnamed: 0', axis=1, inplace=True)
-  # df['trailing_LIT_order_id'] = None
-  # df['trailing_LIT_gain_coef'] = 1.005
-
+  
   # for index, row in df.iterrows():
   #   ti.update_order(df, row)
   
-# Index(['id', 'ticker', 'buy_time', 'buy_price', 'buy_sum', 'buy_commission',
-#        'sell_time', 'sell_price', 'sell_sum', 'sell_commission',
-#        'stocks_number', 'status', 'gain_coef', 'lose_coef',
-#        'trailing_LIT_gain_coef', 'profit', 'buy_order_id, 'limit_if_touched_order_id',
-#        'stop_order_id', 'trailing_LIT_order_id'],
-#       dtype='object')
-
   # df.iloc[0] = [0,'DE', datetime.now(), 374.06, 751, 0, None,0,0,0,2,'bought',1.005, 0.95,1.007,0,
   # 'FA1956E877FC84A000', 'FA1956E75EBF44A000', 'FA1956E877FC84A000', None] 
   # df.loc[] = [0,'DE', datetime.now(), 374.06, 751, 0, None,0,0,0,2,'bought',1.005, 0.95,1.007,0,
   # 'FA1956DF73E03B2000', 'FA1956E75EBF44A000', 'FA1956E877FC84A000', 'FA1956EEE2AC3B2000'] 
   # df._set_value(0, 'trailing_LIT_order_id' ,'FA1956EEE2AC3B2000')
   # df.drop(index=1, inplace=True)
+
   ti.__save_orders__(df)
 
   # SQL INIT
@@ -368,7 +336,7 @@ if __name__ == '__main__':
   # order['lose_coef'] = 0.98
   # order = update_buy_order_based_on_platform_data(order)
   # df = ti.record_order(order)
-  # ma.cancel_order(order['buy_order_id'])
+  # ma.cancel_order(order, type='buy')
 
   # SELL TEST
   # historical_orders = ma.get_history_orders()
@@ -646,28 +614,16 @@ if __name__ == '__main__':
             if limit_if_touched_buy_order['order_status'].values[0] != ft.OrderStatus.FILLED_PART:
               # cancel limit_if_touched_sell_order and stop_order if they was placed
               if order['limit_if_touched_order_id'] not in ['', None, []]:                  
-                try:
-                  ma.cancel_order(order_id=order['limit_if_touched_order_id'])
-                except Exception as e:
-                  alarm.print(e) 
+                  ma.cancel_order(order, type='limit_if_touched')    
               if order['stop_order_id'] not in ['', None, []]:                  
-                try:
-                  ma.cancel_order(order_id=order['stop_order_id'])
-                except Exception as e:
-                  alarm.print(e)  
-
+                  ma.cancel_order(order, type='stop')
               order['status'] = 'cancelled'
-              df = ti.update_order(df, order)
             else:
               order['status'] = 'filled part'
             # cancel buy limit order
-            try:
-              status = ma.cancel_buy_order(order)
-              if status:
-                df = ti.update_order(df, order)
-            except Exception as e:
-              alarm.print(e)
-            
+            ma.cancel_order(order, type='buy')
+            df = ti.update_order(df, order)
+      
       # Recheck buy order information including commission from the order history
       if ticker in bought_stocks_list: 
         # 1.111 was set during buy order creation
@@ -690,37 +646,37 @@ if __name__ == '__main__':
           # checking and update limit if touched order
           if historical_limit_if_touched_order.shape[0] > 0 \
             and  historical_limit_if_touched_order['order_status'].values[0] == ft.OrderStatus.FILLED_ALL\
-            and order['status'] in ['bought', 'filled part']:
+            and order['status'] in ['placed', 'bought', 'filled part']:
             sell_price = order['buy_price'] * order['gain_coef']
             order = ti.sell_order(order, sell_price=sell_price, historical_order = historical_limit_if_touched_order)
             df = ti.update_order(df, order)
             # play sound:
             winsound.PlaySound('SystemHand', winsound.SND_ALIAS)
             # cancel stop order
-            ma.cancel_order(order['stop_order_id'])
-            ma.cancel_order(order['trailing_LIT_order_id'])
+            ma.cancel_order(order, type='stop')
+            ma.cancel_order(order, type='trailing_LIT')
         # checking and update stop order
           if historical_stop_order.shape[0] > 0 \
           and historical_stop_order['order_status'].values[0] == ft.OrderStatus.FILLED_ALL\
-          and order['status'] in ['bought', 'filled part']:
+          and order['status'] in ['placed', 'bought', 'filled part']:
             sell_price = order['buy_price'] * order['lose_coef']
             order = ti.sell_order(order, sell_price=sell_price, historical_order = historical_stop_order)
             df = ti.update_order(df, order)
             # cancel limit-if-touched order
-            ma.cancel_order(order['limit_if_touched_order_id'])
-            ma.cancel_order(order['trailing_LIT_order_id'])
+            ma.cancel_order(order, type='limit_if_touched')
+            ma.cancel_order(order, type='trailing_LIT')
         # checking and update trailing limit if touched order
           if historical_trailing_LIT_order.shape[0] > 0 \
             and  historical_trailing_LIT_order['order_status'].values[0] == ft.OrderStatus.FILLED_ALL\
-            and order['status'] in ['bought', 'filled part']:
+            and order['status'] in ['placed', 'bought', 'filled part']:
             sell_price = order['buy_price'] * order['trailing_LIT_gain_coef']
             order = ti.sell_order(order, sell_price=sell_price, historical_order = historical_trailing_LIT_order)
             df = ti.update_order(df, order)
             # play sound:
             winsound.PlaySound('SystemHand', winsound.SND_ALIAS)
             # cancel stop order and limit if touched 
-            ma.cancel_order(order['stop_order_id'])
-            ma.cancel_order(order['limit_if_touched_order_id'])
+            ma.cancel_order(order, type='stop')
+            ma.cancel_order(order, type='limit_if_touched')
 
     print('Waiting progress:')
     for i in tqdm(range(60)):

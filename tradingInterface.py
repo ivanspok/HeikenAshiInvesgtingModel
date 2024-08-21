@@ -22,7 +22,7 @@ class TradeInterface():
 
   def __init__(self, platform, df_name=None, **kwargs):
     self.platform = platform
-    self.commission = 0.002 # commission for test platform
+    self.test_commission = 0.002 # commission for test platform
 
     self.parent_path = pathlib.Path(__file__).parent
     if df_name:
@@ -36,14 +36,15 @@ class TradeInterface():
       self.moomoo_api = None
 
     # SQL INIT
-    try:
-      folder_path = pathlib.Path.joinpath(self.parent_path, 'sql')
-      self.db = sql_db.DB_connection(folder_path, 'trade.db')
-    except Exception as e:
-      alarm.print(e)
+    if platform != 'test':
+      try:
+        folder_path = pathlib.Path.joinpath(self.parent_path, 'sql')
+        self.db = sql_db.DB_connection(folder_path, 'trade.db')
+      except Exception as e:
+        alarm.print(e)
 
   def buy_order(self, ticker, buy_price, buy_sum=0, stocks_number=0, **kwargs):
-    response = 'None'
+    response = None
     order = {}
     if buy_sum != 0:
       stocks_number = int(buy_sum / buy_price)
@@ -64,12 +65,12 @@ class TradeInterface():
       'buy_price' : buy_price,
       'buy_sum' : buy_sum,
       'buy_commission': 0,
-      'sell_time' : None,
+      'sell_time' : datetime(1,1,1,0,0),
       'sell_price' : None,
       'sell_commission': 0,
-      'stocks_number' : stocks_number,
+      'stocks_number' : int(stocks_number),
       'status' : 'created',
-      'id' : id,  # Generate by global ID 
+      'id' : int(id),  # Generate by global ID 
       'gain_coef': 0,
       'lose_coef' : 0,
       'trailing_LIT_gain_coef' : 1.007,
@@ -82,12 +83,12 @@ class TradeInterface():
     }
 
     if self.platform == 'test':
-      order['buy_commission'] = buy_sum * self.commission
+      order['buy_commission'] = buy_sum * self.test_commission
       response = 'success'
 
     if self.platform == 'moomoo':
       moomoo_order, order_id = self.moomoo_api.place_buy_limit_if_touched_order(ticker, buy_price, stocks_number)
-      if not (order_id is None):
+      if order_id is not None:
         if moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTING \
           or moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTED \
           or moomoo_order['order_status'].values[0] == ft.OrderStatus.WAITING_SUBMIT:
@@ -102,7 +103,7 @@ class TradeInterface():
         response = 'error'
     
     if response == 'success':    
-      order['status'] = 'bought'
+      order['status'] = 'placed'
 
     return order
 
@@ -113,7 +114,7 @@ class TradeInterface():
         order['sell_time'] = datetime.now().astimezone()
         order['sell_price'] = sell_price
         order['sell_sum'] = sell_price * order['stocks_number']
-        order['sell_commission'] = order['sell_sum'] * self.commission
+        order['sell_commission'] = order['sell_sum'] * self.test_commission
         response = 'success'
 
       if self.platform == 'moomoo':
@@ -163,7 +164,6 @@ class TradeInterface():
           'sell_commission': pd.Series(dtype='float'),
           'stocks_number' : pd.Series(dtype='int'),
           'status' : pd.Series(dtype='str'),
-          'id' : pd.Series(dtype='int'),
           'gain_coef': pd.Series(dtype='float'),
           'lose_coef' : pd.Series(dtype='float'),
           'trailing_LIT_gain_coef' : pd.Series(dtype='float'),
@@ -194,61 +194,37 @@ class TradeInterface():
   def __update_sql_db__(self):
     pass
 
-  def update_order(self, df, order):
+  def update_order(self, df, order, sim=False):
    
-    # if not(os.path.isdir(self.folder_path)):
-    #   os.mkdir(self.folder_path)
-
-    file_path = pathlib.Path.joinpath(self.folder_path, self.df_path + '.pkl')
-    # if pathlib.Path(file_path).is_file():
-    #   with open(file_path, 'rb') as file:
-    #     df = pickle.load(file)
-    #     index = df.loc[(df['id'] == order['id']) & (df['buy_time'] == order['buy_time'])].index
-    #     update_line = pd.DataFrame([order])
-    #     update_line[float_columns] = update_line[float_columns].astype(float)
-    #     df.iloc[index] = update_line
-    # else:
-    #   df = pd.DataFrame([order])
-    #   df[float_columns] = df[float_columns].astype(float)
-    
     index = df.loc[(df['id'] == order['id']) & (df['buy_time'] == order['buy_time'])].index
     update_line = pd.DataFrame([order])
     update_line[float_columns] = update_line[float_columns].astype(float)
     df.loc[index] = update_line
 
     self.__save_orders__(df)
-    # Update order in the SQL:
-    try:
-      self.__update_sql_db__()
-      self.db.update_record(update_line.iloc[0])
-    except Exception as e:
-      alarm.print(e)
+
+    if not sim:
+      # Update order in the SQL:
+      try:
+        self.__update_sql_db__()
+        # self.db.update_record(update_line.iloc[0])
+        self.db.update_record(update_line)
+      except Exception as e:
+        alarm.print(e)
     return df
 
-  def record_order(self, df, order):
+  def record_order(self, df, order, sim=False):
 
-    # if not(os.path.isdir(self.folder_path)):
-    #     os.mkdir(self.folder_path)
-
-    file_path = pathlib.Path.joinpath(self.folder_path, self.df_path + '.pkl')
-    # if pathlib.Path(file_path).is_file():
-    #   with open(file_path, 'rb') as file:
-    #     df = pickle.load(file)
-    #     df2 = pd.DataFrame([order])
-    #     df2[float_columns] = df2[float_columns].astype(float)
-    #     df = pd.concat([df, df2], ignore_index=True)
-    # else:
-    #   df = pd.DataFrame([order])
-    #   df[float_columns] = df[float_columns].astype(float)
     df2 = pd.DataFrame([order])
     df2[float_columns] = df2[float_columns].astype(float)
     df = pd.concat([df, df2], ignore_index=True)
     self.__save_orders__(df)
-    # Add record to SQL:
-    try:
-      self.db.add_record(df2.iloc[0])
-    except Exception as e:
-      alarm.print(e)
+    if not sim:
+      # Add record to SQL:
+      try:
+        self.db.add_record(df2.iloc[0])
+      except Exception as e:
+        alarm.print(e)
     return df
   
   def stock_is_bought(self, ticker, df):

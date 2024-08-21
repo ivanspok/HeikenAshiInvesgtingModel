@@ -22,7 +22,6 @@ class Orders(Base):
     __tablename__ = "orders"
     id = Column(Integer, primary_key=True)
     ticker = Column(String(20))
-    # order_id=  Column(String(50))
     buy_time = Column(DateTime) 
     buy_price = Column(Float)
     buy_sum = Column(Float)
@@ -61,6 +60,8 @@ class DB_connection():
        'buy_order_id', 'limit_if_touched_order_id', 'stop_order_id', 'trailing_LIT_order_id'
       ]
 
+      self.timezone = 'Australia/Melbourne'
+
       if not(pathlib.Path(self.db_path).is_file())\
         and df is not None:
          self.update_db_from_df(df)
@@ -69,37 +70,35 @@ class DB_connection():
       if not(os.path.isdir(self.folder_path)):
         os.mkdir(self.folder_path)
       self.engine = create_engine(f'sqlite:///{pathlib.Path.joinpath(self.folder_path, self.db_name)}', echo=True)
-      # with self.engine.connect() as conn:
-      #    pass
       
    def update_db_from_df(self, df):
-      
-      # df add column timezone!!!
-      # timezone = datetime.tzname(df['buy_time'].iloc[0])
-      timezone = 'E. Australia Standard Time'  # !!!! fix issue with timezone
+    
+      timezone = datetime.tzname(df['buy_time'].iloc[0])
+      timezone = 'E. Australia Standard Time'
       if timezone == 'E. Australia Standard Time':
          timezone = 'Australia/Melbourne'
       df['timezone'] = timezone
       with self.engine.begin() as connection:
         df.to_sql(name ='orders',
                   con = connection,
-                  if_exists='replace')
+                  if_exists='replace',
+                  index=False)
 
    def add_record(self, order):
      
     with Session(self.engine) as session:
 
-      if type(order) == dict:
+      if type(order) in [dict, pd.Series]:
          for column in self.columns:
             locals()[column] = order[column]
 
-      if type(order) == pd.Series:
-          for column in self.columns:
-            locals()[column] = order[column] 
-    
+      if type(order) == pd.DataFrame:
+         for column in self.columns:
+            locals()[column] = order[column].values[0]
+
       order = Orders(
+            id =  order['id'],
             ticker = locals()['ticker'],
-            id=  locals()['id'],
             buy_time = locals()['buy_time'],
             buy_price = locals()['buy_price'],
             buy_sum = locals()['buy_sum'],
@@ -118,37 +117,51 @@ class DB_connection():
             limit_if_touched_order_id = locals()['limit_if_touched_order_id'],
             stop_order_id = locals()['stop_order_id'],
             trailing_LIT_order_id = locals()['trailing_LIT_order_id'],
-            timezone = datetime.tzname(locals()['buy_time'])  
+            timezone = self.timezone  
       )
 
-      session.add_all([order])
+      session.add(order)
       session.commit()
 
    def update_record(self, order):
       
-      if type(order) == dict \
-      or type(order) == pd.Series:
+      if type(order) in [dict, pd.Series]:
          for column in self.columns:
             if column in ['buy_time', 'sell_time']:
               if type(order[column]) == str: 
                 converted_time = datetime.strptime(order[column].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+              elif type(order[column]) == pd.Timestamp:
+                converted_time = order[column]
               else:
                 converted_time = datetime(1,1,1,0,0)
               locals()[column] = converted_time
             else:
               locals()[column] = order[column]
-
-      # if type(order) == pd.DataFrame:
-      #     for column in self.columns:
-      #       locals()[column] = order[column].values[0]
+      
+      if type(order) == pd.DataFrame:
+        for column in self.columns:
+          if column in ['buy_time', 'sell_time']:
+            dt64 = order[column].values[0]
+            if not np.isnan(dt64):
+              dt_pd = pd.to_datetime(dt64)
+              dt = pd.Timestamp.to_pydatetime(dt_pd)
+            else:
+              dt = datetime(1,1,1,0,0)
+            locals()[column] = dt
+          else: 
+            locals()[column] = order[column].values[0]
 
       with Session(self.engine) as session:
-         sql_order = session.query(Orders).filter_by(id= int(locals()['id']), buy_time=locals()['buy_time']).first()
-         for param in self.columns:
-             if param != 'id':
-              setattr(sql_order, param, locals()[param])
-         session.commit()
 
+        sql_order = session.query(Orders).filter_by(id= int(locals()['id']), buy_time=locals()['buy_time']).first()
+        if sql_order is not None:
+          for param in self.columns:
+            if param != 'id':
+              setattr(sql_order, param, locals()[param])
+              session.commit()
+        else:
+            self.add_record(order)
+      
 if __name__ == "__main__":
   parent_path = pathlib.Path(__file__).parent
   folder_path = pathlib.Path.joinpath(parent_path, 'sql')
@@ -162,7 +175,7 @@ if __name__ == "__main__":
     with open(file_path, 'rb') as file:
       df = pickle.load(file)
   print(df)
-  # db.add_record(df.iloc[0])
+  db.add_record(df.iloc[0])
   # df['gain_coef'].iloc[0] = 1.005
   db.update_record(df.iloc[0])
   # db.add_record(order)

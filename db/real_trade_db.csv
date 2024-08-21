@@ -1,2 +1,4 @@
-,id,ticker,buy_time,buy_price,buy_sum,buy_commission,sell_time,sell_price,sell_sum,sell_commission,stocks_number,status,gain_coef,lose_coef,trailing_LIT_gain_coef,profit,buy_order_id,limit_if_touched_order_id,stop_order_id,trailing_LIT_order_id
-0,0.0,DE,2024-08-21 00:39:35.534398,374.06,748.12,1.0,,0.0,0.0,0.0,2.0,bought,1.005,0.95,1.007,0.0,FA1956DF73E03B2000,FA1956E75EBF44A000,FA1956E877FC84A000,FA1956EEE2AC3B2000
+,id,ticker,buy_time,buy_price,buy_sum,buy_commission,sell_time,sell_price,sell_sum,sell_commission,stocks_number,status,gain_coef,lose_coef,trailing_LIT_gain_coef,profit,buy_order_id,limit_if_touched_order_id,stop_order_id,trailing_LIT_order_id,timezone
+0,0.0,DE,2024-08-21 00:39:35.534398,374.06,748.12,1.0,1971-01-01 00:00:00.000,0.0,0.0,0.0,2.0,bought,1.005,0.95,1.007,0.0,FA1956DF73E03B2000,FA1956E75EBF44A000,FA1956E877FC84A000,FA1956EEE2AC3B2000,Australia/Melbourne
+1,3.0,AMT,2024-08-17 01:04:42.282858,220.04,440.08,1.0,1971-01-01 00:00:00.000,,0.0,0.0,2.0,bought,1.005,0.95,1.005,0.0,FA1951CACA1BBB2000,FA1951CB1EE044A000,FA1951CB1F203B2000,,Australia/Melbourne
+2,4.0,CME,2024-08-17 02:44:57.965278,207.86,623.58,1.0,2024-08-20 06:41:51.057,208.9,626.7,1.03,3.0,completed,1.005,0.95,1.005,1.0900000000000043,FA1951E1BCC384A000,FA1951E253C07B2000,FA1951E5847EC4A000,,Australia/Melbourne

@@ -118,15 +118,26 @@ class Moomoo_API():
         except Exception as e:
             alarm.print(e)
         return order_id
-    
-    def cancel_buy_order(self, order):
-        status = False
-        order_id = order['buy_order_id']
+        
+    def cancel_order(self, order, type):
+        '''
+        Cancel order uy type:
+         - type: buy \ limit_if_touch \ stop \ trailing_LIT
+        '''
+        status = False        
         ticker = order['ticker']
+        order_id_type = type + '_order_id'
+        order_id = order[order_id_type]
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
-            ret, data = trd_ctx.modify_order(modify_order_op=ft.ModifyOrderOp.CANCEL, order_id=order_id, price=0, qty=0)
-            print(f'Canceling buy limit if touched order for {ticker}, {order_id}')
+            self.unlock_trade()
+            ret, data = trd_ctx.modify_order(
+                                        modify_order_op=ft.ModifyOrderOp.CANCEL,
+                                        order_id=order_id,
+                                        price=0,
+                                        qty=0
+                                        )
+            warning.print(f'Canceling {type} order for {ticker}, {order_id}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
                 status = True
@@ -224,21 +235,7 @@ class Moomoo_API():
             alarm.print(e)
         return order_id
     
-    def cancel_order(self, order_id):
-        status = None
-        try:
-            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
-            self.unlock_trade()
-            ret, data = trd_ctx.modify_order(ft.ModifyOrderOp.CANCEL, order_id, 0, 0)
-            if ret == ft.RET_OK:
-                status = 'Canceled'
-                warning.print(f'{order_id} has been canceled ')  # Get the order ID of the modified order
-            else:
-                alarm.print('modify_order error: ', data)
-            trd_ctx.close()
-        except Exception as e:
-            alarm.print(e)
-        return status
+
  
     def get_history_orders(self):
         data = None
