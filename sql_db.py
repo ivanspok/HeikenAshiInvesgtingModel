@@ -57,10 +57,10 @@ class DB_connection():
        'ticker', 'id', 'buy_time', 'buy_price', 'buy_sum', 'buy_commission',
        'sell_time', 'sell_price', 'sell_sum', 'sell_commission', 'stocks_number', 'status',
        'gain_coef', 'lose_coef', 'trailing_LIT_gain_coef', 'profit',
-       'buy_order_id', 'limit_if_touched_order_id', 'stop_order_id', 'trailing_LIT_order_id'
+       'buy_order_id', 'limit_if_touched_order_id', 'stop_order_id', 'trailing_LIT_order_id', 'timezone'
       ]
 
-      self.timezone = 'Australia/Melbourne'
+      self.timezone = str(datetime.now().astimezone().tzinfo)
 
       if not(pathlib.Path(self.db_path).is_file())\
         and df is not None:
@@ -125,31 +125,38 @@ class DB_connection():
 
    def update_record(self, order):
       
-      if type(order) in [dict, pd.Series]:
-         for column in self.columns:
-            if column in ['buy_time', 'sell_time']:
-              if type(order[column]) == str: 
-                converted_time = datetime.strptime(order[column].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
-              elif type(order[column]) == pd.Timestamp:
-                converted_time = order[column]
+      try:
+        if type(order) in [dict, pd.Series]:
+          for column in self.columns:
+              if column in ['buy_time', 'sell_time']:
+                if type(order[column]) == str and '+' in order[column]: 
+                  converted_time = datetime.strptime(order[column].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+                elif type(order[column]) == pd.Timestamp:
+                  converted_time = order[column]
+                else:
+                  converted_time = datetime(1971,1,1,0,0)
+                locals()[column] = converted_time
               else:
-                converted_time = datetime(1,1,1,0,0)
-              locals()[column] = converted_time
-            else:
-              locals()[column] = order[column]
+                locals()[column] = order[column]
+      except Exception as e:
+        print(e)
       
-      if type(order) == pd.DataFrame:
-        for column in self.columns:
-          if column in ['buy_time', 'sell_time']:
-            dt64 = order[column].values[0]
-            if not np.isnan(dt64):
-              dt_pd = pd.to_datetime(dt64)
-              dt = pd.Timestamp.to_pydatetime(dt_pd)
-            else:
-              dt = datetime(1,1,1,0,0)
-            locals()[column] = dt
-          else: 
-            locals()[column] = order[column].values[0]
+      try:
+        if type(order) == pd.DataFrame:
+          for column in self.columns:
+            # SQL Lite supports only time in datetime type
+            if column in ['buy_time', 'sell_time']:
+              dt64 = order[column].values[0]
+              if dt64 not in [np.isnan, '', None]:
+                dt_pd = pd.to_datetime(dt64)
+                dt = pd.Timestamp.to_pydatetime(dt_pd)
+              else:
+                dt = datetime(1,1,1,0,0)
+              locals()[column] = dt
+            else: 
+              locals()[column] = order[column].values[0]
+      except Exception as e:
+        print(e)
 
       with Session(self.engine) as session:
 

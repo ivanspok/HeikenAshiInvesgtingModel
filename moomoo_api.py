@@ -119,14 +119,14 @@ class Moomoo_API():
             alarm.print(e)
         return order_id
         
-    def cancel_order(self, order, type):
+    def cancel_order(self, order, order_type):
         '''
         Cancel order uy type:
-         - type: buy \ limit_if_touch \ stop \ trailing_LIT
+         - order_type: buy | limit_if_touch | stop | trailing_LIT
         '''
         status = False        
         ticker = order['ticker']
-        order_id_type = type + '_order_id'
+        order_id_type = order_type + '_order_id'
         order_id = order[order_id_type]
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
@@ -310,20 +310,17 @@ class Moomoo_API():
                             
                             if row['trd_side'] == ft.TrdSide.SELL:
                                 if row['order_type'] == ft.OrderType.LIMIT_IF_TOUCHED \
-                                    and row['remark'] in ['', None]:                                         
-                                    # limit_if_touched_sell_orders.append(row)  
+                                    and row['remark'] in ['', None]:                                          
                                     limit_if_touched_sell_orders = pd.concat([limit_if_touched_sell_orders, row], axis = 1)
                                 if row['order_type'] == ft.OrderType.LIMIT_IF_TOUCHED \
                                        and row['remark'] == 'trailing_LIT':      
                                     trailing_LIT_orders = pd.concat([trailing_LIT_orders, row], axis = 1)
                                 if row['order_type'] == ft.OrderType.STOP: 
                                     stop_sell_orders = pd.concat([stop_sell_orders, row], axis = 1)        
-                                    # stop_sell_orders.append(row)
-
+                                
                             if row['trd_side'] == ft.TrdSide.BUY:
                                  if row['order_type'] == ft.OrderType.LIMIT_IF_TOUCHED: 
                                     limit_if_touched_buy_orders  = pd.concat([limit_if_touched_buy_orders , row], axis = 1)        
-                                    # stop_sell_orders.append(row)
 
                     limit_if_touched_sell_orders = limit_if_touched_sell_orders.transpose()
                     stop_sell_orders = stop_sell_orders.transpose()

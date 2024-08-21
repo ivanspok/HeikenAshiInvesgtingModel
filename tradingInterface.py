@@ -50,7 +50,7 @@ class TradeInterface():
       stocks_number = int(buy_sum / buy_price)
     
     buy_sum = stocks_number * buy_price
-
+    current_timezone = datetime.now().astimezone().tzinfo
     if buy_sum == 0 and stocks_number == 0:
       alarm.print("Buy sum or stocks numbrer should't be both zero to place the order!")
     if self.platform == 'test':
@@ -61,11 +61,11 @@ class TradeInterface():
       id = gv.ORDERS_ID
     order = {
       'ticker' : ticker,
-      'buy_time' : datetime.now().astimezone(),
+      'buy_time' : datetime.now(),
       'buy_price' : buy_price,
       'buy_sum' : buy_sum,
       'buy_commission': 0,
-      'sell_time' : datetime(1,1,1,0,0),
+      'sell_time' : datetime(1971,1,1,0,0),
       'sell_price' : None,
       'sell_commission': 0,
       'stocks_number' : int(stocks_number),
@@ -79,7 +79,8 @@ class TradeInterface():
       'buy_order_id': None,
       'limit_if_touched_order_id': None, 
       'stop_order_id' : None,
-      'trailing_LIT_order_id': None
+      'trailing_LIT_order_id': None,
+      'timezone' : str(current_timezone)
     }
 
     if self.platform == 'test':
@@ -109,20 +110,23 @@ class TradeInterface():
 
   def sell_order(self, order, sell_price, **kwargs):
     response = 'None'
+    current_timezone = datetime.now().astimezone().tzinfo
     if order['status'] in ['bought', 'filled part']:
       if self.platform == 'test':
-        order['sell_time'] = datetime.now().astimezone()
+        order['sell_time'] = datetime.now()
         order['sell_price'] = sell_price
         order['sell_sum'] = sell_price * order['stocks_number']
         order['sell_commission'] = order['sell_sum'] * self.test_commission
+        order['timezone'] = str(current_timezone)
         response = 'success'
 
       if self.platform == 'moomoo':
         historical_order = kwargs['historical_order']
         tzinfo_ny = pytz.timezone('America/New_York')
-        tzinfo = pytz.timezone('Australia/Melbourne')
+        # tzinfo = pytz.timezone('Australia/Melbourne')
         order['sell_time'] = datetime.strptime(historical_order['updated_time'].values[0], '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=tzinfo_ny) # New-York time
-        order['sell_time'] = order['sell_time'].astimezone(tzinfo) # Melbourne Time
+        order['sell_time'] = order['sell_time'].astimezone(current_timezone) # Change time to current timezone time
+        order['sell_time'] = order['sell_time'].replace(tzinfo=None) # remove timezone
         order['sell_price'] = float(historical_order['dealt_avg_price'].values[0])
         order['sell_sum'] = float(historical_order['dealt_avg_price'].values[0] * historical_order['qty'].values[0])
         sell_commision = self.moomoo_api.get_order_commission(historical_order['order_id'].values[0])
@@ -154,11 +158,11 @@ class TradeInterface():
         {
           'id' : pd.Series(dtype='int'),
           'ticker': pd.Series(dtype='str'),
-          'buy_time' : pd.Series(dtype='datetime64[ns]'),
+          'buy_time' : pd.Series(dtype='datetime'),
           'buy_price' : pd.Series(dtype='float'),
           'buy_sum' : pd.Series(dtype='float'),
           'buy_commission': pd.Series(dtype='float'),
-          'sell_time' : pd.Series(dtype='datetime64[ns]'),
+          'sell_time' : pd.Series(dtype='datetime'),
           'sell_price' : pd.Series(dtype='float'),
           'sell_sum': pd.Series(dtype='float'),
           'sell_commission': pd.Series(dtype='float'),

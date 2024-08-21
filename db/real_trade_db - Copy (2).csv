@@ -1,2 +1,0 @@
-,id,ticker,buy_time,buy_price,buy_sum,buy_commission,sell_time,sell_price,sell_sum,sell_commission,stocks_number,status,gain_coef,lose_coef,trailing_LIT_gain_coef,profit,limit_if_touched_order_id,stop_order_id,trailing_LIT_order_id,buy_order_id
-0,47,ANET,2024-08-20 23:47:07.141664+10:00,355.7200012207031,711.4400024414062,0.0,,,0.0,0.0,2,created,1.005,0.95,1.007,0.0,,,,
