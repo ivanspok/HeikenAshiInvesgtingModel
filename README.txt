@@ -28,4 +28,5 @@ test_trading.py
  price = buy_trigger_price * 1.0001
  aux_price (trigger price ) = price 
 
- 
+ when buy: price higher that trigger price
+ when sell: price lower than trigger price

@@ -158,11 +158,11 @@ class TradeInterface():
         {
           'id' : pd.Series(dtype='int'),
           'ticker': pd.Series(dtype='str'),
-          'buy_time' : pd.Series(dtype='datetime'),
+          'buy_time' : pd.Series(dtype='datetime64[ns]'),
           'buy_price' : pd.Series(dtype='float'),
           'buy_sum' : pd.Series(dtype='float'),
           'buy_commission': pd.Series(dtype='float'),
-          'sell_time' : pd.Series(dtype='datetime'),
+          'sell_time' : pd.Series(dtype='datetime64[ns]'),
           'sell_price' : pd.Series(dtype='float'),
           'sell_sum': pd.Series(dtype='float'),
           'sell_commission': pd.Series(dtype='float'),

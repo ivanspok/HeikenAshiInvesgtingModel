@@ -42,3 +42,30 @@ if False:
         and sell_order['order_status'].values[0]  != ft.OrderStatus.SUBMITTING \
         and sell_order['order_status'].values[0]  != ft.OrderStatus.WAITING_SUBMIT:
         alarm.print(f'{ticker} trailing limit if touched order has not been sumbitted')
+
+def load_orders_from_csv():
+  
+  # FUNCTION TO UPDATE times from csv files to df with correct time format
+  df = pd.read_csv('db/real_trade_db.csv', index_col='Unnamed: 0')
+  df['buy_time'] = pd.to_datetime(df['buy_time'], dayfirst=False)
+  df['sell_time'] = pd.to_datetime(df['sell_time'], dayfirst=False)
+  # tzinfo = pytz.timezone('Australia/Melbourne')
+  # buy_times_list = []
+  # sell_times_list = []
+  # for index, row in df2.iterrows():
+  #   if type(row['buy_time']) == str and'+' in row['buy_time']:
+  #     dt = datetime.strptime(row['buy_time'].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+  #     buy_times_list.append(np.datetime64(dt))
+  #   else:
+  #     dt = datetime.strptime('1971-01-01 00:00:00.000000', '%Y-%m-%d %H:%M:%S.%f')
+  #     buy_times_list.append(np.datetime64(dt))
+  #   if type(row['sell_time']) == str and '+' in row['sell_time']:
+  #     dt = datetime.strptime(row['sell_time'].split('+')[0], '%Y-%m-%d %H:%M:%S.%f')
+  #     sell_times_list.append(np.datetime64(dt))
+  #   else:
+  #     dt = datetime.strptime('1971-01-01 00:00:00.000000', '%Y-%m-%d %H:%M:%S.%f')
+  #     sell_times_list.append(np.datetime64(dt))
+  # df2['buy_time'] = buy_times_list
+  # df2['sell_time'] = sell_times_list
+  # df = pd.concat([df, df2])
+  return df

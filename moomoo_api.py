@@ -149,6 +149,9 @@ class Moomoo_API():
         return status
 
     def modify_limit_if_touched_order(self, order, gain_coef, aux_price_coef = 1.0001, order_type='limit_if_touched'):
+        '''
+        Modify for sell orders: limit_if_touched and trailing_LIT
+        '''
         order_id = None
         if order_type == 'limit_if_touched':
             order_id = order['limit_if_touched_order_id']
@@ -183,6 +186,9 @@ class Moomoo_API():
         return order_id
 
     def modify_stop_order(self, order, lose_coef):
+        '''
+        Note: for Market order price can be passed any value
+        '''
         order_id = order['stop_order_id']
         price =  order['buy_price'] * lose_coef
         qty = order['stocks_number']
@@ -193,7 +199,7 @@ class Moomoo_API():
                                     modify_order_op=ft.ModifyOrderOp.NORMAL,
                                     order_id=order_id,
                                     price=price,
-                                    aux_price=price * 0.9995,
+                                    aux_price=price * 0.9998,
                                     qty=qty,
                                     trd_env=self.trd_env,
                                     adjust_limit=0.01,
@@ -212,6 +218,9 @@ class Moomoo_API():
         return order_id
 
     def place_stop_order(self, ticker, price, qty):
+        '''
+        Note: for Market order price can be passed any value
+        '''
         order_id = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
@@ -224,7 +233,7 @@ class Moomoo_API():
                                     trd_env=self.trd_env,
                                     time_in_force=ft.TimeInForce.GTC,
                                     order_type=ft.OrderType.STOP,
-                                    aux_price=price * 0.9995)
+                                    aux_price=price * 0.9998)
             print(f'Placing stop order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
