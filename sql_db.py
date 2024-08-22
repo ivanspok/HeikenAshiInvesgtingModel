@@ -69,15 +69,15 @@ class DB_connection():
    def engine_init(self):
       if not(os.path.isdir(self.folder_path)):
         os.mkdir(self.folder_path)
-      self.engine = create_engine(f'sqlite:///{pathlib.Path.joinpath(self.folder_path, self.db_name)}', echo=True)
+      self.engine = create_engine(f'sqlite:///{pathlib.Path.joinpath(self.folder_path, self.db_name)}', echo=False)
       
    def update_db_from_df(self, df):
     
-      timezone = datetime.tzname(df['buy_time'].iloc[0])
-      timezone = 'E. Australia Standard Time'
-      if timezone == 'E. Australia Standard Time':
-         timezone = 'Australia/Melbourne'
-      df['timezone'] = timezone
+      # timezone = datetime.tzname(df['buy_time'].iloc[0])
+      # timezone = 'E. Australia Standard Time'
+      # if timezone == 'E. Australia Standard Time':
+      #    timezone = 'Australia/Melbourne'
+      # df['timezone'] = timezone
       with self.engine.begin() as connection:
         df.to_sql(name ='orders',
                   con = connection,

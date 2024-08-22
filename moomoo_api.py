@@ -73,7 +73,7 @@ class Moomoo_API():
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
             stock_code = MARKET + ticker
             ret, data = trd_ctx.place_order(
-                                    price=price * 1.0003,
+                                    price=price * 1.00015,
                                     qty=qty,
                                     code=stock_code,
                                     trd_side=ft.TrdSide.BUY,
@@ -81,7 +81,7 @@ class Moomoo_API():
                                     time_in_force=ft.TimeInForce.GTC,
                                     adjust_limit=0.01,
                                     order_type=ft.OrderType.LIMIT_IF_TOUCHED,
-                                    aux_price=price * 1.0002)
+                                    aux_price=price)
             print(f'Placing BUY limit if touched order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
@@ -108,7 +108,8 @@ class Moomoo_API():
                                     adjust_limit=0.01,
                                     order_type=ft.OrderType.LIMIT_IF_TOUCHED,
                                     aux_price=price * aux_price_coef,
-                                    remark=remark)
+                                    remark=remark,
+                                    fill_outside_rth=True)
             print(f'Placing limit if touched order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
