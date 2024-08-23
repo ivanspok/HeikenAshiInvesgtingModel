@@ -15,6 +15,11 @@ import pandas as pd
 import pickle
 import numpy as np
 
+from colog.colog import colog
+c = colog()
+warning = colog(TextColor='orange')
+alarm = colog(TextColor='red')
+
 class Base(DeclarativeBase):
     pass
 
@@ -120,8 +125,11 @@ class DB_connection():
             timezone = self.timezone  
       )
 
-      session.add(order)
-      session.commit()
+      try:
+        session.add(order)
+        session.commit()
+      except Exception as e:
+        warning.print(e)
 
    def update_record(self, order):
       
@@ -156,18 +164,21 @@ class DB_connection():
             else: 
               locals()[column] = order[column].values[0]
       except Exception as e:
-        print(e)
+        warning.print(e)
 
       with Session(self.engine) as session:
 
-        sql_order = session.query(Orders).filter_by(id= int(locals()['id']), buy_time=locals()['buy_time']).first()
-        if sql_order is not None:
-          for param in self.columns:
-            if param != 'id':
-              setattr(sql_order, param, locals()[param])
-              session.commit()
-        else:
-            self.add_record(order)
+        try:
+          sql_order = session.query(Orders).filter_by(id= int(locals()['id']), buy_time=locals()['buy_time']).first()
+          if sql_order is not None:
+            for param in self.columns:
+              if param != 'id':
+                setattr(sql_order, param, locals()[param])
+                session.commit()
+          else:
+              self.add_record(order)
+        except Exception as e:
+          warning.print(e)
       
 if __name__ == "__main__":
   parent_path = pathlib.Path(__file__).parent

@@ -211,7 +211,7 @@ class TradeInterface():
       # Update order in the SQL:
       try:
         self.__update_sql_db__()
-        # self.db.update_record(update_line.iloc[0])
+      
         self.db.update_record(update_line)
       except Exception as e:
         alarm.print(e)

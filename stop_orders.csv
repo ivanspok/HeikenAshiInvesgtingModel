@@ -1,0 +1,5 @@
+,code,stock_name,trd_side,order_type,order_status,order_id,qty,price,create_time,updated_time,dealt_qty,dealt_avg_price,last_err_msg,remark,time_in_force,fill_outside_rth,aux_price,trail_type,trail_value,trail_spread,currency
+2,US.SLB,Schlumberger,SELL,STOP,WAITING_SUBMIT,FA195834E6D27B2000,20.0,0.0,2024-08-21 10:39:12.142,2024-08-21 10:39:12.311,0.0,0.0,,,GTC,False,42.3678,N/A,N/A,N/A,USD
+8,US.MRNA,Moderna,SELL,STOP,WAITING_SUBMIT,FA195ABBA9777B2000,17.0,0.0,2024-08-23 09:44:56.479,2024-08-23 09:44:56.650,0.0,0.0,,,GTC,False,78.3213,N/A,N/A,N/A,USD
+11,US.NXPI,NXP Semiconductors,SELL,STOP,WAITING_SUBMIT,FA195AC7D1EFC4A000,5.0,0.0,2024-08-23 10:38:03.649,2024-08-23 10:38:03.877,0.0,0.0,,,GTC,False,239.922,N/A,N/A,N/A,USD
+15,US.AMD,Advanced Micro Devices,SELL,STOP,WAITING_SUBMIT,FA195AC9FF2404A000,7.0,0.0,2024-08-23 10:47:34.226,2024-08-23 10:47:34.406,0.0,0.0,,,GTC,False,147.591,N/A,N/A,N/A,USD

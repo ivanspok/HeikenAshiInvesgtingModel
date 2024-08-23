@@ -71,6 +71,7 @@ class Moomoo_API():
         order = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
             stock_code = MARKET + ticker
             ret, data = trd_ctx.place_order(
                                     price=price * 1.00015,
@@ -334,7 +335,7 @@ class Moomoo_API():
 
                     limit_if_touched_sell_orders = limit_if_touched_sell_orders.transpose()
                     stop_sell_orders = stop_sell_orders.transpose()
-                    limit_if_touched_buy_orders.transpose()
+                    limit_if_touched_buy_orders = limit_if_touched_buy_orders.transpose()
                     trailing_LIT_orders = trailing_LIT_orders.transpose()
             else:
                 alarm.print('order_list_query error: ', data)
@@ -387,21 +388,21 @@ if __name__ == "__main__":
     # ma.place_stop_order('MA', 480, 1)
     
     # Subscription check
-    # quote_ctx = ft.OpenQuoteContext(host='127.0.0.1', port=11111)
-    # print('current subscription status :', quote_ctx.query_subscription()) # Query the initial subscription status
-    # ret_sub, err_message = quote_ctx.subscribe(['US.AAPL'], [ft.SubType.QUOTE, ft.SubType.TICKER], subscribe_push=False)
-    # # First subscribed to the two types of QUOTE and TICKER. After the subscription is successful, OpenD will continue to receive pushes from the server, False means that there is no need to push to the script temporarily
-    # if ret_sub == ft.RET_OK: # Subscription successful
-    #     print('subscribe successfully! current subscription status :', quote_ctx.query_subscription()) # Query subscription status after successful subscription
-    #     time.sleep(60) # You can unsubscribe at least 1 minute after subscribing
-    #     ret_unsub, err_message_unsub = quote_ctx.unsubscribe(['US.AAPL'], [ft.SubType.QUOTE])
-    #     if ret_unsub == ft.RET_OK:
-    #         print('unsubscribe successfully! current subscription status:', quote_ctx.query_subscription()) # Query the subscription status after canceling the subscription
-    #     else:
-    #         print('unsubscription failed!', err_message_unsub)
-    # else:
-    #     print('subscription failed', err_message)
-    # quote_ctx.close() # After using the connection, remember to close it to prevent the number of connections from running out
+    quote_ctx = ft.OpenQuoteContext(host='127.0.0.1', port=11111)
+    print('current subscription status :', quote_ctx.query_subscription()) # Query the initial subscription status
+    ret_sub, err_message = quote_ctx.subscribe(['US.AAPL'], [ft.SubType.QUOTE, ft.SubType.TICKER], subscribe_push=False)
+    # First subscribed to the two types of QUOTE and TICKER. After the subscription is successful, OpenD will continue to receive pushes from the server, False means that there is no need to push to the script temporarily
+    if ret_sub == ft.RET_OK: # Subscription successful
+        print('subscribe successfully! current subscription status :', quote_ctx.query_subscription()) # Query subscription status after successful subscription
+        time.sleep(60) # You can unsubscribe at least 1 minute after subscribing
+        ret_unsub, err_message_unsub = quote_ctx.unsubscribe(['US.AAPL'], [ft.SubType.QUOTE])
+        if ret_unsub == ft.RET_OK:
+            print('unsubscribe successfully! current subscription status:', quote_ctx.query_subscription()) # Query the subscription status after canceling the subscription
+        else:
+            print('unsubscription failed!', err_message_unsub)
+    else:
+        print('subscription failed', err_message)
+    quote_ctx.close() # After using the connection, remember to close it to prevent the number of connections from running out
     
     #test historical data
     quote_ctx = ft.OpenQuoteContext(host='127.0.0.1', port=11111)
