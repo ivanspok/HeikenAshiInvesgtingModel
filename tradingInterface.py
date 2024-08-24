@@ -188,7 +188,9 @@ class TradeInterface():
         c.print('df file saved', color='green')
         try:
           csv_path = pathlib.Path.joinpath(self.folder_path, self.df_path + '.csv')
+          xlsx_path = pathlib.Path.joinpath(self.folder_path, self.df_path + '.xlsx')
           df.to_csv(csv_path)
+          df.to_excel(xlsx_path)
           c.print('cvs file saved', color='green')
         except Exception as e:
           alarm.print(f'{e}')

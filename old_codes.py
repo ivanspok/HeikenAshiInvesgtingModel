@@ -69,3 +69,32 @@ def load_orders_from_csv():
   # df2['sell_time'] = sell_times_list
   # df = pd.concat([df, df2])
   return df
+
+
+# Manual updates to DB
+
+# for index, row in df.iterrows():
+#   ti.update_order(df, row)
+
+# Manualy change the values
+# df.iloc[0] = [0,'DE', datetime.now(), 374.06, 751, 0, None,0,0,0,2,'bought',1.005, 0.95,1.007,0,
+# 'FA1956E877FC84A000', 'FA1956E75EBF44A000', 'FA1956E877FC84A000', None] 
+# df.loc[] = [0,'DE', datetime.now(), 374.06, 751, 0, None,0,0,0,2,'bought',1.005, 0.95,1.007,0,
+# 'FA1956DF73E03B2000', 'FA1956E75EBF44A000', 'FA1956E877FC84A000', 'FA1956EEE2AC3B2000'] 
+# df._set_value(0, 'trailing_LIT_order_id' ,'FA1956EEE2AC3B2000')
+# df.drop(index=1, inplace=True)
+
+
+# BUY TEST
+# order = ti.buy_order(ticker='CWPE', buy_price=1.8, buy_sum=4)
+# order['gain_coef'] = 1.05
+# order['lose_coef'] = 0.98
+# order = update_buy_order_based_on_platform_data(order)
+# df = ti.record_order(order)
+# ma.cancel_order(order, type='buy')
+
+# SELL TEST
+# historical_orders = ma.get_history_orders()
+# historical_order = historical_orders.iloc[0]
+# order = df.iloc[0]
+# order = ti.sell_order(order, sell_price=order['buy_price']*1.05, historical_order = historical_order)
