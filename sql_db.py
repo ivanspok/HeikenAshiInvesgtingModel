@@ -14,6 +14,7 @@ import pytz
 import pandas as pd
 import pickle
 import numpy as np
+import time
 
 from colog.colog import colog
 c = colog()
@@ -39,12 +40,14 @@ class Orders(Base):
     status = Column(String(30))
     gain_coef = Column(Float)
     trailing_LIT_gain_coef = Column(Float)
+    trailing_ratio = Column(Float)
     lose_coef = Column(Float)
     profit = Column(Float)
     buy_order_id = Column(String(30))
     limit_if_touched_order_id = Column(String(30))
     stop_order_id = Column(String(30))
     trailing_LIT_order_id = Column(String(30))
+    trailing_stop_limit_order_id = Column(String(30))
     timezone = Column(String(40))   
 
     def __repr__(self) -> str:
@@ -61,8 +64,9 @@ class DB_connection():
       self.columns = [
        'ticker', 'id', 'buy_time', 'buy_price', 'buy_sum', 'buy_commission',
        'sell_time', 'sell_price', 'sell_sum', 'sell_commission', 'stocks_number', 'status',
-       'gain_coef', 'lose_coef', 'trailing_LIT_gain_coef', 'profit',
-       'buy_order_id', 'limit_if_touched_order_id', 'stop_order_id', 'trailing_LIT_order_id', 'timezone'
+       'gain_coef', 'lose_coef', 'trailing_LIT_gain_coef', 'trailing_ratio', 'profit',
+       'buy_order_id', 'limit_if_touched_order_id', 'stop_order_id', 'trailing_LIT_order_id', 
+       'trailing_stop_limit_order_id','timezone'
       ]
 
       self.timezone = str(datetime.now().astimezone().tzinfo)
@@ -117,11 +121,13 @@ class DB_connection():
             gain_coef = locals()['gain_coef'],
             lose_coef = locals()['lose_coef'],
             trailing_LIT_gain_coef = locals()['trailing_LIT_gain_coef'],
+            trailing_ratio = locals()['trailing_ratio'],
             profit = locals()['profit'],
             buy_order_id = locals()['buy_order_id'],
             limit_if_touched_order_id = locals()['limit_if_touched_order_id'],
             stop_order_id = locals()['stop_order_id'],
             trailing_LIT_order_id = locals()['trailing_LIT_order_id'],
+            trailing_stop_limit_order_id = locals()['trailing_stop_limit_order_id'],
             timezone = self.timezone  
       )
 
@@ -174,6 +180,7 @@ class DB_connection():
             for param in self.columns:
               if param != 'id':
                 setattr(sql_order, param, locals()[param])
+                time.sleep(0.1)
                 session.commit()
           else:
               self.add_record(order)

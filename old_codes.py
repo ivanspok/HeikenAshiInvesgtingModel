@@ -71,6 +71,20 @@ def load_orders_from_csv():
   return df
 
 
+
+  # if ticker == 'AVGO':
+  #   trail_spread = 166 * 0.0003
+  #   order_id = ma.place_trailing_stop_limit_order(ticker='AVGO', price=200, qty=5, trail_value=0.15, trail_spread=trail_spread)
+  #   order['trailing_stop_limit_order_id'] = order_id
+  #   trail_spread = 146 * 0.0003
+  #   order_id = ma.modify_trailing_stop_limit_order(order=order,
+  #                                                 trail_value=0.2,
+  #                                                 trail_spread=trail_spread)
+    
+  #   ma.cancel_order(order, order_type='trailing_stop_limit')
+
+
+
 # Manual updates to DB
 
 # for index, row in df.iterrows():
@@ -98,3 +112,51 @@ def load_orders_from_csv():
 # historical_order = historical_orders.iloc[0]
 # order = df.iloc[0]
 # order = ti.sell_order(order, sell_price=order['buy_price']*1.05, historical_order = historical_order)
+
+
+
+# Version 1.0
+# stock_name_list_opt = [
+#   'GOOG', 'JPM', 'XOM', 'UNH', 'AVGO', 'LLY', 'COST',
+#   'CRM', 'TMO', 'NFLX', 'TXN', 'INTU', 'NKE', 'QCOM',
+#   'BA', 'AMGN', 'MDT', 'PLD', 'MS', 'GS', 'LMT', 'ADI', 'TJX', 'ELV', 'C', 'CVS', 'VRTX', 'SCHW', 'LRCX',
+#   'TMUS', 'ETN', 'ZTS', 'CI', 'FI', 'EQIX', 'DUK', 'MU',
+#   'AON', 'ITW', 'SNPS', 'KLAC', 'CL', 'WM', 'HCA', 'MMM',
+#   'CMG', 'EW', 'GM', 'MCK', 'NSC', 'PH', 'MPC', 'ROP', 
+#   'MCHP', 'USB', 'CCI', 'MAR', 'MSI', 'GD', 'JCI', 'PSX', 
+#   'SRE', 'ADSK', 'AJG', 'TEL', 'TT', 'PCAR', 'OXY', 'CARR',
+#   'IDXX', 'GIS', 'CTAS', 'AIG', 'ANET', 'BIIB', 'SPG', 'MSCI', 'DHI'
+# ]
+
+# Version 2.0
+# stock_name_list_opt = [
+# 'BA', 'ON', 'MCHP', 'ADI', 'PANW', 'DHI', 'ANET', 'AMD', 'LRCX', 'LLY',
+# 'MU', 'TXN', 'AIG', 'WMB', 'BSX', 'NKE', 'OXY', 'TT', 'AMAT', 'ETN', 'DE',
+# 'EL', 'FDX', 'MAR', 'GE', 'NFLX', 'NUE', 'GOOG', 'ECL', 'AVGO', 'CAT', 'SPG',
+# 'ADSK', 'INTU', 'SLB', 'F', 'WMT', 'SBUX', 'SNPS', 'AJG', 'TMUS', 'KLAC', 'CI',
+# 'JCI', 'GILD', 'QCOM', 'ROP', 'MO', 'WM', 'HON', 'ITW', 'GS', 'HCA', 'TJX', 'ICE',
+# 'DXCM', 'IDXX', 'ABBV', 'CDNS', 'CMCSA', 'JNJ', 'EQIX', 'MDLZ', 'NXPI', 'MSI', 'TEL',
+# 'LMT', 'USB', 'MRK', 'HLT', 'APD', 'CTAS', 'MNST', 'NOW', 'AMT', 'PH', 'HUM', 'ADM',
+# 'TDG', 'EMR', 'GM', 'ADP', 'CMG', 'SCHW', 'MSCI', 'EOG', 'UNP', 'INTC', 'CME',
+# 'MA', 'CVS', 'XOM', 'CSCO', 'WELL', 'TMO', 'MRNA', 'PLD', 'APH', 'PEP', 'CRM', 'MMM',
+# 'MMC', 'LIN', 'GIS', 'COST', 'CSX', 'IQV', 'FI', 'MCD', 'VRTX'
+# ]
+
+# settings for buy condition Version 1.0
+# is_near_global_max_prt = 80
+# distance_from_last_top  = 0
+# last_top_ratio = 1
+# RIV  = 0.25
+# buy_ratio_border = 9
+# bull_trend_coef = 1.12
+# number_tries_to_submit_order = {}
+#
+# settings for buy condition Version 2.0
+# is_near_global_max_prt = 96
+# distance_from_last_top  = 0
+# last_top_ratio = 1
+# RIV  = 0.15
+# buy_ratio_border = 0
+# bull_trend_coef = 1.12
+# number_tries_to_submit_order = {}
+#

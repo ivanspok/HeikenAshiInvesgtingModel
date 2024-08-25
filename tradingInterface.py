@@ -15,7 +15,7 @@ warning = colog(TextColor='orange')
 alarm = colog(TextColor='red')
 
 float_columns = ['buy_price', 'buy_sum', 'buy_commission', 'sell_price', 'sell_sum', 'sell_commission',
-                  'gain_coef', 'lose_coef', 'trailing_LIT_gain_coef', 'profit']
+                  'gain_coef', 'lose_coef', 'trailing_LIT_gain_coef', 'profit', 'trailing_ratio']
 
 class TradeInterface():
 
@@ -74,12 +74,14 @@ class TradeInterface():
       'gain_coef': 0,
       'lose_coef' : 0,
       'trailing_LIT_gain_coef' : 1.007,
+      'trailing_ratio': 0.15,
       'sell_sum': 0, 
       'profit': 0,
       'buy_order_id': None,
       'limit_if_touched_order_id': None, 
       'stop_order_id' : None,
       'trailing_LIT_order_id': None,
+      'trailing_stop_limit_order_id': None,
       'timezone' : str(current_timezone)
     }
 
@@ -171,11 +173,13 @@ class TradeInterface():
           'gain_coef': pd.Series(dtype='float'),
           'lose_coef' : pd.Series(dtype='float'),
           'trailing_LIT_gain_coef' : pd.Series(dtype='float'),
+          'trailing_ratio': pd.Series(dtype='float'),
           'profit': pd.Series(dtype='float'),
           'buy_order_id' : pd.Series(dtype='int'), 
           'limit_if_touched_order_id': pd.Series(dtype='int'),
           'stop_order_id' : pd.Series(dtype='int'),         
           'trailing_LIT_order_id' : pd.Series(dtype='int'),         
+          'trailing_stop_limit_order_id' : pd.Series(dtype='int')  
         }
       )
     return df

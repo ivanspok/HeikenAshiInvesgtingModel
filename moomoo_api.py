@@ -120,11 +120,76 @@ class Moomoo_API():
         except Exception as e:
             alarm.print(e)
         return order_id
-        
+    
+    def place_trailing_stop_limit_order(self, ticker, price, qty, trail_value, trail_spread, remark=''):
+        order_id = None
+        try:
+            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            stock_code = MARKET + ticker
+            ret, data = trd_ctx.place_order(
+                                    price=price,
+                                    qty=qty,
+                                    code=stock_code,
+                                    trd_side=ft.TrdSide.SELL,
+                                    trd_env=self.trd_env,
+                                    time_in_force=ft.TimeInForce.GTC,
+                                    adjust_limit=0.01,
+                                    order_type=ft.OrderType.TRAILING_STOP_LIMIT,
+                                    trail_type= ft.TrailType.RATIO,
+                                    trail_value=trail_value,
+                                    trail_spread=trail_spread,
+                                    remark=remark,
+                                    fill_outside_rth=False)
+            print(f'Placing trailing stop limit order for {stock_code}')
+            print(f'Market response is {ret}, data is {data}')
+            if ret == ft.RET_OK:
+                order_id = data['order_id'].values[0]
+            else:
+                alarm.print(data)
+        except Exception as e:
+            alarm.print(e)
+        return order_id
+
+    def modify_trailing_stop_limit_order(self, order, trail_value, trail_spread):
+        '''
+        Note: for Market order price can be passed any value
+        '''
+        order_id = order['stop_order_id']
+        price =  order['buy_price'] * 1.1
+        aux_price =  order['buy_price'] * 0.9
+        qty = order['stocks_number']
+        ticker = order['ticker']
+        try:
+            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            ret, data = trd_ctx.modify_order(
+                                    modify_order_op=ft.ModifyOrderOp.NORMAL,
+                                    order_id=order_id,
+                                    price=price,
+                                    qty=qty,
+                                    trd_env=self.trd_env,
+                                    adjust_limit=0.01,
+                                    aux_price=aux_price,
+                                    trail_type= ft.TrailType.RATIO,
+                                    trail_value=trail_value,
+                                    trail_spread=trail_spread
+                                    )
+            print(f'Modifying trailing stop limit order for {ticker}, {order_id}')
+            print(f'Market response is {ret}, data is {data}')
+            if ret == ft.RET_OK:
+                order_id_returned = data['order_id'].values[0]
+                if order_id_returned != order_id:
+                    print(f'order_id is {order_id}, order_id_returned is {order_id_returned}')
+                    order_id = order_id_returned
+            else:
+                alarm.print(data)
+        except Exception as e:
+            alarm.print(e)
+        return order_id
+
     def cancel_order(self, order, order_type):
         '''
         Cancel order uy type:
-         - order_type: buy | limit_if_touch | stop | trailing_LIT
+         - order_type: buy | limit_if_touch | stop | trailing_LIT | trailing_stop_limit
         '''
         status = False        
         ticker = order['ticker']
@@ -309,6 +374,7 @@ class Moomoo_API():
         stop_sell_orders = pd.DataFrame()
         limit_if_touched_buy_orders = pd.DataFrame()
         trailing_LIT_orders = pd.DataFrame()
+        trailing_stop_limit_orders = pd.DataFrame()
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=ip, port=port, security_firm=ft.SecurityFirm.FUTUAU)
             ret, data = trd_ctx.order_list_query(acc_id=self.acc_id)
@@ -327,7 +393,9 @@ class Moomoo_API():
                                        and row['remark'] == 'trailing_LIT':      
                                     trailing_LIT_orders = pd.concat([trailing_LIT_orders, row], axis = 1)
                                 if row['order_type'] == ft.OrderType.STOP: 
-                                    stop_sell_orders = pd.concat([stop_sell_orders, row], axis = 1)        
+                                    stop_sell_orders = pd.concat([stop_sell_orders, row], axis = 1)
+                                if row['order_type'] == ft.OrderType.TRAILING_STOP_LIMIT: 
+                                    trailing_stop_limit_orders = pd.concat([stop_sell_orders, row], axis = 1)       
                                 
                             if row['trd_side'] == ft.TrdSide.BUY:
                                  if row['order_type'] == ft.OrderType.LIMIT_IF_TOUCHED: 
@@ -337,12 +405,13 @@ class Moomoo_API():
                     stop_sell_orders = stop_sell_orders.transpose()
                     limit_if_touched_buy_orders = limit_if_touched_buy_orders.transpose()
                     trailing_LIT_orders = trailing_LIT_orders.transpose()
+                    trailing_stop_limit_orders = trailing_stop_limit_orders.transpose()
             else:
                 alarm.print('order_list_query error: ', data)
             trd_ctx.close()  # Close the current connection
         except Exception as e:
             alarm.print(e)
-        return  limit_if_touched_sell_orders, stop_sell_orders, limit_if_touched_buy_orders, trailing_LIT_orders
+        return  limit_if_touched_sell_orders, stop_sell_orders, limit_if_touched_buy_orders, trailing_LIT_orders, trailing_stop_limit_orders
     
     def get_order_commission(self, order_id):
         commission = None
