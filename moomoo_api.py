@@ -47,6 +47,7 @@ class Moomoo_API():
         order_id = None
         try:
             trd_ctx  =  trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
             stock_code = MARKET + ticker
             ret, data = trd_ctx.place_order(
                                       price=0.1,
@@ -98,6 +99,7 @@ class Moomoo_API():
         order_id = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
             stock_code = MARKET + ticker
             ret, data = trd_ctx.place_order(
                                     price=price,
@@ -125,6 +127,7 @@ class Moomoo_API():
         order_id = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
             stock_code = MARKET + ticker
             ret, data = trd_ctx.place_order(
                                     price=price,
@@ -161,6 +164,7 @@ class Moomoo_API():
         ticker = order['ticker']
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
             ret, data = trd_ctx.modify_order(
                                     modify_order_op=ft.ModifyOrderOp.NORMAL,
                                     order_id=order_id,
@@ -229,6 +233,7 @@ class Moomoo_API():
         ticker = order['ticker']
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
             ret, data = trd_ctx.modify_order(
                                     modify_order_op=ft.ModifyOrderOp.NORMAL,
                                     order_id=order_id,
@@ -261,6 +266,7 @@ class Moomoo_API():
         ticker = order['ticker']
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
             ret, data = trd_ctx.modify_order(
                                     modify_order_op=ft.ModifyOrderOp.NORMAL,
                                     order_id=order_id,
@@ -290,6 +296,7 @@ class Moomoo_API():
         order_id = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
             stock_code = MARKET + ticker
             ret, data = trd_ctx.place_order(
                                     price=price,
@@ -311,8 +318,6 @@ class Moomoo_API():
             alarm.print(e)
         return order_id
     
-
- 
     def get_history_orders(self):
         data = None
         try:

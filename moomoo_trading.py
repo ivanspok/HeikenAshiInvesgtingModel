@@ -532,10 +532,10 @@ if __name__ == '__main__':
               gain_coef = 1.02
             else:
               gain_coef = 1.005            
-            lose_coef = 0.95  
+            lose_coef = 0.93  
           else: # bear 
             gain_coef = 1.005
-            lose_coef = 0.95 
+            lose_coef = 0.93 
           
           # Trailing LIT gain coefficient:
           current_gain = current_price / order['buy_price']
@@ -547,22 +547,29 @@ if __name__ == '__main__':
           if current_gain >= 1.012:
             trailing_LIT_gain_coef = current_gain - 0.002
 
+          # Trailing stop limit order, trailing ration
+          if current_gain >= 1.0055 and current_gain < 1.008:
+            trailing_ratio = 0.1
+          elif current_gain >= 1.008 and  current_gain <= 1.009:
+            trailing_ratio = 0.15
+          elif current_gain > 1.009:
+            trailing_ratio = 0.2
+          else:
+            trailing_ratio = 0.15
+
           if order['gain_coef'] != gain_coef:
-            ma.unlock_trade()
             order_id = ma.modify_limit_if_touched_order(order, gain_coef)
             if order_id != order['limit_if_touched_order_id']:
               order['limit_if_touched_order_id'] = order_id
             order['gain_coef'] = gain_coef
             df = ti.update_order(df, order)
           if order['lose_coef'] != lose_coef:
-            ma.unlock_trade()
             order_id = ma.modify_stop_order(order, lose_coef)
             if order_id != order['stop_order_id']:
               order['stop_order_id'] = order_id
             order['lose_coef'] = lose_coef
             df = ti.update_order(df, order)
           if order['trailing_LIT_gain_coef'] != trailing_LIT_gain_coef:
-            ma.unlock_trade()
             order_id = ma.modify_limit_if_touched_order(order, trailing_LIT_gain_coef,
                                                         aux_price_coef=1.0005,
                                                         order_type='trailing_LIT' 
@@ -570,7 +577,20 @@ if __name__ == '__main__':
             if order_id != order['trailing_LIT_order_id']:
               order['trailing_LIT_order_id'] = order_id
             order['trailing_LIT_gain_coef'] = trailing_LIT_gain_coef
-            df = ti.update_order(df, order)          
+            df = ti.update_order(df, order)      
+          # trailing stop limit order modification condition 
+          try:
+            if order['trailing_ratio'] != trailing_ratio:
+              trail_spread = order['buy_price'] * 0.0003
+              order_id = ma.modify_trailing_stop_limit_order(order=order,
+                                                    trail_value=trailing_ratio,
+                                                    trail_spread=trail_spread)  
+              if order_id != order['trailing_stop_limit_order_id']:
+                order['trailing_LIT_order_id'] = order_id
+              order['trailing_LIT_gain_coef'] = trailing_LIT_gain_coef
+              df = ti.update_order(df, order)
+          except Exception as e:
+            alarm.print(e)
 
       # 5.BUY SECTION:
       if not(stock_df is None):
