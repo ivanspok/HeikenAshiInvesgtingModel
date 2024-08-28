@@ -126,12 +126,15 @@ class TradeInterface():
         historical_order = kwargs['historical_order']
         tzinfo_ny = pytz.timezone('America/New_York')
         # tzinfo = pytz.timezone('Australia/Melbourne')
-        order['sell_time'] = datetime.strptime(historical_order['updated_time'].values[0], '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=tzinfo_ny) # New-York time
-        order['sell_time'] = order['sell_time'].astimezone(current_timezone) # Change time to current timezone time
-        order['sell_time'] = order['sell_time'].replace(tzinfo=None) # remove timezone
-        order['sell_price'] = float(historical_order['dealt_avg_price'].values[0])
-        order['sell_sum'] = float(historical_order['dealt_avg_price'].values[0] * historical_order['qty'].values[0])
-        sell_commision = self.moomoo_api.get_order_commission(historical_order['order_id'].values[0])
+        try:
+          order['sell_time'] = datetime.strptime(historical_order['updated_time'].values[0], '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=tzinfo_ny) # New-York time
+          order['sell_time'] = order['sell_time'].astimezone(current_timezone) # Change time to current timezone time
+          order['sell_time'] = order['sell_time'].replace(tzinfo=None) # remove timezone
+          order['sell_price'] = float(historical_order['dealt_avg_price'].values[0])
+          order['sell_sum'] = float(historical_order['dealt_avg_price'].values[0] * historical_order['qty'].values[0])
+          sell_commision = self.moomoo_api.get_order_commission(historical_order['order_id'].values[0])
+        except Exception as e:
+          alarm.print(e)
         if sell_commision is None:
           sell_commision = 1.101
         order['sell_commission'] = sell_commision

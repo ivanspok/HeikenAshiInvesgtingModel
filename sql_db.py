@@ -131,11 +131,11 @@ class DB_connection():
             timezone = self.timezone  
       )
 
-      try:
-        session.add(order)
-        session.commit()
-      except Exception as e:
-        warning.print(e)
+      # try:
+      #   session.add(order)
+      #   session.commit()
+      # except Exception as e:
+      #   warning.print(e)
 
    def update_record(self, order):
       

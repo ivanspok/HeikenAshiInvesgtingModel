@@ -70,7 +70,7 @@ opt_stocks_for_bear_trend = ['BA', 'INTU', 'MCHP', 'LLY', 'DHI', 'ANET', 'AIG', 
     'ETN', 'JCI', 'HLT', 'CSCO', 'WMT', 'TDG', 'TT', 'ECL', 'LOW', 'ADSK', 'TJX',
     'VRTX', 'APH', 'ABBV', 'STZ', 'SBUX', 'DE', 'MRK', 'CTAS', 'MNST', 'CME', 'MO', 'TXN', 'ITW']
 
-# stock_name_list_opt = ['AVGO']
+# stock_name_list_opt = ['HLT']
 
 # settings for historical df from yfinance
 period = '3mo'
@@ -211,24 +211,37 @@ def current_profit(df, hours=24):
     current_profit = 10
   return float(current_profit)
 
-def update_buy_order_based_on_platform_data(order):
-    history_orders = ma.get_history_orders()
-    history_order = history_orders.loc[(history_orders['order_id'] == order['buy_order_id'])]
-    if history_order.shape[0] > 0 \
-    and (history_order['order_status'].values[0] == ft.OrderStatus.FILLED_ALL 
-        or history_order['order_status'].values[0] == ft.OrderStatus.CANCELLED_PART):
-      order['buy_price'] = float(history_order['dealt_avg_price'].values[0])
-      order['buy_sum'] = float(order['buy_price'] * history_order['qty'].values[0])
-      buy_commission = ma.get_order_commission(order['buy_order_id'])             
-      order['buy_commission'] = buy_commission
-      order['stocks_number'] = int(history_order['qty'].values[0])
-      order['status'] = 'bought'
-      # add order['buy_time']?
+def update_buy_order_based_on_platform_data(order, history_orders = None):
+    try:
+      if type(history_orders) != pd.DataFrame:
+        if history_orders == None:
+          history_orders = ma.get_history_orders()
+      else:
+        if history_orders.empty:
+          history_orders = ma.get_history_orders()
+    except Exception as e:
+      alarm.print(e)
 
-      if history_order['order_status'].values[0] == ft.OrderStatus.CANCELLED_PART:
-        ma.modify_limit_if_touched_order(order, order['gain_coef'])
-        ma.modify_stop_order(order, order['lose_coef'])
+    try:
+      history_order = history_orders.loc[(history_orders['order_id'] == order['buy_order_id'])]
+      if history_order.shape[0] > 0 \
+      and (history_order['order_status'].values[0] == ft.OrderStatus.FILLED_ALL 
+          or history_order['order_status'].values[0] == ft.OrderStatus.CANCELLED_PART):
+        order['buy_price'] = float(history_order['dealt_avg_price'].values[0])
+        order['buy_sum'] = float(order['buy_price'] * history_order['qty'].values[0])
+        buy_commission = ma.get_order_commission(order['buy_order_id'])             
+        order['buy_commission'] = buy_commission
+        order['stocks_number'] = int(history_order['qty'].values[0])
+        order['status'] = 'bought'
+        # add order['buy_time']?
+
+        if history_order['order_status'].values[0] == ft.OrderStatus.CANCELLED_PART:
+          ma.modify_limit_if_touched_order(order, order['gain_coef'])
+          ma.modify_stop_order(order, order['lose_coef'])
+    except Exception as e:
+      alarm.print(e)
     return order
+
 
 def test_trading_simulation(ticker, stock_df, df_test, bought_stocks_list):
       
@@ -307,7 +320,7 @@ def place_sell_order_if_it_was_not_placed(df, order, sell_orders, sell_orders_li
     alarm.print(e)
     order_id = None
  
-  if (order_id in [None, ''] 
+  if (order_id in [None, '', 'FAXXXX'] 
     or isNaN(order_id)) \
     and ticker not in sell_orders_list:
     if order_type == 'limit_if_touched':
@@ -355,7 +368,7 @@ if __name__ == '__main__':
 
   # All parameter should be False. Change to True if you need change\fix DB
   load_from_csv = False
-  load_from_xslx = True
+  load_from_xslx = False
   clean_placed_orders = False
   clean_cancelled_orders = False
   read_sql_from_df = False
@@ -420,7 +433,7 @@ if __name__ == '__main__':
   while True: 
     alarm.print('YOU ARE RUNNING REAL TRADE ACCOUNT')  
     # 1. Check what stocks are bought based on MooMoo (position list) and df
-    positions = ma.get_positions()
+    positions_list = ma.get_positions()
 
     # Get current orders and they lists:
     limit_if_touched_sell_orders, stop_sell_orders, limit_if_touched_buy_orders,\
@@ -450,56 +463,117 @@ if __name__ == '__main__':
       else:
         bought_stocks_test_list = []
 
-    # 2. Check that for all bought stocks placed LIMIT_IF_TOUCHED, STOP orders, Trailing STOP LIMIT/trailing_LIT_order if needed
-    for code in positions:
-      ticker = code.split('.')[1]# 
-      if ticker in bought_stocks_list:
-        order = bought_stocks.loc[bought_stocks['ticker'] == ticker].sort_values('buy_time').iloc[-1]   
-        qty = order['stocks_number']  # stock number should be taken from the trade 
+    # Recheck all placed buy orders from the order history
+    for ticker in placed_stocks_list:
+      try: 
+        order = df.loc[(df['ticker'] == ticker) & df['status'].isin(['placed'])].sort_values('buy_time').iloc[-1]
+        # 1.111 was set during buy order creation
+        if order['buy_commission'] == 1.111 \
+          or math.isnan(order['buy_commission']) \
+          or order['buy_commission'] == None \
+          or order['buy_commission'] == 0:
+          order = update_buy_order_based_on_platform_data(order, historical_orders)
+          if order['status'] == 'bought':
+            df = ti.update_order(df, order)
+        #Recheck all placed buy orders from the orders buy cancel time condition
+        if (datetime.now() - order['buy_time']).seconds / 60 > 5:          
+          if limit_if_touched_buy_orders.shape[0] > 0:
+            limit_if_touched_buy_order = limit_if_touched_buy_orders.loc[
+              limit_if_touched_buy_orders['order_id'] == order['buy_order_id']]
+            if not limit_if_touched_buy_order.empty:
+              if limit_if_touched_buy_order['order_status'].values[0] != ft.OrderStatus.FILLED_PART:
+                # cancel limit_if_touched_sell_order and stop_order if they was placed
+                if order['limit_if_touched_order_id'] not in ['', None, []]:                  
+                    ma.cancel_order(order, order_type='limit_if_touched') 
+                if order['trailing_LIT_order_id'] not in ['', None, []]:                  
+                    ma.cancel_order(order, order_type='trailing_LIT')   
+                if order['stop_order_id'] not in ['', None, []]:                  
+                    ma.cancel_order(order, order_type='stop')
+                if order['trailing_stop_limit_order_id'] not in ['', None, []]:                  
+                    ma.cancel_order(order, order_type='trailing_stop_limit')
+                order['status'] = 'cancelled'
+              else:
+                order['status'] = 'filled part'
+            # cancel buy limit order
+            ma.cancel_order(order, order_type='buy')
+            df = ti.update_order(df, order)
+      except Exception as e:
+        alarm.print(e)
 
-        # Checking limit_if_touched_order
-        if False:
-          price = order['buy_price'] * order['gain_coef']
+    # check statuses of all bought stocks if they not in positional list:
+    try:
+      for ticker in bought_stocks_list:
+          order = df.loc[(df['ticker'] == ticker) & df['status'].isin(['bought', 'filled_part'])].sort_values('buy_time').iloc[-1]
+          if ticker not in positions_list:
+            historical_order = historical_orders.loc[(historical_orders['order_status']  == ft.OrderStatus.FILLED_ALL) &
+                                                      (historical_orders['code'] == MARKET + ticker) &
+                                                      (historical_orders['trd_side'] == ft.TrdSide.SELL) &
+                                                      (historical_orders['qty'] == order['stocks_number'])
+                                                      ].sort_values('updated_time').iloc[-1]
+            order = ti.sell_order(order, sell_price=0.01, historical_order = historical_order)
+            df = ti.update_order(df, order)
+            if order['trailing_LIT_order_id'] not in ['', None, []]:                  
+              ma.cancel_order(order, order_type='trailing_LIT')    
+            if order['stop_order_id'] not in ['', None, []]:                  
+              ma.cancel_order(order, order_type='stop')
+            if order['trailing_stop_limit_order_id'] not in ['', None, []]:                  
+              ma.cancel_order(order, order_type='trailing_stop_limit')
+    except Exception as e:
+      alarm.print(e)
+
+    # 2. Check that for all bought stocks placed LIMIT_IF_TOUCHED, STOP orders, Trailing STOP LIMIT/trailing_LIT_order if needed
+    for ticker in positions_list:
+      # ticker = code.split('.')[1]
+      try:
+        if ticker in bought_stocks_list:
+          order = bought_stocks.loc[bought_stocks['ticker'] == ticker].sort_values('buy_time').iloc[-1]   
+          qty = order['stocks_number']  # stock number should be taken from the trade 
+
+          # Checking limit_if_touched_order
+          if False:
+            price = order['buy_price'] * order['gain_coef']
+            df, order = place_sell_order_if_it_was_not_placed(df,
+              order=order,
+              sell_orders=limit_if_touched_sell_orders,
+              sell_orders_list=limit_if_touched_sell_orders_list,
+              price=price,
+              order_type='limit_if_touched')
+          # Checking stop_order
+          price = order['buy_price'] * order['lose_coef'] 
           df, order = place_sell_order_if_it_was_not_placed(df,
             order=order,
-            sell_orders=limit_if_touched_sell_orders,
-            sell_orders_list=limit_if_touched_sell_orders_list,
+            sell_orders=stop_sell_orders,
+            sell_orders_list=stop_sell_orders_list,
             price=price,
-            order_type='limit_if_touched')
-        # Checking stop_order
-        price = order['buy_price'] * order['lose_coef'] 
-        df, order = place_sell_order_if_it_was_not_placed(df,
-          order=order,
-          sell_orders=stop_sell_orders,
-          sell_orders_list=stop_sell_orders_list,
-          price=price,
-          order_type='stop')
-        # Checking trailing_LIT_order
-        # if order['gain_coef'] > 1.005:
-        price = order['buy_price'] * order['trailing_LIT_gain_coef'] 
-        df, order = place_sell_order_if_it_was_not_placed(df,
-          order=order,
-          sell_orders=trailing_LIT_orders,
-          sell_orders_list=trailing_LIT_orders_list,
-          price=price,
-          order_type='trailing_LIT')
-        # Checking trailing_stop_limit_order
-        try:
-          stock_df_1m = get_historical_df(ticker = ticker, period='1d', interval='1m')
-          current_price = stock_df_1m['close'].iloc[-1]
-        except Exception as e:
-          alarm.print(e)
-        if current_price >= order['buy_price'] * 1.004:
-          price = order['buy_price'] * 1.005
+            order_type='stop')
+          # Checking trailing_LIT_order
+          # if order['gain_coef'] > 1.005:
+          price = order['buy_price'] * order['trailing_LIT_gain_coef'] 
           df, order = place_sell_order_if_it_was_not_placed(df,
             order=order,
-            sell_orders=trailing_stop_limit_orders,
-            sell_orders_list=trailing_stop_limit_orders_list,
+            sell_orders=trailing_LIT_orders,
+            sell_orders_list=trailing_LIT_orders_list,
             price=price,
-            order_type='trailing_stop_limit')     
-      else:
-        alarm.print(f'{ticker} is in positional list but not in DB!')
-    
+            order_type='trailing_LIT')
+          # Checking trailing_stop_limit_order
+          try:
+            stock_df_1m = get_historical_df(ticker = ticker, period='1d', interval='1m')
+            current_price = stock_df_1m['close'].iloc[-1]
+            if current_price >= order['buy_price'] * 1.004:
+              price = order['buy_price'] * 1.005
+              df, order = place_sell_order_if_it_was_not_placed(df,
+                order=order,
+                sell_orders=trailing_stop_limit_orders,
+                sell_orders_list=trailing_stop_limit_orders_list,
+                price=price,
+                order_type='trailing_stop_limit') 
+          except Exception as e:
+            alarm.print(e)    
+        else:
+          alarm.print(f'{ticker} is in positional list but not in DB!')
+      except Exception as e:
+        alarm.print(e)
+
     for ticker in stock_name_list_opt:
       # time.sleep(0.1)
       print(f'Stock is {ticker}')
@@ -524,28 +598,34 @@ if __name__ == '__main__':
       # 4. DYNAMIC GAIN COEFFICIENT
       # if gain_coef\lose_coef doesn't match order's modify the order:
       if not(stock_df is None):
-        if ticker in bought_stocks_list:
-          order = df.loc[(df['ticker'] == ticker) & df['status'].isin(['bought', 'filled_part'])].sort_values('buy_time').iloc[-1]
-          i = stock_df.shape[0] - 1
-          if stock_df['close'].iloc[i] / stock_df['close'].iloc[i - 200] > bull_trend_coef: # bull trend
-            if ticker in opt_stocks_for_bear_trend:
-              gain_coef = 1.02
-            else:
-              gain_coef = 1.005            
-            lose_coef = 0.93  
-          else: # bear 
-            gain_coef = 1.005
-            lose_coef = 0.93 
+        try:
+          if ticker in bought_stocks_list:
+            order = df.loc[(df['ticker'] == ticker) & df['status'].isin(['bought', 'filled_part'])].sort_values('buy_time').iloc[-1]
+            i = stock_df.shape[0] - 1
+            if stock_df['close'].iloc[i] / stock_df['close'].iloc[i - 200] > bull_trend_coef: # bull trend
+              if ticker in opt_stocks_for_bear_trend:
+                gain_coef = 1.02
+              else:
+                gain_coef = 1.005            
+              lose_coef = 0.97  
+            else: # bear 
+              gain_coef = 1.005
+              lose_coef = 0.97
+        except Exception as e:
+          alarm.print(e)
           
           # Trailing LIT gain coefficient:
-          current_gain = current_price / order['buy_price']
-          trailing_LIT_gain_coef = order['trailing_LIT_gain_coef']
-          if current_gain >= 1.0058 and current_gain < 1.007:
-            trailing_LIT_gain_coef = 1.005
-          if current_gain >= 1.007:
-            trailing_LIT_gain_coef = current_gain - 0.001
-          if current_gain >= 1.012:
-            trailing_LIT_gain_coef = current_gain - 0.002
+          try:
+            current_gain = current_price / order['buy_price']
+            trailing_LIT_gain_coef = order['trailing_LIT_gain_coef']
+            if current_gain >= 1.0058 and current_gain < 1.007:
+              trailing_LIT_gain_coef = 1.005
+            if current_gain >= 1.007:
+              trailing_LIT_gain_coef = current_gain - 0.001
+            if current_gain >= 1.012:
+              trailing_LIT_gain_coef = current_gain - 0.002
+          except Exception as e:
+            alarm.print(e)
 
           # Trailing stop limit order, trailing ration
           if current_gain >= 1.0055 and current_gain < 1.008:
@@ -594,7 +674,7 @@ if __name__ == '__main__':
 
       # 5.BUY SECTION:
       if not(stock_df is None):
-        if not(ticker in bought_stocks_list):
+        if not(ticker in bought_stocks_list or ticker in placed_stocks_list):
           buy_condition, buy_price, gain_coef, lose_coef = stock_buy_condition(stock_df, ticker)
         else:
           buy_condition = False
@@ -643,7 +723,11 @@ if __name__ == '__main__':
           if security_condition:
             # check buy price from trade platfrom befor place the order
             # buy_price = stock_df['close'].iloc[-1]
-            buy_price = min(stock_df['close'].iloc[-1], stock_df['open'].iloc[-1], stock_df['close'].iloc[-2], stock_df['open'].iloc[-2] )
+            # modify buy_price based on the time!!!
+            buy_price = min(stock_df['close'].iloc[-1], stock_df['open'].iloc[-1],
+                            stock_df['close'].iloc[-2], stock_df['open'].iloc[-2],
+                            stock_df['close'].iloc[-3], stock_df['open'].iloc[-3]
+                           )
             # play sound:
             winsound.PlaySound('SystemHand', winsound.SND_ALIAS)
             order = ti.buy_order(ticker=ticker, buy_price=buy_price, buy_sum=buy_sum)
@@ -656,15 +740,17 @@ if __name__ == '__main__':
       # 6. Recheck placed orders information including commission from the order history
       if ticker in placed_stocks_list:
         try: 
-          order = df.loc[(df['ticker'] == ticker) & df['status'].isin(['placed'])].sort_values('buy_time').iloc[-1]
-          # 1.111 was set during buy order creation
-          if order['buy_commission'] == 1.111 \
-            or math.isnan(order['buy_commission']) \
-            or order['buy_commission'] == None \
-            or order['buy_commission'] == 0:
-            order = update_buy_order_based_on_platform_data(order)
-            if order['status'] == 'bought':
-              df = ti.update_order(df, order)
+          order = df.loc[(df['ticker'] == ticker) & df['status'].isin(['placed'])]
+          if type(order) == pd.Series or type(order) == pd.DataFrame:
+            order = order.sort_values('buy_time').iloc[-1]
+            # 1.111 was set during buy order creation
+            if order['buy_commission'] == 1.111 \
+              or math.isnan(order['buy_commission']) \
+              or order['buy_commission'] == None \
+              or order['buy_commission'] == 0:
+              order = update_buy_order_based_on_platform_data(order) # get new hirtory information
+              if order['status'] == 'bought':
+                df = ti.update_order(df, order)
         except Exception as e:
           alarm.print(e)
 
@@ -681,29 +767,33 @@ if __name__ == '__main__':
           except Exception as e:
             print(f'Minute data for stock {ticker} has not been received')
             # current_price = stock_df['close'].iloc[-1]
-          if current_price >= order['buy_price'] * order['gain_coef'] \
-            or (datetime.now() - order['buy_time']).seconds / 60 > 5:          
-            if limit_if_touched_buy_orders.shape[0] > 0:
-              limit_if_touched_buy_order = limit_if_touched_buy_orders.loc[
-                limit_if_touched_buy_orders['order_id'] == order['buy_order_id']]
-              if not limit_if_touched_buy_order.empty:
-                if limit_if_touched_buy_order['order_status'].values[0] != ft.OrderStatus.FILLED_PART:
-                  # cancel limit_if_touched_sell_order and stop_order if they was placed
-                  if order['limit_if_touched_order_id'] not in ['', None, []]:                  
-                      ma.cancel_order(order, order_type='limit_if_touched')    
-                  if order['stop_order_id'] not in ['', None, []]:                  
-                      ma.cancel_order(order, order_type='stop')
-                  if order['trailing_stop_limit_order_id'] not in ['', None, []]:                  
-                      ma.cancel_order(order, order_type='trailing_stop_limit')
-                  order['status'] = 'cancelled'
-                else:
-                  order['status'] = 'filled part'
-              # cancel buy limit order
-              ma.cancel_order(order, order_type='buy')
-              df = ti.update_order(df, order)
+          try:
+            if current_price >= order['buy_price'] * order['gain_coef'] \
+              or (datetime.now() - order['buy_time']).seconds / 60 > 5:          
+              if limit_if_touched_buy_orders.shape[0] > 0:
+                limit_if_touched_buy_order = limit_if_touched_buy_orders.loc[
+                  limit_if_touched_buy_orders['order_id'] == order['buy_order_id']]
+                if not limit_if_touched_buy_order.empty:
+                  if limit_if_touched_buy_order['order_status'].values[0] != ft.OrderStatus.FILLED_PART:
+                    # cancel limit_if_touched_sell_order and stop_order if they was placed
+                    if order['limit_if_touched_order_id'] not in ['', None, []]:                  
+                        ma.cancel_order(order, order_type='limit_if_touched')    
+                    if order['stop_order_id'] not in ['', None, []]:                  
+                        ma.cancel_order(order, order_type='stop')
+                    if order['trailing_stop_limit_order_id'] not in ['', None, []]:                  
+                        ma.cancel_order(order, order_type='trailing_stop_limit')
+                    order['status'] = 'cancelled'
+                  else:
+                    order['status'] = 'filled part'
+                # cancel buy limit order
+                ma.cancel_order(order, order_type='buy')
+                df = ti.update_order(df, order)
+          except Exception as e:
+            print(e)
       
       # 8. Checking if sell orders have been executed
-      if ticker in bought_stocks_list:
+      try:
+        if ticker in bought_stocks_list:
           order = df.loc[(df['ticker'] == ticker) & df['status'].isin(['bought', 'filled_part'])].sort_values('buy_time').iloc[-1]
           historical_limit_if_touched_order = historical_orders.loc[
             historical_orders['order_id'] == order['limit_if_touched_order_id']]
@@ -763,9 +853,10 @@ if __name__ == '__main__':
             ma.cancel_order(order, order_type='stop')
             ma.cancel_order(order, order_type='limit_if_touched')
             ma.cancel_order(order, order_type='trailing_LIT')
-
+      except Exception as e:
+        alarm.print(e)
     print('Waiting progress:')
-    for i in tqdm(range(60)):
+    for i in tqdm(range(30)):
       time.sleep(1)
 
 

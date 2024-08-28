@@ -46,7 +46,7 @@ class Moomoo_API():
     def place_market_buy_order(self, ticker, price, qty):
         order_id = None
         try:
-            trd_ctx  =  trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
             self.unlock_trade()
             stock_code = MARKET + ticker
             ret, data = trd_ctx.place_order(
@@ -65,6 +65,7 @@ class Moomoo_API():
             trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return data, order_id
 
     def place_buy_limit_if_touched_order(self, ticker, price, qty):
@@ -91,8 +92,10 @@ class Moomoo_API():
                 order = data
             else:
                 alarm.print(data)
+            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return order, order_id
 
     def place_limit_if_touched_order(self, ticker, price, qty, aux_price_coef = 1.0001, remark=''):
@@ -119,8 +122,10 @@ class Moomoo_API():
                 order_id = data['order_id'].values[0]
             else:
                 alarm.print(data)
+            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return order_id
     
     def place_trailing_stop_limit_order(self, ticker, price, qty, trail_value, trail_spread, remark=''):
@@ -142,15 +147,17 @@ class Moomoo_API():
                                     trail_value=trail_value,
                                     trail_spread=trail_spread,
                                     remark=remark,
-                                    fill_outside_rth=False)
+                                    fill_outside_rth=True)
             print(f'Placing trailing stop limit order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
                 order_id = data['order_id'].values[0]
             else:
                 alarm.print(data)
+            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return order_id
 
     def modify_trailing_stop_limit_order(self, order, trail_value, trail_spread):
@@ -186,8 +193,10 @@ class Moomoo_API():
                     order_id = order_id_returned
             else:
                 alarm.print(data)
+            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return order_id
 
     def cancel_order(self, order, order_type):
@@ -214,8 +223,10 @@ class Moomoo_API():
                 status = True
             else:
                 alarm.print(data)
+            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return status
 
     def modify_limit_if_touched_order(self, order, gain_coef, aux_price_coef = 1.0001, order_type='limit_if_touched'):
@@ -252,8 +263,10 @@ class Moomoo_API():
                     order_id = order_id_returned
             else:
                 alarm.print(data)
+            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return order_id
 
     def modify_stop_order(self, order, lose_coef):
@@ -285,8 +298,10 @@ class Moomoo_API():
                     order_id = order_id_returned
             else:
                 alarm.print(data)
+            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return order_id
 
     def place_stop_order(self, ticker, price, qty):
@@ -316,6 +331,7 @@ class Moomoo_API():
             trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return order_id
     
     def get_history_orders(self):
@@ -331,6 +347,7 @@ class Moomoo_API():
             trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return data    
     
     def get_list_of_trading_accounts(self):
@@ -346,6 +363,7 @@ class Moomoo_API():
             trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return data
     
     def unlock_trade(self, is_unlock=True):
@@ -366,12 +384,13 @@ class Moomoo_API():
                 if data.shape[0] > 0:  # If the position list is not empty
                     for index, row in data.iterrows():
                         if row['can_sell_qty'] > 0:
-                            positions.append(row['code'])  
+                            positions.append(row['code'].split('.')[1])  
             else:
                 alarm.print('position_list_query error: ', data)
             trd_ctx.close()  # Close the current connection
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return positions
 
     def get_orders(self):
@@ -416,6 +435,7 @@ class Moomoo_API():
             trd_ctx.close()  # Close the current connection
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return  limit_if_touched_sell_orders, stop_sell_orders, limit_if_touched_buy_orders, trailing_LIT_orders, trailing_stop_limit_orders
     
     def get_order_commission(self, order_id):
@@ -430,6 +450,7 @@ class Moomoo_API():
             trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return commission
 
     def get_us_cash(self):
@@ -447,6 +468,7 @@ class Moomoo_API():
             trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            trd_ctx.close()
         return float(us_cash)
 
 if __name__ == "__main__":
