@@ -21,6 +21,7 @@ import winsound
 import math
 import sql_db
 import pytz
+import shutil
 
 import warnings
 warnings.filterwarnings('error')
@@ -54,16 +55,30 @@ MARKET = 'US.'
 # ft.SysConfig.set_all_thread_daemon(True)
 
 # Version 3.0
-stock_name_list_opt = [
-'BA', 'OXY', 'DHI', 'ON', 'PANW', 'AMD', 'MCHP', 'BSX', 'INTU', 'HLT', 'NXPI', 'AIG', 'EL',
-'LLY', 'USB', 'AMAT', 'ADI', 'ANET', 'DXCM', 'LRCX', 'EOG', 'GE', 'MU', 'PSX', 'NUE', 'AVGO',
-'WMB', 'TJX', 'SNPS', 'WMT', 'KLAC', 'MAR', 'SBUX', 'ECL', 'CDNS', 'EMR', 'TT', 'IDXX', 'VLO',
-'TXN', 'F', 'ABBV', 'MPC', 'CAT', 'CSCO', 'NFLX', 'JCI', 'TDG', 'MRK', 'MRNA', 'DE', 'NOW',
-'TMUS', 'GM', 'WELL', 'ETN', 'ICE', 'WM', 'CME', 'PCAR', 'CTAS', 'MSI', 'GILD', 'SLB', 'CMCSA',
-'ROP', 'ADM', 'LOW', 'QCOM', 'VRTX', 'MO', 'EXC', 'CI', 'JNJ', 'CL', 'STZ', 'CMG', 'MMM', 'SCHW',
-'GOOG', 'PH', 'LMT', 'HON', 'PEP', 'COP', 'CRM', 'MSCI', 'UNP', 'APD', 'ADP', 'CVS', 'GS', 'HUM',
-'ADSK', 'TEL', 'IBM', 'ROK', 'MNST', 'CVX', 'ITW', 'ADBE', 'PM', 'SPG', 'TGT', 'PYPL', 'APH', 'FDX',
-'CSX', 'SHW', 'TFC', 'UNH']
+# stock_name_list_opt = [
+# 'BA', 'OXY', 'DHI', 'ON', 'PANW', 'AMD', 'MCHP', 'BSX', 'INTU', 'HLT', 'NXPI', 'AIG', 'EL',
+# 'LLY', 'USB', 'AMAT', 'ADI', 'ANET', 'DXCM', 'LRCX', 'EOG', 'GE', 'MU', 'PSX', 'NUE', 'AVGO',
+# 'WMB', 'TJX', 'SNPS', 'WMT', 'KLAC', 'MAR', 'SBUX', 'ECL', 'CDNS', 'EMR', 'TT', 'IDXX', 'VLO',
+# 'TXN', 'F', 'ABBV', 'MPC', 'CAT', 'CSCO', 'NFLX', 'JCI', 'TDG', 'MRK', 'MRNA', 'DE', 'NOW',
+# 'TMUS', 'GM', 'WELL', 'ETN', 'ICE', 'WM', 'CME', 'PCAR', 'CTAS', 'MSI', 'GILD', 'SLB', 'CMCSA',
+# 'ROP', 'ADM', 'LOW', 'QCOM', 'VRTX', 'MO', 'EXC', 'CI', 'JNJ', 'CL', 'STZ', 'CMG', 'MMM', 'SCHW',
+# 'GOOG', 'PH', 'LMT', 'HON', 'PEP', 'COP', 'CRM', 'MSCI', 'UNP', 'APD', 'ADP', 'CVS', 'GS', 'HUM',
+# 'ADSK', 'TEL', 'IBM', 'ROK', 'MNST', 'CVX', 'ITW', 'ADBE', 'PM', 'SPG', 'TGT', 'PYPL', 'APH', 'FDX',
+# 'CSX', 'SHW', 'TFC', 'UNH']
+
+# Verstion 4.0
+stock_name_list_opt = ['MAR', 'MO', 'DHI', 'PYPL', 'HLT', 'BIIB', 'ZTS', 'TMUS', 'CMG', 'WELL', 'DUK',
+                       'MCHP', 'MS', 'ROK', 'INTU', 'EXC', 'CI', 'STZ', 'NXPI', 'COF', 'DIS', 'EL', 'MU',
+                       'NOW', 'CAT', 'HUM', 'OXY', 'PSX', 'COP', 'QCOM', 'ON', 'CVS', 'VLO', 'TJX', 'PGR',
+                       'TXN', 'EOG', 'CSX', 'PM', 'MMM', 'ADM', 'GM', 'PEP', 'VZ', 'REGN', 'PCAR', 'GILD',
+                       'EW', 'ANET', 'GIS', 'LIN', 'TEL', 'VRTX', 'BLK', 'ELV', 'KO', 'DE', 'KLAC', 'SBUX',
+                       'PLD', 'PANW', 'CHTR', 'SNPS', 'MCK', 'TFC', 'USB', 'TDG', 'PFE', 'MRK', 'CB', 'MPC',
+                       'GOOG', 'TT', 'PSA', 'CME', 'AIG', 'IDXX', 'BSX', 'WFC', 'ABT', 'TGT', 'EQIX', 'CTAS',
+                       'BA', 'AON', 'SYK', 'F', 'SRE', 'JCI', 'NKE', 'MCD', 'TMO', 'SO', 'WMT', 'UNH', 'CSCO',
+                      'CRM', 'PG', 'JNJ', 'HCA', 'XOM', 'ETN', 'V', 'COST', 'GS', 'FCX', 'MDT', 'NEE', 'CL',
+                       'BMY', 'SPG', 'ADI', 'ABBV', 'WM', 'NUE', 'MDLZ', 'MA', 'MRNA', 'ROP', 'AEP', 'IBM',
+                      'EMR', 'JPM', 'APD', 'AMD', 'T', 'INTC', 'ITW', 'AMGN', 'ADSK', 'SHW', 'NOC', 'NSC', 'SCHW', 'ICE']
+
 
 opt_stocks_for_bear_trend = ['BA', 'INTU', 'MCHP', 'LLY', 'DHI', 'ANET', 'AIG', 'NUE', 'MAR', 'OXY', 'ON',
   'GE', 'AMAT', 'NXPI', 'SNPS', 'UNP', 'KLAC', 'BSX', 'MSI', 'CRM', 'CAT', 'ADI',
@@ -77,7 +92,7 @@ period = '3mo'
 interval = '1h' 
 
 # settings for buy condition Version 3.0
-is_near_global_max_prt = 96
+is_near_global_max_prt = 120  # used to be 100
 distance_from_last_top  = 0
 last_top_ratio = 1
 RIV  = 0.05
@@ -107,17 +122,14 @@ def is_near_global_max(df, i, k=400, prt=70):
 
   if i > k:
    gmax = max(df['close'].iloc[i - k: i])
+   gmin = min(df['close'].iloc[i - k: i])
    reference_point = df['close'].iloc[i - k]
   else:
    reference_point = df['close'].iloc[0]
    gmax = max(df['close'].iloc[0: i])
+   gmin = min(df['close'].iloc[0: i])
  
-  if gmax == reference_point:
-    result = False
-  elif 100 * (df['close'].iloc[i] - reference_point) / (gmax - reference_point) > prt:
-    result = True
-  else:
-    result = False
+  result = 100 * (df['close'].iloc[i] - gmin) / (gmax - gmin) > prt
 
   return result
 
@@ -242,7 +254,6 @@ def update_buy_order_based_on_platform_data(order, history_orders = None):
       alarm.print(e)
     return order
 
-
 def test_trading_simulation(ticker, stock_df, df_test, bought_stocks_list):
       
     if not(stock_df is None):
@@ -294,6 +305,11 @@ def load_orders_from_csv():
   return df
 
 def load_orders_from_xlsx():
+  try:
+    date = str(datetime.now()).split(' ')[0]
+    shutil.copyfile('db/real_trade_db.xlsx', f'db/bin/real_trade_db_{date}.xlsx')
+  except Exception as e:
+    alarm.print(e)
   df = pd.read_excel('db/real_trade_db.xlsx', index_col='Unnamed: 0')
   return df
 
@@ -329,9 +345,13 @@ def place_sell_order_if_it_was_not_placed(df, order, sell_orders, sell_orders_li
       moomoo_order_id = ma.place_stop_order(ticker, price, qty)   
     if order_type == 'trailing_LIT':
       moomoo_order_id = ma.place_limit_if_touched_order(ticker, price, qty, aux_price_coef = 1.0005, remark = 'trailing_LIT')
+
     if order_type == 'trailing_stop_limit':
       trail_spread = order['buy_price'] * 0.0003
       moomoo_order_id = ma.place_trailing_stop_limit_order(ticker, price, qty, trail_value=0.15, trail_spread=trail_spread)
+      if not (moomoo_order_id is None):
+        ma.cancel_order(order=order, order_type='trailing_LIT')
+
     if not (moomoo_order_id is None):
       order[order_id_type] = moomoo_order_id
       df = ti.update_order(df, order)
@@ -368,7 +388,7 @@ if __name__ == '__main__':
 
   # All parameter should be False. Change to True if you need change\fix DB
   load_from_csv = False
-  load_from_xslx = False
+  load_from_xslx = True
   clean_placed_orders = False
   clean_cancelled_orders = False
   read_sql_from_df = False
@@ -476,7 +496,7 @@ if __name__ == '__main__':
           if order['status'] == 'bought':
             df = ti.update_order(df, order)
         #Recheck all placed buy orders from the orders buy cancel time condition
-        if (datetime.now() - order['buy_time']).seconds / 60 > 5:          
+        if (datetime.now() - order['buy_time']).seconds / 60 > 20:          
           if limit_if_touched_buy_orders.shape[0] > 0:
             limit_if_touched_buy_order = limit_if_touched_buy_orders.loc[
               limit_if_touched_buy_orders['order_id'] == order['buy_order_id']]
@@ -548,13 +568,14 @@ if __name__ == '__main__':
             order_type='stop')
           # Checking trailing_LIT_order
           # if order['gain_coef'] > 1.005:
-          price = order['buy_price'] * order['trailing_LIT_gain_coef'] 
-          df, order = place_sell_order_if_it_was_not_placed(df,
-            order=order,
-            sell_orders=trailing_LIT_orders,
-            sell_orders_list=trailing_LIT_orders_list,
-            price=price,
-            order_type='trailing_LIT')
+          if order['trailing_stop_limit_order_id'] is None:
+            price = order['buy_price'] * order['trailing_LIT_gain_coef'] 
+            df, order = place_sell_order_if_it_was_not_placed(df,
+              order=order,
+              sell_orders=trailing_LIT_orders,
+              sell_orders_list=trailing_LIT_orders_list,
+              price=price,
+              order_type='trailing_LIT')
           # Checking trailing_stop_limit_order
           try:
             stock_df_1m = get_historical_df(ticker = ticker, period='1d', interval='1m')
@@ -574,10 +595,40 @@ if __name__ == '__main__':
       except Exception as e:
         alarm.print(e)
 
+    counter = 0
     for ticker in stock_name_list_opt:
       # time.sleep(0.1)
       print(f'Stock is {ticker}')
-      order = []        
+      order = []    
+      # 2.1 Recheck that LIMIT/trailing_LIT_order if needed    
+      counter += 1
+      if counter > 20:
+        for ticker2 in positions_list:
+          # ticker = code.split('.')[1]
+          try:
+            if ticker2 in bought_stocks_list:
+              order = bought_stocks.loc[bought_stocks['ticker'] == ticker2].sort_values('buy_time').iloc[-1]   
+              qty = order['stocks_number']  # stock number should be taken from the trade 
+
+              # Checking trailing_stop_limit_order
+              try:
+                stock_df_1m = get_historical_df(ticker = ticker, period='1d', interval='1m')
+                current_price = stock_df_1m['close'].iloc[-1]
+                if current_price >= order['buy_price'] * 1.004:
+                  price = order['buy_price'] * 1.005
+                  df, order = place_sell_order_if_it_was_not_placed(df,
+                    order=order,
+                    sell_orders=trailing_stop_limit_orders,
+                    sell_orders_list=trailing_stop_limit_orders_list,
+                    price=price,
+                    order_type='trailing_stop_limit') 
+              except Exception as e:
+                alarm.print(e)    
+            else:
+              alarm.print(f'{ticker2} is in positional list but not in DB!')
+          except Exception as e:
+            alarm.print(e)
+      counter = 0
 
       # 3. Get historical data, current_price for stocks in optimal list
       try:
@@ -724,10 +775,11 @@ if __name__ == '__main__':
             # check buy price from trade platfrom befor place the order
             # buy_price = stock_df['close'].iloc[-1]
             # modify buy_price based on the time!!!
-            buy_price = min(stock_df['close'].iloc[-1], stock_df['open'].iloc[-1],
-                            stock_df['close'].iloc[-2], stock_df['open'].iloc[-2],
-                            stock_df['close'].iloc[-3], stock_df['open'].iloc[-3]
-                           )
+            # buy_price = min(stock_df['close'].iloc[-1], stock_df['open'].iloc[-1],
+            #                 stock_df['close'].iloc[-2], stock_df['open'].iloc[-2],
+            #                 stock_df['close'].iloc[-3], stock_df['open'].iloc[-3]
+            #                )
+            buy_price = min(stock_df['close'].iloc[-10:-1].min(), stock_df['open'].iloc[-10:-1].min())
             # play sound:
             winsound.PlaySound('SystemHand', winsound.SND_ALIAS)
             order = ti.buy_order(ticker=ticker, buy_price=buy_price, buy_sum=buy_sum)
@@ -769,7 +821,7 @@ if __name__ == '__main__':
             # current_price = stock_df['close'].iloc[-1]
           try:
             if current_price >= order['buy_price'] * order['gain_coef'] \
-              or (datetime.now() - order['buy_time']).seconds / 60 > 5:          
+              or (datetime.now() - order['buy_time']).seconds / 60 > 20:          
               if limit_if_touched_buy_orders.shape[0] > 0:
                 limit_if_touched_buy_order = limit_if_touched_buy_orders.loc[
                   limit_if_touched_buy_orders['order_id'] == order['buy_order_id']]
@@ -856,7 +908,7 @@ if __name__ == '__main__':
       except Exception as e:
         alarm.print(e)
     print('Waiting progress:')
-    for i in tqdm(range(30)):
+    for i in tqdm(range(20)):
       time.sleep(1)
 
 
