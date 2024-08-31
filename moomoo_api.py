@@ -84,7 +84,8 @@ class Moomoo_API():
                                     time_in_force=ft.TimeInForce.GTC,
                                     adjust_limit=0.01,
                                     order_type=ft.OrderType.LIMIT_IF_TOUCHED,
-                                    aux_price=price)
+                                    aux_price=price,
+                                    fill_outside_rth=False)
             print(f'Placing BUY limit if touched order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
@@ -164,7 +165,7 @@ class Moomoo_API():
         '''
         Note: for Market order price can be passed any value
         '''
-        order_id = order['stop_order_id']
+        order_id = order['trailing_stop_limit_order_id']
         price =  order['buy_price'] * 1.1
         aux_price =  order['buy_price'] * 0.9
         qty = order['stocks_number']
@@ -394,6 +395,7 @@ class Moomoo_API():
         return positions
 
     def get_orders(self):
+        'get orders with statuses: SUBMITTED, SUBMITTING, WAITING_SUBMIT'
         limit_if_touched_sell_orders = pd.DataFrame()
         stop_sell_orders = pd.DataFrame()
         limit_if_touched_buy_orders = pd.DataFrame()

@@ -71,14 +71,19 @@ def load_orders_from_csv():
   return df
 
 
-
+  # order ={
+  #     'ticker': 'AVGO',
+  #     'buy_price': 100,
+  #     'stocks_number': 1
+  # }
+  # ticker = 'AVGO'
   # if ticker == 'AVGO':
   #   trail_spread = 166 * 0.0003
-  #   order_id = ma.place_trailing_stop_limit_order(ticker='AVGO', price=200, qty=5, trail_value=0.15, trail_spread=trail_spread)
+  #   order_id = ma.place_trailing_stop_limit_order(ticker='AVGO', price=200, qty=1, trail_value=0.15, trail_spread=trail_spread)
   #   order['trailing_stop_limit_order_id'] = order_id
   #   trail_spread = 146 * 0.0003
   #   order_id = ma.modify_trailing_stop_limit_order(order=order,
-  #                                                 trail_value=0.2,
+  #                                                 trail_value=0.111,
   #                                                 trail_spread=trail_spread)
     
   #   ma.cancel_order(order, order_type='trailing_stop_limit')

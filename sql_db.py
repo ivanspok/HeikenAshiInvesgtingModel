@@ -172,20 +172,20 @@ class DB_connection():
       except Exception as e:
         warning.print(e)
 
-      with Session(self.engine) as session:
+      # with Session(self.engine) as session:
 
-        try:
-          sql_order = session.query(Orders).filter_by(id= int(locals()['id']), buy_time=locals()['buy_time']).first()
-          if sql_order is not None:
-            for param in self.columns:
-              if param != 'id':
-                setattr(sql_order, param, locals()[param])
-                time.sleep(0.1)
-                session.commit()
-          else:
-              self.add_record(order)
-        except Exception as e:
-          warning.print(e)
+      #   try:
+      #     sql_order = session.query(Orders).filter_by(id= int(locals()['id']), buy_time=locals()['buy_time']).first()
+      #     if sql_order is not None:
+      #       for param in self.columns:
+      #         if param != 'id':
+      #           setattr(sql_order, param, locals()[param])
+      #           time.sleep(0.1)
+      #           session.commit()
+      #     else:
+      #         self.add_record(order)
+      #   except Exception as e:
+      #     warning.print(e)
       
 if __name__ == "__main__":
   parent_path = pathlib.Path(__file__).parent

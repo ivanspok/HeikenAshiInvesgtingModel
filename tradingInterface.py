@@ -73,7 +73,7 @@ class TradeInterface():
       'id' : int(id),  # Generate by global ID 
       'gain_coef': 0,
       'lose_coef' : 0,
-      'trailing_LIT_gain_coef' : 1.007,
+      'trailing_LIT_gain_coef' : 1.006,
       'trailing_ratio': 0.15,
       'sell_sum': 0, 
       'profit': 0,
@@ -127,20 +127,32 @@ class TradeInterface():
         tzinfo_ny = pytz.timezone('America/New_York')
         # tzinfo = pytz.timezone('Australia/Melbourne')
         try:
-          order['sell_time'] = datetime.strptime(historical_order['updated_time'].values[0], '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=tzinfo_ny) # New-York time
-          order['sell_time'] = order['sell_time'].astimezone(current_timezone) # Change time to current timezone time
-          order['sell_time'] = order['sell_time'].replace(tzinfo=None) # remove timezone
-          order['sell_price'] = float(historical_order['dealt_avg_price'].values[0])
-          order['sell_sum'] = float(historical_order['dealt_avg_price'].values[0] * historical_order['qty'].values[0])
-          sell_commision = self.moomoo_api.get_order_commission(historical_order['order_id'].values[0])
+          if type(historical_order) == pd.Series:
+            order['sell_time'] = datetime.strptime(historical_order['updated_time'], '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=tzinfo_ny)
+            order['sell_time'] = order['sell_time'].astimezone(current_timezone) # Change time to current timezone time
+            order['sell_time'] = order['sell_time'].replace(tzinfo=None) # remove timezone
+            order['sell_price'] = float(historical_order['dealt_avg_price'])
+            order['sell_sum'] = float(historical_order['dealt_avg_price'] * historical_order['qty'])
+            sell_commision = self.moomoo_api.get_order_commission(historical_order['order_id'])
+          else:
+            order['sell_time'] = datetime.strptime(historical_order['updated_time'].values[0], '%Y-%m-%d %H:%M:%S.%f').replace(tzinfo=tzinfo_ny) # New-York time
+            order['sell_time'] = order['sell_time'].astimezone(current_timezone) # Change time to current timezone time
+            order['sell_time'] = order['sell_time'].replace(tzinfo=None) # remove timezone
+            order['sell_price'] = float(historical_order['dealt_avg_price'].values[0])
+            order['sell_sum'] = float(historical_order['dealt_avg_price'].values[0] * historical_order['qty'].values[0])
+            sell_commision = self.moomoo_api.get_order_commission(historical_order['order_id'].values[0])
         except Exception as e:
           alarm.print(e)
         if sell_commision is None:
           sell_commision = 1.101
         order['sell_commission'] = sell_commision
-        if historical_order['order_status'].values[0] == ft.OrderStatus.FILLED_ALL:
-          response = 'success'
-      
+        if type(historical_order) == pd.Series:
+          if historical_order['order_status'] == ft.OrderStatus.FILLED_ALL:
+            response = 'success'
+        else:
+          if historical_order['order_status'].values[0] == ft.OrderStatus.FILLED_ALL:
+            response = 'success'
+        
       if response == 'success': 
         order['profit'] = order['sell_sum'] - order['buy_sum'] - order['buy_commission'] - order['sell_commission']
         order['status'] = 'completed'
@@ -216,14 +228,13 @@ class TradeInterface():
 
     self.__save_orders__(df)
 
-    if not sim:
-      # Update order in the SQL:
-      try:
-        self.__update_sql_db__()
-      
-        self.db.update_record(update_line)
-      except Exception as e:
-        alarm.print(e)
+    # if not sim:
+    #   # Update order in the SQL:
+    #   try:
+    #     self.__update_sql_db__()
+    #     self.db.update_record(update_line)
+    #   except Exception as e:
+    #     alarm.print(e)
     return df
 
   def record_order(self, df, order, sim=False):
@@ -232,12 +243,12 @@ class TradeInterface():
     df2[float_columns] = df2[float_columns].astype(float)
     df = pd.concat([df, df2], ignore_index=True)
     self.__save_orders__(df)
-    if not sim:
-      # Add record to SQL:
-      try:
-        self.db.add_record(df2.iloc[0])
-      except Exception as e:
-        alarm.print(e)
+    # if not sim:
+    #   # Add record to SQL:
+    #   try:
+    #     self.db.add_record(df2.iloc[0])
+    #   except Exception as e:
+    #     alarm.print(e)
     return df
   
   def stock_is_bought(self, ticker, df):

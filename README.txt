@@ -53,3 +53,16 @@ Current gain	trailing ratio	stop_price	spread	      Sell Price
 0.9500%	      0.20%     	    0.75%	       0.03%      	0.72%
 1.0000%	      0.20%     	    0.80%	       0.03%      	0.77%
 
+Current gain	trailing ratio	stop_price	spread	      Sell Price           Action\Status
+0.40%	        0.15%     	    0.50%	       0.03%      	0.25%            SET TRAILING ORDER, trailing LIT was set at the begining 0.6%
+0.50%	        0.15%     	    0.50%	       0.03%      	0.35%            TRAILING ORDER SET, increase traling LIT gain to 0.65%
+0.5500%	      0.15%     	    0.50%	       0.03%      	0.47%            TRAILING ORDER SET, increase traling LIT gain to 0.75%
+0.6000%	      0.15%     	    0.50%	       0.03%      	0.47%            TRAILING ORDER SET, Cancel trailing LIT
+0.6500%	      0.15%     	    0.55%	       0.03%      	0.52%            TRAILING ORDER SET
+0.7000%	      0.15%     	    0.60%	       0.03%      	0.57%            TRAILING ORDER SET
+0.7500%	      0.15%     	    0.65%	       0.03%      	0.62%            ...
+0.8000%	      0.15%     	    0.65%	       0.03%      	0.62%
+0.8500%	      0.15%     	    0.70%	       0.03%      	0.67%
+0.9000%	      0.20%     	    0.70%	       0.03%      	0.67%
+0.9500%	      0.15%     	    0.75%	       0.03%      	0.72%
+1.0000%	      0.20%     	    0.80%	       0.03%      	0.77%
