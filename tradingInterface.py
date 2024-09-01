@@ -43,12 +43,12 @@ class TradeInterface():
       except Exception as e:
         alarm.print(e)
 
-  def buy_order(self, ticker, buy_price, buy_sum=0, stocks_number=0, **kwargs):
+  def buy_order(self, ticker, buy_price, buy_condition_type, buy_sum=0, stocks_number=0, **kwargs):
     response = None
     order = {}
     if buy_sum != 0:
       stocks_number = int(buy_sum / buy_price)
-    
+       
     buy_sum = stocks_number * buy_price
     current_timezone = datetime.now().astimezone().tzinfo
     if buy_sum == 0 and stocks_number == 0:
@@ -82,6 +82,7 @@ class TradeInterface():
       'stop_order_id' : None,
       'trailing_LIT_order_id': None,
       'trailing_stop_limit_order_id': None,
+      'buy_condition_type': buy_condition_type,
       'timezone' : str(current_timezone)
     }
 
@@ -194,7 +195,9 @@ class TradeInterface():
           'limit_if_touched_order_id': pd.Series(dtype='int'),
           'stop_order_id' : pd.Series(dtype='int'),         
           'trailing_LIT_order_id' : pd.Series(dtype='int'),         
-          'trailing_stop_limit_order_id' : pd.Series(dtype='int')  
+          'trailing_stop_limit_order_id' : pd.Series(dtype='int'),
+          'timezone': pd.Series(dtype='str'),
+          'buy_condition_type': pd.Series(dtype='str')
         }
       )
     return df

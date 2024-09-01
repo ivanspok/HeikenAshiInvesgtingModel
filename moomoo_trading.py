@@ -109,18 +109,19 @@ def get_historical_df(ticker='', interval='1h', period='2y', start_date=date.tod
     return df 
 
 def is_near_global_max(df, i, k=400, prt=70):
-
-  if i > k:
-   gmax = max(df['close'].iloc[i - k: i])
-   gmin = min(df['close'].iloc[i - k: i])
-   reference_point = df['close'].iloc[i - k]
-  else:
-   reference_point = df['close'].iloc[0]
-   gmax = max(df['close'].iloc[0: i])
-   gmin = min(df['close'].iloc[0: i])
- 
-  result = 100 * (df['close'].iloc[i] - gmin) / (gmax - gmin) > prt
-
+  result = False
+  try:
+    if i > k:
+      gmax = max(df['close'].iloc[i - k: i])
+      gmin = min(df['close'].iloc[i - k: i])
+      reference_point = df['close'].iloc[i - k]
+    else:
+      reference_point = df['close'].iloc[0]
+      gmax = max(df['close'].iloc[0: i])
+      gmin = min(df['close'].iloc[0: i])
+    result = 100 * (df['close'].iloc[i] - gmin) / (gmax - gmin) > prt
+  except Exception as e:
+    alarm.print(e)
   return result
 
 def number_red_candles(df, i, k=11):
@@ -183,6 +184,29 @@ def stock_buy_condition(df, ticker):
     condition = True
   
   return condition, buy_price, gain_coef, lose_coef
+
+def stock_buy_condition_1m(df):
+  '''
+    Parameters:
+
+    Returns:
+      condition
+  '''
+  condition = False
+  buy_price = 0
+
+  i = df.shape[0] - 1
+
+  if df['ha_pct'].iloc[i] > 0.01 \
+    and number_red_candles(df, i, k=8) >= 7  \
+    and df['ha_colour'].iloc[i - 1] == 'red'\
+    and df['ha_colour'].iloc[i - 2] == 'red'\
+    and is_near_global_max(df, i, k=120, prt=58):
+    
+    buy_price = float(max(df['close'][i - 4 : i]))
+    condition = True
+  
+  return condition, buy_price
 
 def sell_stock_condition(order, current_price):
 
@@ -391,7 +415,7 @@ if __name__ == '__main__':
 
   # All parameter should be False. Change to True if you need change\fix DB
   load_from_csv = False
-  load_from_xslx = False
+  load_from_xslx = True
   clean_placed_orders = False
   clean_cancelled_orders = False
   read_sql_from_df = False
@@ -500,7 +524,9 @@ if __name__ == '__main__':
           if order['status'] == 'bought':
             df = ti.update_order(df, order)
         #Recheck all placed buy orders from the orders by cancel time condition
-        if (datetime.now() - order['buy_time']).seconds / 60 > 20:          
+        if (datetime.now() - order['buy_time']).seconds / 60 > 20 \
+          or ((datetime.now() - order['buy_time']).seconds / 60 >= 5 \
+               and order['buy_condition_type'] == '1m'):
           if limit_if_touched_buy_orders.shape[0] > 0:
             limit_if_touched_buy_order = limit_if_touched_buy_orders.loc[
               limit_if_touched_buy_orders['order_id'] == order['buy_order_id']]
@@ -784,8 +810,12 @@ if __name__ == '__main__':
       if not(stock_df is None):
         if not(ticker in bought_stocks_list or ticker in placed_stocks_list):
           buy_condition, buy_price, gain_coef, lose_coef = stock_buy_condition(stock_df, ticker)
+          buy_condition_1m, buy_price_1m = stock_buy_condition_1m(stock_df_1m)
         else:
           buy_condition = False
+          buy_condition_1m = False
+          buy_price_1m = 0
+          buy_price = 0
         # c.print(f'buy condition is {buy_condition}', color='blue')
         c.green_red_print(buy_condition, 'buy condition')
         print(f'stock {ticker}, time: {stock_df.index[-1]} last price is {stock_df['close'].iloc[-1]:.2f}')
@@ -836,7 +866,13 @@ if __name__ == '__main__':
             #                 stock_df['close'].iloc[-2], stock_df['open'].iloc[-2],
             #                 stock_df['close'].iloc[-3], stock_df['open'].iloc[-3]
             #                )
-            buy_price = min(stock_df['close'].iloc[-10:-1].min(), stock_df['open'].iloc[-10:-1].min())
+            if buy_condition_1m:
+              buy_price = buy_price_1m
+              order['buy_condition_type'] = '1m'
+            else:
+              buy_price = min(stock_df['close'].iloc[-10:-1].min(), stock_df['open'].iloc[-10:-1].min())
+              order['buy_condition_type'] = '1h'
+
             # play sound:
             winsound.PlaySound('SystemHand', winsound.SND_ALIAS)
             order = ti.buy_order(ticker=ticker, buy_price=buy_price, buy_sum=buy_sum)
@@ -878,7 +914,9 @@ if __name__ == '__main__':
             # current_price = stock_df['close'].iloc[-1]
           try:
             if current_price >= order['buy_price'] * order['gain_coef'] \
-              or (datetime.now() - order['buy_time']).seconds / 60 > 20:          
+              or (datetime.now() - order['buy_time']).seconds / 60 > 20 \
+              or ((datetime.now() - order['buy_time']).seconds / 60 >= 5 \
+                   and order['buy_condition_type'] == '1m'):         
               if limit_if_touched_buy_orders.shape[0] > 0:
                 limit_if_touched_buy_order = limit_if_touched_buy_orders.loc[
                   limit_if_touched_buy_orders['order_id'] == order['buy_order_id']]
@@ -965,7 +1003,10 @@ if __name__ == '__main__':
       except Exception as e:
         alarm.print(e)
     # Update SQL DB FROM df each full cycle!!!
-    db.update_db_from_df(df)
+    try:
+      db.update_db_from_df(df)
+    except Exception as e:
+      alarm.print(e)
     print('Waiting progress:')
     for i in tqdm(range(20)):
       time.sleep(1)
