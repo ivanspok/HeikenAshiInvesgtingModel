@@ -49,6 +49,7 @@ class Orders(Base):
     trailing_LIT_order_id = Column(String(30))
     trailing_stop_limit_order_id = Column(String(30))
     buy_condition_type = Column(String(30))
+    tech_indicators = Column(String(50))
     timezone = Column(String(40))   
 
     def __repr__(self) -> str:
@@ -67,7 +68,7 @@ class DB_connection():
        'sell_time', 'sell_price', 'sell_sum', 'sell_commission', 'stocks_number', 'status',
        'gain_coef', 'lose_coef', 'trailing_LIT_gain_coef', 'trailing_ratio', 'profit',
        'buy_order_id', 'limit_if_touched_order_id', 'stop_order_id', 'trailing_LIT_order_id', 
-       'trailing_stop_limit_order_id','timezone', 'buy_condition_type' 
+       'trailing_stop_limit_order_id','timezone', 'buy_condition_type', 'tech_indicators'
       ]
 
       self.timezone = str(datetime.now().astimezone().tzinfo)
@@ -130,6 +131,7 @@ class DB_connection():
             trailing_LIT_order_id = locals()['trailing_LIT_order_id'],
             trailing_stop_limit_order_id = locals()['trailing_stop_limit_order_id'],
             buy_condition_type  = locals()['buy_condition_type'],
+            tech_indicators  = locals()['tech_indicators '],
             timezone = self.timezone 
       )
 

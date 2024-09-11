@@ -83,6 +83,7 @@ class TradeInterface():
       'trailing_LIT_order_id': None,
       'trailing_stop_limit_order_id': None,
       'buy_condition_type': buy_condition_type,
+      'tech_indicators': {},
       'timezone' : str(current_timezone)
     }
 
@@ -102,6 +103,7 @@ class TradeInterface():
           order['buy_sum'] = moomoo_order['price'].values[0] * moomoo_order['qty'].values[0]
           order['stocks_number'] = moomoo_order['qty'].values[0]
           order['buy_commission'] = 1.111 # defatul commision; real commision will be updated from historical order
+          order['buy_condition_type'] = buy_condition_type
       else:
         alarm.print(f'Problem with placing the order for the {ticker}')
         response = 'error'
@@ -197,7 +199,8 @@ class TradeInterface():
           'trailing_LIT_order_id' : pd.Series(dtype='int'),         
           'trailing_stop_limit_order_id' : pd.Series(dtype='int'),
           'timezone': pd.Series(dtype='str'),
-          'buy_condition_type': pd.Series(dtype='str')
+          'buy_condition_type': pd.Series(dtype='str'),
+          'tech_indicators': pd.Series(dtype='str')
         }
       )
     return df

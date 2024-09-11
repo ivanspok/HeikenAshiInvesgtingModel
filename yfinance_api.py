@@ -43,7 +43,7 @@ def get_historical_df(ticker='AAPL', interval='1h', period='2y', start_date=date
     
   
     insturument = yf.Ticker(ticker)
-    df = insturument.history(period=period, interval=interval)
+    df = yf.Ticker(ticker).history(period=period, interval=interval)
 
     df = df.rename(columns={"Open": "open", "Close" :'close', "High" : 'high', "Low": 'low'})
 
@@ -83,10 +83,14 @@ if __name__ == '__main__':
 
     # stock_name_list = ['PXD']
     
-    period = 'max' #2y
-    interval = '1m' # 1h
+    period = 'max' # 'max'
+    interval = '1m' # 1m
     start_date = date(2022, 5, 22)
     end_date  =  date.today()
+
+    ticker = '^GSPC'
+    stock_df = get_historical_df(ticker = ticker, period=period, interval=interval, start_date = start_date, end_date = end_date)
+    save_df(stock_df, ticker, period, interval, folder_name)
  
     # code
     for ticker in stock_name_list:
