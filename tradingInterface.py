@@ -74,7 +74,7 @@ class TradeInterface():
       'gain_coef': 0,
       'lose_coef' : 0,
       'trailing_LIT_gain_coef' : 1.006,
-      'trailing_ratio': 0.15,
+      'trailing_ratio': 0.12,
       'sell_sum': 0, 
       'profit': 0,
       'buy_order_id': None,
@@ -92,7 +92,8 @@ class TradeInterface():
       response = 'success'
 
     if self.platform == 'moomoo':
-      moomoo_order, order_id = self.moomoo_api.place_buy_limit_if_touched_order(ticker, buy_price, stocks_number)
+      # moomoo_order, order_id = self.moomoo_api.place_buy_limit_if_touched_order(ticker, buy_price, stocks_number)
+      moomoo_order, order_id = self.moomoo_api.place_buy_limit_order(ticker, buy_price, stocks_number)
       if order_id is not None:
         if moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTING \
           or moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTED \

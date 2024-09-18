@@ -88,9 +88,9 @@ if __name__ == '__main__':
     start_date = date(2022, 5, 22)
     end_date  =  date.today()
 
-    ticker = '^GSPC'
-    stock_df = get_historical_df(ticker = ticker, period=period, interval=interval, start_date = start_date, end_date = end_date)
-    save_df(stock_df, ticker, period, interval, folder_name)
+    # ticker = '^GSPC'
+    # stock_df = get_historical_df(ticker = ticker, period=period, interval=interval, start_date = start_date, end_date = end_date)
+    # save_df(stock_df, ticker, period, interval, folder_name)
  
     # code
     for ticker in stock_name_list:

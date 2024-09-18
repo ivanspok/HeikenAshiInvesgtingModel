@@ -67,6 +67,35 @@ class Moomoo_API():
             alarm.print(e)
             trd_ctx.close()
         return data, order_id
+    
+    def place_buy_limit_order(self, ticker, price, qty):
+        order_id = None
+        order = None
+        try:
+            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
+            stock_code = MARKET + ticker
+            ret, data = trd_ctx.place_order(
+                                    price=price,
+                                    qty=qty,
+                                    code=stock_code,
+                                    trd_side=ft.TrdSide.BUY,
+                                    trd_env=self.trd_env,
+                                    order_type=ft.OrderType.NORMAL,
+                                    adjust_limit=0.01,
+                                    fill_outside_rth=False)
+            print(f'Placing BUY limit order for {stock_code}')
+            print(f'Market response is {ret}, data is {data}')
+            if ret == ft.RET_OK:
+                order_id = data['order_id'].values[0]
+                order = data
+            else:
+                alarm.print(data)
+            trd_ctx.close()
+        except Exception as e:
+            alarm.print(e)
+            trd_ctx.close()
+        return order, order_id
 
     def place_buy_limit_if_touched_order(self, ticker, price, qty):
         order_id = None
@@ -399,6 +428,7 @@ class Moomoo_API():
         limit_if_touched_sell_orders = pd.DataFrame()
         stop_sell_orders = pd.DataFrame()
         limit_if_touched_buy_orders = pd.DataFrame()
+        limit_buy_orders = pd.DataFrame()
         trailing_LIT_orders = pd.DataFrame()
         trailing_stop_limit_orders = pd.DataFrame()
         try:
@@ -425,11 +455,14 @@ class Moomoo_API():
                                 
                             if row['trd_side'] == ft.TrdSide.BUY:
                                  if row['order_type'] == ft.OrderType.LIMIT_IF_TOUCHED: 
-                                    limit_if_touched_buy_orders  = pd.concat([limit_if_touched_buy_orders , row], axis = 1)        
+                                    limit_if_touched_buy_orders  = pd.concat([limit_if_touched_buy_orders , row], axis = 1)
+                                 if row['order_type'] == ft.OrderType.NORMAL: 
+                                    limit_buy_orders  = pd.concat([limit_buy_orders , row], axis = 1)        
 
                     limit_if_touched_sell_orders = limit_if_touched_sell_orders.transpose()
                     stop_sell_orders = stop_sell_orders.transpose()
                     limit_if_touched_buy_orders = limit_if_touched_buy_orders.transpose()
+                    limit_buy_orders = limit_buy_orders.transpose()
                     trailing_LIT_orders = trailing_LIT_orders.transpose()
                     trailing_stop_limit_orders = trailing_stop_limit_orders.transpose()
             else:
@@ -438,7 +471,7 @@ class Moomoo_API():
         except Exception as e:
             alarm.print(e)
             trd_ctx.close()
-        return  limit_if_touched_sell_orders, stop_sell_orders, limit_if_touched_buy_orders, trailing_LIT_orders, trailing_stop_limit_orders
+        return  limit_if_touched_sell_orders, stop_sell_orders, limit_buy_orders, limit_if_touched_buy_orders, trailing_LIT_orders, trailing_stop_limit_orders
     
     def get_order_commission(self, order_id):
         commission = None
