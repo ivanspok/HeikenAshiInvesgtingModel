@@ -8,7 +8,7 @@ import global_variables as gv
 import pytz
 from zoneinfo import ZoneInfo
 import sql_db
-
+import numpy as np
 from colog.colog import colog
 c = colog()
 warning = colog(TextColor='orange')
@@ -80,6 +80,7 @@ class TradeInterface():
       'buy_order_id': None,
       'limit_if_touched_order_id': None, 
       'stop_order_id' : None,
+      'stop_limit_sell_order_id': None,
       'trailing_LIT_order_id': None,
       'trailing_stop_limit_order_id': None,
       'buy_condition_type': buy_condition_type,
@@ -92,8 +93,13 @@ class TradeInterface():
       response = 'success'
 
     if self.platform == 'moomoo':
-      # moomoo_order, order_id = self.moomoo_api.place_buy_limit_if_touched_order(ticker, buy_price, stocks_number)
-      moomoo_order, order_id = self.moomoo_api.place_buy_limit_order(ticker, buy_price, stocks_number)
+      # if buy_condition_type == '1230':
+      #   moomoo_order, order_id = self.moomoo_api.place_buy_limit_if_touched_order(ticker, buy_price, stocks_number)
+      # else:
+      if buy_condition_type == 'opening':
+        moomoo_order, order_id = self.moomoo_api.place_stop_limit_buy_order(ticker, buy_price, stocks_number)
+      else:
+        moomoo_order, order_id = self.moomoo_api.place_buy_limit_order(ticker, buy_price, stocks_number)
       if order_id is not None:
         if moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTING \
           or moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTED \
@@ -171,6 +177,8 @@ class TradeInterface():
       with open(file_path, 'rb') as file:
         df = pickle.load(file)
         gv.ORDERS_ID  = df['id'].max()
+    if gv.ORDERS_ID == np.nan:
+      gv.ORDERS_ID = 1
         
     else:
       c.print('Trade history does not exist', color='yellow')
@@ -196,7 +204,8 @@ class TradeInterface():
           'profit': pd.Series(dtype='float'),
           'buy_order_id' : pd.Series(dtype='int'), 
           'limit_if_touched_order_id': pd.Series(dtype='int'),
-          'stop_order_id' : pd.Series(dtype='int'),         
+          'stop_order_id' : pd.Series(dtype='int'),   
+          'stop_limit_sell_order_id': pd.Series(dtype='int'),   
           'trailing_LIT_order_id' : pd.Series(dtype='int'),         
           'trailing_stop_limit_order_id' : pd.Series(dtype='int'),
           'timezone': pd.Series(dtype='str'),
@@ -231,7 +240,7 @@ class TradeInterface():
     index = df.loc[(df['id'] == order['id']) & (df['buy_time'] == order['buy_time'])].index
     update_line = pd.DataFrame([order])
     update_line[float_columns] = update_line[float_columns].astype(float)
-    df.loc[index] = update_line
+    df.loc[index] = update_line.values
 
     self.__save_orders__(df)
 
@@ -248,7 +257,10 @@ class TradeInterface():
 
     df2 = pd.DataFrame([order])
     df2[float_columns] = df2[float_columns].astype(float)
-    df = pd.concat([df, df2], ignore_index=True)
+    if df.empty:
+      df = df2
+    else:
+      df = pd.concat([df, df2], ignore_index=True)
     self.__save_orders__(df)
     # if not sim:
     #   # Add record to SQL:

@@ -66,3 +66,17 @@ Current gain	trailing ratio	stop_price	spread	      Sell Price           Action\
 0.9000%	      0.20%     	    0.70%	       0.03%      	0.67%
 0.9500%	      0.15%     	    0.75%	       0.03%      	0.72%
 1.0000%	      0.20%     	    0.80%	       0.03%      	0.77%
+
+
+если 13:30 свеча зеланая
+и 13:30 more than min(open, close of each candle from 9:30 to it)    more than close of 9:30!!!!
+sum pct more than 0 
+
+if close 12:30 MORE (OPEN OR CLOSE 9:30) AND SUM psc more than 0
+candle is green 
+9:30 pct less than -1% !!!
+
+I need 12_30 condition. 
+If it trigger place limit if touch order with df[close][-2] price !!!
+
+If time 15:48 place limit order with df_1m.close[-1]

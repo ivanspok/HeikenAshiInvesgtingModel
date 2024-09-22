@@ -97,6 +97,66 @@ class Moomoo_API():
             trd_ctx.close()
         return order, order_id
 
+    def place_stop_limit_buy_order(self, ticker, price, qty):
+        order_id = None
+        order = None
+        try:
+            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
+            stock_code = MARKET + ticker
+            ret, data = trd_ctx.place_order(
+                                    price=price * 1.002,
+                                    qty=qty,
+                                    code=stock_code,
+                                    trd_side=ft.TrdSide.BUY,
+                                    trd_env=self.trd_env,
+                                    order_type=ft.OrderType.STOP_LIMIT,
+                                    adjust_limit=0.01,
+                                    aux_price=price * 1.0015,
+                                    fill_outside_rth=False)
+            print(f'Placing BUY stop limit order for {stock_code}')
+            print(f'Market response is {ret}, data is {data}')
+            if ret == ft.RET_OK:
+                order_id = data['order_id'].values[0]
+                order = data
+            else:
+                alarm.print(data)
+            trd_ctx.close()
+        except Exception as e:
+            alarm.print(e)
+            trd_ctx.close()
+        return order, order_id
+
+    def place_stop_limit_sell_order(self, ticker, price, qty):
+        order_id = None
+        order = None
+        try:
+            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
+            stock_code = MARKET + ticker
+            ret, data = trd_ctx.place_order(
+                                    price=price * 0.999,
+                                    qty=qty,
+                                    code=stock_code,
+                                    trd_side=ft.TrdSide.SELL,
+                                    trd_env=self.trd_env,
+                                    order_type=ft.OrderType.STOP_LIMIT,
+                                    aux_price=price * 0.9997,
+                                    adjust_limit=0.01,
+                                    fill_outside_rth=False)
+            print(f'Placing stop limit sell order for {stock_code}')
+            print(f'Market response is {ret}, data is {data}')
+            if ret == ft.RET_OK:
+                order_id = data['order_id'].values[0]
+                order = data
+            else:
+                alarm.print(data)
+            trd_ctx.close()
+        except Exception as e:
+            alarm.print(e)
+            trd_ctx.close()
+        return order_id
+
     def place_buy_limit_if_touched_order(self, ticker, price, qty):
         order_id = None
         order = None
@@ -228,7 +288,37 @@ class Moomoo_API():
             alarm.print(e)
             trd_ctx.close()
         return order_id
-
+    
+    def place_stop_order(self, ticker, price, qty):
+        '''
+        Note: for Market order price can be passed any value
+        '''
+        order_id = None
+        try:
+            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
+            stock_code = MARKET + ticker
+            ret, data = trd_ctx.place_order(
+                                    price=price,
+                                    qty=qty,
+                                    code=stock_code,
+                                    trd_side=ft.TrdSide.SELL,
+                                    trd_env=self.trd_env,
+                                    time_in_force=ft.TimeInForce.GTC,
+                                    order_type=ft.OrderType.STOP,
+                                    aux_price=price * 0.9998)
+            print(f'Placing stop order for {stock_code}')
+            print(f'Market response is {ret}, data is {data}')
+            if ret == ft.RET_OK:
+                order_id = data['order_id'].values[0]
+            else:
+                alarm.print(data)
+            trd_ctx.close()
+        except Exception as e:
+            alarm.print(e)
+            trd_ctx.close()
+        return order_id
+    
     def cancel_order(self, order, order_type):
         '''
         Cancel order uy type:
@@ -333,36 +423,6 @@ class Moomoo_API():
             alarm.print(e)
             trd_ctx.close()
         return order_id
-
-    def place_stop_order(self, ticker, price, qty):
-        '''
-        Note: for Market order price can be passed any value
-        '''
-        order_id = None
-        try:
-            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
-            self.unlock_trade()
-            stock_code = MARKET + ticker
-            ret, data = trd_ctx.place_order(
-                                    price=price,
-                                    qty=qty,
-                                    code=stock_code,
-                                    trd_side=ft.TrdSide.SELL,
-                                    trd_env=self.trd_env,
-                                    time_in_force=ft.TimeInForce.GTC,
-                                    order_type=ft.OrderType.STOP,
-                                    aux_price=price * 0.9998)
-            print(f'Placing stop order for {stock_code}')
-            print(f'Market response is {ret}, data is {data}')
-            if ret == ft.RET_OK:
-                order_id = data['order_id'].values[0]
-            else:
-                alarm.print(data)
-            trd_ctx.close()
-        except Exception as e:
-            alarm.print(e)
-            trd_ctx.close()
-        return order_id
     
     def get_history_orders(self):
         data = None
@@ -431,6 +491,8 @@ class Moomoo_API():
         limit_buy_orders = pd.DataFrame()
         trailing_LIT_orders = pd.DataFrame()
         trailing_stop_limit_orders = pd.DataFrame()
+        stop_limit_buy_orders = pd.DataFrame()
+        stop_limit_sell_orders = pd.DataFrame()
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=ip, port=port, security_firm=ft.SecurityFirm.FUTUAU)
             ret, data = trd_ctx.order_list_query(acc_id=self.acc_id)
@@ -451,13 +513,17 @@ class Moomoo_API():
                                 if row['order_type'] == ft.OrderType.STOP: 
                                     stop_sell_orders = pd.concat([stop_sell_orders, row], axis = 1)
                                 if row['order_type'] == ft.OrderType.TRAILING_STOP_LIMIT: 
-                                    trailing_stop_limit_orders = pd.concat([stop_sell_orders, row], axis = 1)       
-                                
+                                    trailing_stop_limit_orders = pd.concat([stop_sell_orders, row], axis = 1)     
+                                if row['order_type'] == ft.OrderType.STOP_LIMIT: 
+                                    stop_limit_sell_orders = pd.concat([stop_limit_sell_orders, row], axis = 1)       
+                                  
                             if row['trd_side'] == ft.TrdSide.BUY:
                                  if row['order_type'] == ft.OrderType.LIMIT_IF_TOUCHED: 
                                     limit_if_touched_buy_orders  = pd.concat([limit_if_touched_buy_orders , row], axis = 1)
                                  if row['order_type'] == ft.OrderType.NORMAL: 
                                     limit_buy_orders  = pd.concat([limit_buy_orders , row], axis = 1)        
+                                 if row['order_type'] == ft.OrderType.STOP_LIMIT: 
+                                    stop_limit_buy_orders  = pd.concat([stop_limit_buy_orders , row], axis = 1)        
 
                     limit_if_touched_sell_orders = limit_if_touched_sell_orders.transpose()
                     stop_sell_orders = stop_sell_orders.transpose()
@@ -465,13 +531,17 @@ class Moomoo_API():
                     limit_buy_orders = limit_buy_orders.transpose()
                     trailing_LIT_orders = trailing_LIT_orders.transpose()
                     trailing_stop_limit_orders = trailing_stop_limit_orders.transpose()
+                    stop_limit_buy_orders = stop_limit_buy_orders.transpose()
+                    stop_limit_sell_orders = stop_limit_sell_orders.transpose()
             else:
                 alarm.print('order_list_query error: ', data)
             trd_ctx.close()  # Close the current connection
         except Exception as e:
             alarm.print(e)
             trd_ctx.close()
-        return  limit_if_touched_sell_orders, stop_sell_orders, limit_buy_orders, limit_if_touched_buy_orders, trailing_LIT_orders, trailing_stop_limit_orders
+        return  limit_if_touched_sell_orders, stop_sell_orders, limit_buy_orders, \
+              limit_if_touched_buy_orders, trailing_LIT_orders, trailing_stop_limit_orders,\
+              stop_limit_buy_orders, stop_limit_sell_orders
     
     def get_order_commission(self, order_id):
         commission = None
