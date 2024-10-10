@@ -1,1 +1,0 @@
-,ticker,buy_time,buy_price,buy_sum,buy_commission,sell_time,sell_price,sell_commission,stocks_number,status,id,gain_coef,lose_coef,trailing_LIT_gain_coef,trailing_ratio,sell_sum,profit,buy_order_id,limit_if_touched_order_id,stop_order_id,stop_limit_sell_order_id,trailing_LIT_order_id,trailing_stop_limit_order_id,buy_condition_type,tech_indicators,timezone

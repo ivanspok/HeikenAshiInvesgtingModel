@@ -45,7 +45,7 @@ max_buy_sum = 3300 # in  USD should be 3300 !!!!!
 stop_trading_profit_value = -150 * rate # in AUD * rate = USD
 max_stock_price = 1050 # in  USD
 
-order_life_time_min = 10
+order_life_time_min = 8
 
 # Moomoo settings
 moomoo_ps = ps.Moomoo()
@@ -732,7 +732,7 @@ if __name__ == '__main__':
 
               if stock_df_1m['close'].iloc[-1] > max_stock_price:
                 security_condition = False
-                alarm.print(f'Stock price {stock_df_1m['close'].iloc[-1]} more than maximum allowed price {max_stock_price}')
+                alarm.print(f'''Stock price {stock_df_1m['close'].iloc[-1]} more than maximum allowed price {max_stock_price}''')
 
               # Calculate buy_sum based on available money and min and max buy_sum condition
               if us_cash < default_buy_sum:

@@ -43,7 +43,7 @@ class TradeInterface():
       except Exception as e:
         alarm.print(e)
 
-  def buy_order(self, ticker, buy_price, buy_condition_type, buy_sum=0, stocks_number=0, **kwargs):
+  def buy_order(self, ticker, buy_price, buy_condition_type, default, buy_sum=0, stocks_number=0, **kwargs):
     response = None
     order = {}
     if buy_sum != 0:
@@ -60,6 +60,7 @@ class TradeInterface():
       gv.ORDERS_ID += 1
       id = gv.ORDERS_ID
     order = {
+      'id' : int(id),  # Generate by global ID 
       'ticker' : ticker,
       'buy_time' : datetime.now(),
       'buy_price' : buy_price,
@@ -70,11 +71,10 @@ class TradeInterface():
       'sell_commission': 0,
       'stocks_number' : int(stocks_number),
       'status' : 'created',
-      'id' : int(id),  # Generate by global ID 
-      'gain_coef': 0,
-      'lose_coef' : 0,
+      'gain_coef': 1.0001,
+      'lose_coef' : 1.0001,
       'trailing_LIT_gain_coef' : 1.006,
-      'trailing_ratio': 0.12,
+      'trailing_ratio': default.trailing_ratio,
       'sell_sum': 0, 
       'profit': 0,
       'buy_order_id': None,
@@ -237,12 +237,16 @@ class TradeInterface():
 
   def update_order(self, df, order, sim=False):
    
-    index = df.loc[(df['id'] == order['id']) & (df['buy_time'] == order['buy_time'])].index
-    update_line = pd.DataFrame([order])
-    update_line[float_columns] = update_line[float_columns].astype(float)
-    df.loc[index] = update_line.values
-
-    self.__save_orders__(df)
+    # index = df.loc[(df['id'] == order['id']) & (df['buy_time'] == order['buy_time'])].index
+    try:
+      # index = df.loc[(df['buy_order_id'] == order['buy_order_id']) & (df['buy_time'] == order['buy_time'])].index
+      index = df.loc[(df['buy_order_id'] == order['buy_order_id'])].index
+      update_line = pd.DataFrame([order])
+      update_line[float_columns] = update_line[float_columns].astype(float)
+      df.loc[index] = update_line[df.columns].values
+      self.__save_orders__(df)
+    except Exception as e:
+      alarm.print(e)
 
     # if not sim:
     #   # Update order in the SQL:

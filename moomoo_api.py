@@ -473,7 +473,7 @@ class Moomoo_API():
             if ret == ft.RET_OK:
                 if data.shape[0] > 0:  # If the position list is not empty
                     for index, row in data.iterrows():
-                        if row['can_sell_qty'] > 0:
+                        if row['qty'] > 0:
                             positions.append(row['code'].split('.')[1])  
             else:
                 alarm.print('position_list_query error: ', data)
@@ -512,8 +512,8 @@ class Moomoo_API():
                                     trailing_LIT_orders = pd.concat([trailing_LIT_orders, row], axis = 1)
                                 if row['order_type'] == ft.OrderType.STOP: 
                                     stop_sell_orders = pd.concat([stop_sell_orders, row], axis = 1)
-                                if row['order_type'] == ft.OrderType.TRAILING_STOP_LIMIT: 
-                                    trailing_stop_limit_orders = pd.concat([stop_sell_orders, row], axis = 1)     
+                                if row['order_type'] == ft.OrderType.TRAILING_STOP_LIMIT:
+                                    trailing_stop_limit_orders = pd.concat([trailing_stop_limit_orders, row], axis = 1)     
                                 if row['order_type'] == ft.OrderType.STOP_LIMIT: 
                                     stop_limit_sell_orders = pd.concat([stop_limit_sell_orders, row], axis = 1)       
                                   

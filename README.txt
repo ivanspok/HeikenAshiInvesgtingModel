@@ -80,3 +80,18 @@ I need 12_30 condition.
 If it trigger place limit if touch order with df[close][-2] price !!!
 
 If time 15:48 place limit order with df_1m.close[-1]
+
+
+@@@
+Time	Condition		
+9:30	9_30		check it
+9:30 - 9:47	930_47		check it
+9:47 - 10:45	drowdown930	drowdown	
+10:40- 11:05	DO NOT BUY		
+11:05:00 - 12:00	c2	c32	drowdown
+12:00  - 13:30	c42	drowdown	?
+			
+			
+13:30 - 15:00	buy condition 13:30		
+			
+3:35:00 PM - 15:50	Rising before closing the market?!!!		check assumption
