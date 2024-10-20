@@ -105,15 +105,15 @@ class Moomoo_API():
             self.unlock_trade()
             stock_code = MARKET + ticker
             ret, data = trd_ctx.place_order(
-                                    price=price * 1.002,
+                                    price=price,
                                     qty=qty,
                                     code=stock_code,
                                     trd_side=ft.TrdSide.BUY,
                                     trd_env=self.trd_env,
                                     order_type=ft.OrderType.STOP_LIMIT,
                                     adjust_limit=0.01,
-                                    aux_price=price * 1.0015,
-                                    fill_outside_rth=False)
+                                    aux_price=price * 0.9995,
+                                    fill_outside_rth=True)
             print(f'Placing BUY stop limit order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
@@ -141,9 +141,10 @@ class Moomoo_API():
                                     trd_side=ft.TrdSide.SELL,
                                     trd_env=self.trd_env,
                                     order_type=ft.OrderType.STOP_LIMIT,
+                                    time_in_force=ft.TimeInForce.GTC,
                                     aux_price=price * 0.9997,
                                     adjust_limit=0.01,
-                                    fill_outside_rth=False)
+                                    fill_outside_rth=True)
             print(f'Placing stop limit sell order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
@@ -249,45 +250,6 @@ class Moomoo_API():
             alarm.print(e)
             trd_ctx.close()
         return order_id
-
-    def modify_trailing_stop_limit_order(self, order, trail_value, trail_spread):
-        '''
-        Note: for Market order price can be passed any value
-        '''
-        order_id = order['trailing_stop_limit_order_id']
-        price =  order['buy_price'] * 1.1
-        aux_price =  order['buy_price'] * 0.9
-        qty = order['stocks_number']
-        ticker = order['ticker']
-        try:
-            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
-            self.unlock_trade()
-            ret, data = trd_ctx.modify_order(
-                                    modify_order_op=ft.ModifyOrderOp.NORMAL,
-                                    order_id=order_id,
-                                    price=price,
-                                    qty=qty,
-                                    trd_env=self.trd_env,
-                                    adjust_limit=0.01,
-                                    aux_price=aux_price,
-                                    trail_type= ft.TrailType.RATIO,
-                                    trail_value=trail_value,
-                                    trail_spread=trail_spread
-                                    )
-            print(f'Modifying trailing stop limit order for {ticker}, {order_id}')
-            print(f'Market response is {ret}, data is {data}')
-            if ret == ft.RET_OK:
-                order_id_returned = data['order_id'].values[0]
-                if order_id_returned != order_id:
-                    print(f'order_id is {order_id}, order_id_returned is {order_id_returned}')
-                    order_id = order_id_returned
-            else:
-                alarm.print(data)
-            trd_ctx.close()
-        except Exception as e:
-            alarm.print(e)
-            trd_ctx.close()
-        return order_id
     
     def place_stop_order(self, ticker, price, qty):
         '''
@@ -348,6 +310,45 @@ class Moomoo_API():
             alarm.print(e)
             trd_ctx.close()
         return status
+    
+    def modify_trailing_stop_limit_order(self, order, trail_value, trail_spread):
+        '''
+        Note: for Market order price can be passed any value
+        '''
+        order_id = order['trailing_stop_limit_order_id']
+        price =  order['buy_price'] * 1.1
+        aux_price =  order['buy_price'] * 0.9
+        qty = order['stocks_number']
+        ticker = order['ticker']
+        try:
+            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
+            ret, data = trd_ctx.modify_order(
+                                    modify_order_op=ft.ModifyOrderOp.NORMAL,
+                                    order_id=order_id,
+                                    price=price,
+                                    qty=qty,
+                                    trd_env=self.trd_env,
+                                    adjust_limit=0.01,
+                                    aux_price=aux_price,
+                                    trail_type= ft.TrailType.RATIO,
+                                    trail_value=trail_value,
+                                    trail_spread=trail_spread
+                                    )
+            print(f'Modifying trailing stop limit order for {ticker}, {order_id}')
+            print(f'Market response is {ret}, data is {data}')
+            if ret == ft.RET_OK:
+                order_id_returned = data['order_id'].values[0]
+                if order_id_returned != order_id:
+                    print(f'order_id is {order_id}, order_id_returned is {order_id_returned}')
+                    order_id = order_id_returned
+            else:
+                alarm.print(data)
+            trd_ctx.close()
+        except Exception as e:
+            alarm.print(e)
+            trd_ctx.close()
+        return order_id
 
     def modify_limit_if_touched_order(self, order, gain_coef, aux_price_coef = 1.0001, order_type='limit_if_touched'):
         '''
@@ -423,7 +424,42 @@ class Moomoo_API():
             alarm.print(e)
             trd_ctx.close()
         return order_id
-    
+
+    def modify_stop_limit_order(self, order, lose_coef):
+        '''
+        Note: for Market order price can be passed any value
+        '''
+        order_id = order['stop_limit_order_id']
+        price =  order['buy_price'] * lose_coef
+        qty = order['stocks_number']
+        ticker = order['ticker']
+        try:
+            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
+            ret, data = trd_ctx.modify_order(
+                                    modify_order_op=ft.ModifyOrderOp.NORMAL,
+                                    order_id=order_id,
+                                    price=price,
+                                    aux_price=price * 0.9998,
+                                    qty=qty,
+                                    trd_env=self.trd_env,
+                                    adjust_limit=0.01,
+                                    )
+            print(f'Modifying stop limit order for {ticker}, {order_id}')
+            print(f'Market response is {ret}, data is {data}')
+            if ret == ft.RET_OK:
+                order_id_returned = data['order_id'].values[0]
+                if order_id_returned != order_id:
+                    print(f'order_id is {order_id}, order_id_returned is {order_id_returned}')
+                    order_id = order_id_returned
+            else:
+                alarm.print(data)
+            trd_ctx.close()
+        except Exception as e:
+            alarm.print(e)
+            trd_ctx.close()
+        return order_id    
+
     def get_history_orders(self):
         data = None
         try:

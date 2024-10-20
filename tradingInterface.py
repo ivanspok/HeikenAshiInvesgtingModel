@@ -80,7 +80,7 @@ class TradeInterface():
       'buy_order_id': None,
       'limit_if_touched_order_id': None, 
       'stop_order_id' : None,
-      'stop_limit_sell_order_id': None,
+      'stop_limit_order_id': None,
       'trailing_LIT_order_id': None,
       'trailing_stop_limit_order_id': None,
       'buy_condition_type': buy_condition_type,
@@ -96,7 +96,7 @@ class TradeInterface():
       # if buy_condition_type == '1230':
       #   moomoo_order, order_id = self.moomoo_api.place_buy_limit_if_touched_order(ticker, buy_price, stocks_number)
       # else:
-      if buy_condition_type == 'opening':
+      if buy_condition_type in ['opening', 'before_market_open_1', 'before_market_open_2']:
         moomoo_order, order_id = self.moomoo_api.place_stop_limit_buy_order(ticker, buy_price, stocks_number)
       else:
         moomoo_order, order_id = self.moomoo_api.place_buy_limit_order(ticker, buy_price, stocks_number)
@@ -205,7 +205,7 @@ class TradeInterface():
           'buy_order_id' : pd.Series(dtype='int'), 
           'limit_if_touched_order_id': pd.Series(dtype='int'),
           'stop_order_id' : pd.Series(dtype='int'),   
-          'stop_limit_sell_order_id': pd.Series(dtype='int'),   
+          'stop_limit_order_id': pd.Series(dtype='int'),   
           'trailing_LIT_order_id' : pd.Series(dtype='int'),         
           'trailing_stop_limit_order_id' : pd.Series(dtype='int'),
           'timezone': pd.Series(dtype='str'),

@@ -95,3 +95,33 @@ Time	Condition
 13:30 - 15:00	buy condition 13:30		
 			
 3:35:00 PM - 15:50	Rising before closing the market?!!!		check assumption
+
+
+
+
+gain_coef !!!!  +
+
+buy order shoud be outside market hours, good_till_cancel ++
+
+* verify cancelation condition (shoud cancel just only when market would open) ++
+
+
+during outsite hours price shoud requtest with prepost data
+
+______________________________
+during outsite hours price shoud requtest with prepost data +
+
+
+* place sell orders 
+
+if gain more than 2% limit sell order at 0.5%
+if gain more than 3% limit sell order at 1%
+if gain more than 4% limit sell order at 2%
+if gain more than 4.5% limit sell order at 2.5%
+
+
+If more than 3% fast sold it
+
+
+changed in count cycle also !!!
+Chainsaw Man Episode 
