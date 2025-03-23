@@ -4,6 +4,7 @@ from forex_python.converter import CurrencyRates
 from currency_converter import CurrencyConverter
 import pandas as pd
 from colog.colog import colog
+from datetime import datetime, timedelta
 c = colog()
 warning = colog(TextColor='orange')
 alarm = colog(TextColor='red')
@@ -17,6 +18,9 @@ trd_env = ft.TrdEnv.SIMULATE
 
 order = {}
 ticker = 'test'
+
+# Global
+number_attemps_to_get_data = 0
 
 class Moomoo_API():
     
@@ -112,7 +116,7 @@ class Moomoo_API():
                                     trd_env=self.trd_env,
                                     order_type=ft.OrderType.STOP_LIMIT,
                                     adjust_limit=0.01,
-                                    aux_price=price * 0.9995,
+                                    aux_price=price * 1.0002,
                                     fill_outside_rth=True)
             print(f'Placing BUY stop limit order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
@@ -158,7 +162,7 @@ class Moomoo_API():
             trd_ctx.close()
         return order_id
 
-    def place_buy_limit_if_touched_order(self, ticker, price, qty):
+    def place_buy_limit_if_touched_order(self, ticker, price, qty, fill_outside_rth=True):
         order_id = None
         order = None
         try:
@@ -175,7 +179,7 @@ class Moomoo_API():
                                     adjust_limit=0.01,
                                     order_type=ft.OrderType.LIMIT_IF_TOUCHED,
                                     aux_price=price,
-                                    fill_outside_rth=False)
+                                    fill_outside_rth=fill_outside_rth)
             print(f'Placing BUY limit if touched order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
@@ -183,6 +187,7 @@ class Moomoo_API():
                 order = data
             else:
                 alarm.print(data)
+                order = data
             trd_ctx.close()
         except Exception as e:
             alarm.print(e)
@@ -462,9 +467,27 @@ class Moomoo_API():
 
     def get_history_orders(self):
         data = None
+        global number_attemps_to_get_data
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=ip, port=port, security_firm=ft.SecurityFirm.FUTUAU)
-            ret, data = trd_ctx.history_order_list_query(acc_id=self.acc_id, trd_env=self.trd_env)
+            match number_attemps_to_get_data:
+                case 0:
+                    hours = 24 * 30
+                case 1:
+                    match datetime.now().weekday():
+                        case 6: k = 1
+                        case 7: k = 2
+                        case 0: k = 3
+                        case _: k = 0
+                    hours = 24 * (k + 1)
+                case 2:
+                    hours = 1
+                case _:
+                    hours = 1
+            start = str(datetime.now() - timedelta(hours=hours)).split('.')[0]
+            end  = str(datetime.now()).split('.')[0]
+            number_attemps_to_get_data += 1
+            ret, data = trd_ctx.history_order_list_query(acc_id=self.acc_id, trd_env=self.trd_env, start=start, end=end)
             if ret == ft.RET_OK:
                 if data.shape[0] > 0:  # If the order list is not empty
                     print('history orders received successfully')
@@ -474,8 +497,21 @@ class Moomoo_API():
         except Exception as e:
             alarm.print(e)
             trd_ctx.close()
+        if type(data) == str:
+            if data  == 'Get Historical Order List request timed out' \
+                or data == 'PacketErr.Timeout':
+                if number_attemps_to_get_data <=2:
+                    alarm.print(f'Number attemps to get data is {number_attemps_to_get_data} ')
+                    alarm.print('''1 second sleep timeout due tue 'Get Historical Order List request timed out' ''')
+                    time.sleep(1)
+                    data = self.get_history_orders()
+                else:
+                    alarm.print('''30 second sleep timeout due tue 'Get Historical Order List request timed out' ''')
+                    time.sleep(30)
+        number_attemps_to_get_data = 0
         return data    
     
+   
     def get_list_of_trading_accounts(self):
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=ip, port=port, security_firm=ft.SecurityFirm.FUTUAU)

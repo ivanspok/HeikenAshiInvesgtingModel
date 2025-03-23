@@ -16,6 +16,8 @@ alarm = colog(TextColor='red')
 
 float_columns = ['buy_price', 'buy_sum', 'buy_commission', 'sell_price', 'sell_sum', 'sell_commission',
                   'gain_coef', 'lose_coef', 'trailing_LIT_gain_coef', 'profit', 'trailing_ratio']
+str_columns = ['buy_order_id', 'limit_if_touched_order_id', 'stop_order_id', 'trailing_LIT_order_id', 
+               'trailing_stop_limit_order_id', 'stop_limit_order_id']
 
 class TradeInterface():
 
@@ -96,10 +98,22 @@ class TradeInterface():
       # if buy_condition_type == '1230':
       #   moomoo_order, order_id = self.moomoo_api.place_buy_limit_if_touched_order(ticker, buy_price, stocks_number)
       # else:
-      if buy_condition_type in ['opening', 'before_market_open_1', 'before_market_open_2']:
+      if buy_condition_type in ['opening']:
         moomoo_order, order_id = self.moomoo_api.place_stop_limit_buy_order(ticker, buy_price, stocks_number)
+      elif buy_condition_type in ['before_market_open_1', 'before_market_open_2']:
+        moomoo_order, order_id = self.moomoo_api.place_buy_limit_if_touched_order(ticker, buy_price, stocks_number)
+        for _ in range(2):
+          if str(moomoo_order) == 'Trigger price should be lower than the market price.':
+            buy_price = buy_price * 0.993
+            moomoo_order, order_id = self.moomoo_api.place_buy_limit_if_touched_order(ticker, buy_price, stocks_number)
+          else:
+            break
       else:
-        moomoo_order, order_id = self.moomoo_api.place_buy_limit_order(ticker, buy_price, stocks_number)
+        if buy_condition_type == 'MA60_MA5':
+          fill_outside_rth = False
+        else:
+          fill_outside_rth = True
+        moomoo_order, order_id = self.moomoo_api.place_buy_limit_order(ticker, buy_price, stocks_number, fill_outside_rth=fill_outside_rth)
       if order_id is not None:
         if moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTING \
           or moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTED \
@@ -243,6 +257,7 @@ class TradeInterface():
       index = df.loc[(df['buy_order_id'] == order['buy_order_id'])].index
       update_line = pd.DataFrame([order])
       update_line[float_columns] = update_line[float_columns].astype(float)
+      update_line[str_columns] = update_line[str_columns].astype(str)
       df.loc[index] = update_line[df.columns].values
       self.__save_orders__(df)
     except Exception as e:
