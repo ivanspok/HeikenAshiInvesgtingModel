@@ -109,7 +109,7 @@ class TradeInterface():
           else:
             break
       else:
-        if buy_condition_type == 'MA60_MA5':
+        if buy_condition_type == 'MA50_MA5':
           fill_outside_rth = False
         else:
           fill_outside_rth = True

@@ -165,3 +165,82 @@ def load_orders_from_csv():
 # bull_trend_coef = 1.12
 # number_tries_to_submit_order = {}
 #
+
+def version_before():
+  pass
+  # for ticker in positions_list:
+  #   try:
+  #     if ticker in bought_stocks_list:
+  #       order = bought_stocks.loc[bought_stocks['ticker'] == ticker].sort_values('buy_time').iloc[-1] 
+  #       if order['buy_condition_type'] in ['before_market_open_1', 'before_market_open_2', 'before_market_open_3', 'MA50_MA5']:
+  #         stock_df_1m = get_historical_df(ticker = ticker, period='max', interval='1m', prepost=True)
+  #         if not stock_df_1m.empty:
+  #           current_price = stock_df_1m['close'].iloc[-1]  
+  #           current_gain = current_price / order['buy_price']
+  #         else:
+  #           current_price = 0
+  #           current_gain = 0
+  #         if order['buy_condition_type'] in ['before_market_open_1', 'before_market_open_2', 'before_market_open_3']:
+  #           # Place limit if touched sell order 
+  #           df, order = check_sell_order_has_been_placed(df, order, ticker, order_type='limit_if_touched')
+  #           # Place stop limit sell order if gain more that 2%:
+  #           if current_gain >= 1.01:  # v1. >=1.02 v2.1.005
+  #             df, order = check_sell_order_has_been_placed(df, order, ticker, order_type='stop_limit')
+  #           # Modify stop limit sell order based on current gain and sell if fast rise 3%
+  #           df, order = modify_stop_limit_before_market_open_order(df, order)
+  #         if order['buy_condition_type'] == 'MA50_MA5':
+  #           # Place limit if touched sell order 1
+  #           df, order = check_sell_order_has_been_placed(df, order, ticker, order_type='limit_if_touched')
+  #           df, order = check_sell_order_has_been_placed(df, order, ticker, order_type='stop_limit')
+  #           if current_gain >= 1.001:  
+  #             df, order = check_sell_order_has_been_placed(df, order, ticker, order_type='trailing_stop_limit')
+  #           # Modify trailing stop limit sell order based on current gain   
+  #           df, order = modify_trailing_stop_limit_MA50_MA5_order(df, order)  
+  #   except Exception as e:
+  #     alarm.print(traceback.format_exc())
+
+  # def prev_version():
+  #         for ticker2 in positions_list:
+  #           try:
+  #             if ticker2 in bought_stocks_list:
+  #               stock_df_1m = get_historical_df(ticker = ticker2, period='max', interval='1m', prepost=True)
+  #               current_price = stock_df_1m['close'].iloc[-1]  
+  #               order = bought_stocks.loc[bought_stocks['ticker'] == ticker2].sort_values('buy_time').iloc[-1]  
+
+  #               if not order['buy_condition_type'] in ['1230', 'before_market_open_1', 'before_market_open_2', 'before_market_open_3']:
+  #               # Checking trailing_stop_limit_order
+  #                 df, order = check_sell_order_has_been_placed(df, order, ticker2, order_type='trailing_stop_limit')
+  #                 # Modification of trailing stop limit order based on current gain
+  #                 df, order= trailing_stop_limit_order_trailing_ratio_modification(df, order, current_price)
+
+  #               if order['buy_condition_type'] == '1230':
+  #                 df, order = place_traililing_stop_limit_order_at_the_end_of_trading_day(df, order, ticker2, current_price) 
+  #                 df, order = modify_trailing_stop_limit_1230_order(df, order, current_price)
+                
+  #               if order['buy_condition_type'] in ['before_market_open_1', 'before_market_open_2', 'before_market_open_3']:
+  #                 # Place limit if touched sell order 
+  #                 df, order = check_sell_order_has_been_placed(df, order, ticker, order_type='limit_if_touched')
+  #                 # Place stop limit sell order if gain more that 2%:
+  #                 if current_gain >= 1.02:
+  #                   df, order = check_sell_order_has_been_placed(df, order, ticker, order_type='stop_limit')
+  #                 if order['buy_condition_type'] == 'before_market_open_3' \
+  #                   and current_gain > 1.003:
+  #                   df, order = check_sell_order_has_been_placed(df, order, ticker, order_type='stop_limit')
+  #                 # Modify stop limit sell order based on current gain and sell if fast rise 3%\
+  #                 df, order = modify_stop_limit_before_market_open_order(df, order, current_price) 
+                
+  #               if order['buy_condition_type'] == 'MA50_MA5':
+  #                 # Place limit if touched sell order 1
+  #                 df, order = check_sell_order_has_been_placed(df, order, ticker2, order_type='limit_if_touched')
+  #                 df, order = check_sell_order_has_been_placed(df, order, ticker2, order_type='stop_limit')
+  #                 if current_gain >= 1.001:  
+  #                   df, order = check_sell_order_has_been_placed(df, order, ticker2, order_type='trailing_stop_limit')
+  #                 # Modify trailing stop limit sell order based on current gain   
+  #                 df, order = modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price)
+
+  #               # Recalculate Trailing LIT gain coefficient:
+  #               df, order = recalculate_trailing_LIT_gain_coef(df, order, current_price)
+  #             else:
+  #                   alarm.print(f'{ticker2} is in positional list but not in DB!')      
+  #           except Exception as e:
+  #             alarm.print(traceback.format_exc())   

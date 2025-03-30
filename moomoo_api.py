@@ -72,7 +72,7 @@ class Moomoo_API():
             trd_ctx.close()
         return data, order_id
     
-    def place_buy_limit_order(self, ticker, price, qty):
+    def place_buy_limit_order(self, ticker, price, qty, fill_outside_rth=False):
         order_id = None
         order = None
         try:
@@ -87,7 +87,7 @@ class Moomoo_API():
                                     trd_env=self.trd_env,
                                     order_type=ft.OrderType.NORMAL,
                                     adjust_limit=0.01,
-                                    fill_outside_rth=False)
+                                    fill_outside_rth=fill_outside_rth)
             print(f'Placing BUY limit order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
