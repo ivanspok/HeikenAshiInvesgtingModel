@@ -125,3 +125,21 @@ If more than 3% fast sold it
 
 changed in count cycle also !!!
 Chainsaw Man Episode 
+
+MA50-MA5 strategy:
+Buy if:
+1. grad MA50 > 0
+2. MA5 > MA50
+3. grad MA5 > 0
+4. Square MA5 - MA50 interval 30 is negative
+
+Start point: 
+1. Change in grad MA50 
+or 2. MA5 crossing MA50
+
+
+Sell condition: (change trailing coefficient?)
+MA5 crossing MA50 
+and grad MA5 < 0 
+or price rised more that 7% in last 2 hours.
+or grad MA50 < 0

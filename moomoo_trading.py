@@ -42,16 +42,16 @@ tzinfo_ny = pytz.timezone('America/New_York')
 #%% SETTINGS
 
 # Trade settings 
-default_buy_sum = 3300 # in USD
-min_buy_sum = 2000 # in USD
-max_buy_sum = 3300 # in  USD
+default_buy_sum = 1000 # 3300 # in USD
+min_buy_sum = 700 # 2000 # in USD
+max_buy_sum = 1100 # 3300 # in  USD
 stop_trading_profit_value = -200 * rate # in AUD * rate = USD
 max_stock_price = 1360 # 1050 # in  USD
 
 order_1m_life_time_min = 1
 order_1h_life_time_min = 1
 order_before_market_open_life_time_min = 60 #720 #1440
-order_MA50_MA5_life_time_min = 60
+order_MA50_MA5_life_time_min = 15
 place_trailing_stop_limit_order_imidiately = True
 
 # Moomoo settings
@@ -250,7 +250,7 @@ def maximum(df, i, k=20):
   else: 
     return np.amax([df['close'].iloc[i -k : i].max(), df['open'].iloc[i - k : i].max(), df['close'].iloc[i], df['open'].iloc[i]])
 
-def miminum(df, i, k=20):  
+def mimimum(df, i, k=20):  
   '''
   Return minumum price from close/open values, with k window, including last value
   '''
@@ -260,7 +260,7 @@ def miminum(df, i, k=20):
     return np.amin([df['close'].iloc[i - k : i].min(), df['open'].iloc[i - k : i].min(), df['close'].iloc[i], df['open'].iloc[i]])
 
 def norm(df, i, k=20):
-  min = miminum(df,i,k)
+  min = mimimum(df,i,k)
   max = maximum(df,i,k)
   return (df['close'].iloc[-1] - min) / (max - min + 0.0001)
 
@@ -272,10 +272,10 @@ def get_amps(df, p=7):
   
   for i in range(df.shape[0]):
     if i < p:
-      min.append(miminum(df, i, p))
+      min.append(mimimum(df, i, p))
       max.append(maximum(df, i, p))
     else:
-      min.append(miminum(df, i, p))
+      min.append(mimimum(df, i, p))
       max.append(maximum(df, i, p))
     amp.append(max[i] / min[i])
     if i < 300:
@@ -422,7 +422,7 @@ def stock_buy_conditions(df, df_1m, ticker):
 
   if (df_1m.index[-1].hour == 12 and df_1m.index[-1].minute >= 20):
     
-    min = miminum(df_1m, 220)
+    min = mimimum(df_1m, 220)
     max = maximum(df_1m, 220)
 
     cond_8 = df_1m['close'].iloc[-1] / min > 1.0025
@@ -448,8 +448,8 @@ def stock_buy_condition_maxminnorm(df, df_1m, df_stats, display=False):
   condition = False
   
   cv = df['close'].iloc[-2]
-  min30  = miminum(df, i, 30)
-  min100  = miminum(df, i, 100)
+  min30  = mimimum(df, i, 30)
+  min100  = mimimum(df, i, 100)
   max30  = maximum(df, i, 30)
   max100  = maximum(df, i, 100)
   # current_amp30 = max30 / min30
@@ -552,7 +552,7 @@ def stock_buy_condition_930_47(df):
   i = df.shape[0] - 1
 
   max = maximum(df, 20)
-  min = miminum(df, 20)
+  min = mimimum(df, 20)
   cond_1 = max / df['close'].iloc[-1] > 1.0085
   cond_2 = (df['ha_colour'].iloc[-4 : -2] == 'red').all()
   cond_3 = df['ha_colour'].iloc[-2] == 'green'
@@ -908,10 +908,14 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
   deltaMA5_MA50 = df['MA5'].iloc[-1] / df['MA50'].iloc[-1]    
   deltaMA5_MA50_b3 = df['MA5'].iloc[-3] / df['MA50'].iloc[-3]    
 
-  deltaMA5_MA50_prediction = df['MA5'].iloc[-2] + (df_1m['close'].iloc[-1] * prediction_rise - df_1m['close'].iloc[-6]) / 5
+  # deltaMA5_MA50_prediction = df['MA5'].iloc[-2] + (df_1m['close'].iloc[-1] * prediction_rise - df_1m['close'].iloc[-6]) / 5
+  MA5_prediction = df['MA5'].iloc[-2] + (df_1m['close'].iloc[-1] * prediction_rise - df['close'].iloc[-6]) / 5
+  MA50_prdediction = df['MA50'].iloc[-2] + (df_1m['close'].iloc[-1] * prediction_rise - df['close'].iloc[-51]) / 50
+  deltaMA5_MA50_prediction = MA5_prediction / MA50_prdediction
+
   # cond_1 = deltaMA5_MA50 >= 1.000 and deltaMA5_MA50 <= 1.003 # first version
   cond_1 = deltaMA5_MA50_prediction >= 1.000 and deltaMA5_MA50_prediction <= 1.003
-  cond_value_1 = deltaMA5_MA50
+  cond_value_1 = deltaMA5_MA50_prediction
   cond_2 = deltaMA5_MA50_b3 < 0.999
   cond_value_2 = deltaMA5_MA50_b3
 
@@ -919,6 +923,12 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
   cond_3 = MA50_max120_i < 5 or MA50_max120_i > 60
   cond_value_3 = MA50_max120_i
   # np.amax([df['close'].iloc[0 : k].max(), df['open'].iloc[0 :k].max(), df['close'].iloc[i], df['open'].iloc[i]])
+
+  cond_value_4 = df_1m['close'].iloc[-1] / df['MA50'].iloc[-1] 
+  cond_4 = cond_value_4 < 1.005
+  cond_5 = df_1m['MA5'].iloc[-1] > df_1m['MA20'].iloc[-1]
+  cond_value_6 = df_1m['close'].iloc[-1] / mimimum(df, i, 24)
+  cond_6 = cond_value_6 < 1.03 # current price hasn't risen more than 3% last 24 hours
 
   if deltaMA5_MA50 < 0.99 \
     or deltaMA5_MA50 > 1.01 \
@@ -941,14 +951,20 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
   if display:
     warning.print('MA50_MA5 conditions parameters:')
     c.green_red_print(grad_MA5, f'grad_MA5')
-    c.green_red_print(cond_1, f'cond_1, {cond_value_1:.3f}')
-    c.green_red_print(cond_2, f'cond_2, {cond_value_2:.3f}')
-    c.green_red_print(cond_3, f'cond_3, {cond_value_3:.3f}')
+    c.green_red_print(cond_1, f'cond_1 (deltaMA5_M50 prediction), {cond_value_1:.3f}')
+    c.green_red_print(cond_2, f'cond_2 (deltaMA5_M50 3 hours before), {cond_value_2:.3f}')
+    c.green_red_print(cond_3, f'cond_3 (distanse from 120 max), {cond_value_3:.3f}')
+    c.green_red_print(cond_4, f'cond_4 (percantage above 1h MA50), {cond_value_4:.3f}')
+    c.green_red_print(cond_5, f'cond_5 (current price more than 1m MA20)')
+    c.green_red_print(cond_6, f'cond_6 (percantage above last 24 hours minimum), {cond_value_6:.3f}')
+    c.green_red_print(ha_cond, f'ha_cond')
 
   if cond_1 \
     and grad_MA5 \
     and cond_2 \
-    and cond_3:
+    and cond_3 \
+    and cond_4 \
+    and cond_5:
     condition = True
 
   if condition: 
@@ -1605,22 +1621,22 @@ def modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price) -> Tuple
       if current_gain < 1.01 and order['trailing_ratio'] > 0.99:
         trailing_ratio = 0.99
 
-      if current_gain >= 0.2 and order['trailing_ratio'] == 0.99:
-        trailing_ratio = 0.6
-      if current_gain > 0.2 and current_gain < 0.5 \
-        and order['trailing_ratio'] > 0.4:
-        trailing_ratio = 0.4
-      if current_gain >= 0.5 and current_gain < 0.75 \
+      if current_gain >= 1.002 and order['trailing_ratio'] == 0.99:
+        trailing_ratio = 0.8
+      if current_gain > 1.002 and current_gain < 1.005 \
+        and order['trailing_ratio'] > 0.7:
+        trailing_ratio = 0.7
+      if current_gain >= 1.005 and current_gain < 1.0075 \
+        and order['trailing_ratio'] > 0.55:
+        trailing_ratio = 0.55
+      if current_gain >= 1.0075 and current_gain < 1.01 \
         and order['trailing_ratio'] > 0.35:
         trailing_ratio = 0.35
-      if current_gain >= 0.75 and current_gain < 1 \
-        and order['trailing_ratio'] > 0.35:
-        trailing_ratio = 0.32
-      if current_gain >= 1 and current_gain < 1.5 \
-        and order['trailing_ratio'] > 0.35:
-        trailing_ratio = 0.32
-      if current_gain >= 1.5 \
+      if current_gain >= 1.01 and current_gain < 1.015 \
         and order['trailing_ratio'] > 0.32:
+        trailing_ratio = 0.32
+      if current_gain >= 1.015 \
+        and order['trailing_ratio'] > 0.3:
         trailing_ratio = 0.3
 
 
@@ -1706,7 +1722,7 @@ def buy_price_based_on_condition(df, df_1m, condition_type):
       buy_price = df_1m['close'].iloc[-1]
     elif condition_type in ['drowdown930', 'drowdown', 'maxminnorm', 'speed_norm100']:
       # buy_price = df_1m['close'].iloc[-2] # ver. 1
-      buy_price = miminum(df_1m, 4)
+      buy_price = mimimum(df_1m, 4)
     elif condition_type in ['1130_1', '1130_2']:
       buy_price = df_1m['close'].iloc[-2]
     elif condition_type == '1230':
@@ -1902,7 +1918,12 @@ if __name__ == '__main__':
       db.update_db_from_df(df)
   except Exception as e:
     alarm.print(traceback.format_exc())
-    
+
+  us_cash = ma.get_us_cash()
+  profit_24hours = current_profit(df)
+  c.print(f'Availble withdrawal cash is {us_cash}')
+  c.print(f'Last 24 hours profit is {profit_24hours}')
+
   # Algorithm !!! not up-to-date
   if True:
     pass  
@@ -2121,7 +2142,7 @@ if __name__ == '__main__':
             market_value_5m += minmax(stock_df_1m['pct'].iloc[-5:-1].sum(), -3 ,3)
             market_value_30m += minmax(stock_df_1m['pct'].iloc[-30:-1].sum(), -3, 3)
             market_value_60m += minmax(stock_df_1m['pct'].iloc[-60:-1].sum(), -3, 3)
-            if stock_df_1m['pct'].iloc[-60:-1].sum() > 0:
+            if stock_df_1m['pct'].iloc[-60:-1].sum() > 0.2:
               market_direction_60m += 1 
             else:
               market_direction_60m -= 1
@@ -2138,10 +2159,12 @@ if __name__ == '__main__':
         # Trailing stop limit order modification condition inside stocks optimcal cycle
         if ticker in bought_stocks_list:
           try:  
-            order = df.loc[(df['ticker'] == ticker) & df['status'].isin(['bought', 'filled_part'])].sort_values('buy_time').iloc[-1]
-            # trailing stop limit order modification condition
-            df, order= trailing_stop_limit_order_trailing_ratio_modification(df, order, current_price)
-            df, order = modify_trailing_stop_limit_1230_order(df, order, current_price)
+            orders = df.loc[(df['ticker'] == ticker) & df['status'].isin(['bought', 'filled_part'])].sort_values('buy_time')
+            if orders.shape[0] > 0:
+              order = orders.iloc[-1]
+              # trailing stop limit order modification condition
+              df, order= trailing_stop_limit_order_trailing_ratio_modification(df, order, current_price)
+              df, order = modify_trailing_stop_limit_1230_order(df, order, current_price)
           except Exception as e:
             alarm.print(traceback.format_exc())
             
@@ -2240,7 +2263,7 @@ if __name__ == '__main__':
                 security_condition = False
                 alarm.print(f'''Stock price {stock_df['close'].iloc[-1]} more than maximum allowed price {max_stock_price}''')
               
-              if total_market_value_60m < 0 or total_market_direction_60m < 0:
+              if total_market_value_60m <= 0 or total_market_direction_60m <= 0:
                 security_condition = False
                 alarm.print(f'''Total market value 60m {total_market_value_60m:.2f} or
                              total market direction 60m {total_market_direction_60m} are negative''')

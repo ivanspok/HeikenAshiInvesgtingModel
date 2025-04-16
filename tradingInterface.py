@@ -110,7 +110,8 @@ class TradeInterface():
             break
       else:
         if buy_condition_type == 'MA50_MA5':
-          fill_outside_rth = False
+          # fill_outside_rth = False
+          fill_outside_rth = True
         else:
           fill_outside_rth = True
         moomoo_order, order_id = self.moomoo_api.place_buy_limit_order(ticker, buy_price, stocks_number, fill_outside_rth=fill_outside_rth)
