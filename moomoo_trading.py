@@ -95,6 +95,7 @@ exclude_time_dist = {}
 # settings for historical df from yfinance
 period = '3mo'
 interval = '1h' 
+prepost_1h = False
 
 # settings for buy condition Version 3.0
 is_near_global_max_prt = 120  # used to be 100
@@ -123,7 +124,7 @@ class Default():
     self.lose_coef_2_MA50_MA5 = 0.97
     self.lose_coef_stopmarket_MA50_MA5 = 0.978
     self.trailing_ratio = 0.45
-    self.trailing_ratio_MA50_MA5 = 0.99
+    self.trailing_ratio_MA50_MA5 = 2.99
 default = Default()
 
 #%% FUNCTIONS
@@ -154,6 +155,7 @@ def get_historical_df(ticker='', interval='1h', period='2y', start_date=date.tod
         df = MA(df, k=7) # add MA7 column to the df
         df = MA(df, k=20) # add MA20 column to the df
         df = MA(df, k=50) # add MA50 column to the df
+        df = MA(df, k=120) # add MA120 column to the df
     except Exception as e:
       alarm.print(traceback.format_exc())
     return df 
@@ -807,7 +809,7 @@ def stock_buy_condition_speed_norm100(df, df_1m, df_stats, display=False):
     c.green_red_print(condition, 'buy_condition_speed_norm100')
   return condition
 
-def stock_buy_condition_MA50_MA5_old(df, df_1m, df_stats, display=False):
+def stock_buy_condition_MA50_MA5_old_2(df, df_1m, df_stats, display=False):
   '''
   if gradient MA50 1hour > 0 \\
   and MA5 1hour - local minimum \\
@@ -873,7 +875,7 @@ def stock_buy_condition_MA50_MA5_old(df, df_1m, df_stats, display=False):
 
   return condition
 
-def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
+def stock_buy_condition_MA50_MA5_old(df, df_1m, df_stats, ticker, display=False):
   '''
   if gradient MA5 1hour > 0 \\
   and MA5 1hour - MA50 1 hour > 0%
@@ -966,6 +968,128 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
     and cond_4 \
     and cond_5:
     condition = True
+
+  if condition: 
+    c.green_red_print(condition, condition_type)
+
+  return condition
+
+def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
+  '''
+  buy condition:
+  if gradient MA50 1hour > 0 \\
+  and gradient MA5 1hour > 0 \\
+  and MA5 1hour > MA50 1hour \\
+  and Square MA5 - MA50 interval 30 is negative
+  and MA5 1hour - MA50 1 hour < 1%
+  and 
+  (change in gradient MA50 \\
+    or MA5 crossing MA50) \\
+  
+  buy_price: to have MA5[-1] > MA5[-2]: \\
+           df['close'].iloc[-1] should more than df['close'].iloc[-6]\\ 
+           and below this value on 0.5%
+  sell_orders: 2 stop_limit loss orders, trailing order with modification \\ 
+  order life time: 1hour \\
+  profit value: trailing order with modification \\ 
+  lose value:  -1% and -2% limit, and stop market if below -2.2%\\
+  buy price: df_1m['close'].iloc[-1] + 0.05% during normal hours
+  after-hours: NOT BUY
+  
+  '''
+  global market_value, total_market_value ,total_market_value_2m , \
+    total_market_value_5m, total_market_value_30m, total_market_value_60m, \
+    total_market_direction_60m
+  
+  condition = False
+  condition_type = 'MA50_MA5'
+
+  i_1m = df_1m.shape[0] - 1
+  i = df.shape[0] - 1
+  
+  # prediction_rise = 1.005
+  # grad_MA5 = df_1m['close'].iloc[-1] * prediction_rise >= df['close'].iloc[-6] \
+  #           and df['MA5'].iloc[-2] >= df['MA5'].iloc[-3]
+  grad_MA5 = df_1m['close'].iloc[-1] >= df['close'].iloc[-6] \
+            and df['MA5'].iloc[-2] >= df['MA5'].iloc[-3]
+            
+  grad_MA50 = df_1m['close'].iloc[-1] >= df['close'].iloc[-51] \
+              and df['MA50'].iloc[-2] >= df['MA50'].iloc[-3]
+              
+  grad_MA50_prev = df['MA50'].iloc[-4] <= df['MA50'].iloc[-5] \
+                and df['MA50'].iloc[-5] <= df['MA50'].iloc[-6] \
+
+  deltaMA5_MA50 = df['MA5'].iloc[-1] / df['MA50'].iloc[-1]    
+  deltaMA5_MA50_b3 = df['MA5'].iloc[-3] / df['MA50'].iloc[-3]    
+  
+  square_MA5_MA50_30 = (df['MA5'].iloc[-31:] - df['MA50'].iloc[-31:]).sum()
+  
+  
+
+  cond_value_1 = grad_MA50
+  cond_1 = grad_MA50
+  cond_value_2 = grad_MA5
+  cond_2 = grad_MA5
+  cond_value_3 = deltaMA5_MA50
+  cond_3 = cond_value_3 > 1.000 and cond_value_3 < 1.02
+  cond_value_4 = square_MA5_MA50_30
+  cond_4 = cond_value_4 < 0
+  cond_5 = grad_MA50 > 0 and grad_MA50_prev < 0 # change in the gradient of MA50
+  cond_6 = deltaMA5_MA50_b3 < 0.999 # MA5 crossing MA50
+  cond_value_7 = df['MA5'].iloc[-1] / df['MA50'].iloc[-7:].min()
+  cond_7 = cond_value_7 >= 1 and cond_value_7 < 1.004# close to local minimum
+  cond_8 =  df['MA5'].iloc[-1] / df['MA50'].iloc[-1] >= 1.02 \
+            and number_red_candles(df, i, k=7) <= 3 \
+            and df['ha_colour'].iloc[-1] == 'green' \
+            and df['ha_colour'].iloc[-2] == 'green' \
+            and df['ha_colour'].iloc[-3] == 'red'
+    
+  cond_9 = df['MA120'].iloc[-1] >= df['MA120'].iloc[-2] \
+          and df['MA120'].iloc[-2] >= df['MA120'].iloc[-3] \
+          and df['MA120'].iloc[-3] >= df['MA120'].iloc[-4] \
+  # or good local minimum MA5: more than 5 red ha candles last 12 candles and grad MA5 > 0          
+  cond_10 = number_red_candles(df, i, k=8) > 5 \
+            and grad_MA5 \
+            and df_1m['close'].iloc[-1] / df['low'].iloc[-5:].min() < 1.0085
+            
+  # if square_MA5_MA50_30 < -50 \
+  #   or square_MA5_MA50_30 > 80 \
+  #   or deltaMA5_MA50 < 0.97:
+  if not cond_9:
+    # exclude company from _list optimal list
+    warning.print(f'{ticker} is excluding from current optimal stock list')
+    exclude_time_dist[ticker] = datetime.now()
+    stock_name_list_opt.remove(ticker)
+    warning.print(f'Optimal stock name list len is {len(stock_name_list_opt)}')
+    market_value = -1 # start offset
+    total_market_value = -99  
+    # Calculate market direction
+    total_market_value_2m = 0
+    total_market_value_5m = 0
+    total_market_value_30m = 0
+    total_market_value_60m = 0
+    total_market_direction_60m = 0
+
+  if display:
+    warning.print('MA50_MA5 conditions parameters:')
+    c.print('AND CONDITIONS:', color='yellow')
+    c.green_red_print(cond_9, f'cond_9 (grad_MA120 > 0)')
+    c.green_red_print(cond_1, f'cond_1 (grad_MA50 > 0), {cond_value_1:.3f}')
+    c.green_red_print(cond_2, f'cond_2 (grad_MA5 > 0), {cond_value_2:.3f}')
+    c.green_red_print(cond_3, f'cond_3 (deltaMA5_MA50 > 1 and deltaMA5_MA50 < 1.02), {cond_value_3:.3f}')
+    # c.green_red_print(cond_4, f'cond_4 (square_MA5_MA50_30 < 0), {cond_value_4:.3f}')
+    c.print('OR CONDITIONS:', color='yellow')
+    c.green_red_print(cond_5, f'cond_5 (grad_MA50 > 0 and grad_MA50_prev < 0)')
+    c.green_red_print(cond_6, f'cond_6 (deltaMA5_MA50_b3 < 0.999)') # crossing MA5 and MA50
+    c.green_red_print(cond_7, f'cond_7 (close to local minimum, no more than 0.4%)') # other condition for crossing MA5 and MA50
+    c.green_red_print(cond_10, f'cond_10 (number ha red candles condition)')
+
+  if cond_1 \
+    and cond_2 \
+    and cond_3 \
+    and cond_9 \
+    and (cond_5 or cond_6 or cond_7 or cond_10):
+    condition = True 
 
   if condition: 
     c.green_red_print(condition, condition_type)
@@ -1603,7 +1727,7 @@ def modify_trailing_stop_limit_1230_order(df, order, current_price) -> Tuple[pd.
     alarm.print(traceback.format_exc())
   return df, order   
 
-def modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price) -> Tuple[pd.DataFrame, pd.DataFrame]:
+def modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price, stock_df, stock_df_1m) -> Tuple[pd.DataFrame, pd.DataFrame]:
   try:
     order_id = order['trailing_stop_limit_order_id']
     current_gain = current_price / order['buy_price']
@@ -1613,43 +1737,51 @@ def modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price) -> Tuple
       trail_spread = order['buy_price'] * trail_spread_coef
       trailing_ratio = order['trailing_ratio']
 
+      
+      grad_MA5 = stock_df_1m['close'].iloc[-1] >= stock_df['close'].iloc[-6] \
+            and stock_df['MA5'].iloc[-2] >= stock_df['MA5'].iloc[-3]
+            
+      grad_MA50 = stock_df_1m['close'].iloc[-1] > stock_df['close'].iloc[-51] \
+                  and stock_df['MA50'].iloc[-2] >= stock_df['MA50'].iloc[-3]
+                  
+      grad_MA50_prev = stock_df['MA50'].iloc[-4] <= stock_df['MA50'].iloc[-5] \
+                    and stock_df['MA50'].iloc[-5] <= stock_df['MA50'].iloc[-6] \
+
+      deltaMA5_MA50 = stock_df['MA5'].iloc[-1] / stock_df['MA50'].iloc[-1]    
+      deltaMA5_MA50_b3 = stock_df['MA5'].iloc[-3] / stock_df['MA50'].iloc[-3]    
+
+      cond_1 = deltaMA5_MA50_b3 > 1.001  and deltaMA5_MA50 < 1
+      cond_2 = not grad_MA5
+      cond_3 = not grad_MA50
+      
+      if (cond_1 and cond_2) \
+        or cond_3 \
+        or deltaMA5_MA50 < 0.998 \
+        and order['trailing_ratio'] > 0.3:
+        trailing_ratio = 0.3        
 
       # 0 -- 0.2 -- 0.5 -- 1 
       #   0.99  0.7    0.5
 
       # safe condition 
-      if current_gain < 1.01 and order['trailing_ratio'] > 0.99:
-        trailing_ratio = 0.99
+      # if current_gain < 1.01 and order['trailing_ratio'] > 0.99:
+      #   trailing_ratio = 0.99
 
-      if current_gain >= 1.002 and order['trailing_ratio'] == 0.99:
-        trailing_ratio = 0.8
-      if current_gain > 1.002 and current_gain < 1.005 \
-        and order['trailing_ratio'] > 0.7:
-        trailing_ratio = 0.7
-      if current_gain >= 1.005 and current_gain < 1.0075 \
-        and order['trailing_ratio'] > 0.55:
-        trailing_ratio = 0.55
-      if current_gain >= 1.0075 and current_gain < 1.01 \
-        and order['trailing_ratio'] > 0.35:
-        trailing_ratio = 0.35
-      if current_gain >= 1.01 and current_gain < 1.015 \
-        and order['trailing_ratio'] > 0.32:
-        trailing_ratio = 0.32
-      if current_gain >= 1.015 \
-        and order['trailing_ratio'] > 0.3:
-        trailing_ratio = 0.3
-
-
-      # if current_gain >= 1.01 and current_gain < 1.03 \
+      # if current_gain >= 1.002 and order['trailing_ratio'] == 0.99:
+      #   trailing_ratio = 0.8
+      # if current_gain > 1.002 and current_gain < 1.005 \
       #   and order['trailing_ratio'] > 0.7:
-      #   trailing_ratio = 0.7 
-      # if current_gain >= 1.03 and current_gain < 1.05 \
-      #   and order['trailing_ratio'] > 0.6:
-      #   trailing_ratio = 0.6
-      # if current_gain >= 1.05 and current_gain < 1.06 \
-      #   and order['trailing_ratio'] > 0.5:
-      #   trailing_ratio = 0.5
-      # if current_gain >= 1.07 \
+      #   trailing_ratio = 0.7
+      # if current_gain >= 1.005 and current_gain < 1.0075 \
+      #   and order['trailing_ratio'] > 0.55:
+      #   trailing_ratio = 0.55
+      # if current_gain >= 1.0075 and current_gain < 1.01 \
+      #   and order['trailing_ratio'] > 0.35:
+      #   trailing_ratio = 0.35
+      # if current_gain >= 1.01 and current_gain < 1.015 \
+      #   and order['trailing_ratio'] > 0.32:
+      #   trailing_ratio = 0.32
+      # if current_gain >= 1.015 \
       #   and order['trailing_ratio'] > 0.3:
       #   trailing_ratio = 0.3
   
@@ -1781,6 +1913,7 @@ def check_sell_orders_for_all_bougth_stocks():
       if ticker in bought_stocks_list:
         order = bought_stocks.loc[bought_stocks['ticker'] == ticker].sort_values('buy_time').iloc[-1] 
         stock_df_1m = get_historical_df(ticker = ticker, period='max', interval='1m', prepost=True)
+        stock_df = get_historical_df(ticker = ticker, period=period, interval=interval, prepost=prepost_1h)
         if not stock_df_1m.empty:
           current_price = stock_df_1m['close'].iloc[-1]  
           current_gain = current_price / order['buy_price']
@@ -1826,7 +1959,7 @@ def check_sell_orders_for_all_bougth_stocks():
           if current_gain >= 1.001:  
             df, order = check_sell_order_has_been_placed(df, order, ticker, order_type='trailing_stop_limit')
           # Modify trailing stop limit sell order based on current gain   
-          df, order = modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price)
+          df, order = modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price, stock_df, stock_df_1m)
       else:
         alarm.print(f'{ticker} is in positional list but not in DB!')
     except Exception as e:
@@ -2128,7 +2261,7 @@ if __name__ == '__main__':
 
         # 3.2 Get historical data, current_price for stocks in optimal list
         try:
-          stock_df = get_historical_df(ticker = ticker, period=period, interval=interval, prepost=True)
+          stock_df = get_historical_df(ticker = ticker, period=period, interval=interval, prepost=prepost_1h)
           try:
             stock_df_1m = get_historical_df(ticker = ticker, period='max', interval='1m', prepost=True)
             current_price = stock_df_1m['close'].iloc[-1]

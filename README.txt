@@ -137,9 +137,18 @@ Start point:
 1. Change in grad MA50 
 or 2. MA5 crossing MA50
 
-
 Sell condition: (change trailing coefficient?)
 MA5 crossing MA50 
 and grad MA5 < 0 
 or price rised more that 7% in last 2 hours.
 or grad MA50 < 0
+
+if grad M50 > 0
+MA5 - MA50 > 2%
+and number_red_candles(df, i, k=5) <=3
+    previous candle is green
+    -2 candle is red
+
+
+
+
