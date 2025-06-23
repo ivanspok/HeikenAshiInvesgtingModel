@@ -1,11 +1,15 @@
 import os
-from datetime import timedelta, timezone
+# from datetime import timedelta, timezone, datetime
+
+from datetime import datetime, timedelta, tzinfo
+from datetime import date, timezone
+
 from zoneinfo import ZoneInfo
 import pandas as pd
 
 from tinkoff.invest import CandleInterval, Client
 from tinkoff.invest.schemas import CandleSource
-from tinkoff.invest.utils import now
+# from tinkoff.invest.utils import now
 from personal_settings import personal_settings as ps
 from tinkoff.invest import Client, InstrumentStatus, SharesResponse, InstrumentIdType
 from tinkoff.invest.services import InstrumentsService, MarketDataService
@@ -13,6 +17,8 @@ import numpy as np
 import pickle
 import functions_2 as f2
 import os, pathlib
+
+
 
 TOKEN = ps.tinkoff
 
@@ -34,7 +40,7 @@ class Tinkoff_API():
         with Client(TOKEN) as client:
             candles_list = list(client.get_all_candles(
                 instrument_id=instrument_id,
-                from_=now() - timedelta(days=60),
+                from_= datetime.now(datetime.UTC) - timedelta(days=60),
                 interval=CandleInterval.CANDLE_INTERVAL_HOUR
             ))
         columns = ['time','open', 'high', 'low', 'close']
@@ -63,8 +69,8 @@ class Tinkoff_API():
         with Client(TOKEN) as client:
             candles_list = list(client.get_all_candles(
                 instrument_id=instrument_id,
-                from_=now() - timedelta(days=days),
-                to = now() - timedelta(days=days-1),
+                from_=datetime.now() - timedelta(days=days),
+                to = datetime.now() - timedelta(days=days-1),
                 interval=CandleInterval.CANDLE_INTERVAL_1_MIN
             ))
         columns = ['time','open', 'high', 'low', 'close']
@@ -80,24 +86,24 @@ class Tinkoff_API():
             # df_add = pd.DataFrame([[time, open, high, low, close]], columns=columns)
             if open != 0:
                 df.loc[df.shape[0]] = [time, open, high, low, close]
-        if not df.empty:
-            df['pct'] = np.where(df['open'] < df['close'],  
-                            (df['close'] / df['open'] - 1) * 100,
-                            -(df['open'] / df['close'] - 1) * 100
-            )
-            df = f2.get_heiken_ashi_v2(df)
-            df = df[['time','open', 'high', 'low', 'close', 'pct', 'ha_pct', 'ha_colour']]
-            df = df.set_index('time')
+        # if not df.empty:
+        #     df['pct'] = np.where(df['open'] < df['close'],  
+        #                     (df['close'] / df['open'] - 1) * 100,
+        #                     -(df['open'] / df['close'] - 1) * 100
+        #     )
+        #     df = f2.get_heiken_ashi_v2(df)
+        #     df = df[['time','open', 'high', 'low', 'close', 'pct', 'ha_pct', 'ha_colour']]
+        #     df = df.set_index('time')
 
         return df
 
     
-    def get_last_candle_close_price(self, ticker, days):
+    def get_last_candle_close_price(self, ticker, days=1):
         instrument_id = self.get_instrument_id(ticker)        
         with Client(TOKEN) as client:
             candels_list = list(client.get_all_candles(
                 instrument_id=instrument_id,
-                from_=now() - timedelta(days=1),
+                from_=datetime.now(timezone.utc) - timedelta(days=1),
                 interval=CandleInterval.CANDLE_INTERVAL_1_MIN
             ))
         candel = candels_list[-1]
@@ -158,13 +164,17 @@ if __name__ == '__main__':
     for ticker in stock_name_list:
         try:
             print(f'ticker is {ticker}')
-            df = pd.DataFrame(columns=columns)
-            for days in range(period,1,-1):
-                df_add = ta.get_minutes_candles(ticker, days=days)
-                if not df_add.empty:
-                    df = pd.concat([df, df_add])
-            print(df)
-            save_df(df, ticker, period, interval, folder_name)    
+            # close_price = ta.get_last_candle_close_price(ticker, days=1)
+            # print(close_price)
+            # df = pd.DataFrame(columns=columns)
+            # for days in range(period,1,-1):
+            #     df_add = ta.get_minutes_candles(ticker, days=days)
+            #     if not df_add.empty:
+            #         df = pd.concat([df, df_add])
+            # print(df)
+            # save_df(df, ticker, period, interval, folder_name) 
+            df_add = ta.get_minutes_candles(ticker, days=1)  
+            print(df_add['close'].iloc[-1]) 
         except Exception as e:
             print(e)  
             

@@ -148,7 +148,7 @@ class Moomoo_API():
                                     time_in_force=ft.TimeInForce.GTC,
                                     aux_price=price * 0.9997,
                                     adjust_limit=0.01,
-                                    fill_outside_rth=True)
+                                    fill_outside_rth=False)
             print(f'Placing stop limit sell order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
@@ -243,7 +243,7 @@ class Moomoo_API():
                                     trail_value=trail_value,
                                     trail_spread=trail_spread,
                                     remark=remark,
-                                    fill_outside_rth=True)
+                                    fill_outside_rth=False)
             print(f'Placing trailing stop limit order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
@@ -273,7 +273,8 @@ class Moomoo_API():
                                     trd_env=self.trd_env,
                                     time_in_force=ft.TimeInForce.GTC,
                                     order_type=ft.OrderType.STOP,
-                                    aux_price=price * 0.9998)
+                                    aux_price=price * 0.9998,
+                                    fill_outside_rth=False)
             print(f'Placing stop order for {stock_code}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:

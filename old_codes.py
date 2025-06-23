@@ -172,7 +172,7 @@ def version_before():
   #   try:
   #     if ticker in bought_stocks_list:
   #       order = bought_stocks.loc[bought_stocks['ticker'] == ticker].sort_values('buy_time').iloc[-1] 
-  #       if order['buy_condition_type'] in ['before_market_open_1', 'before_market_open_2', 'before_market_open_3', 'MA50_MA5']:
+  #       if order['buy_condition_type'] in ['before_market_open_1', 'before_market_open_2', 'before_market_open_3', 'MA50_MA5', 'MA5_MA120_DS']:
   #         stock_df_1m = get_historical_df(ticker = ticker, period='max', interval='1m', prepost=True)
   #         if not stock_df_1m.empty:
   #           current_price = stock_df_1m['close'].iloc[-1]  
