@@ -1361,14 +1361,17 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
     square_MA5_MA50_30 = (df['MA5'].iloc[-31:] / df['MA50'].iloc[-31:]).sum() - 31
   
   #conditions 
-  cond_1  = df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
+  # buy when MACD_hist is positive and increasing and not more 8 greens MACD_hist in a row:
+  cond_1  =  df['MACD_hist'].iloc[-1] > 0 \
+            and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
             and df['MACD_hist'].iloc[-2] >= df['MACD_hist'].iloc[-3] \
-            and not (df['MACD_hist'].iloc[-5:] > 0).all() \
-            and df['MACD_hist'].iloc[-1] > 0
+            and not (df['MACD_hist'].iloc[-8:] > 0).all() \
+  # buy when MACD_hist is negative and increasing:
   cond_2 = df['MACD_hist'].iloc[-1] < 0 \
+           and df['MACD'].iloc[-1] < 0 \
            and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
            and df['MACD_hist'].iloc[-2] > df['MACD_hist'].iloc[-3] \
-           and df['MACD_hist'].iloc[-3] > df['MACD_hist'].iloc[-4] \
+           and df['MACD_hist'].iloc[-3] > df['MACD_hist'].iloc[-4]           
             
   cond_value_1 = df['MACD_hist'].iloc[-1]
   cond_3 = df['MA30_RSI10'].iloc[-1] >= 40 \
@@ -1381,9 +1384,33 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
            and df['MACD'].iloc[-2] >= df['MACD'].iloc[-3]
   cond_value_4 = df['MACD'].iloc[-1]
   
+  # 1 min MACD gradient should be positive
+  cond_5 = df_1m['MACD'].iloc[-1] >= df_1m['MACD'].iloc[-2] \
+           and df_1m['MACD'].iloc[-2] >= df_1m['MACD'].iloc[-3] \
+           and df_1m['MACD'].iloc[-3] >= df_1m['MACD'].iloc[-4]
+  cond_value_5 = df_1m['MACD'].iloc[-1]
+  
+  # Sum MACD 1 min last 20 cangles should be negative
+  cond_value_6 = df_1m['MACD'].iloc[-20:].sum()
+  cond_6 = cond_value_6 < 0
+  
+  cond_value_7 = df_1m['MACD_hist'].iloc[-1]
+  cond_7 = cond_value_7 < 0
+  
+  cond_value_8 = df['MACD'].iloc[-1] / df['MACD'].iloc[-2]
+  if df['MACD'].iloc[-1] < 0:
+    cond_8 = True
+  else:
+    cond_8 = cond_value_8 > 1.01
+  
+  # cond 8 new from 02/07/2025 !!!
   if (cond_1 or cond_2) \
       and cond_3 \
-      and cond_4:
+      and cond_4 \
+      and cond_5 \
+      and cond_6 \
+      and cond_7 \
+      and cond_8:
       condition = True    
       
   if df['MA30_RSI10'].iloc[-1]  < 32:
@@ -1407,9 +1434,13 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
     c.print('AND CONDITIONS:', color='yellow')
     c.green_red_print(cond_3, f'cond_2 (MA30_RSI10), {cond_value_3:.3f}')
     c.green_red_print(cond_4, f'cond_4 (MACD), {cond_value_4:.3f}')
+    c.green_red_print(cond_5, f'cond_5 (MACD 1m), {cond_value_5:.3f}')
+    c.green_red_print(cond_6, f'cond_6 (MACD 1m sum last 20 < 0), {cond_value_6:.3f}')
+    c.green_red_print(cond_7, f'cond_7 (MACD_hist 1m < 0), {cond_value_7:.3f}')
+    c.green_red_print(cond_8, f'cond_8 (MACD_hist speed more than 1.01), {cond_value_8:.3f}')
     c.print('OR CONDITIONS:', color='yellow')
-    c.green_red_print(cond_1, f'cond_1 (MACD_hist), {cond_value_1:.3f}')
-    c.green_red_print(cond_2, f'cond_2 (MACD_hist), {cond_value_1:.3f}')
+    c.green_red_print(cond_1, f'cond_1 (MACD_hist > 0), {cond_value_1:.3f}')
+    c.green_red_print(cond_2, f'cond_2 (MACD_hist < 0), {cond_value_1:.3f}')
 
   if condition: 
     c.green_red_print(condition, condition_type)
@@ -2295,7 +2326,8 @@ def modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price, stock_df
       cond_3 = stock_df['MA50'].iloc[-1] <= stock_df['MA50'].iloc[-2] \
                and stock_df['MA50'].iloc[-2] <= stock_df['MA50'].iloc[-3] \
                and False
-    
+
+      # MA5 1h crossing MA120 1h condition
       if (cond_1 and cond_2) \
         or (cond_3 and cond_2) \
         or deltaMA5_MA50 < 0.998 \
@@ -2303,15 +2335,38 @@ def modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price, stock_df
         and order['trailing_ratio'] > 0.3:
         trailing_ratio = 0.3  
       
-      if (stock_df['MACD'].iloc[-1] < 0) \
+      # slow sell condition  
+      cond_4 = stock_df['MACD'].iloc[-1] < 0 \
         and stock_df['MACD_hist'].iloc[-1] < stock_df['MACD_hist'].iloc[-2] \
-        and stock_df['MACD_hist'].iloc[-2] <= stock_df['MACD_hist'].iloc[-3] \
-        and order['trailing_ratio'] > 0.05:
+        and stock_df['MACD_hist'].iloc[-2] <= stock_df['MACD_hist'].iloc[-3]
+        
+      if cond_4 \
+         and order['trailing_ratio'] > 0.05:
           trailing_ratio = 0.05
       
-      if (stock_df['MACD'].iloc[-1] < 0) \
+      # slow sell condition
+      cond_5 = stock_df['MACD'].iloc[-1] < 0 \
         and stock_df['MACD'].iloc[-1] <= stock_df['MACD'].iloc[-2] \
-        and stock_df['MACD'].iloc[-2] <= stock_df['MACD'].iloc[-3] \
+        and stock_df['MACD'].iloc[-2] <= stock_df['MACD'].iloc[-3]
+        
+      # if grad MACD < 0 and MACD_hist[-1] < MACD_hist[-2] 
+      # and MACD_hist[-2] <= MACD_hist[-3]:
+      cond_6 = stock_df['MACD'].iloc[-1] < stock_df['MACD'].iloc[-2] \
+        and stock_df['MACD_hist'].iloc[-1] < stock_df['MACD_hist'].iloc[-2] \
+        and stock_df['MACD_hist'].iloc[-2] <= stock_df['MACD_hist'].iloc[-3]
+      
+      cond_7 = stock_df_1m['MACD'].iloc[-1] < 0 \
+        and stock_df_1m['MACD_hist'].iloc[-1] < stock_df_1m['MACD_hist'].iloc[-2] \
+        and stock_df['MACD_hist'].iloc[-1] < stock_df['MACD_hist'].iloc[-2]
+      
+      # almost like cond_6 but faster and looks for 1 minute MACD
+      cond_8 = stock_df['MACD_hist'].iloc[-1] < stock_df['MACD_hist'].iloc[-2] \
+        and stock_df['MACD'].iloc[-1] < stock_df['MACD'].iloc[-2] \
+        and stock_df_1m['MACD'].iloc[-1] < 0 \
+        and stock_df_1m['MACD'].iloc[-1] < stock_df_1m['MACD'].iloc[-2] \
+        and stock_df_1m['MACD'].iloc[-2] <= stock_df_1m['MACD_hist'].iloc[-3]
+           
+      if (cond_5 or cond_6 or cond_7 or cond_8) \
         and order['trailing_ratio'] > 0.05 \
         and current_gain > 1.001:
         trailing_ratio = 0.05
@@ -2319,17 +2374,20 @@ def modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price, stock_df
       if stock_df['ha_colour'].iloc[-1] == 'green' \
          and stock_df['MA5'].iloc[-1] >= stock_df['MA5'].iloc[-2] \
          and order['trailing_ratio'] == 0.05 \
-         and stock_df['MACD'] > 0 \
+         and stock_df['MACD'].iloc[-1] > 0 \
          and not(cond_2):
            trailing_ratio = default.trailing_ratio_MA50_MA5
            
-      if current_gain <= 0.997 \
-        and order['trailing_ratio'] > 0.01:
-        trailing_ratio = 0.01
+      # if current_gain <= 0.997 \
+      #   and order['trailing_ratio'] > 0.01:
+      #   trailing_ratio = 0.01
   
       if order['trailing_ratio'] != trailing_ratio:
         try:
-          info = f'time {datetime.now()}:Ticker {order['ticker']}, cond1: {cond_1}, cond2: {cond_2}, cond3: {cond_3}, grad_MA5: {grad_MA5}, grad_MA50: {grad_MA50}, grad_MA50_prev: {grad_MA50_prev}, \
+          info = f'time {datetime.now()}:Ticker {order['ticker']}, \
+          cond1: {cond_1}, cond2: {cond_2}, cond3: {cond_3}, cond4: {cond_4},\
+          cond5: {cond_5}, cond6: {cond_6}, cond7: {cond_7}, cond8: {cond_8},\
+          grad_MA5: {grad_MA5}, grad_MA50: {grad_MA50}, grad_MA50_prev: {grad_MA50_prev}, \
           deltaMA5_MA50: {deltaMA5_MA50:.4f}, deltaMA5_MA50_b3: {deltaMA5_MA50_b3:.4f},  trailing_ratio: {trailing_ratio:.2f}'
           print(info)
           logger.info(info)

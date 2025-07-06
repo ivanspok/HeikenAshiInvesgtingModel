@@ -6457,3 +6457,339 @@ INFO:__main__:time 2025-06-23 23:45:14.900939:Ticker PLD, cond1: False, cond2: T
 INFO:__main__:time 2025-06-23 23:46:38.865762:Ticker PLD, cond1: False, cond2: True, cond3: True, grad_MA5: False, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 0.9891, deltaMA5_MA50_b3: 0.9868,  trailing_ratio: 0.01
 INFO:__main__:time 2025-06-23 23:47:10.973262:Ticker PLD, cond1: False, cond2: True, cond3: True, grad_MA5: False, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 0.9892, deltaMA5_MA50_b3: 0.9868,  trailing_ratio: 0.30
 INFO:__main__:time 2025-06-23 23:48:05.769261:Ticker INTU, cond1: False, cond2: False, cond3: True, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 0.9968, deltaMA5_MA50_b3: 0.9966,  trailing_ratio: 0.30
+INFO:__main__:time 2025-06-24 01:42:00.265755:Ticker MCHP, cond1: False, cond2: False, cond3: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 1.0198, deltaMA5_MA50_b3: 1.0110,  trailing_ratio: 0.01
+INFO:__main__:time 2025-06-24 02:05:16.833547:Ticker PANW, cond1: False, cond2: False, cond3: False, grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0085, deltaMA5_MA50_b3: 1.0035,  trailing_ratio: 0.01
+INFO:__main__:time 2025-06-24 02:22:31.320131:Ticker APH, cond1: False, cond2: False, cond3: False, grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0033, deltaMA5_MA50_b3: 1.0015,  trailing_ratio: 0.01
+INFO:__main__:time 2025-06-24 02:27:23.233339:Ticker PANW, cond1: False, cond2: False, cond3: False, grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0079, deltaMA5_MA50_b3: 1.0035,  trailing_ratio: 0.01
+INFO:__main__:time 2025-06-24 02:34:21.818427:Ticker TXN, cond1: False, cond2: False, cond3: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 1.0055, deltaMA5_MA50_b3: 1.0028,  trailing_ratio: 0.01
+INFO:__main__:time 2025-06-24 02:38:23.614774:Ticker GD, cond1: False, cond2: False, cond3: False, grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0064, deltaMA5_MA50_b3: 0.9998,  trailing_ratio: 0.01
+INFO:__main__:time 2025-06-24 02:39:04.323366:Ticker MPC, cond1: False, cond2: False, cond3: False, grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0145, deltaMA5_MA50_b3: 1.0119,  trailing_ratio: 0.01
+INFO:__main__:time 2025-06-24 02:45:04.274355:Ticker NOC, cond1: False, cond2: False, cond3: False, grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0081, deltaMA5_MA50_b3: 1.0019,  trailing_ratio: 0.01
+INFO:__main__:time 2025-06-24 02:48:32.062477:Ticker TXN, cond1: False, cond2: False, cond3: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 1.0056, deltaMA5_MA50_b3: 1.0028,  trailing_ratio: 0.01
+INFO:__main__:time 2025-06-24 03:15:49.006925:Ticker NOC, cond1: False, cond2: False, cond3: False, grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0071, deltaMA5_MA50_b3: 1.0019,  trailing_ratio: 0.01
+INFO:__main__:time 2025-06-24 03:16:46.259511:Ticker GD, cond1: False, cond2: False, cond3: False, grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0056, deltaMA5_MA50_b3: 0.9998,  trailing_ratio: 0.01
+ERROR:yfinance:$TXN: possibly delisted; no price data found  (1m 2025-06-16 16:23:18-04:00 -> 2025-06-23 16:23:18-04:00)
+INFO:tinkoff.invest.logging:eb8cfba8c3b5d9714727fd484b2671bc GetCandles
+ERROR:yfinance:$AMT: possibly delisted; no price data found  (1m 2025-06-16 21:54:10-04:00 -> 2025-06-23 21:54:10-04:00)
+INFO:tinkoff.invest.logging:05dc117e8146c222c053e0d3921c1697 GetCandles
+ERROR:yfinance:$MRK: possibly delisted; no price data found  (1m 2025-06-17 07:48:24-04:00 -> 2025-06-24 07:48:24-04:00)
+INFO:tinkoff.invest.logging:3d0f607b122fa6e163160f84ce9786e8 GetCandles
+INFO:tinkoff.invest.logging:da82799b00872ed85255b4a402c30f33 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-17 07:48:41-04:00 -> 2025-06-24 07:48:41-04:00)
+INFO:tinkoff.invest.logging:eeb733de44aeba7b3e2c8e9ef588db27 GetCandles
+ERROR:yfinance:$NFLX: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:e2ea749d6e306914efa30ebe46d76d75 GetCandles
+ERROR:yfinance:$NSC: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:898204ab236e1f356128b02e956a4849 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:4e7e3dddd136a2fb40da7bcaa451f625 GetCandles
+ERROR:yfinance:$TXN: possibly delisted; no price data found  (1m 2025-06-18 04:28:48-04:00 -> 2025-06-25 04:28:48-04:00)
+INFO:tinkoff.invest.logging:a70612692acbdee8bbedf0a286e30698 GetCandles
+ERROR:yfinance:$WMB: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:19e021cd1b5a1ce545c303ef9554f29e GetCandles
+ERROR:yfinance:$GOOG: possibly delisted; no price data found  (1m 2025-06-18 05:38:09-04:00 -> 2025-06-25 05:38:09-04:00)
+INFO:tinkoff.invest.logging:7bd3152c6cc619146c003ccba7d828d5 GetCandles
+INFO:__main__:time 2025-06-25 23:30:07.852455:Ticker AMT,           cond1: False, cond2: True, cond3: False, cond4: False, cond5: False, cond6: True          grad_MA5: False, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0270, deltaMA5_MA50_b3: 1.0287,  trailing_ratio: 0.05
+INFO:__main__:time 2025-06-26 00:05:34.288347:Ticker MDT,           cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False          grad_MA5: True, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 0.9924, deltaMA5_MA50_b3: 0.9887,  trailing_ratio: 0.30
+INFO:__main__:time 2025-06-26 01:05:33.638417:Ticker TXN,           cond1: False, cond2: True, cond3: False, cond4: False, cond5: False, cond6: True          grad_MA5: False, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0263, deltaMA5_MA50_b3: 1.0299,  trailing_ratio: 0.05
+INFO:__main__:time 2025-06-26 01:20:50.286480:Ticker MDT,           cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False          grad_MA5: True, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 0.9936, deltaMA5_MA50_b3: 0.9913,  trailing_ratio: 0.30
+INFO:__main__:time 2025-06-26 05:30:20.090338:Ticker ADSK,           cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: True          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0154, deltaMA5_MA50_b3: 1.0166,  trailing_ratio: 0.05
+ERROR:yfinance:$TEL: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:aa267e20ff3f6061440816ef4b3da587 GetCandles
+ERROR:yfinance:$AVGO: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:89409ddb0a8a56990266778db9dcaffd GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-18 21:59:13-04:00 -> 2025-06-25 21:59:13-04:00)
+INFO:tinkoff.invest.logging:05df4e0e828bc5c73b252032051743a7 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-19 01:54:29-04:00 -> 2025-06-26 01:54:29-04:00)
+INFO:tinkoff.invest.logging:98ab6f84e21e90526be58f994dadcd24 GetCandles
+ERROR:yfinance:$FDX: possibly delisted; no price data found  (1m 2025-06-19 02:11:26-04:00 -> 2025-06-26 02:11:26-04:00)
+INFO:tinkoff.invest.logging:298c0871e535911d310a02ccd357dbae GetCandles
+INFO:__main__:time 2025-06-26 23:31:30.805997:Ticker GILD,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False          grad_MA5: True, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 0.9839, deltaMA5_MA50_b3: 0.9810,  trailing_ratio: 0.30
+ERROR:yfinance:$TFC: possibly delisted; no price data found  (1m 2025-06-19 10:17:21-04:00 -> 2025-06-26 10:17:21-04:00)
+INFO:tinkoff.invest.logging:767a5e68ef5fa8194238b602b1141570 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:6ca5af1a557ac6438654a7fb54b623f8 GetCandles
+ERROR:yfinance:$UPS: possibly delisted; no price data found  (1m 2025-06-19 17:55:21-04:00 -> 2025-06-26 17:55:21-04:00)
+INFO:tinkoff.invest.logging:2ab212cd12f07df4b6b979dbaa95f07e GetCandles
+ERROR:yfinance:$UPS: possibly delisted; no price data found  (1m 2025-06-20 05:14:58-04:00 -> 2025-06-27 05:14:58-04:00)
+INFO:tinkoff.invest.logging:6290be255561012c9c0b47a175cccf70 GetCandles
+ERROR:yfinance:$JPM: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:06af4e999c74f0e5a208104cda14e728 GetCandles
+ERROR:yfinance:$NEE: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:d8edd4973b8198b7dedd05473c14c689 GetCandles
+INFO:__main__:time 2025-06-28 03:34:35.510143:Ticker UPS,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0139, deltaMA5_MA50_b3: 1.0113,  trailing_ratio: 0.05
+INFO:__main__:time 2025-06-28 03:46:17.368152:Ticker ROK,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0182, deltaMA5_MA50_b3: 1.0153,  trailing_ratio: 0.05
+ERROR:yfinance:$MCK: possibly delisted; no price data found  (1m 2025-06-20 13:47:13-04:00 -> 2025-06-27 13:47:13-04:00)
+INFO:tinkoff.invest.logging:580ca1b376399686db0f401997ec65ec GetCandles
+ERROR:yfinance:$O: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:f982ab95803f6310eccdc1b3b2ea0ac1 GetCandles
+ERROR:yfinance:$BIIB: possibly delisted; no price data found  (1m 2025-06-20 16:08:01-04:00 -> 2025-06-27 16:08:01-04:00)
+INFO:tinkoff.invest.logging:aaa721105379bdfb8bc690b6a4a08d24 GetCandles
+ERROR:yfinance:$FDX: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:9bf0c299d6786b7f29a67eef60b32e7e GetCandles
+ERROR:yfinance:$HUM: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:ae061b8ca5d92cd075fa3110f122be87 GetCandles
+ERROR:yfinance:$T: possibly delisted; no price data found  (1m 2025-06-20 17:48:01-04:00 -> 2025-06-27 17:48:01-04:00)
+INFO:tinkoff.invest.logging:ea3f88cb752f52d5312b3947dcd14f6e GetCandles
+ERROR:yfinance:$HCA: possibly delisted; no price data found  (1m 2025-06-20 18:03:02-04:00 -> 2025-06-27 18:03:02-04:00)
+INFO:tinkoff.invest.logging:2ec0c7a7177b267481d19eded1156785 GetCandles
+ERROR:yfinance:$HCA: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:a0c5a644d5070660ff0447aa643444c9 GetCandles
+ERROR:yfinance:$ADI: possibly delisted; no price data found  (1m 2025-06-20 18:06:19-04:00 -> 2025-06-27 18:06:19-04:00)
+INFO:tinkoff.invest.logging:eaf70f2fad094149d2456d989fa19ac4 GetCandles
+ERROR:yfinance:$FDX: possibly delisted; no price data found  (1m 2025-06-20 18:10:50-04:00 -> 2025-06-27 18:10:50-04:00)
+INFO:tinkoff.invest.logging:469b2444c4d3f2079f07573f1f6a315c GetCandles
+ERROR:yfinance:$FDX: possibly delisted; no price data found  (1m 2025-06-20 18:13:43-04:00 -> 2025-06-27 18:13:43-04:00)
+INFO:tinkoff.invest.logging:a38af477e5c3f7263cb363620d25c5be GetCandles
+ERROR:yfinance:$MCK: possibly delisted; no price data found  (1m 2025-06-20 18:23:15-04:00 -> 2025-06-27 18:23:15-04:00)
+INFO:tinkoff.invest.logging:743b351891328f87e985ed1c8b845dd0 GetCandles
+ERROR:yfinance:$GILD: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:6c1dd936d5a86d9c426a289b596e1ee5 GetCandles
+ERROR:yfinance:$COP: possibly delisted; no price data found  (1m 2025-06-20 19:00:54-04:00 -> 2025-06-27 19:00:54-04:00)
+INFO:tinkoff.invest.logging:87c7964cf5ee229476ee3a6aa2002f27 GetCandles
+ERROR:yfinance:$MCK: possibly delisted; no price data found  (1m 2025-06-20 20:13:03-04:00 -> 2025-06-27 20:13:03-04:00)
+INFO:tinkoff.invest.logging:aea4a22ec9e799d434eecc57febb8486 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-20 21:31:34-04:00 -> 2025-06-27 21:31:34-04:00)
+INFO:tinkoff.invest.logging:cc4d48257752a4940dbdaa4ab33c4326 GetCandles
+ERROR:yfinance:$ROK: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:469aa2c5cfb50d27208c290729be676e GetCandles
+ERROR:yfinance:$HCA: possibly delisted; no price data found  (1m 2025-06-21 00:31:01-04:00 -> 2025-06-28 00:31:01-04:00)
+INFO:tinkoff.invest.logging:cca71c4258f5599ca1fef88324f627a2 GetCandles
+ERROR:yfinance:$ORCL: possibly delisted; no price data found  (1m 2025-06-21 01:03:17-04:00 -> 2025-06-28 01:03:17-04:00)
+INFO:tinkoff.invest.logging:2cd1d4ef561e95300f507db9c1bb92ac GetCandles
+ERROR:yfinance:$HCA: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:f3c5423bdf284c7e6b688a6694169fa4 GetCandles
+ERROR:yfinance:$DIS: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:1cf1401f88bea1fda91963fbb6a51bb7 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-21 01:30:06-04:00 -> 2025-06-28 01:30:06-04:00)
+INFO:tinkoff.invest.logging:3cd7dd3fb707f2fd11683f0b6f769331 GetCandles
+ERROR:yfinance:$PFE: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:041c389fcca506367bb95eb2819f12e5 GetCandles
+ERROR:yfinance:$AIG: possibly delisted; no price data found  (1m 2025-06-21 02:05:06-04:00 -> 2025-06-28 02:05:06-04:00)
+INFO:tinkoff.invest.logging:1ae5e5fcd362d9769b676ddc3e734ef2 GetCandles
+ERROR:yfinance:$EQIX: possibly delisted; no price data found  (1m 2025-06-21 02:27:02-04:00 -> 2025-06-28 02:27:02-04:00)
+INFO:tinkoff.invest.logging:e86210930ab894edb3c6258d19580165 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-21 02:39:50-04:00 -> 2025-06-28 02:39:50-04:00)
+INFO:tinkoff.invest.logging:ec0c12ff66be640fb015d3b98ec82c5a GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-21 03:47:57-04:00 -> 2025-06-28 03:47:57-04:00)
+INFO:tinkoff.invest.logging:0c69e10d1cbc6bb3962f6bb5d903865d GetCandles
+ERROR:yfinance:$PFE: possibly delisted; no price data found  (1m 2025-06-21 06:28:09-04:00 -> 2025-06-28 06:28:09-04:00)
+INFO:tinkoff.invest.logging:0fc15a656220baea178e4d61164904d1 GetCandles
+ERROR:yfinance:$HCA: possibly delisted; no price data found  (1m 2025-06-21 06:29:14-04:00 -> 2025-06-28 06:29:14-04:00)
+INFO:tinkoff.invest.logging:61e2a43a7e1ba451507a6ecf2f803747 GetCandles
+ERROR:yfinance:$EQIX: possibly delisted; no price data found  (1m 2025-06-21 06:48:09-04:00 -> 2025-06-28 06:48:09-04:00)
+INFO:tinkoff.invest.logging:68329aecc3e12905786917d3abdf167f GetCandles
+ERROR:yfinance:$FDX: possibly delisted; no price data found  (1m 2025-06-21 07:07:55-04:00 -> 2025-06-28 07:07:55-04:00)
+INFO:tinkoff.invest.logging:a0ee9d5142d090880a26d8f3addb6aca GetCandles
+ERROR:yfinance:$APD: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:341504afa661a67aad8f0522b4569b00 GetCandles
+ERROR:yfinance:$PANW: possibly delisted; no price data found  (1m 2025-06-21 07:33:19-04:00 -> 2025-06-28 07:33:19-04:00)
+INFO:tinkoff.invest.logging:ecccc3845055723f6018877ae4eae308 GetCandles
+ERROR:yfinance:$JCI: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:30ffe9825b8f5ce43f3b5d4f2a68fc2e GetCandles
+ERROR:yfinance:$MDT: possibly delisted; no price data found  (1m 2025-06-21 14:04:01-04:00 -> 2025-06-28 14:04:01-04:00)
+INFO:tinkoff.invest.logging:71e1ee6468e9cb4d2604de554b08f79f GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-21 14:49:42-04:00 -> 2025-06-28 14:49:42-04:00)
+INFO:tinkoff.invest.logging:86128fb0e8798694a161050340fd7a3d GetCandles
+ERROR:yfinance:$DHI: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:53a850659b476e8e54c95ca346105877 GetCandles
+ERROR:yfinance:$DIS: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:b4249c6e7bf8f425b6220ba978045452 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-21 16:34:50-04:00 -> 2025-06-28 16:34:50-04:00)
+INFO:tinkoff.invest.logging:8020253fc0eda8856653c53420fae986 GetCandles
+ERROR:yfinance:$FDX: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:23521aac69119d61b96f3842e1e8dd93 GetCandles
+ERROR:yfinance:$FDX: possibly delisted; no price data found  (1m 2025-06-21 16:37:57-04:00 -> 2025-06-28 16:37:57-04:00)
+INFO:tinkoff.invest.logging:cfbaa9461baf98f67fa400958407a04a GetCandles
+ERROR:yfinance:$DHI: possibly delisted; no price data found  (1m 2025-06-21 16:38:08-04:00 -> 2025-06-28 16:38:08-04:00)
+INFO:tinkoff.invest.logging:fdef0a78c9611dbbd3972908c79d9a2c GetCandles
+ERROR:yfinance:$DHR: possibly delisted; no price data found  (1m 2025-06-21 17:49:55-04:00 -> 2025-06-28 17:49:55-04:00)
+INFO:tinkoff.invest.logging:43a3ac57f9596c2d00f63961d9fb43b7 GetCandles
+ERROR:yfinance:$MCK: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:db69620a6833a4b6d78eb995bbe650df GetCandles
+ERROR:yfinance:$CSCO: possibly delisted; no price data found  (1m 2025-06-21 22:59:18-04:00 -> 2025-06-28 22:59:18-04:00)
+INFO:tinkoff.invest.logging:d5ec0f107f002cfde5c6dac19816bff3 GetCandles
+ERROR:yfinance:$MCK: possibly delisted; no price data found  (1m 2025-06-22 02:43:43-04:00 -> 2025-06-29 02:43:43-04:00)
+INFO:tinkoff.invest.logging:fdbf29f1c4628a0821fa53f163a88b27 GetCandles
+ERROR:yfinance:$HCA: possibly delisted; no price data found  (1m 2025-06-22 06:04:07-04:00 -> 2025-06-29 06:04:07-04:00)
+INFO:tinkoff.invest.logging:c2028809794d399a9d9cc55e125faded GetCandles
+ERROR:yfinance:$HCA: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:5fa1d08f7d736c136a36ef4de69d59e6 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-23 02:14:36-04:00 -> 2025-06-30 02:14:36-04:00)
+INFO:tinkoff.invest.logging:ec6827aab1640ae29dbb94028ac19221 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-23 13:22:50-04:00 -> 2025-06-30 13:22:50-04:00)
+INFO:tinkoff.invest.logging:66ef9e29bf1574c6942d0331d3a0ac86 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-23 14:38:07-04:00 -> 2025-06-30 14:38:07-04:00)
+INFO:tinkoff.invest.logging:ce6dbedf14f933cae78c80ed03d9e7aa GetCandles
+ERROR:yfinance:$HCA: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:3f58cfb8ff710802494c4b87e26f9bec GetCandles
+ERROR:yfinance:$HCA: possibly delisted; no price data found  (1m 2025-06-23 17:33:22-04:00 -> 2025-06-30 17:33:22-04:00)
+INFO:tinkoff.invest.logging:39211a117a7f3b292681d7d26bd31cb5 GetCandles
+ERROR:yfinance:$DHR: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:0e220145a8398809665d5057ff50c957 GetCandles
+ERROR:yfinance:$DHR: possibly delisted; no price data found  (1m 2025-06-23 17:34:04-04:00 -> 2025-06-30 17:34:04-04:00)
+INFO:tinkoff.invest.logging:da115322724d21469f6d142ee93f036c GetCandles
+ERROR:yfinance:$T: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:9bc74fa56c7fcd9699211b402c5a4282 GetCandles
+ERROR:yfinance:$T: possibly delisted; no price data found  (1m 2025-06-23 17:34:31-04:00 -> 2025-06-30 17:34:31-04:00)
+INFO:tinkoff.invest.logging:34d512fcc5ea9386955a48d3e304d404 GetCandles
+ERROR:yfinance:$ADI: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:621a8dc4f03682221babb696ffd27a9f GetCandles
+ERROR:yfinance:$C: possibly delisted; no price data found  (1m 2025-06-23 17:38:51-04:00 -> 2025-06-30 17:38:51-04:00)
+ERROR:tinkoff.invest.logging:12ed4dc6f5ccc6572a33a57250357e68 GetCandles NOT_FOUND 50002
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-23 18:23:46-04:00 -> 2025-06-30 18:23:46-04:00)
+INFO:tinkoff.invest.logging:f5a2997a43eecdcf5c22c30b8649f2b5 GetCandles
+ERROR:yfinance:$DHI: possibly delisted; no price data found  (1m 2025-06-24 10:05:25-04:00 -> 2025-07-01 10:05:25-04:00)
+INFO:tinkoff.invest.logging:413cd9edd19732f42a0992dc187f9ca8 GetCandles
+INFO:__main__:time 2025-07-02 05:31:36.139316:Ticker FDX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0356, deltaMA5_MA50_b3: 1.0328,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-02 05:54:22.258272:Ticker HCA,           cond1: False, cond2: True, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True          grad_MA5: False, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0265, deltaMA5_MA50_b3: 1.0260,  trailing_ratio: 0.05
+ERROR:yfinance:$CSCO: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:8919353f08dbe13e2cc8ce7532610e98 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-24 20:51:40-04:00 -> 2025-07-01 20:51:40-04:00)
+INFO:tinkoff.invest.logging:7325d8e911dd1f698afcfd6d8e047835 GetCandles
+ERROR:yfinance:$DHI: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:4eaee5020afd73a3b8d7f150cf58c4c8 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-25 02:43:38-04:00 -> 2025-07-02 02:43:38-04:00)
+INFO:tinkoff.invest.logging:7765e073e11f3f3845e889776180cea8 GetCandles
+ERROR:yfinance:$DHI: possibly delisted; no price data found  (1m 2025-06-25 03:39:53-04:00 -> 2025-07-02 03:39:53-04:00)
+INFO:tinkoff.invest.logging:b8ba6605b801047c21356a7161d3dfae GetCandles
+ERROR:yfinance:$MCK: possibly delisted; no price data found  (1m 2025-06-25 04:13:47-04:00 -> 2025-07-02 04:13:47-04:00)
+INFO:tinkoff.invest.logging:6a9f587e24f39b697df2715225354c96 GetCandles
+ERROR:yfinance:$JCI: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:34bb24896e8d55d0abe72d6bda80468f GetCandles
+ERROR:yfinance:$GE: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:210429ed99cd606d2eeff4c2fd66af43 GetCandles
+ERROR:yfinance:$ELV: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:9073d4963d7ee48502944c657cff7998 GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-25 05:34:03-04:00 -> 2025-07-02 05:34:03-04:00)
+INFO:tinkoff.invest.logging:960b98af26f33d66e45c3298e97e3949 GetCandles
+ERROR:yfinance:$ADM: possibly delisted; no price data found  (1m 2025-06-25 06:23:49-04:00 -> 2025-07-02 06:23:49-04:00)
+INFO:tinkoff.invest.logging:78710435bf997caa027b3abfb3762caa GetCandles
+ERROR:yfinance:$ADM: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:244193a946fe5747ac1fbf9fc1403a7e GetCandles
+ERROR:yfinance:$SLB: possibly delisted; no price data found  (period=3mo)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$AMD: possibly delisted; no price data found  (1m 2025-06-25 06:35:55-04:00 -> 2025-07-02 06:35:55-04:00)
+INFO:tinkoff.invest.logging:a73242976ca0d532de163ea31a9ba4af GetCandles
+INFO:__main__:time 2025-07-02 23:43:34.296203:Ticker AMT,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0158, deltaMA5_MA50_b3: 1.0164,  trailing_ratio: 0.05
+ERROR:yfinance:$XOM: possibly delisted; no price data found  (1m 2025-06-25 11:14:48-04:00 -> 2025-07-02 11:14:48-04:00)
+INFO:tinkoff.invest.logging:c980097867def9fd95dcb5d074cc40e0 GetCandles
+ERROR:yfinance:$WELL: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:6411efab2169041a291ff2e756f0f323 GetCandles
+INFO:__main__:time 2025-07-03 05:32:05.018307:Ticker ADM,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0468, deltaMA5_MA50_b3: 1.0431,  trailing_ratio: 0.05
+ERROR:yfinance:$AMAT: possibly delisted; no price data found  (1m 2025-06-25 16:40:37-04:00 -> 2025-07-02 16:40:37-04:00)
+INFO:tinkoff.invest.logging:d9fb2b6763f72e98a0b2f590cf6002d5 GetCandles
+ERROR:yfinance:$T: possibly delisted; no price data found  (1m 2025-06-25 16:47:40-04:00 -> 2025-07-02 16:47:40-04:00)
+INFO:tinkoff.invest.logging:32de2d68abf2d44cda2aed49609acb26 GetCandles
+ERROR:yfinance:$MRK: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:a4253cc7650e0e2541dabfb0b8abb3d3 GetCandles
+ERROR:yfinance:$MPC: possibly delisted; no price data found  (1m 2025-06-26 12:42:56-04:00 -> 2025-07-03 12:42:56-04:00)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$IQV: possibly delisted; no price data found  (period=3mo)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$IQV: possibly delisted; no price data found  (1m 2025-06-26 12:44:16-04:00 -> 2025-07-03 12:44:16-04:00)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$BAC: possibly delisted; no price data found  (period=3mo)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$BAC: possibly delisted; no price data found  (1m 2025-06-26 12:46:00-04:00 -> 2025-07-03 12:46:00-04:00)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$PFE: possibly delisted; no price data found  (period=3mo)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$PFE: possibly delisted; no price data found  (1m 2025-06-26 12:47:47-04:00 -> 2025-07-03 12:47:47-04:00)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$NEE: possibly delisted; no price data found  (period=3mo)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$NEE: possibly delisted; no price data found  (1m 2025-06-26 12:49:35-04:00 -> 2025-07-03 12:49:35-04:00)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$BLK: possibly delisted; no price data found  (period=3mo)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$BLK: possibly delisted; no price data found  (1m 2025-06-26 12:51:15-04:00 -> 2025-07-03 12:51:15-04:00)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNKNOWN: ipv4:178.130.128.33:443: tcp handshaker shutdown
+ERROR:yfinance:$EQIX: possibly delisted; no price data found  (period=3mo)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNKNOWN: ipv4:178.130.128.33:443: tcp handshaker shutdown
+ERROR:yfinance:$EQIX: possibly delisted; no price data found  (1m 2025-06-26 12:53:20-04:00 -> 2025-07-03 12:53:20-04:00)
+INFO:tinkoff.invest.logging:38cc48fe3742a0537799b4dd3bb9e534 GetCandles
+ERROR:yfinance:$QCOM: possibly delisted; no price data found  (1m 2025-06-26 12:54:23-04:00 -> 2025-07-03 12:54:23-04:00)
+INFO:tinkoff.invest.logging:1c1931484d1eca03bd984375fd07381c GetCandles
+ERROR:yfinance:$RTX: possibly delisted; no price data found  (period=3mo)
+ERROR:yfinance:$UPS: possibly delisted; no price data found  (period=3mo)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$UPS: possibly delisted; no price data found  (1m 2025-06-26 12:57:02-04:00 -> 2025-07-03 12:57:02-04:00)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$O: possibly delisted; no price data found  (1m 2025-06-26 12:58:23-04:00 -> 2025-07-03 12:58:23-04:00)
+INFO:tinkoff.invest.logging:10b74a48eea03add6ab0d71ea2a6b1f8 GetCandles
+ERROR:yfinance:$ICE: possibly delisted; no price data found  (1m 2025-06-26 12:58:40-04:00 -> 2025-07-03 12:58:40-04:00)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$XOM: possibly delisted; no price data found  (1m 2025-06-26 13:00:06-04:00 -> 2025-07-03 13:00:06-04:00)
+INFO:tinkoff.invest.logging:4e5aee8b2b0c902156dfd90d666cd6cb GetCandles
+ERROR:yfinance:$O: possibly delisted; no price data found  (1m 2025-06-26 13:01:08-04:00 -> 2025-07-03 13:01:08-04:00)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$FI: possibly delisted; no price data found  (1m 2025-06-26 13:01:39-04:00 -> 2025-07-03 13:01:39-04:00)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$FI: possibly delisted; no price data found  (period=3mo)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNKNOWN: ipv4:178.130.128.33:443: tcp handshaker shutdown
+ERROR:yfinance:$FI: possibly delisted; no price data found  (1m 2025-06-26 13:03:30-04:00 -> 2025-07-03 13:03:30-04:00)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$DHI: possibly delisted; no price data found  (1m 2025-06-26 13:04:20-04:00 -> 2025-07-03 13:04:20-04:00)
+INFO:tinkoff.invest.logging:fab316624b1becb3b581ca0c6f279129 GetCandles
+ERROR:yfinance:$DHI: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:37ee4c1c65ce86a431b34b7966eca231 GetCandles
+ERROR:yfinance:$XOM: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:bc08d7f3472873fc16ac26bbf3a180b0 GetCandles
+ERROR:yfinance:$AMD: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:101ff04ff5597ca8da65359c0c2fa410 GetCandles
+ERROR:yfinance:$AMD: possibly delisted; no price data found  (1m 2025-06-26 16:44:35-04:00 -> 2025-07-03 16:44:35-04:00)
+INFO:tinkoff.invest.logging:1a9b48e5b6e3d504ebf359438b76bfb7 GetCandles
+ERROR:yfinance:$XOM: possibly delisted; no price data found  (1m 2025-06-26 16:44:49-04:00 -> 2025-07-03 16:44:49-04:00)
+INFO:tinkoff.invest.logging:73e96b436a8213fd81fcbddda65f96ec GetCandles
+ERROR:yfinance:$XOM: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:9e2aed0b68a8771ed0559c74ea1bb609 GetCandles
+INFO:__main__:time 2025-07-04 06:45:21.239903:Ticker XOM,           cond1: False, cond2: True, cond3: False, cond4: False,          cond5: False, cond6: True, cond7: False, cond8: False,          grad_MA5: False, grad_MA50: True, grad_MA50_prev: True,           deltaMA5_MA50: 1.0002, deltaMA5_MA50_b3: 1.0001,  trailing_ratio: 0.05
+ERROR:yfinance:$FCX: possibly delisted; no price data found  (1m 2025-06-26 21:48:55-04:00 -> 2025-07-03 21:48:55-04:00)
+INFO:tinkoff.invest.logging:d38c1074d421469c081ce6da99c51d46 GetCandles
+INFO:__main__:time 2025-07-04 21:29:11.493437:Ticker XOM,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: True,           deltaMA5_MA50: 1.0207, deltaMA5_MA50_b3: 1.0160,  trailing_ratio: 2.99
+ERROR:yfinance:$XOM: possibly delisted; no price data found  (1m 2025-06-27 08:42:21-04:00 -> 2025-07-04 08:42:21-04:00)
+INFO:tinkoff.invest.logging:3aafae7a5c103bc4a4a387ee24d74df8 GetCandles
+ERROR:yfinance:$XOM: possibly delisted; no price data found  (1m 2025-06-27 09:11:37-04:00 -> 2025-07-04 09:11:37-04:00)
+INFO:tinkoff.invest.logging:88d460741a15a3b1c8a1ddbc16c98388 GetCandles
+ERROR:yfinance:$XOM: possibly delisted; no price data found  (period=3mo)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE DNS resolution failed for invest-public-api.tinkoff.ru: UNAVAILABLE: WSA Error
+ERROR:yfinance:$XOM: possibly delisted; no price data found  (1m 2025-06-27 18:03:59-04:00 -> 2025-07-04 18:03:59-04:00)
+INFO:tinkoff.invest.logging:fc9f30d70f7fff4d787e4c28099325e8 GetCandles
+ERROR:yfinance:$VRTX: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:0feaebf4538a231340ce0d28047dcabd GetCandles
+ERROR:yfinance:$DHI: possibly delisted; no price data found  (1m 2025-06-28 08:53:17-04:00 -> 2025-07-05 08:53:17-04:00)
+INFO:tinkoff.invest.logging:7450a80b216dbcc87e8031765b90be9a GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (period=3mo)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-28 09:46:40-04:00 -> 2025-07-05 09:46:40-04:00)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$DHI: possibly delisted; no price data found  (period=3mo)
+ERROR:tinkoff.invest.logging:None GetCandles UNAVAILABLE failed to connect to all addresses; last error: UNAVAILABLE: ipv4:178.130.128.33:443: TCP stream shutting down
+ERROR:yfinance:$DHI: possibly delisted; no price data found  (1m 2025-06-28 09:48:21-04:00 -> 2025-07-05 09:48:21-04:00)
+INFO:tinkoff.invest.logging:e6713e682b0ab07850d2b7dac872c55f GetCandles
+ERROR:yfinance:$TFC: possibly delisted; no price data found  (1m 2025-06-28 09:49:18-04:00 -> 2025-07-05 09:49:18-04:00)
+INFO:tinkoff.invest.logging:8744dce8cb519d847195e5c15f134a9f GetCandles
+ERROR:yfinance:$WFC: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:f3582dbbb5cda8872e356d7d444128cf GetCandles
+ERROR:yfinance:$XOM: possibly delisted; no price data found  (1m 2025-06-28 19:53:05-04:00 -> 2025-07-05 19:53:05-04:00)
+INFO:tinkoff.invest.logging:b6e379c53b431a310053e0085f4a3731 GetCandles
+ERROR:yfinance:$NUE: possibly delisted; no price data found  (1m 2025-06-28 21:45:27-04:00 -> 2025-07-05 21:45:27-04:00)
+INFO:tinkoff.invest.logging:8e342def9d7431550dde20b8c9fac381 GetCandles
+ERROR:yfinance:$AIG: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:220c054f8749664cea93733e7f55c2aa GetCandles
+ERROR:yfinance:$AIG: possibly delisted; no price data found  (1m 2025-06-28 21:46:31-04:00 -> 2025-07-05 21:46:31-04:00)
+INFO:tinkoff.invest.logging:01209f4515029d8dc3ee8694ecb62c90 GetCandles
+INFO:tinkoff.invest.logging:2975c22951836bbcb404b107ca262e7b GetCandles
+ERROR:yfinance:$WELL: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:d308ce38b875204e9cc97fa8b446c732 GetCandles
+ERROR:yfinance:$FI: possibly delisted; no price data found  (1m 2025-06-28 21:52:10-04:00 -> 2025-07-05 21:52:10-04:00)
+INFO:tinkoff.invest.logging:2d10c2f9423f2f2d4c97881884731382 GetCandles
+ERROR:yfinance:$HUM: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:4d6ca39d642071d682b84e41447da77e GetCandles
+ERROR:yfinance:$ETN: possibly delisted; no price data found  (1m 2025-06-28 21:55:56-04:00 -> 2025-07-05 21:55:56-04:00)
+INFO:tinkoff.invest.logging:1fc4e6476d358e753b21e05f28c38765 GetCandles
+ERROR:yfinance:$PANW: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:b86e0fcd6eb1bb06faf4bc322c17791c GetCandles
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-28 21:58:40-04:00 -> 2025-07-05 21:58:40-04:00)
+INFO:tinkoff.invest.logging:2c6d4b3cd2c0d489be5ba0b2ddf39e36 GetCandles
