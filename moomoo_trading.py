@@ -96,7 +96,20 @@ stock_name_list += ['FI','CB','SO','REGN','BSX','EQIX','BDX','PANW','DUK','EOG',
                        'ROP','FTNT','MCHP','USB','CCI','MAR','MSI','GD','PSA','JCI','PSX','SRE','ADSK','AZO','TDG','ECL','AJG','KMB','TEL','TT','AEP','EL','PCAR',
                        'OXY','TFC','CARR','D','IDXX','GIS','ON','COF','ADM','MNST','NUE','CTAS','AIG','EXC','VLO','MRNA','ANET','WMB','O','STZ','IQV','HLT','CHTR','WELL',
                        'BIIB','SPG','MSCI','DHI','ROK']
-stock_name_list_opt = stock_name_list
+# new stockes from 12/07/2025
+stock_name_list += ['ALGN','CDW','ZBRA','VTRS','KHC','CINF','LUMN','BAX','CZR','FANG','HIG','HWM','KEYS','LNT','NDAQ',
+                       'NTRS','ODFL','RMD','SEE','SWK','TROW','VFC','WAT','WST','ZION','AAL','ALB','AMCR',
+                       'ANSS','ASML','AVY','CAG','CHKP','CHRW','CNP','CTSH','ETSY',
+                       'EXPE', 'FTV', 'GWW', 'HII', 'HWM', 'IPGP', 'JCI', 'KEYS', 'KMX', 'LHX',
+                       'MASI', 'MORN', 'MSCI', 'PAYX',
+                       'PKG', 'PNR', 'PPG', 'PRGO']
+
+stock_name_list += ['QRVO', 'RHI', 'SEE', 'SWK', 'TROW', 'WAT',
+                       'AAL', 'ALB', 'AMCR', 'ANSS', 'ASML', 'AVY', 'CAG', 'CHKP', 'CHRW',
+                       'CNP', 'CTSH', 'ETSY', 'EXPE', 'FTV', 'GWW', 'HII',
+                       'HWM', 'IPGP', 'JCI', 'KEYS', 'KMX']
+
+stock_name_list_opt = list(set(stock_name_list))
 
 # stock_name_list_opt = ['INTC']
 exclude_time_dist = {}
@@ -1362,58 +1375,75 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
   
   #conditions 
   # buy when MACD_hist is positive and increasing and not more 8 greens MACD_hist in a row:
-  cond_1  =  df['MACD_hist'].iloc[-1] > 0 \
+  cond_a1  =  df['MACD_hist'].iloc[-1] > 0 \
             and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
             and df['MACD_hist'].iloc[-2] >= df['MACD_hist'].iloc[-3] \
             and not (df['MACD_hist'].iloc[-8:] > 0).all() \
   # buy when MACD_hist is negative and increasing:
-  cond_2 = df['MACD_hist'].iloc[-1] < 0 \
+  cond_a2 = df['MACD_hist'].iloc[-1] < 0 \
            and df['MACD'].iloc[-1] < 0 \
            and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
            and df['MACD_hist'].iloc[-2] > df['MACD_hist'].iloc[-3] \
-           and df['MACD_hist'].iloc[-3] > df['MACD_hist'].iloc[-4]           
-            
-  cond_value_1 = df['MACD_hist'].iloc[-1]
-  cond_3 = df['MA30_RSI10'].iloc[-1] >= 40 \
-           and df['MA30_RSI10'].iloc[-1] <= 60 \
-           and df['MA30_RSI10'].iloc[-1] >= df['MA30_RSI10'].iloc[-2] \
-           and df['MA30_RSI10'].iloc[-2] >= df['MA30_RSI10'].iloc[-3]             
-  cond_value_3 = df['MA30_RSI10'].iloc[-1]
+          #  and df['MACD_hist'].iloc[-3] > df['MACD_hist'].iloc[-4]   # comment from 12/07/2025        
   
-  cond_4 = df['MACD'].iloc[-1] >= df['MACD'].iloc[-2] \
+  # buy when MACD_hist is negative and heiken ashi is green after red:
+  cond_value_a3 = number_red_candles(df, i, k=10)
+  cond_a3 = df['MACD_hist'].iloc[-1] < 0 \
+            and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
+            and df['ha_colour'].iloc[-1] == 'green' \
+            and cond_value_a3 > 5
+  
+  MACD_hist = df['MACD_hist'].iloc[-1]
+  
+  cond_RSI = df['MA30_RSI10'].iloc[-1] >= 29 \
+           and df['MA30_RSI10'].iloc[-1] <= 60 \
+           and df['MA30_RSI10'].iloc[-1] >= df['MA30_RSI10'].iloc[-2]
+          #  and df['MA30_RSI10'].iloc[-2] >= df['MA30_RSI10'].iloc[-3]             
+  cond_value_RSI = df['MA30_RSI10'].iloc[-1]
+  
+  cond_grad_MACD = df['MACD'].iloc[-1] >= df['MACD'].iloc[-2] \
            and df['MACD'].iloc[-2] >= df['MACD'].iloc[-3]
-  cond_value_4 = df['MACD'].iloc[-1]
+  MACD = df['MACD'].iloc[-1]
   
   # 1 min MACD gradient should be positive
-  cond_5 = df_1m['MACD'].iloc[-1] >= df_1m['MACD'].iloc[-2] \
+  cond_grad_MACD_1m = df_1m['MACD'].iloc[-1] >= df_1m['MACD'].iloc[-2] \
            and df_1m['MACD'].iloc[-2] >= df_1m['MACD'].iloc[-3] \
            and df_1m['MACD'].iloc[-3] >= df_1m['MACD'].iloc[-4]
-  cond_value_5 = df_1m['MACD'].iloc[-1]
+  MACD_1m = df_1m['MACD'].iloc[-1]
   
   # Sum MACD 1 min last 20 cangles should be negative
-  cond_value_6 = df_1m['MACD'].iloc[-20:].sum()
-  cond_6 = cond_value_6 < 0
+  MACD_1m_sum20 = df_1m['MACD'].iloc[-20:].sum()
+  cond_MACD_1m_sum20 = MACD_1m_sum20 < 0
   
-  cond_value_7 = df_1m['MACD_hist'].iloc[-1]
-  cond_7 = cond_value_7 < 0
+
+  MACD_hist_1m = df_1m['MACD_hist'].iloc[-1]
+  cond_MACD_hist_1m = MACD_hist_1m < 0
   
-  cond_value_8 = df['MACD'].iloc[-1] / df['MACD'].iloc[-2]
-  if df['MACD'].iloc[-1] < 0:
-    cond_8 = True
+  # cond_9: MACD 1 min is positive and increasing, MACD_hist is negative and increasing
+  cond_positive_MACD_1m = df_1m['MACD'].iloc[-1] > 0.01 \
+           and df_1m['MACD'].iloc[-1] >= df_1m['MACD'].iloc[-2] \
+           and df_1m['MACD_hist'].iloc[-1] < 0 \
+           and df_1m['MACD_hist'].iloc[-1] > df_1m['MACD_hist'].iloc[-2]
+              
+  cond_MACD_hist_speed = df['MACD_hist'].iloc[-1] / df['MACD_hist'].iloc[-2]
+  if df['MACD_hist'].iloc[-1] < 0:
+    cond_MACD_hist_speed = True
   else:
-    cond_8 = cond_value_8 > 1.01
+    cond_MACD_hist_speed = cond_MACD_hist_speed > 1.05
   
   # cond 8 new from 02/07/2025 !!!
-  if (cond_1 or cond_2) \
-      and cond_3 \
-      and cond_4 \
-      and cond_5 \
-      and cond_6 \
-      and cond_7 \
-      and cond_8:
+  if (cond_a1 or cond_a2 or cond_a3) \
+      and cond_RSI \
+      and cond_grad_MACD \
+      and cond_MACD_hist_speed \
+      and cond_grad_MACD_1m \
+      and cond_MACD_hist_1m \
+      and (cond_MACD_1m_sum20 or cond_positive_MACD_1m):
       condition = True    
       
-  if df['MA30_RSI10'].iloc[-1]  < 32:
+  if df['MA30_RSI10'].iloc[-1]  < 25 \
+    or df['MACD'].iloc[-2] < df['MACD'].iloc[-3] \
+    or df['MACD_hist'].iloc[-2] < df['MACD_hist'].iloc[-3]:
     # exclude company from _list optimal list
     warning.print(f'{ticker} is excluding from current optimal stock list')
     exclude_time_dist[ticker] = datetime.now()
@@ -1432,20 +1462,24 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
   if display:
     warning.print('MA50_MA5 conditions parameters:')
     c.print('AND CONDITIONS:', color='yellow')
-    c.green_red_print(cond_3, f'cond_2 (MA30_RSI10), {cond_value_3:.3f}')
-    c.green_red_print(cond_4, f'cond_4 (MACD), {cond_value_4:.3f}')
-    c.green_red_print(cond_5, f'cond_5 (MACD 1m), {cond_value_5:.3f}')
-    c.green_red_print(cond_6, f'cond_6 (MACD 1m sum last 20 < 0), {cond_value_6:.3f}')
-    c.green_red_print(cond_7, f'cond_7 (MACD_hist 1m < 0), {cond_value_7:.3f}')
-    c.green_red_print(cond_8, f'cond_8 (MACD_hist speed more than 1.01), {cond_value_8:.3f}')
+    c.green_red_print(cond_RSI, f'cond_3 (MA30_RSI10), {cond_value_RSI:.3f}')
+    c.green_red_print(cond_grad_MACD, f'cond_4 (MACD), {MACD:.3f}')
+    c.green_red_print(cond_grad_MACD_1m, f'cond_5 (MACD 1m), {MACD_1m:.3f}')
+    c.green_red_print(cond_MACD_hist_1m, f'cond_7 (MACD_hist 1m < 0), {MACD_hist_1m:.3f}')
+    c.green_red_print(cond_MACD_hist_speed, f'cond_8 (MACD_hist speed more than 1.01), {cond_MACD_hist_speed:.3f}')
     c.print('OR CONDITIONS:', color='yellow')
-    c.green_red_print(cond_1, f'cond_1 (MACD_hist > 0), {cond_value_1:.3f}')
-    c.green_red_print(cond_2, f'cond_2 (MACD_hist < 0), {cond_value_1:.3f}')
+    c.green_red_print(cond_MACD_1m_sum20, f'cond_6 (MACD 1m sum last 20 < 0), {MACD_1m_sum20:.3f}')
+    c.green_red_print(cond_positive_MACD_1m, f'cond_9')
+    c.print('OR CONDITIONS:', color='yellow')
+    c.green_red_print(cond_a1, f'cond_a1 (MACD_hist > 0), {MACD_hist:.3f}')
+    c.green_red_print(cond_a2, f'cond_a2 (MACD_hist < 0), {MACD_hist:.3f}')
+    c.green_red_print(cond_a3, f'cond_a3 (number red 1h ha candles > 5), {cond_value_a3:.3f}')
+    
 
   if condition: 
     c.green_red_print(condition, condition_type)
     
-  conditions_info =  f'''c1: {int(cond_1)}, c2: {int(cond_2)}'''
+  conditions_info =  f'''c1: {int(cond_a1)}, c2: {int(cond_a2)}, c9: {int(cond_positive_MACD_1m)}'''
 
   return condition, conditions_info
 
@@ -2357,18 +2391,23 @@ def modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price, stock_df
       
       cond_7 = stock_df_1m['MACD'].iloc[-1] < 0 \
         and stock_df_1m['MACD_hist'].iloc[-1] < stock_df_1m['MACD_hist'].iloc[-2] \
-        and stock_df['MACD_hist'].iloc[-1] < stock_df['MACD_hist'].iloc[-2]
+        and (stock_df['MACD_hist'].iloc[-1] < stock_df['MACD_hist'].iloc[-2] \
+            or stock_df['MACD_hist'].iloc[-1] / stock_df['MACD_hist'].iloc[-2] < 1.03)
       
       # almost like cond_6 but faster and looks for 1 minute MACD
-      cond_8 = stock_df['MACD_hist'].iloc[-1] < stock_df['MACD_hist'].iloc[-2] \
-        and stock_df['MACD'].iloc[-1] < stock_df['MACD'].iloc[-2] \
-        and stock_df_1m['MACD'].iloc[-1] < 0 \
+      cond_8 = stock_df_1m['MACD'].iloc[-1] < 0 \
         and stock_df_1m['MACD'].iloc[-1] < stock_df_1m['MACD'].iloc[-2] \
-        and stock_df_1m['MACD'].iloc[-2] <= stock_df_1m['MACD_hist'].iloc[-3]
-           
+        and stock_df_1m['MACD'].iloc[-2] <= stock_df_1m['MACD'].iloc[-3] \
+        and ((stock_df['MACD'].iloc[-1] < stock_df['MACD'].iloc[-2] \
+              and stock_df['MACD_hist'].iloc[-1] < stock_df['MACD_hist'].iloc[-2]
+             ) \
+              or stock_df['MACD_hist'].iloc[-1] / stock_df['MACD_hist'].iloc[-2] < 1.03
+            )
+             
+      #  and current_gain > 1.001: # removed from 09/07/2025
       if (cond_5 or cond_6 or cond_7 or cond_8) \
-        and order['trailing_ratio'] > 0.05 \
-        and current_gain > 1.001:
+        and df['MA30_RSI10'].iloc[-1] <= df['MA30_RSI10'].iloc[-2] \
+        and order['trailing_ratio'] > 0.05:
         trailing_ratio = 0.05
           
       if stock_df['ha_colour'].iloc[-1] == 'green' \

@@ -6793,3 +6793,262 @@ ERROR:yfinance:$PANW: possibly delisted; no price data found  (period=3mo)
 INFO:tinkoff.invest.logging:b86e0fcd6eb1bb06faf4bc322c17791c GetCandles
 ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-06-28 21:58:40-04:00 -> 2025-07-05 21:58:40-04:00)
 INFO:tinkoff.invest.logging:2c6d4b3cd2c0d489be5ba0b2ddf39e36 GetCandles
+INFO:__main__:time 2025-07-07 23:31:02.347399:Ticker XOM,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: True,           deltaMA5_MA50: 1.0207, deltaMA5_MA50_b3: 1.0189,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-08 03:33:19.837872:Ticker PANW,           cond1: True, cond2: True, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: False,          grad_MA5: False, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 1.0000, deltaMA5_MA50_b3: 1.0026,  trailing_ratio: 0.30
+INFO:__main__:time 2025-07-08 04:30:19.046415:Ticker O,           cond1: True, cond2: True, cond3: False, cond4: False,          cond5: False, cond6: True, cond7: False, cond8: True,          grad_MA5: False, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 1.0000, deltaMA5_MA50_b3: 1.0028,  trailing_ratio: 0.30
+ERROR:yfinance:$BAC: possibly delisted; no price data found  (1m 2025-06-30 18:29:33-04:00 -> 2025-07-07 18:29:33-04:00)
+INFO:tinkoff.invest.logging:91cbb8e6a18c5faac00cf8fb41e9ce73 GetCandles
+ERROR:yfinance:$WELL: possibly delisted; no price data found  (1m 2025-07-01 03:08:40-04:00 -> 2025-07-08 03:08:40-04:00)
+INFO:tinkoff.invest.logging:2f1c707d74870ecade88430da2381682 GetCandles
+ERROR:yfinance:$UNH: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:c0ee62366e5f40d825be73770a8778ea GetCandles
+INFO:__main__:time 2025-07-09 00:03:13.919839:Ticker WELL,           cond1: False, cond2: True, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: False, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 1.0056, deltaMA5_MA50_b3: 1.0056,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-09 05:54:20.579888:Ticker SBUX,           cond1: False, cond2: True, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: False, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0189, deltaMA5_MA50_b3: 1.0197,  trailing_ratio: 0.05
+ERROR:yfinance:$MRK: possibly delisted; no price data found  (1m 2025-07-01 20:39:08-04:00 -> 2025-07-08 20:39:08-04:00)
+INFO:tinkoff.invest.logging:613b7853dd0187db3524791b534d3186 GetCandles
+ERROR:yfinance:$INTC: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:6700b259408bd492d86dc905296889f3 GetCandles
+ERROR:yfinance:$CSCO: possibly delisted; no price data found  (1m 2025-07-02 00:11:48-04:00 -> 2025-07-09 00:11:48-04:00)
+INFO:tinkoff.invest.logging:74c14ddad54da9e959e428fb968a7eb5 GetCandles
+ERROR:yfinance:$FCX: possibly delisted; no price data found  (1m 2025-07-02 06:26:35-04:00 -> 2025-07-09 06:26:35-04:00)
+INFO:tinkoff.invest.logging:a11cb06200f6ec498c4288574cd9c55f GetCandles
+INFO:__main__:time 2025-07-09 23:30:12.668892:Ticker INTC,           cond1: False, cond2: True, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: False, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0437, deltaMA5_MA50_b3: 1.0431,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-09 23:51:57.919192:Ticker INTC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0446, deltaMA5_MA50_b3: 1.0431,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-10 00:18:27.246555:Ticker MCHP,           cond1: False, cond2: True, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: False, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0335, deltaMA5_MA50_b3: 1.0354,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-10 04:09:44.414538:Ticker RTX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0062, deltaMA5_MA50_b3: 1.0045,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-10 04:10:07.234678:Ticker RTX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0062, deltaMA5_MA50_b3: 1.0045,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-10 04:10:31.218158:Ticker RTX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0062, deltaMA5_MA50_b3: 1.0045,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-10 04:10:55.277444:Ticker RTX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0062, deltaMA5_MA50_b3: 1.0045,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-10 04:11:19.110918:Ticker RTX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0062, deltaMA5_MA50_b3: 1.0045,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-10 04:12:06.991949:Ticker RTX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0063, deltaMA5_MA50_b3: 1.0045,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-10 04:38:20.009001:Ticker GE,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 1.0006, deltaMA5_MA50_b3: 0.9959,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-10 05:50:48.710532:Ticker AMD,           cond1: False, cond2: True, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: False, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 0.9991, deltaMA5_MA50_b3: 0.9982,  trailing_ratio: 0.05
+ERROR:yfinance:$RTX: possibly delisted; no price data found  (1m 2025-07-02 16:11:12-04:00 -> 2025-07-09 16:11:12-04:00)
+ERROR:yfinance:$NFLX: possibly delisted; no price data found  (1m 2025-07-02 16:45:25-04:00 -> 2025-07-09 16:45:25-04:00)
+INFO:tinkoff.invest.logging:89c5ead1dae81b27af492dc5ee6c58b4 GetCandles
+ERROR:yfinance:$OXY: possibly delisted; no price data found  (period=3mo)
+INFO:tinkoff.invest.logging:d23270e97825e6c3a0655f995bce7e9f GetCandles
+ERROR:yfinance:$CSX: possibly delisted; no price data found  (1m 2025-07-03 07:15:26-04:00 -> 2025-07-10 07:15:26-04:00)
+INFO:tinkoff.invest.logging:56c3aa64cb9bb37434c333d4fde98ba1 GetCandles
+ERROR:yfinance:$FDX: possibly delisted; no price data found  (period=3mo) (Yahoo error = "Error occurred while retrieving timeseries, keys: [RedisKey [key=TF[1,TSCP,QU,1h,DL][FDX], cluster=finance]]")
+INFO:tinkoff.invest.logging:ea7996f4b15ac466dcbdfca2672b98ac GetCandles
+ERROR:yfinance:$PLD: possibly delisted; no price data found  (period=3mo) (Yahoo error = "Error occurred while retrieving timeseries")
+INFO:tinkoff.invest.logging:f34659219b5efe0d9d2ee40fd49815cd GetCandles
+ERROR:yfinance:$PLD: possibly delisted; no price data found  (1m 2025-07-03 07:16:51-04:00 -> 2025-07-10 07:16:51-04:00) (Yahoo error = "Error occurred while retrieving timeseries")
+INFO:tinkoff.invest.logging:a9eee96d1b069c81c27aeefe83ea1345 GetCandles
+ERROR:yfinance:$MRK: possibly delisted; no price data found  (period=3mo) (Yahoo error = "Request Failed")
+INFO:tinkoff.invest.logging:0b513b6e20c088d461f075e1111c2831 GetCandles
+ERROR:yfinance:$RTX: possibly delisted; no price data found  (1m 2025-07-03 07:21:18-04:00 -> 2025-07-10 07:21:18-04:00) (Yahoo error = "Error occurred while retrieving timeseries, keys: [RedisKey [key=TF[1,YF_HIST][5225], cluster=finance]]")
+ERROR:yfinance:$GD: possibly delisted; no price data found  (period=3mo) (Yahoo error = "Error occurred while retrieving timeseries, keys: [RedisKey [key=TS:GD:DELAYED, cluster=finance]]")
+ERROR:yfinance:$GD: possibly delisted; no price data found  (1m 2025-07-03 07:21:26-04:00 -> 2025-07-10 07:21:26-04:00) (Yahoo error = "Error occurred while retrieving timeseries, keys: [RedisKey [key=TS:GD:DELAYED, cluster=finance]]")
+ERROR:yfinance:$AIG: possibly delisted; no price data found  (period=3mo) (Yahoo error = "Error occurred while retrieving timeseries, keys: [RedisKey [key=TF[1,TSCP,QU,1h,DL][AIG], cluster=finance]]")
+INFO:tinkoff.invest.logging:24ee48faa781d8995e517d90a73f1bba GetCandles
+ERROR:yfinance:$ABBV: possibly delisted; no price data found  (period=3mo) (Yahoo error = "Error occurred while retrieving timeseries, keys: [RedisKey [key=TS:ABBV:DELAYED, cluster=finance]]")
+INFO:tinkoff.invest.logging:6d3a39c51198a6d5a819bff252396fb1 GetCandles
+ERROR:yfinance:$ABBV: possibly delisted; no price data found  (1m 2025-07-03 07:21:49-04:00 -> 2025-07-10 07:21:49-04:00) (Yahoo error = "Error occurred while retrieving timeseries, keys: [RedisKey [key=TS:ABBV:DELAYED, cluster=finance]]")
+INFO:tinkoff.invest.logging:c901c5c3eb16d46ba47339009eb4db38 GetCandles
+ERROR:yfinance:$RTX: possibly delisted; no price data found  (1m 2025-07-03 09:07:37-04:00 -> 2025-07-10 09:07:37-04:00)
+INFO:__main__:time 2025-07-10 23:40:42.265345:Ticker RTX,           cond1: False, cond2: True, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: False, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0066, deltaMA5_MA50_b3: 1.0071,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-11 00:47:46.697908:Ticker PM,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: False,          grad_MA5: True, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 0.9950, deltaMA5_MA50_b3: 0.9909,  trailing_ratio: 0.30
+INFO:__main__:time 2025-07-11 00:54:22.869798:Ticker PM,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 0.9947, deltaMA5_MA50_b3: 0.9909,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-11 01:58:30.960659:Ticker ABT,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: True,           deltaMA5_MA50: 0.9980, deltaMA5_MA50_b3: 0.9930,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-11 04:32:28.762568:Ticker MDT,           cond1: False, cond2: True, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: False, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0169, deltaMA5_MA50_b3: 1.0168,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-11 04:32:31.770764:Ticker AMD,           cond1: False, cond2: True, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: False, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0373, deltaMA5_MA50_b3: 1.0305,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-11 04:51:36.622142:Ticker DHR,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0274, deltaMA5_MA50_b3: 1.0224,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-11 05:31:31.671404:Ticker ABBV,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0279, deltaMA5_MA50_b3: 1.0290,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-11 05:37:26.340343:Ticker CMG,           cond1: False, cond2: True, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: False, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0062, deltaMA5_MA50_b3: 1.0078,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-11 05:45:36.153005:Ticker WELL,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0053, deltaMA5_MA50_b3: 1.0018,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-11 05:46:00.709471:Ticker WELL,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0054, deltaMA5_MA50_b3: 1.0018,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-11 05:49:39.724222:Ticker WELL,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0052, deltaMA5_MA50_b3: 1.0018,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-11 05:50:03.399470:Ticker WELL,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0054, deltaMA5_MA50_b3: 1.0018,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-11 05:50:52.260304:Ticker WELL,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0052, deltaMA5_MA50_b3: 1.0018,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-11 05:51:17.572982:Ticker WELL,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0052, deltaMA5_MA50_b3: 1.0018,  trailing_ratio: 2.99
+ERROR:yfinance:$REGN: possibly delisted; no price data found  (1m 2025-07-04 02:35:10-04:00 -> 2025-07-11 02:35:10-04:00)
+INFO:tinkoff.invest.logging:08dd9933ea402453e40bfbfa693c5cf2 GetCandles
+ERROR:yfinance:$NTRSI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$NTRSI: possibly delisted; no timezone found
+ERROR:yfinance:$LNTI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$LNTI: possibly delisted; no timezone found
+ERROR:yfinance:$FISV: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$FISV: possibly delisted; no timezone found
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (1m 2025-07-04 11:23:04-04:00 -> 2025-07-11 11:23:04-04:00) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$PFGI: possibly delisted; no price data found  (period=3mo)
+ERROR:yfinance:$PFGI: possibly delisted; no price data found  (1m 2025-07-04 11:23:11-04:00 -> 2025-07-11 11:23:11-04:00)
+ERROR:yfinance:$ZIONI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$ZIONI: possibly delisted; no timezone found
+ERROR:yfinance:$LHXI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$LHXI: possibly delisted; no timezone found
+ERROR:yfinance:$RMDI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$RMDI: possibly delisted; no timezone found
+ERROR:yfinance:$RMDI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$RMDI: possibly delisted; no timezone found
+ERROR:yfinance:$LNTI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$LNTI: possibly delisted; no timezone found
+ERROR:yfinance:$AIGI: possibly delisted; no price data found  (1m 2025-07-04 11:28:16-04:00 -> 2025-07-11 11:28:16-04:00)
+ERROR:yfinance:$FISV: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$FISV: possibly delisted; no timezone found
+ERROR:yfinance:$BMYI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$BMYI: possibly delisted; no timezone found
+ERROR:yfinance:$DOVI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DOVI: possibly delisted; no timezone found
+ERROR:yfinance:$VFCI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$VFCI: possibly delisted; no timezone found
+ERROR:yfinance:$ODFLI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$ODFLI: possibly delisted; no timezone found
+ERROR:yfinance:$FISV: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$FISV: possibly delisted; no timezone found
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (1m 2025-07-04 11:32:20-04:00 -> 2025-07-11 11:32:20-04:00) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$WSTI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$WSTI: possibly delisted; no timezone found
+ERROR:yfinance:$NDAQI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$NDAQI: possibly delisted; no timezone found
+ERROR:yfinance:$BMYI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$BMYI: possibly delisted; no timezone found
+ERROR:yfinance:$DOVI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DOVI: possibly delisted; no timezone found
+ERROR:yfinance:$VFCI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$VFCI: possibly delisted; no timezone found
+ERROR:yfinance:$AIGI: possibly delisted; no price data found  (1m 2025-07-04 11:34:11-04:00 -> 2025-07-11 11:34:11-04:00)
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (1m 2025-07-04 11:34:20-04:00 -> 2025-07-11 11:34:20-04:00) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$WSTI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$WSTI: possibly delisted; no timezone found
+ERROR:yfinance:$VFCI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$VFCI: possibly delisted; no timezone found
+ERROR:yfinance:$ODFLI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$ODFLI: possibly delisted; no timezone found
+ERROR:yfinance:$DREI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DREI: possibly delisted; no timezone found
+ERROR:yfinance:$AIGI: possibly delisted; no price data found  (1m 2025-07-04 11:35:48-04:00 -> 2025-07-11 11:35:48-04:00)
+ERROR:yfinance:$FISV: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$FISV: possibly delisted; no timezone found
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (1m 2025-07-04 11:35:56-04:00 -> 2025-07-11 11:35:56-04:00) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$WSTI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$WSTI: possibly delisted; no timezone found
+ERROR:yfinance:$BMYI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$BMYI: possibly delisted; no timezone found
+ERROR:yfinance:$DOVI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DOVI: possibly delisted; no timezone found
+ERROR:yfinance:$VFCI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$VFCI: possibly delisted; no timezone found
+ERROR:yfinance:$ODFLI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$ODFLI: possibly delisted; no timezone found
+ERROR:yfinance:$DREI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DREI: possibly delisted; no timezone found
+ERROR:yfinance:$AIGI: possibly delisted; no price data found  (1m 2025-07-04 11:37:09-04:00 -> 2025-07-11 11:37:09-04:00)
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (1m 2025-07-04 11:37:14-04:00 -> 2025-07-11 11:37:14-04:00) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$WSTI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$WSTI: possibly delisted; no timezone found
+ERROR:yfinance:$NDAQI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$NDAQI: possibly delisted; no timezone found
+ERROR:yfinance:$BMYI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$BMYI: possibly delisted; no timezone found
+ERROR:yfinance:$NEMI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$NEMI: possibly delisted; no timezone found
+ERROR:yfinance:$DOVI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DOVI: possibly delisted; no timezone found
+ERROR:yfinance:$ODFLI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$ODFLI: possibly delisted; no timezone found
+ERROR:yfinance:$DREI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DREI: possibly delisted; no timezone found
+ERROR:yfinance:$AIGI: possibly delisted; no price data found  (1m 2025-07-04 11:38:28-04:00 -> 2025-07-11 11:38:28-04:00)
+ERROR:yfinance:$FISV: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$FISV: possibly delisted; no timezone found
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (1m 2025-07-04 11:38:34-04:00 -> 2025-07-11 11:38:34-04:00) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$WSTI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$WSTI: possibly delisted; no timezone found
+ERROR:yfinance:$NDAQI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$NDAQI: possibly delisted; no timezone found
+ERROR:yfinance:$BMYI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$BMYI: possibly delisted; no timezone found
+ERROR:yfinance:$NEMI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$NEMI: possibly delisted; no timezone found
+ERROR:yfinance:$DOVI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DOVI: possibly delisted; no timezone found
+ERROR:yfinance:$VFCI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$VFCI: possibly delisted; no timezone found
+ERROR:yfinance:$ODFLI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$ODFLI: possibly delisted; no timezone found
+ERROR:yfinance:$DREI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DREI: possibly delisted; no timezone found
+ERROR:yfinance:$AIGI: possibly delisted; no price data found  (1m 2025-07-04 11:39:48-04:00 -> 2025-07-11 11:39:48-04:00)
+ERROR:yfinance:$FISV: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$FISV: possibly delisted; no timezone found
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$PXD: possibly delisted; no price data found  (1m 2025-07-04 11:39:54-04:00 -> 2025-07-11 11:39:54-04:00) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$WSTI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$WSTI: possibly delisted; no timezone found
+ERROR:yfinance:$NDAQI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$NDAQI: possibly delisted; no timezone found
+ERROR:yfinance:$BMYI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$BMYI: possibly delisted; no timezone found
+ERROR:yfinance:$NEMI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$NEMI: possibly delisted; no timezone found
+ERROR:yfinance:$DOVI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DOVI: possibly delisted; no timezone found
+ERROR:yfinance:$VFCI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$VFCI: possibly delisted; no timezone found
+ERROR:yfinance:$ODFLI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$ODFLI: possibly delisted; no timezone found
+INFO:__main__:time 2025-07-12 01:44:57.580952:Ticker RTX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0082, deltaMA5_MA50_b3: 1.0065,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 01:45:24.954259:Ticker RTX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: False,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0083, deltaMA5_MA50_b3: 1.0065,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 01:46:29.881363:Ticker RTX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0082, deltaMA5_MA50_b3: 1.0065,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 01:47:05.115638:Ticker RTX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0082, deltaMA5_MA50_b3: 1.0065,  trailing_ratio: 2.99
+ERROR:yfinance:$DOVI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DOVI: possibly delisted; no timezone found
+ERROR:yfinance:$VFCI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$VFCI: possibly delisted; no timezone found
+ERROR:yfinance:$DOVI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DOVI: possibly delisted; no timezone found
+ERROR:yfinance:$VFCI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$VFCI: possibly delisted; no timezone found
+ERROR:yfinance:$DOVI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DOVI: possibly delisted; no timezone found
+ERROR:yfinance:$VFCI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$VFCI: possibly delisted; no timezone found
+ERROR:yfinance:$DOVI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DOVI: possibly delisted; no timezone found
+ERROR:yfinance:$VFCI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$VFCI: possibly delisted; no timezone found
+ERROR:yfinance:$DOVI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$DOVI: possibly delisted; no timezone found
+ERROR:yfinance:$VFCI: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+ERROR:yfinance:$VFCI: possibly delisted; no timezone found
+INFO:__main__:time 2025-07-12 01:52:13.271669:Ticker RTX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0082, deltaMA5_MA50_b3: 1.0065,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 01:52:34.917710:Ticker RTX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0082, deltaMA5_MA50_b3: 1.0065,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 01:53:02.517733:Ticker RTX,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0080, deltaMA5_MA50_b3: 1.0065,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 03:57:49.092004:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0172, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 03:58:15.285494:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0171, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 04:03:22.106896:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0170, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 04:04:00.026864:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0171, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 04:04:26.840067:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0171, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 04:05:19.455615:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0171, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 04:05:45.677829:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0171, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 04:06:30.305758:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0170, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 04:06:56.751507:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0170, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 04:07:34.323408:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0170, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 04:08:00.392679:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0170, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 04:08:35.310237:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0170, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 04:09:01.400493:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0169, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 04:09:34.883434:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0169, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 04:10:01.242129:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0169, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 04:10:34.731472:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0169, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 04:11:25.409121:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0169, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 04:12:16.752253:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0169, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 04:13:08.193885:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0169, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 04:13:59.841819:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0169, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 04:14:51.518475:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0169, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 04:15:42.809803:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0169, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 04:16:34.050422:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0168, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 0.05
+INFO:__main__:time 2025-07-12 04:17:25.534896:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0168, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 2.99
+INFO:__main__:time 2025-07-12 04:18:17.520184:Ticker NSC,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: False, cond8: True,          grad_MA5: True, grad_MA50: True, grad_MA50_prev: False,           deltaMA5_MA50: 1.0168, deltaMA5_MA50_b3: 1.0129,  trailing_ratio: 0.05
+ERROR:yfinance:$ETSY: possibly delisted; no price data found  (1m 2025-07-04 14:48:54-04:00 -> 2025-07-11 14:48:54-04:00)
+INFO:tinkoff.invest.logging:08f2412c5574c9e100af047d23a66bc2 GetCandles
+INFO:__main__:time 2025-07-12 05:51:14.876255:Ticker WMB,           cond1: False, cond2: False, cond3: False, cond4: False,          cond5: False, cond6: False, cond7: True, cond8: True,          grad_MA5: True, grad_MA50: False, grad_MA50_prev: True,           deltaMA5_MA50: 1.0016, deltaMA5_MA50_b3: 0.9997,  trailing_ratio: 0.05
+ERROR:yfinance:$CSX: possibly delisted; no price data found  (1m 2025-07-04 20:49:24-04:00 -> 2025-07-11 20:49:24-04:00)
+INFO:tinkoff.invest.logging:be7d93f8788413bdbc4c07914a766597 GetCandles
