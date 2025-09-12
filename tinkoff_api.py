@@ -73,7 +73,7 @@ class Tinkoff_API():
                 to = datetime.now() - timedelta(days=days-1),
                 interval=CandleInterval.CANDLE_INTERVAL_1_MIN
             ))
-        columns = ['time','open', 'high', 'low', 'close']
+        columns = ['time','open', 'high', 'low', 'close', 'volume']
         df = pd.DataFrame(columns=columns)
         for candle in candles_list:
             open = self._convert_tf_price(candle.open)

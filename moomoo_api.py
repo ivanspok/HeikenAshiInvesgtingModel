@@ -486,7 +486,7 @@ class Moomoo_API():
                 case _:
                     hours = 1
             start = str(datetime.now() - timedelta(hours=hours)).split('.')[0]
-            end  = str(datetime.now()).split('.')[0]
+            end  = str(datetime.now() + timedelta(hours=24)).split('.')[0]
             number_attemps_to_get_data += 1
             ret, data = trd_ctx.history_order_list_query(acc_id=self.acc_id, trd_env=self.trd_env, start=start, end=end)
             if ret == ft.RET_OK:

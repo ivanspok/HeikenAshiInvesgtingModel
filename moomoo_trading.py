@@ -50,16 +50,16 @@ tzinfo_ny = pytz.timezone('America/New_York')
 #%% SETTINGS
 
 # Trade settings 
-default_buy_sum = 2000 # 3300 # in USD
+default_buy_sum = 2500 # 3300 # in USD
 min_buy_sum = 1000 # 2000 # in USD
-max_buy_sum = 2200 # 3300 # in  USD
-stop_trading_profit_value = -200 * rate # in AUD * rate = USD
+max_buy_sum = 2500 # 3300 # in  USD
+stop_trading_profit_value = -500 * rate # in AUD * rate = USD
 max_stock_price = 1360 # 1050 # in  USD
 
 order_1m_life_time_min = 1
 order_1h_life_time_min = 1
 order_before_market_open_life_time_min = 60 #720 #1440
-order_MA50_MA5_life_time_min = 5
+order_MA50_MA5_life_time_min = 7
 order_MA5_MA120_DS_life_time_min = 15
 place_trailing_stop_limit_order_imidiately = True
 
@@ -99,7 +99,7 @@ stock_name_list += ['FI','CB','SO','REGN','BSX','EQIX','BDX','PANW','DUK','EOG',
 # new stockes from 12/07/2025
 stock_name_list += ['ALGN','CDW','ZBRA','VTRS','KHC','CINF','LUMN','BAX','CZR','FANG','HIG','HWM','KEYS','LNT','NDAQ',
                        'NTRS','ODFL','RMD','SEE','SWK','TROW','VFC','WAT','WST','ZION','AAL','ALB','AMCR',
-                       'ANSS','ASML','AVY','CAG','CHKP','CHRW','CNP','CTSH','ETSY',
+                       'ASML','AVY','CAG','CHKP','CHRW','CNP','CTSH','ETSY',
                        'EXPE', 'FTV', 'GWW', 'HII', 'HWM', 'IPGP', 'JCI', 'KEYS', 'KMX', 'LHX',
                        'MASI', 'MORN', 'MSCI', 'PAYX',
                        'PKG', 'PNR', 'PPG', 'PRGO']
@@ -231,7 +231,7 @@ def get_historical_df(ticker='', interval='1h', period='2y', start_date=date.tod
       # last_price = ta.get_last_candle_close_price(ticker)
       
       if not df.empty:
-        df = df.rename(columns={"Open": "open", "Close" :'close', "High" : 'high', "Low": 'low'})
+        df = df.rename(columns={"Open": "open", "Close" :'close', "High" : 'high', "Low": 'low', "Volume": 'volume'})
 
         # c.print(f'{ticker} yfinance last price is {df['close'].iloc[-1]}')
         # c.print(f'{ticker} tinkoff last price is {df_ta['close'].iloc[-1]}')
@@ -242,7 +242,7 @@ def get_historical_df(ticker='', interval='1h', period='2y', start_date=date.tod
         )
         # df.index = pd.to_datetime(df['t'], unit='s', utc=True).map(lambda x: x.tz_convert('America/New_York'))
         df = f2.get_heiken_ashi_v2(df)
-        df = df[['open', 'high', 'low', 'close', 'pct', 'ha_pct', 'ha_colour']]
+        df = df[['open', 'high', 'low', 'close', 'pct', 'ha_pct', 'ha_colour', 'volume']]
         df = df.sort_index(ascending=True)
         df = MA(df, k=5) # add MA5 column to the df
         df = MA(df, k=7) # add MA7 column to the df
@@ -251,6 +251,7 @@ def get_historical_df(ticker='', interval='1h', period='2y', start_date=date.tod
         df = MA(df, k=120) # add MA120 column to the df
         df['MACD'], df['MACD_hist'] = MACD(df, fast=25, slow=50, signal=14, column='close') # add MACD columns to the df
         df['MA30_RSI10'] = MA(RSI(df, period=10, column='close'),k=30) # add RSI columns to the df
+        df['VR'], df['VRMA'] = calculate_volume_ratio(df, window=26, MA_window=6) # add VR and VRMA columns to the df
     except Exception as e:
       alarm.print(traceback.format_exc())
     return df 
@@ -261,7 +262,50 @@ def more_than_pct(value1, value2, pct):
   else:
     return False
 
-def is_near_global_max(df, i, k=400, prt=70):
+def is_near_local_minimum(df, k=30, max_dist=15):
+    '''
+    Returns True if the local minimum in the last k points is within max_dist ticks from the end,
+    but not in the last 3 ticks.
+    '''
+    result = False
+    # Safety check: ensure df has enough points
+    if len(df) < k:
+        return False
+    local_min_index = np.argmin(df.iloc[-k:])  # index in the window, 0 is oldest, k-1 is newest
+    # The position from the end: k - local_min_index
+    # So, local_min_index > k - max_dist means it's within max_dist from the end
+    # local_min_index < k - 3 means not too close to the end
+    if local_min_index > k - max_dist and local_min_index < k - 3:
+        result = True
+    return result
+  
+def is_near_local_minimum(df, k=30, max_dist=15):
+    '''
+    Returns True if the local minimum in the last k points is within max_dist ticks from the end,
+    but not in the last 3 ticks.
+    '''
+    result = False
+    # Safety check: ensure df has enough points
+    if len(df) < k:
+        return False
+    local_min_index = np.argmin(df.iloc[-k:])  # index in the window, 0 is oldest, k-1 is newest
+    # The position from the end: k - local_min_index
+    # So, local_min_index > k - max_dist means it's within max_dist from the end
+    # local_min_index < k - 3 means not too close to the end
+    if local_min_index > k - max_dist and local_min_index < k - 3:
+        result = True
+    return result
+
+def is_near_global_max(df, k=150, close_dist=100):
+  result = False
+  if len(df) < k:
+        return False
+  global_max_index = np.argmax(df.iloc[-k:]) # index in the window, 0 is oldest, k-1 is newest
+  if global_max_index > k - close_dist:
+    result = True
+  return result
+  
+def is_near_global_max_prt(df, i, k=400, prt=70):
   result = False
   try:
     if i > k:
@@ -276,6 +320,39 @@ def is_near_global_max(df, i, k=400, prt=70):
   except Exception as e:
     alarm.print(traceback.format_exc())
   return result
+
+import pandas as pd
+
+def calculate_volume_ratio(df,  window=26, MA_window=6) -> Tuple[pd.Series, pd.Series]:
+    """
+    Calculate Volume Ratio (VR) indicator.
+
+    Parameters:
+    df (pd.DataFrame): DataFrame with 'Close' and 'Volume' columns.
+    close_col (str): Column name for closing prices.
+    volume_col (str): Column name for volume.
+    window (int): Rolling window size.
+
+    Returns:
+    pd.Series: Volume Ratio values.
+    """
+    # Calculate price change direction
+    df['diff'] = df['close'].diff()
+    # Classify volume as up or down
+    df['up_volume'] = df.apply(lambda row: row['volume'] if row['diff'] > 0 else 0, axis=1)
+    df['down_volume'] = df.apply(lambda row: row['volume'] if row['diff'] < 0 else 0, axis=1)
+    df['const_volume'] = df.apply(lambda row: row['volume'] if row['diff'] == 0 else 0, axis=1)
+
+    # Rolling sums
+    up_sum = df['up_volume'].rolling(window=window).sum()
+    down_sum = df['down_volume'].rolling(window=window).sum()
+    const_volume = df['const_volume'].rolling(window=window).sum()
+
+    # Avoid division by zero
+    df['VR'] = 100 * (up_sum * 2 + const_volume) / (down_sum * 2 + const_volume + 1e-10)
+    df['VRMA'] = MA(df['VR'], k=MA_window)
+
+    return df['VR'], df['VRMA']
 
 def number_red_candles(df, i, k=11):
 
@@ -320,7 +397,7 @@ if False:
       and last_top / df['open'].iloc[i] > last_top_ratio \
       and i - last_top_i > distance_from_last_top \
       and buy_ratio > buy_ratio_border \
-      and not(is_near_global_max(df, i, k=400, prt=is_near_global_max_prt)) \
+      and not(is_near_global_max_prt(df, i, k=400, prt=is_near_global_max_prt)) \
       and number_red_candles(df, i) > 6:
       
       buy_price = float(df['close'].iloc[i])
@@ -1372,14 +1449,15 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
   
   #conditions 
   # buy when MACD_hist is positive and increasing and not more 8 greens MACD_hist in a row:
+  MACD_hist_max_amp = df['MACD_hist'].iloc[-50:-2].abs().max()
   cond_a1  =  df['MACD_hist'].iloc[-1] > 0 \
+            and df['MACD_hist'].iloc[-1] < MACD_hist_max_amp\
             and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
             and df['MACD_hist'].iloc[-2] >= df['MACD_hist'].iloc[-3] \
             and not (df['MACD_hist'].iloc[-8:] > 0).all()
-      
+
   # buy when MACD_hist is negative and increasing:
   cond_a2 = df['MACD_hist'].iloc[-1] < 0 \
-           and df['MACD'].iloc[-1] < 0 \
            and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
            and df['MACD_hist'].iloc[-2] > df['MACD_hist'].iloc[-3] \
           #  and df['MACD_hist'].iloc[-3] > df['MACD_hist'].iloc[-4]   # comment from 12/07/2025        
@@ -1390,13 +1468,25 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
             and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
             and df['ha_colour'].iloc[-1] == 'green' \
             and cond_value_a3 > 5
-  
+            
+  # buy when MACD_hist is positive and increasing after local minimum:
+  local_min_index = np.argmin(df['MACD_hist'].iloc[-9:]) # 0 is the last candle, 8 is the oldest
+  local_min = df['MACD_hist'].iloc[-9:].iloc[local_min_index]
+  value_before_local_min = df['MACD_hist'].iloc[-9:].iloc[local_min_index - 1] if local_min_index > 0 else local_min
+  cond_a4 = df['MACD_hist'].iloc[-1] > 0 \
+            and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
+            and df['MACD_hist'].iloc[-1] > local_min \
+            and value_before_local_min > local_min \
+            and (df['MACD_hist'].iloc[-9:] > 0).all() \
+            and local_min_index < 6 # local minimum should be not more than 6 candles ago
+            
   MACD_hist = df['MACD_hist'].iloc[-1]
   
   cond_RSI = df['MA30_RSI10'].iloc[-1] >= 29 \
-           and df['MA30_RSI10'].iloc[-1] <= 60 \
+           and df['MA30_RSI10'].iloc[-1] <= 80 \
            and df['MA30_RSI10'].iloc[-1] >= df['MA30_RSI10'].iloc[-2]
           #  and df['MA30_RSI10'].iloc[-2] >= df['MA30_RSI10'].iloc[-3]             
+          # 13.08.2025 <=60 changed to <=80
   cond_value_RSI = df['MA30_RSI10'].iloc[-1]
   
   cond_grad_MACD = df['MACD'].iloc[-1] >= df['MACD'].iloc[-2] \
@@ -1415,13 +1505,22 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
   
 
   MACD_hist_1m = df_1m['MACD_hist'].iloc[-1]
-  cond_MACD_hist_1m = MACD_hist_1m < 0
+  cond_MACD_hist_1m = MACD_hist_1m < 0 \
+    or ( not (df_1m['MACD_hist'].iloc[-7:] > 0).all() \
+        and df_1m['MACD_hist'].iloc[-1] >= df_1m['MACD_hist'].iloc[-2] \
+        and df_1m['MACD_hist'].iloc[-2] >= df_1m['MACD_hist'].iloc[-3])
   
   # cond_9: MACD 1 min is positive and increasing, MACD_hist is negative and increasing
   cond_positive_MACD_1m = df_1m['MACD'].iloc[-1] > 0.01 \
            and df_1m['MACD'].iloc[-1] >= df_1m['MACD'].iloc[-2] \
            and df_1m['MACD_hist'].iloc[-1] < 0 \
            and df_1m['MACD_hist'].iloc[-1] > df_1m['MACD_hist'].iloc[-2]
+
+  cond2_positive_MACD_1m  = df_1m['MACD'].iloc[-1] > 0.01 \
+            and df_1m['MACD_hist'].iloc[-1] > 0 \
+            and df_1m['MACD_hist'].iloc[-1] > df_1m['MACD_hist'].iloc[-2] \
+            and df_1m['MACD_hist'].iloc[-2] >= df_1m['MACD_hist'].iloc[-3] \
+            and not (df_1m['MACD_hist'].iloc[-30:] > 0).all()     
               
   MACD_hist_speed = df['MACD_hist'].iloc[-1] / df['MACD_hist'].iloc[-2]
   if df['MACD_hist'].iloc[-1] < 0 or df['MACD_hist'].iloc[-2] < 0:
@@ -1437,32 +1536,92 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
   cond_MA50_M120_1m_120 = delta_MA50_MA120_1m.iloc[-1] > delta_MA50_MA120_1m.iloc[-2] \
             and delta_MA50_MA120_1m.iloc[-2] > delta_MA50_MA120_1m.iloc[-3] \
             and (delta_MA50_MA120_1m.iloc[-1]  > 0.08 
-                 or delta_MA50_MA120_1m.iloc[-120:].sum() < 0)
-
-            
+                 or delta_MA50_MA120_1m.iloc[-120:].sum() < 0
+                 or delta_MA50_MA120_1m.iloc[-1]  < -0.02 ) \
+            and delta_MA50_MA120_1m.iloc[-1] < 0.4
+     
   delta_MA50_M120 = (df['MA50'] / df['MA120'] - 1) * 100
-  cond_delta_MA50_M120 = delta_MA50_M120.iloc[-1] > 0
+  # cond_delta_MA50_M120 = delta_MA50_M120.iloc[-1] > 0
+  # new from 31/08/2025
+  cond_delta_MA50_M120 = delta_MA50_M120.iloc[-1] > delta_MA50_M120.iloc[-2] \
+            and delta_MA50_M120.iloc[-2] >= delta_MA50_M120.iloc[-3]
   
   cond_RSI_1m = df_1m['MA30_RSI10'].iloc[-1] > df_1m['MA30_RSI10'].iloc[-2] \
             and df_1m['MA30_RSI10'].iloc[-2] >= df_1m['MA30_RSI10'].iloc[-3] \
   
+  # added from 31/08/2025
+  cond_grad_MA5_1m = df_1m['MA5'].iloc[-1] > df_1m['MA5'].iloc[-2]
+  
+  MACD_hist_max_amp_1m = df_1m['MACD_hist'].iloc[-50:-2].abs().max()
+  cond_MACD_hist_max_amp_1m =  df_1m['MACD_hist'].iloc[-1] < 0 \
+    or df_1m['MACD_hist'].iloc[-1] < MACD_hist_max_amp_1m * 0.5
+  
   # cond 8 new from 02/07/2025 !!!
-  if (cond_a1 or cond_a2 or cond_a3) \
+  if (cond_a1 or cond_a2 or cond_a3 or cond_a4) \
       and cond_RSI \
       and cond_grad_MACD \
       and cond_MACD_hist_speed \
       and cond_delta_MA50_M120 \
       and cond_grad_MACD_1m \
-      and cond_MACD_hist_1m \
       and cond_MA50_M120_1m_120 \
+      and cond_grad_MA5_1m \
       and cond_RSI_1m \
-      and (cond_MACD_1m_sum20 or cond_positive_MACD_1m):
+      and cond_MACD_hist_max_amp_1m:
+      # condition = True
+      tt = 1
+  
+  # b1: MA50M120Diff cross zero (15min window) and grad MACD > 0 and MACD > 0
+  # b2: MACD cross zero (15min window) and grad MA50M120Diff > 0 and MA50M120Diff > 0
+  cond_grad_MA50_M120_1m_120 = delta_MA50_MA120_1m.iloc[-1] > delta_MA50_MA120_1m.iloc[-2] \
+            and delta_MA50_MA120_1m.iloc[-2] > delta_MA50_MA120_1m.iloc[-3]
+  cond_b1 = delta_MA50_MA120_1m.iloc[-1] > 0 \
+            and (delta_MA50_MA120_1m.iloc[-15:-2] < 0).any() \
+            and MACD_1m > 0.001
+  cond_b2 = df_1m['MACD'].iloc[-1] > 0 \
+            and (df_1m['MACD'].iloc[-15:-2] < 0).any() \
+            # and delta_MA50_MA120_1m.iloc[-1] > 0
+  
+  time_cond = datetime.now().astimezone(tzinfo_ny).hour == 9  \
+              and datetime.now().astimezone(tzinfo_ny).minute > 28 \
+              and datetime.now().astimezone(tzinfo_ny).minute < 45                          
+            
+  delta_MA50_MA120_1m_sum180 = delta_MA50_MA120_1m.iloc[-180:].sum()
+  cond_sum_delta_MA50_MA120_1m = delta_MA50_MA120_1m_sum180 < 0
+  
+  is_near_global_max_ = is_near_global_max(df_1m['MA50'])
+  is_near_local_minimum_ = is_near_local_minimum(df_1m['MA50'])
+  cond_b3 = is_near_local_minimum_ and not is_near_global_max_
+  # c.green_red_print(is_near_global_max_ , f'is_near_global_max_')
+  # c.green_red_print(is_near_local_minimum_ , f'is_near_local')
+  
+  cond_VR = df_1m['VR'].iloc[-1] < 200 \
+    and df_1m['VRMA'].iloc[-1] < 200
+             
+  if (cond_b1 or cond_b2 or cond_b3) \
+      and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
+      and cond_RSI \
+      and cond_grad_MACD \
+      and cond_MACD_hist_speed \
+      and cond_delta_MA50_M120 \
+      and cond_grad_MACD_1m \
+      and cond_grad_MA50_M120_1m_120 \
+      and cond_grad_MA5_1m \
+      and cond_RSI_1m \
+      and (cond_sum_delta_MA50_MA120_1m or time_cond) \
+      and cond_VR:
       condition = True    
+      
+      # and cond_MACD_hist_max_amp_1m:
+      # removed from 31/08/25
+      # and cond_MACD_hist_1m 
+      # and (cond_MACD_1m_sum20 or cond_positive_MACD_1m or cond2_positive_MACD_1m)
+      
+      # and cond_RSI_1m \ removed from 18/08/25
       
   if df['MA30_RSI10'].iloc[-1]  < 25 \
     or df['MACD'].iloc[-2] < df['MACD'].iloc[-3] \
     or df['MACD_hist'].iloc[-2] < df['MACD_hist'].iloc[-3] \
-    or delta_MA50_M120.iloc[-1]  < -0.3:
+    or delta_MA50_M120.iloc[-1] < delta_MA50_M120.iloc[-2]:
     # exclude company from _list optimal list
     warning.print(f'{ticker} is excluding from current optimal stock list')
     exclude_time_dist[ticker] = datetime.now()
@@ -1478,7 +1637,7 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
     total_market_direction_10m = 0
     total_market_direction_60m = 0
    
-  if display:
+  if display and False:
     warning.print('MA50_MA5 conditions parameters:')
     c.print('AND CONDITIONS:', color='yellow')
     c.green_red_print(cond_RSI, f'cond_RSI (MA30_RSI10), {cond_value_RSI:.3f}')
@@ -1489,14 +1648,32 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
     c.green_red_print(cond_MACD_hist_1m, f'(MACD_hist 1m < 0), {MACD_hist_1m:.3f}')
     c.green_red_print(cond_RSI_1m, f'cond_RSI_1m, {df_1m["MA30_RSI10"].iloc[-1]:.3f}')
     c.green_red_print(cond_MA50_M120_1m_120, f'cond_MA50_M120_1m_120, {delta_MA50_MA120_1m.iloc[-1]:.3f}')
+    c.green_red_print(cond_grad_MA5_1m, f'cond_grad_MA5_1m')
+    c.green_red_print(cond_MACD_hist_max_amp_1m, f'cond_MACD_hist_max_amp_1m, {MACD_hist_max_amp_1m:.3f}')
     c.print('OR CONDITIONS:', color='yellow')
     c.green_red_print(cond_MACD_1m_sum20, f'MACD 1m sum last 20 < 0, {MACD_1m_sum20:.3f}')
     c.green_red_print(cond_positive_MACD_1m, f'cond_positive_MACD_1m')
+    c.green_red_print(cond2_positive_MACD_1m, f'cond2_positive_MACD_1m')
     c.print('OR CONDITIONS:', color='yellow')
     c.green_red_print(cond_a1, f'cond_a1 (MACD_hist > 0), {MACD_hist:.3f}')
     c.green_red_print(cond_a2, f'cond_a2 (MACD_hist < 0), {MACD_hist:.3f}')
     c.green_red_print(cond_a3, f'cond_a3 (number red 1h ha candles > 5), {cond_value_a3:.3f}')
-    
+    c.green_red_print(cond_a4, f'cond_a4 (MACD_hist > 0), {MACD_hist:.3f}')
+  
+  if display:
+    warning.print('MA50_MA5 conditions parameters:')
+    c.print('AND CONDITIONS:', color='yellow')
+    c.green_red_print(cond_RSI, f'cond_RSI (MA30_RSI10), {cond_value_RSI:.3f}')
+    c.green_red_print(cond_delta_MA50_M120, f'cond_delta_MA50_M120, {delta_MA50_M120.iloc[-1]:.3f}')
+    c.green_red_print(cond_grad_MACD_1m, f'grad_MACD_1m > 0, {MACD_1m:.3f}')
+    c.green_red_print(cond_grad_MA50_M120_1m_120, f'cond_grad_MA50_M120_1m_120')
+    c.green_red_print(cond_grad_MA5_1m, f'cond_grad_MA5_1m')
+    c.green_red_print(cond_RSI_1m, f'cond_RSI_1m, {df_1m["MA30_RSI10"].iloc[-1]:.3f}')
+    c.green_red_print(cond_sum_delta_MA50_MA120_1m, f'cond_sum_delta_MA50_MA120_1m, {delta_MA50_MA120_1m_sum180:.3f}')
+    c.print('OR CONDITIONS:', color='yellow')
+    c.green_red_print(cond_b1, f'cond_b1 (MA50M120Diff cross zero), {delta_MA50_MA120_1m.iloc[-1]:.3f}')
+    c.green_red_print(cond_b2, f'cond_b2 (MACD cross zero), {MACD:.3f}')
+
   if condition: 
     c.green_red_print(condition, condition_type)
     
@@ -2442,11 +2619,11 @@ def modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price, stock_df
         and (stock_df['MA30_RSI10'].iloc[-1] <= stock_df['MA30_RSI10'].iloc[-2] \
           or cond_9 
           or current_gain <= 0.9985) \
+        and (MA50_MA120_1m_120.iloc[-1] < MA50_MA120_1m_120.iloc[-2] 
+             and MA50_MA120_1m_120.iloc[-2] <= MA50_MA120_1m_120.iloc[-3]) \
         and order['trailing_ratio'] > 0.05:
         trailing_ratio = 0.05
-        
-      
-          
+             
       if stock_df['ha_colour'].iloc[-1] == 'green' \
          and stock_df['MA5'].iloc[-1] >= stock_df['MA5'].iloc[-2] \
          and order['trailing_ratio'] == 0.05 \
@@ -2458,7 +2635,7 @@ def modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price, stock_df
       #   and order['trailing_ratio'] > 0.01:
       #   trailing_ratio = 0.01
       print('--'*50)  
-      blue.print(f'Modify order for stock {order['ticker']} information')
+      blue.print(f'Modify order for stock {order['ticker']} information:')
       warning.print(f'Current gain is {current_gain:.3f}')
       warning.print(f'Current trailing ratio: {order['trailing_ratio']:.2f}, new trailing ratio: {trailing_ratio:.2f}')
       warning.print('Trailing ration 0.3 condition:') 
@@ -2627,6 +2804,7 @@ def buy_price_based_on_condition(df, df_1m, condition_type):
       buy_price = df_1m['close'].iloc[-1] * 1.0005
     if condition_type in ['MA50_MA5', 'MA5_MA120_DS']:
       buy_price = df_1m['close'].iloc[-1] * 1.0003
+      # buy_price = min(df_1m['close'].iloc[-3:-1].min(), df_1m['open'].iloc[-3:-1].min(), df_1m['close'].iloc[-1])
 
   except Exception as e:
     alarm.print(traceback.format_exc())        
@@ -2725,7 +2903,7 @@ def check_stocks_for_inclusion():
       if ticker in exclude_time_dist:
         delta = datetime.now() - exclude_time_dist[ticker]
         deltatime_minutes = delta.seconds / 60 + delta.days * 24 * 60
-        if deltatime_minutes >= 60 \
+        if deltatime_minutes >= 30 \
           and ticker not in stock_name_list_opt:
           stock_name_list_opt.append(ticker)
           exclude_time_dist.pop(ticker, None)
@@ -2880,7 +3058,8 @@ if __name__ == '__main__':
     # 1. Check what stocks are bought based on MooMoo (position list) and df
     positions_list = ma.get_positions()
     # Statistic calculations 
-    df_stats = stats_calculation(stock_name_list_opt)
+    df_stats = {}
+    # df_stats = stats_calculation(stock_name_list_opt)
     # ReLoad trade history (syncronization) as maybe losing df somewhere
     if load_from_csv:
       df = load_orders_from_csv()
@@ -3034,27 +3213,27 @@ if __name__ == '__main__':
           stock_df = get_historical_df(ticker = ticker, period=period, interval=interval, prepost=prepost_1h)
           try:
             stock_df_1m = get_historical_df(ticker = ticker, period='max', interval='1m', prepost=prepost_1m)
-            current_price = stock_df_1m['close'].iloc[-1]
-            current_timezone = datetime.now().astimezone().tzinfo
-            time_is_correct =  (datetime.now().astimezone() - stock_df_1m.index[-1].astimezone(current_timezone)).seconds  < 60 * 3
-            if time_is_correct:
-              market_value += stock_df_1m['pct'].iloc[-2]
-            else:
-              market_value  += 0
-            market_value_2m += minmax(stock_df_1m['pct'].iloc[-2:-1].sum(), -3, 3)
-            market_value_5m += minmax(stock_df_1m['pct'].iloc[-5:-1].sum(), -3 ,3)
-            market_value_30m += minmax(stock_df_1m['pct'].iloc[-30:-1].sum(), -3, 3)
-            market_value_60m += minmax(stock_df_1m['pct'].iloc[-60:-1].sum(), -3, 3)
-            if stock_df_1m['pct'].iloc[-10:-1].sum() > 0.02:
-              market_direction_10m += 1
-            else:
-              market_direction_10m -= 1            
-            if stock_df_1m['pct'].iloc[-60:-1].sum() > 0.2:
-              market_direction_60m += 1 
-            else:
-              market_direction_60m -= 1
-              
-              
+            if stock_df_1m.shape[0] > 0:
+              current_price = stock_df_1m['close'].iloc[-1]
+              current_timezone = datetime.now().astimezone().tzinfo
+              time_is_correct =  (datetime.now().astimezone() - stock_df_1m.index[-1].astimezone(current_timezone)).seconds  < 60 * 3
+              if time_is_correct:
+                market_value += stock_df_1m['pct'].iloc[-2]
+              else:
+                market_value  += 0
+              market_value_2m += minmax(stock_df_1m['pct'].iloc[-2:-1].sum(), -3, 3)
+              market_value_5m += minmax(stock_df_1m['pct'].iloc[-5:-1].sum(), -3 ,3)
+              market_value_30m += minmax(stock_df_1m['pct'].iloc[-30:-1].sum(), -3, 3)
+              market_value_60m += minmax(stock_df_1m['pct'].iloc[-60:-1].sum(), -3, 3)
+              if stock_df_1m['pct'].iloc[-10:-1].sum() > 0.02:
+                market_direction_10m += 1
+              else:
+                market_direction_10m -= 1            
+              if stock_df_1m['pct'].iloc[-60:-1].sum() > 0.2:
+                market_direction_60m += 1 
+              else:
+                market_direction_60m -= 1
+                
             # warning.print(f'market_value is {market_value:.2f},market_value_2m is {market_value_2m:.2f},  market_value_5m is {market_value_5m:.2f}')
             # warning.print(f'market_value_30m is {market_value_30m:.2f}, market_value_60m is {market_value_60m:.2f}')
           except Exception as e:
@@ -3085,7 +3264,7 @@ if __name__ == '__main__':
         # 3.4 BUY SECTION:
         conditions_info = ''
         try:
-          if not(stock_df is None) and not(stock_df_1m is None):
+          if not(stock_df is None) and not(stock_df_1m is None) and stock_df_1m.shape[0] > 0:
             if not(ticker in bought_stocks_list or ticker in placed_stocks_list):
               if market_time_before_1430 or test_buy_sim:
                 buy_condition_MA50_MA5, conditions_info = stock_buy_condition_MA50_MA5(stock_df, stock_df_1m, df_stats, ticker, display=True)
@@ -3141,7 +3320,11 @@ if __name__ == '__main__':
             print(f'stock {ticker}, time: {stock_df.index[-1]} last price is {stock_df['close'].iloc[-1]:.2f}, pct is {stock_df['pct'].iloc[-1]:.2f}')
             c.print(f'_'*100)
             current_timezone = datetime.now().astimezone().tzinfo
-            time_is_correct =  (datetime.now().astimezone() - stock_df.index[-1].astimezone(current_timezone)).seconds  < 60 * 60 * 1 + 60 * 5 
+            try:
+              time_is_correct =  (datetime.now().astimezone() - stock_df.index[-1].astimezone(current_timezone)).seconds  < 60 * 60 * 1 + 60 * 5 
+            except Exception as e:
+              time_is_correct = False
+              alarm.print(traceback.format_exc())
             # c.print(f'Time is correct condition {time_is_correct}', color='yellow')
 
             buy_price = buy_price_based_on_condition(stock_df, stock_df_1m, buy_condition_type)
@@ -3202,9 +3385,9 @@ if __name__ == '__main__':
                 security_condition_1m = False
                 # alarm.print(f'Market seems to be dropping')
               
-              if total_market_value_30m < -15:
-                security_condition_1h = False
-                alarm.print(f'Market seems to be dropping')
+              # if total_market_value_30m < -15:
+              #   security_condition_1h = False
+              #   alarm.print(f'Market seems to be dropping')
 
               # Calculate buy_sum based on available money and min and max buy_sum condition
               if us_cash < default_buy_sum:
