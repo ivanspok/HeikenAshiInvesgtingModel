@@ -44,8 +44,23 @@ class TradeInterface():
         self.db = sql_db.DB_connection(folder_path, 'trade.db')
       except Exception as e:
         alarm.print(e)
-
+  
+  def __place_buy_limit_if_touched_order__(self, ticker, buy_price, stocks_number, fill_outside_rth=True, num_tries=3):
+    moomoo_order, order_id = self.moomoo_api.place_buy_limit_if_touched_order(ticker, buy_price, stocks_number, fill_outside_rth=fill_outside_rth)
+    if  type(moomoo_order) == str:
+      if moomoo_order.find('Trigger price should be lower than the market price.') != -1 \
+         or moomoo_order.find('''Trigger price can't be the current price''') != -1:
+        if num_tries > 0:
+          buy_price = buy_price * 0.9995
+          num_tries -= 1
+          return self.__place_buy_limit_if_touched_order__(ticker, buy_price, stocks_number, fill_outside_rth=fill_outside_rth, num_tries=num_tries)
+        else:
+          return moomoo_order, None
+    else:
+      return moomoo_order, order_id
+  
   def buy_order(self, ticker, buy_price, buy_condition_type, default, buy_sum=0, stocks_number=0, **kwargs):
+    order_type = kwargs.get('order_type', 'limit_if_touched')  
     response = None
     order = {}
     if buy_sum != 0:
@@ -110,11 +125,16 @@ class TradeInterface():
             break
       else:
         if buy_condition_type == 'MA50_MA5':
-          # fill_outside_rth = False
-          fill_outside_rth = True
+          fill_outside_rth = False
+          # fill_outside_rth = True
         else:
           fill_outside_rth = True
-        moomoo_order, order_id = self.moomoo_api.place_buy_limit_order(ticker, buy_price, stocks_number, fill_outside_rth=fill_outside_rth)
+        # moomoo_order, order_id = self.moomoo_api.place_buy_limit_order(ticker, buy_price, stocks_number, fill_outside_rth=fill_outside_rth)
+        # moomoo_order, order_id = self.moomoo_api.place_buy_limit_if_touched_order(ticker, buy_price, stocks_number, fill_outside_rth=fill_outside_rth)
+        if order_type == 'limit_if_touched':
+          moomoo_order, order_id = self.__place_buy_limit_if_touched_order__(ticker, buy_price, stocks_number, fill_outside_rth=fill_outside_rth)
+        elif order_type == 'limit':
+          moomoo_order, order_id = self.moomoo_api.place_buy_limit_order(ticker, buy_price, stocks_number, fill_outside_rth=fill_outside_rth)
       if order_id is not None:
         if moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTING \
           or moomoo_order['order_status'].values[0] == ft.OrderStatus.SUBMITTED \

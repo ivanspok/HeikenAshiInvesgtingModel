@@ -80,12 +80,13 @@ class Tinkoff_API():
             high = self._convert_tf_price(candle.high)
             low = self._convert_tf_price(candle.low)
             close = self._convert_tf_price(candle.close)
+            volume = candle.volume
             time = candle.time
             time = time.astimezone(ZoneInfo('US/Eastern'))
             
             # df_add = pd.DataFrame([[time, open, high, low, close]], columns=columns)
             if open != 0:
-                df.loc[df.shape[0]] = [time, open, high, low, close]
+                df.loc[df.shape[0]] = [time, open, high, low, close, volume]
         # if not df.empty:
         #     df['pct'] = np.where(df['open'] < df['close'],  
         #                     (df['close'] / df['open'] - 1) * 100,

@@ -180,7 +180,7 @@ class Moomoo_API():
                                     order_type=ft.OrderType.LIMIT_IF_TOUCHED,
                                     aux_price=price,
                                     fill_outside_rth=fill_outside_rth)
-            print(f'Placing BUY limit if touched order for {stock_code}')
+            print(f'Placing BUY limit if touched order for {stock_code}, price {price}, qty {qty}')
             print(f'Market response is {ret}, data is {data}')
             if ret == ft.RET_OK:
                 order_id = data['order_id'].values[0]
