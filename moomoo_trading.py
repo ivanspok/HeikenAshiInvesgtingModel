@@ -121,8 +121,7 @@ prepost_1h = False
 prepost_1m = False
 
 # settings for buy condition Version 3.0
-is_near_global_max_prt = 120  # used to be 100
-distance_from_last_top  = 0
+# is_near_global_max_prt = 120  
 last_top_ratio = 1
 RIV  = 0.15
 buy_ratio_border = 0
@@ -282,7 +281,6 @@ def is_near_local_min(df, k=30, max_dist=15):
 def is_near_local_min_5points(df):
 
   return df.iloc[-1] > df.iloc[-2] < df.iloc[-3] < df.iloc[-4] < df.iloc[-5]
-
 
 def is_near_global_max(df, k=150, close_dist=100):
   result = False
@@ -1545,10 +1543,13 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
             and delta_MA50_MA120_1m.iloc[-1] < 0.4
      
   delta_MA50_M120 = (df['MA50'] / df['MA120'] - 1) * 100
+  delta_MA5_M20 = (df['MA5'] / df['MA20'] - 1) * 100
   # cond_delta_MA50_M120 = delta_MA50_M120.iloc[-1] > 0
   # new from 31/08/2025
   cond_delta_MA50_M120 = delta_MA50_M120.iloc[-1] > delta_MA50_M120.iloc[-2] \
             and delta_MA50_M120.iloc[-2] >= delta_MA50_M120.iloc[-3]
+  
+  cond_grad_delta_MA5_M20 = delta_MA5_M20.iloc[-1] > delta_MA5_M20.iloc[-2]
   
   cond_RSI_1m = df_1m['MA30_RSI10'].iloc[-1] > df_1m['MA30_RSI10'].iloc[-2] \
             and df_1m['MA30_RSI10'].iloc[-2] >= df_1m['MA30_RSI10'].iloc[-3] \
@@ -1606,31 +1607,60 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
   cond_b4 = is_near_local_min_MA20 and not is_near_global_max_MA20
   
   
-  cond_VR = df_1m['VR'].iloc[-1] < 200 \
-    and df_1m['VRMA'].iloc[-1] < 200
-    
-  no_big_spikes_1h = (df['pct'].iloc[-8:] < 1.02).all() and \
-    ((df['close'] / df['close'].shift(1))[-8:] < 1.012).all()
+  cond_VR_1m = df_1m['VR'].iloc[-1] < 120 \
+    and df_1m['VRMA'].iloc[-1] < 120
+  
+  # no big spikes in last 8 hours
+  spikes_1 = (df['pct'].iloc[-8:] < 1.0099).all()
+  spikes_2 = ((df['close'] / df['close'].shift(1))[-8:] < 1.012).all()
+  # spikes_2 = 
+  # spikes_3 = maximum(stock_df, i, k=3) / minimum(stock_df, i, k=3) < 1.008
+  spikes_3_value = df_1m['close'].iloc[-1] / minimum(stock_df, i, k=3) 
+  spikes_3 = spikes_3_value < 1.012
+  no_big_spikes_1h = spikes_1 and spikes_3 
+  # no_big_spikes_1h = spikes_1 and spikes_2 and spikes_3 
   # warning.print(f'percentage from local min MA50: {prt_from_local_min(df_1m, i_1m):.3f}%')
   
   MA5_1h_is_near_local_min = is_near_local_min_5points(df['MA5'])
   permit_1h_cond = MA5_1h_is_near_local_min and \
     df['MA20'].iloc[-1] > df['MA20'].iloc[-2] 
+    
+  cond_grad_MA5 = df['MA5'].iloc[-1] > df['MA5'].iloc[-2]
+  cond_grad_MA20 = df['MA20'].iloc[-1] > df['MA20'].iloc[-2]
+  
+  # one of the 3 1hour last heiken ashi candles is red
+  ha_cond_1h = (df['ha_colour'].iloc[-4:-1] == 'red').any() \
+    and df['ha_colour'].iloc[-1] == 'green'
+    
+  cond_b6 = (df['ha_colour'].iloc[-3:-1] == 'red').any() \
+    and df['ha_colour'].iloc[-1] == 'green'
+    
+  MA20Speed5 = (df['MA20'].iloc[-1] / df['MA20'].iloc[-6] - 1) * 1000 # range could be approx in (-30; +30)
  
-  if (cond_b1 or cond_b2 or cond_b3 or cond_b4 or cond_b5) \
-      and (cond_grad_MACD_hist) \
-      and (cond_RSI or permit_1h_cond) \
+  if (cond_b1 or cond_b2 or cond_b3 or cond_b4 or cond_b5 or cond_b6) \
+      and cond_grad_MACD_hist \
+      and cond_RSI \
       and cond_grad_MACD \
-      and (cond_MACD_hist_speed or permit_1h_cond) \
-      and cond_delta_MA50_M120 \
+      and cond_grad_MA20 \
+      and cond_grad_MA5 \
+      and (cond_MACD_hist_speed or permit_1h_cond or cond_b6) \
+      and ha_cond_1h \
+      and cond_grad_delta_MA5_M20 \
       and no_big_spikes_1h \
       and cond_grad_MACD_1m \
       and cond_grad_MA50_M120_1m_120 \
       and cond_grad_MA5_1m \
       and cond_RSI_1m \
-      and cond_VR \
-      and ha_cond:
+      and cond_VR_1m:
       condition = True    
+
+      # and cond_delta_MA50_M120 \    # removed from 26/09/2025
+      # and (cond_RSI or permit_1h_cond or cond_b6) \
+      # cond_delta_MA50_M120 
+      # cond_delta_MA5_M20 and cond_grad_MACD
+      
+      #  and ha_cond: # excluded from 21/09/2025
+      
       
       # and cond_MACD_hist_max_amp_1m:
       # removed from 31/08/25
@@ -1640,13 +1670,15 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
       # and cond_RSI_1m \ removed from 18/08/25
       
       # removed from 12/09/2025:
-        # and (cond_sum_delta_MA50_MA120_1m or time_cond) \
+        # and (cond_sum_delta_MA50_MA120_1m or time_cond) \ v
       
   if df['MA30_RSI10'].iloc[-1]  < 25 \
     or (df['MACD'].iloc[-2] < df['MACD'].iloc[-3] \
-      and df['MACD'].iloc[-3] < df['MACD'].iloc[-4] ) \
-    or (delta_MA50_M120.iloc[-2] < delta_MA50_M120.iloc[-3] \
-      and delta_MA50_M120.iloc[-3] < delta_MA50_M120.iloc[-4]):
+      and df['MACD'].iloc[-3] < df['MACD'].iloc[-4] ):
+      
+      
+    # or (delta_MA50_M120.iloc[-2] < delta_MA50_M120.iloc[-3] \
+    #   and delta_MA50_M120.iloc[-3] < delta_MA50_M120.iloc[-4]):
       
           # or df['MACD_hist'].iloc[-2] < df['MACD_hist'].iloc[-3] \ # removeed from 15/09/2025
     # exclude company from _list optimal list
@@ -1690,17 +1722,22 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
   if display:
     warning.print('MA50_MA5 conditions parameters:')
     c.print('AND CONDITIONS:', color='yellow')
-    c.green_red_print(cond_grad_MACD_hist, f'cond_grad_MACD_hist, {MACD_hist:.3f}')
-    c.green_red_print(cond_grad_MACD, f'cond_grad_MACD, {MACD:.3f}')
-    c.green_red_print(cond_RSI, f'cond_RSI (MA30_RSI10), {cond_value_RSI:.3f}')
-    c.green_red_print(cond_delta_MA50_M120, f'cond_delta_MA50_M120, {delta_MA50_M120.iloc[-1]:.3f}')
-    c.green_red_print(no_big_spikes_1h, f'no_big_spikes_1h, max pct in last 8 1h candles: {df["pct"].iloc[-8:].max():.3f}%')
-    c.green_red_print(cond_grad_MACD_1m, f'grad_MACD_1m > 0, {MACD_1m:.3f}')
-    c.green_red_print(cond_grad_MA50_M120_1m_120, f'cond_grad_MA50_M120_1m_120')
-    c.green_red_print(cond_grad_MA5_1m, f'cond_grad_MA5_1m')
-    c.green_red_print(cond_RSI_1m, f'cond_RSI_1m, {df_1m["MA30_RSI10"].iloc[-1]:.3f}')
-    c.green_red_print(cond_VR, f'cond_VR, VR: {df_1m["VR"].iloc[-1]:.3f}, VRMA: {df_1m["VRMA"].iloc[-1]:.3f}')
-    c.green_red_print(ha_cond, f'ha_cond, last two 1m ha candles are green and more than 5 red ha candles in last 11 candles')
+    c.green_red_print(cond_grad_MACD_hist, f'cond_grad_MACD_hist, {df['MACD_hist'].iloc[-1]:.3f} > {df['MACD_hist'].iloc[-2]:.3f}')
+    c.green_red_print(cond_grad_MACD, f'cond_grad_MACD, {df["MACD"].iloc[-1]:.3f} > {df["MACD"].iloc[-2]:.3f}')
+    c.green_red_print(cond_grad_MA20, f'cond_grad_MA20, {df["MA20"].iloc[-1]:.3f} > {df["MA20"].iloc[-2]:.3f}')
+    c.green_red_print(cond_grad_MA5, f'cond_grad_MA5, {df["MA5"].iloc[-1]:.3f} > {df["MA5"].iloc[-2]:.3f}')
+    c.green_red_print(cond_RSI, f'cond_RSI (MA30_RSI10), {df["MA30_RSI10"].iloc[-1]:.3f} > {df["MA30_RSI10"].iloc[-2]:.3f}')
+    # c.green_red_print(cond_delta_MA50_M120, f'cond_delta_MA50_M120, {delta_MA50_M120.iloc[-1]:.3f}')
+    c.green_red_print(cond_grad_delta_MA5_M20, f'cond_grad_delta_MA5_M20, {delta_MA5_M20.iloc[-1]:.3f} > {delta_MA5_M20.iloc[-2]:.3f}')
+    c.green_red_print(no_big_spikes_1h, f'no_big_spikes_1h spike_value: {spikes_3_value:.3f} < 1.012')
+    c.green_red_print(ha_cond_1h, f'ha_cond_1h, one of the 3 last 1h ha candles is red and last is green')
+    c.green_red_print(cond_MACD_hist_speed, f'(MACD_hist speed more than 1.07), MACD_hist_speed: {MACD_hist_speed:.3f}, MACD_hist: {MACD_hist:.3f}')
+    c.green_red_print(cond_grad_MACD_1m, f'grad_MACD_1m > 0, {df_1m["MACD"].iloc[-1]:.3f} > {df_1m["MACD"].iloc[-2]:.3f}')
+    c.green_red_print(cond_grad_MA50_M120_1m_120, f'cond_grad_MA50_M120_1m_120 {delta_MA50_MA120_1m.iloc[-1]:.3f} > {delta_MA50_MA120_1m.iloc[-2]:.3f}')
+    c.green_red_print(cond_grad_MA5_1m, f'cond_grad_MA5_1m {df_1m["MA5"].iloc[-1]:.3f} > {df_1m["MA5"].iloc[-2]:.3f}')
+    c.green_red_print(cond_RSI_1m, f'cond_RSI_1m, {df_1m["MA30_RSI10"].iloc[-1]:.3f} > {df_1m["MA30_RSI10"].iloc[-2]:.3f} ')
+    c.green_red_print(cond_VR_1m, f'cond_VR, VR: {df_1m["VR"].iloc[-1]:.3f} < 120 , VRMA: {df_1m["VRMA"].iloc[-1]:.3f} < 120')
+    # c.green_red_print(ha_cond, f'ha_cond, last two 1m ha candles are green and more than 5 red ha candles in last 11 candles')
     # c.green_red_print(cond_sum_delta_MA50_MA120_1m, f'cond_sum_delta_MA50_MA120_1m, {delta_MA50_MA120_1m_sum180:.3f}')
     c.green_red_print(permit_1h_cond, f'permit_1h_cond, MA5_1h_is_near_local_min: {MA5_1h_is_near_local_min}, MA20_1h_grad: {df["MA20"].iloc[-1] > df["MA20"].iloc[-2]}')
     c.print('OR CONDITIONS:', color='yellow')
@@ -1709,15 +1746,16 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
     c.green_red_print(cond_b3, f'cond_b3 (MA50_1m near local minimum and not near global maximum)')
     c.green_red_print(cond_b4, f'cond_b4 (MA20_1m near local minimum and not near global maximum)')
     c.green_red_print(cond_b5, f'cond_b5 (MA5_MA20Diff_1m cross zero), {delta_MA5_MA20_1m.iloc[-1]:.3f}')
+    c.green_red_print(cond_b6, f'cond_b6 (1h ha candle is red and last is green)')
 
   if condition: 
     c.green_red_print(condition, condition_type)
     
-  conditions_info =  f'''cond_b1:{cond_b1}, cond_b2:{cond_b2}, cond_b3:{cond_b3}, cond_b4:{cond_b4}, cond_b5:{cond_b5}\
-  cond_RSI:{int(cond_RSI)}, cond_grad_MACD:{int(cond_grad_MACD)},\
+  conditions_info =  f'''cond_b1:{cond_b1}, cond_b2:{cond_b2}, cond_b3:{cond_b3}, cond_b4:{cond_b4}, cond_b5:{cond_b5}, cond_b6: {cond_b6}\
+  cond_RSI:{int(cond_RSI)}, cond_grad_MACD:{int(cond_grad_MACD)}, cond_grad_MA5:{int(cond_grad_MA5)}\
   cond_delta_MA50_M120:{int(cond_delta_MA50_M120)}, cond_grad_MACD_1m:{int(cond_grad_MACD_1m)},\
   no_big_spikes_1h:{int(no_big_spikes_1h)}, cond_grad_MA50_M120_1m_120:{int(cond_grad_MA50_M120_1m_120)},\
-  cond_grad_MA5_1m:{int(cond_grad_MA5_1m)}, cond_RSI_1m:{int(cond_RSI_1m)}, cond_VR:{int(cond_VR)}, ha_cond:{int(ha_cond)},\
+  cond_grad_MA5_1m:{int(cond_grad_MA5_1m)}, cond_RSI_1m:{int(cond_RSI_1m)}, cond_VR:{int(cond_VR_1m)}, ha_cond:{int(ha_cond)},\
   permit_1h_cond:{int(permit_1h_cond)},\
   df['MACD'].iloc[-1]: {df['MACD'].iloc[-1]:.3f}, df['MACD'].iloc[-2]: {df['MACD'].iloc[-2]:.3f},\
   df['MACD_hist'].iloc[-1]: {df['MACD_hist'].iloc[-1]:.3f}, df['MACD_hist'].iloc[-2]: {df['MACD_hist'].iloc[-2]:.3f},\
@@ -1730,6 +1768,7 @@ def stock_buy_condition_MA50_MA5(df, df_1m, df_stats, ticker, display=False):
   cond_a1:{int(cond_a1)}, cond_a2:{int(cond_a2)}, cond_a3:{int(cond_a3)}, cond_a4:{int(cond_a4)}\
   MACD_hist_speed: {MACD_hist_speed:.3f} (more than 1.07 is good),\
   MACD_hist_max_amp: {MACD_hist_max_amp:.3f}, MACD_hist_max_amp_1m: {MACD_hist_max_amp_1m:.3f}\
+  
   '''
 
   return condition, conditions_info
@@ -1837,95 +1876,37 @@ def stock_buy_condition_before_market_open(df, df_1m, df_stats, display=False):
   new_york_time = datetime.now(pytz.timezone('US/Eastern'))
   i_1m = df_1m.shape[0] - 1
   i = df.shape[0] - 1
-  ha_cond = df_1m['ha_colour'].iloc[-1] == 'green' and df_1m['ha_colour'].iloc[-2] == 'green' \
-    and number_red_candles(df_1m, i_1m, k=11) > 5
-  # df_1m = MA(df_1m, 20)
-  # df_1m = MA(df_1m, 60)
-  # df = MA(df, 5)
+
   condition = False
   condition_type = 'No cond'
 
   # if not (new_york_time.hour >= 15 and new_york_time.hour <= 15):
-  if True:
-
-    max_value = df['close'][-14:].max()
-    drop_value = max_value / df_1m['close'].iloc[-1]
-    drop_value_24hr = df['high'][-24:].max() / df_1m['close'].iloc[-1]
-    dist_from_min_24hr = df_1m['close'].iloc[-1] / df['low'][-24:].min()
-
-    cond_value_1 = df_stats[ticker]['speed100_avg30'].iloc[-1]
-    cond_value_2 = cond_value_1
-    # cond_value_3 = df['close'].iloc[-2] - df['close'].iloc[-5 : -1].min()
-    cond_value_4 = df_stats[ticker]['norm100'].iloc[-1]
-    cond_value_5 = maximum(df, i, 500) / df['close'].iloc[-2]
-    cond_value_6 = maximum(df, i, 7) / df['close'].iloc[-2]
-    cond_value_7 = drop_value
-
-    cond_1 = cond_value_1 >= 0.7
-    cond_2 = cond_value_2 <= 1.1
-    # cond_3 = cond_value_3 <= 0
-    cond_3 = True
-    cond_4 = cond_value_4 >= 0.7
-    # cond_8 = (df_1m['MA20'].iloc[-1] > df_1m['MA20'].iloc[-4:-1]).all()
-    cond_8 = (df_1m['MA20'].iloc[-1] > df_1m['MA20'].iloc[-4:-1]).all()
-    cond_9 = df['MA5'].iloc[-1] >= df['MA5'].iloc[-2]
-    # add drop value 24 hours. Should be more that 2.5% and distanse from min24hours less then 0.5%
-    cond_10 = (df_1m['MA50'].iloc[-1] > df_1m['MA50'].iloc[-4:-1]).all() \
-              and (df_1m['MA50'].iloc[-25] > df_1m['MA50'].iloc[-4:-1]).all() \
-              and drop_value_24hr > 1.025 \
-              and dist_from_min_24hr < 1.005
-  
-    # Buy with -0.4%
-    cond_51 = cond_value_5 > 1.17
-    cond_61 = cond_value_6 < 1.02
-    # Buy with -0.7% 
-    cond_52 = cond_value_5 > 1.05
-    cond_62 = cond_value_6 < 1.03
+  if (time_before_market_open) \
+  and df['MA120'].iloc[-1] > df['MA120'].iloc[-2] \
+  and df['MA20'].iloc[-1] > df['MA20'].iloc[-2] \
+  and MACD > 0.1 \
+  and cond_grad_delta_MA5_M20 \
+  and cond_grad_MA20:
+    pass
+    # condition_type = 'before_market_open_1' 
+    # condition = True
 
     
-    if display:
-      warning.print('before_market_open conditions parameters:')
-      warning.print(f'drop value is {drop_value:.3f}')
-      c.green_red_print(ha_cond, f'ha_cond')
-      c.green_red_print(cond_1, f'cond_1 {cond_value_1:.2f}')
-      c.green_red_print(cond_2, f'cond_2 {cond_value_2:.2f}')
-      c.green_red_print(cond_4, f'cond_4 {cond_value_4:.2f}')
-      c.green_red_print(cond_51, f'cond_51 {cond_value_5:.2f}')
-      c.green_red_print(cond_61, f'cond_61 {cond_value_6:.2f}')
-      c.green_red_print(cond_52, f'cond_52 {cond_value_5:.2f}')
-      c.green_red_print(cond_62, f'cond_62 {cond_value_6:.2f}')
-      c.green_red_print(cond_8, f'cond_8')
-      c.green_red_print(cond_9, f'cond_9')
-      c.green_red_print(cond_10, f'cond_10')
-
-    if cond_1 \
-      and cond_2 \
-      and cond_3 \
-      and cond_4 \
-      and cond_8 \
-      and cond_9 \
-      and ha_cond:
-
-      if cond_52 \
-        and cond_62 \
-        and drop_value >= 1.07:
-        condition_type = 'before_market_open_2' # Buy with -0.7% 
-        condition = True
-
-      # More strict condition goes last
-      if cond_51 \
-        and cond_61 \
-        and drop_value >= 1.05:
-        condition_type = 'before_market_open_1' # Buy with -0.4%
-        condition = True
-
-      if cond_51 and cond_61 \
-        and cond_52 and cond_62 \
-        and cond_10 \
-        and drop_value > 1.003:
-          condition_type = 'before_market_open_3' # 
-          condition = True
-        
+  if display:
+    warning.print('before_market_open conditions parameters:')
+    c.print('AND CONDITIONS:', color='yellow')
+    c.green_red_print(ha_cond, f'ha_cond')
+    c.green_red_print(cond_1, f'cond_1 {cond_value_1:.2f}')
+    c.green_red_print(cond_2, f'cond_2 {cond_value_2:.2f}')
+    c.green_red_print(cond_4, f'cond_4 {cond_value_4:.2f}')
+    c.green_red_print(cond_51, f'cond_51 {cond_value_5:.2f}')
+    c.green_red_print(cond_61, f'cond_61 {cond_value_6:.2f}')
+    c.green_red_print(cond_52, f'cond_52 {cond_value_5:.2f}')
+    c.green_red_print(cond_62, f'cond_62 {cond_value_6:.2f}')
+    c.green_red_print(cond_8, f'cond_8')
+    c.green_red_print(cond_9, f'cond_9')
+    c.green_red_print(cond_10, f'cond_10')
+      
   if condition: 
     c.green_red_print(condition, condition_type)
   return condition, condition_type
@@ -2582,6 +2563,7 @@ def modify_trailing_stop_limit_MA50_MA5_order_old(df, order, current_price, stoc
 
 def modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price, stock_df, stock_df_1m) -> Tuple[pd.DataFrame, pd.DataFrame]:
   try:
+    i = stock_df.shape[0] - 1
     order_id = order['trailing_stop_limit_order_id']
     current_gain = current_price / order['buy_price']
     if order['buy_condition_type'] == 'MA50_MA5' \
@@ -2621,7 +2603,8 @@ def modify_trailing_stop_limit_MA50_MA5_order(df, order, current_price, stock_df
           and stock_df['MA30_RSI10'].iloc[-1] <= stock_df['MA30_RSI10'].iloc[-2] \
           and stock_df['MA30_RSI10'].iloc[-2] <= stock_df['MA30_RSI10'].iloc[-3]) \
         or (stock_df['MACD_hist'].iloc[-1] < stock_df['MACD_hist'].iloc[-2] \
-          and stock_df['MACD_hist'].iloc[-2] <= stock_df['MACD_hist'].iloc[-3])       
+          and stock_df['MACD_hist'].iloc[-2] <= stock_df['MACD_hist'].iloc[-3]) \
+        or maximum(stock_df, i, k=3) / minimum(stock_df, i, k=3) > 1.012 #??????????????????
 
       cond_MA5_crossingM120 = False
       # MA5 1h crossing MA120 1h condition
@@ -2878,7 +2861,7 @@ def buy_price_based_on_condition(df, df_1m, condition_type):
       if prt_from_local_min(df_1m) < 0.3:           
         buy_price = df_1m['close'].iloc[-1] * 1.0003
       else:
-        buy_price = min(df_1m['close'].iloc[-6:-1].min(), df_1m['open'].iloc[-6:-1].min(), df_1m['close'].iloc[-1])
+        buy_price = min(df_1m['close'].iloc[-15:-1].min(), df_1m['open'].iloc[-15:-1].min(), df_1m['close'].iloc[-1])
 
   except Exception as e:
     alarm.print(traceback.format_exc())        
@@ -2913,8 +2896,8 @@ def check_sell_orders_for_all_bougth_stocks():
     try:
       if ticker in bought_stocks_list:
         order = bought_stocks.loc[bought_stocks['ticker'] == ticker].sort_values('buy_time').iloc[-1] 
-        stock_df_1m = get_historical_df(ticker = ticker, period='max', interval='1m', prepost=prepost_1m)
-        stock_df = get_historical_df(ticker = ticker, period=period, interval=interval, prepost=prepost_1h)
+        stock_df_1m = get_historical_df(ticker=ticker, period='max', interval='1m', prepost=prepost_1m)
+        stock_df = get_historical_df(ticker=ticker, period=period, interval=interval, prepost=prepost_1h)
         if not stock_df_1m.empty:
           current_price = stock_df_1m['close'].iloc[-1]  
           current_gain = current_price / order['buy_price']
@@ -2924,7 +2907,7 @@ def check_sell_orders_for_all_bougth_stocks():
         if not order['buy_condition_type'] in ['1230', 'before_market_open_1', 'before_market_open_2', 'before_market_open_3', 'MA50_MA5', 'MA5_MA120_DS']:
           # Checking limit_if_touched_order
           if False:
-            df, order = check_sell_order_has_been_placed(df, ticker, order_type='limit_if_touched' )
+            df, order = check_sell_order_has_been_placed(df, order, ticker, order_type='limit_if_touched')
           # Checking stop_order
           df, order = check_sell_order_has_been_placed(df, order, ticker, order_type='stop')
           # Checking trailing_LIT_order
@@ -2966,6 +2949,23 @@ def check_sell_orders_for_all_bougth_stocks():
             df, order = modify_trailing_stop_limit_MA5_MA120_DS_order(df, order, current_price, stock_df, stock_df_1m)
       else:
         alarm.print(f'{ticker} is in positional list but not in DB!')
+        orders = ma.get_history_orders(code=ticker)
+        if not orders.empty:
+          order = orders.loc[(orders['trd_side'] == 'BUY') & (orders['order_status'] == 'FILLED_ALL')].sort_values('updated_time', ascending=True).iloc[-1]
+          if not (order is None or order.empty):
+            buy_price = order['dealt_avg_price']
+            buy_condition_type = 'MA50_MA5'
+            buy_order_type = 'limit_if_touched'
+            buy_sum = order['dealt_qty'] * buy_price  + 1
+            order['buy_order_id'] = order['order_id']
+            order_df_format = ti.buy_order(ticker=ticker, buy_price=buy_price, buy_condition_type=buy_condition_type,
+                                           default=default, buy_sum=buy_sum, order_type=buy_order_type,
+                                           skip_buy_checks=True,
+                                           add_order = order)
+            order_df_format['gain_coef'] = default.gain_coef_MA50_MA5
+            order_df_format['lose_coef'] = default.lose_coef_1_MA50_MA5
+            df = ti.record_order(df, order_df_format)
+             
     except Exception as e:
       alarm.print(traceback.format_exc())
 
@@ -3237,7 +3237,10 @@ if __name__ == '__main__':
     market_time_before_1430 = (new_york_hour >= 10 and new_york_hour < 14) \
                   or (new_york_hour == 9 and new_york_minute >= 30) \
                   or (new_york_hour == 14 and new_york_minute <= 30) \
-                  and new_york_week in [0, 1, 2 ,3, 4] 
+                  and new_york_week in [0, 1, 2 ,3, 4]
+    market_time_and_1hour_before = (new_york_hour >= 9 and new_york_hour < 16) \
+                  or (new_york_hour == 8 and new_york_minute >= 30) \
+                  and new_york_week in [0, 1, 2 ,3, 4]
                   
     # market_time = (current_hour >= 23 and current_hour <= 7)
      
@@ -3370,6 +3373,8 @@ if __name__ == '__main__':
               buy_condition_before_market_open = False
               buy_condition_MA50_MA5 = False
               buy_condition_MA5_MA120_DS = False
+              buy_condition_type_1h = 'No cond'
+              condition_type_before_market_open = 'No cond'
             
             buy_condition_type = 'No cond'
             if buy_condition:
@@ -3524,6 +3529,7 @@ if __name__ == '__main__':
                   if order['status'] == 'placed':
                     placed_stocks_list.append(ticker)
                     df = ti.record_order(df, order)
+                    bought_stocks, placed_stocks, bought_stocks_list, placed_stocks_list = get_bought_and_placed_stock_list(df)
                     # Recheck all placed buy orders from the order history
                     df = check_buy_order_info_from_order_history(df, ticker)
                     if place_trailing_stop_limit_order_imidiately \

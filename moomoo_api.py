@@ -466,7 +466,7 @@ class Moomoo_API():
             trd_ctx.close()
         return order_id    
 
-    def get_history_orders(self):
+    def get_history_orders(self, code=''):
         data = None
         global number_attemps_to_get_data
         try:
@@ -488,7 +488,7 @@ class Moomoo_API():
             start = str(datetime.now() - timedelta(hours=hours)).split('.')[0]
             end  = str(datetime.now() + timedelta(hours=24)).split('.')[0]
             number_attemps_to_get_data += 1
-            ret, data = trd_ctx.history_order_list_query(acc_id=self.acc_id, trd_env=self.trd_env, start=start, end=end)
+            ret, data = trd_ctx.history_order_list_query(acc_id=self.acc_id, code=code, trd_env=self.trd_env, start=start, end=end)
             if ret == ft.RET_OK:
                 if data.shape[0] > 0:  # If the order list is not empty
                     print('history orders received successfully')

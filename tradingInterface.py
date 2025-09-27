@@ -63,6 +63,8 @@ class TradeInterface():
     order_type = kwargs.get('order_type', 'limit_if_touched')  
     response = None
     order = {}
+    skip_buy_checks = kwargs.get('skip_buy_checks', False)
+    add_order = kwargs.get('add_order', None)
     if buy_sum != 0:
       stocks_number = int(buy_sum / buy_price)
        
@@ -104,6 +106,12 @@ class TradeInterface():
       'tech_indicators': {},
       'timezone' : str(current_timezone)
     }
+
+    
+    if skip_buy_checks and add_order is not None:
+      order['status'] = 'bought'
+      order['buy_order_id'] = add_order['buy_order_id']
+      return order
 
     if self.platform == 'test':
       order['buy_commission'] = buy_sum * self.test_commission
