@@ -356,7 +356,7 @@ class Moomoo_API():
             trd_ctx.close()
         return order_id
 
-    def modify_limit_if_touched_order(self, order, gain_coef, aux_price_coef = 1.0001, order_type='limit_if_touched'):
+    def modify_limit_if_touched_order(self, order, gain_coef=1, aux_price_coef = 1.0001, order_type='limit_if_touched', **kwargs):
         '''
         Modify for sell orders: limit_if_touched and trailing_LIT
         '''
@@ -365,8 +365,12 @@ class Moomoo_API():
             order_id = order['limit_if_touched_order_id']
         if order_type == 'trailing_LIT':
             order_id = order['trailing_LIT_order_id']
+        if order_type == 'buy_order':
+            order_id = order['buy_order_id']
 
-        price =  order['buy_price'] * gain_coef
+        price = kwargs.get('price', 0)
+        if price == 0:
+            price =  order['buy_price'] * gain_coef
         qty = order['stocks_number']
         ticker = order['ticker']
         try:
