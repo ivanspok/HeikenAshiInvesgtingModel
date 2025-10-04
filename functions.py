@@ -228,7 +228,6 @@ def get_spline_acceleration(time, f, window = 30, show = 0):
   
   return time[start_i:], acc_list, y_list
 
-
 def pct_var_fun(f, window = 30):
 
   pct_var_list = []
@@ -765,7 +764,6 @@ def get_heiken_ashi_v2(df):
     df[i]['ha_o'] =  (df[i - 1]['ha_o'] + df[i - 1]['ha_c']) / 2
   
   return df
-
 
 def get_heiken_ashi(candles):
 

@@ -26321,3 +26321,266 @@ ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yaho
 INFO:tinkoff.invest.logging:810d955b1d0105368cb7c75ce8ea5bdc GetCandles
 ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-25 13:28:33-04:00 -> 2025-10-02 13:28:33-04:00) (Yahoo error = "No data found, symbol may be delisted")
 INFO:tinkoff.invest.logging:0c7f7df619b656855b437c4f83427a8e GetCandles
+INFO:__main__:time 2025-10-03 23:30:30.205941: Ticker MA, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: True, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: True, grad_MA5: True, grad_MA50: True, grad_MA50_prev: False, deltaMA5_MA50: 1.0146, deltaMA5_MA50_b3: 1.0125, trailing_ratio: 0.05, enable_sellings_cond: True, MACD[-1]: 0.3064, MACD[-2]: 0.1554, MACD_hist[-1]: 2.5944, MACD_hist[-2]: 2.6916['MA30_RSI10'].iloc[-1]: 56.12, ['MA30_RSI10'].iloc[-2]: 55.28, current_gain: 1.0020
+INFO:__main__:time 2025-10-03 23:31:00.540839: Ticker MA, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: True, grad_MA50_prev: False, deltaMA5_MA50: 1.0148, deltaMA5_MA50_b3: 1.0125, trailing_ratio: 1.25, enable_sellings_cond: True, MACD[-1]: 0.3335, MACD[-2]: 0.1554, MACD_hist[-1]: 2.6415, MACD_hist[-2]: 2.6916['MA30_RSI10'].iloc[-1]: 56.18, ['MA30_RSI10'].iloc[-2]: 55.28, current_gain: 1.0033
+INFO:__main__:time 2025-10-03 23:33:28.881875: Ticker MA, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: True, cond8: True, cond9: True, cond_deltaMA5_MA50_1m: True, grad_MA5: True, grad_MA50: True, grad_MA50_prev: False, deltaMA5_MA50: 1.0147, deltaMA5_MA50_b3: 1.0125, trailing_ratio: 0.05, enable_sellings_cond: True, MACD[-1]: 0.3215, MACD[-2]: 0.1554, MACD_hist[-1]: 2.6206, MACD_hist[-2]: 2.6916['MA30_RSI10'].iloc[-1]: 56.16, ['MA30_RSI10'].iloc[-2]: 55.28, current_gain: 1.0027
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:2162ca82e7e34e329c33209b97a533ea GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 09:34:12-04:00 -> 2025-10-03 09:34:12-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:0054234ddceeed4d8962323cbf4ece43 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:70a3a05d21693edd94697bcb38a6aea6 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 09:41:44-04:00 -> 2025-10-03 09:41:44-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:aeb60c599b8a3269fb45613431a16ea4 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:2295b914b1d91796dda7587c5df46863 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 09:46:21-04:00 -> 2025-10-03 09:46:21-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:b3efba65102ff68b64f5b7244ca4a7e1 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:cc4a04b5efa867cf9cde3416a2918891 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 09:50:42-04:00 -> 2025-10-03 09:50:42-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:91658738caca39d675a1f5d67d2b87c1 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:a7cb5d91c7560fa9195e75f98e8f88aa GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 09:55:31-04:00 -> 2025-10-03 09:55:31-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:bd733e9a0bf25acccf44193e96e5bca3 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:d0d6585c44c5de4d44af5ff244dbf5b6 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 09:59:51-04:00 -> 2025-10-03 09:59:51-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:74ee4c7a18437bc91bb0603349a70ed8 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:7a6b9d049e0d2146d4393d5539220d6c GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 10:04:08-04:00 -> 2025-10-03 10:04:08-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:00378ca2ca5ae6ee3e399b086c64f57b GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:d7afa6a71f5cd4446b82d979c9329181 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 10:08:48-04:00 -> 2025-10-03 10:08:48-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:8c719c39d7e85f4d6e152e8a189ae2ac GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:ac09fb79deec22cf117b4e99d26fbe94 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 10:14:28-04:00 -> 2025-10-03 10:14:28-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:7cbafc51d817d4e9dcd9d362672234f4 GetCandles
+INFO:__main__:time 2025-10-04 00:19:37.039936: Ticker HLT, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: True, cond8: True, cond9: True, cond_deltaMA5_MA50_1m: True, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 0.9927, deltaMA5_MA50_b3: 0.9893, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: -1.8911, MACD[-2]: -1.8964, MACD_hist[-1]: 0.2127, MACD_hist[-2]: 0.2349MACD_hist[-3]: 0.1050, MACD_hist[-4]: -0.0741 ['MA30_RSI10'].iloc[-1]: 41.38, ['MA30_RSI10'].iloc[-2]: 41.54, ['MA30_RSI10'].iloc[-3]: 41.31current_gain: 0.9950
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:1c1dda2b64bc6723b1d5febfff4df21d GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 10:22:00-04:00 -> 2025-10-03 10:22:00-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:c33ce621c6820ec6afa90ae4ffa331bb GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:657ef3502fad02c67253ced1aced6ed9 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 10:26:37-04:00 -> 2025-10-03 10:26:37-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:f9832608eeb749d56cd48462829ca777 GetCandles
+INFO:__main__:time 2025-10-04 00:28:24.990528: Ticker EMR, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: False, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: True, grad_MA50_prev: False, deltaMA5_MA50: 1.0191, deltaMA5_MA50_b3: 1.0153, trailing_ratio: 0.31, enable_sellings_cond: True, MACD[-1]: 0.3809, MACD[-2]: 0.2785, MACD_hist[-1]: 0.7801, MACD_hist[-2]: 0.6953MACD_hist[-3]: 0.6809, MACD_hist[-4]: 0.6735 ['MA30_RSI10'].iloc[-1]: 58.48, ['MA30_RSI10'].iloc[-2]: 57.00, ['MA30_RSI10'].iloc[-3]: 55.56current_gain: 1.0155
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:829f98e668f32c8632e7ba854dfc1086 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 10:30:46-04:00 -> 2025-10-03 10:30:46-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:d36069b5e6499ff9dbd7a11796ce81b5 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:3a38ace5cde55102c673f4e32b18b4e9 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 10:35:00-04:00 -> 2025-10-03 10:35:00-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:7b388048c0bdfd932bd6825118149c71 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:3a3c4a79daa27d22b18de3e5326369dd GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 10:38:59-04:00 -> 2025-10-03 10:38:59-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:3398efda288c36cdcac350e416826bcf GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:310aa8fa595b2279e0300feefe64e684 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 10:43:25-04:00 -> 2025-10-03 10:43:25-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:098c3c19ea7c2b96562d6ac0f64d170d GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:e5af01f94f031d3daf3035afaf7bdd0f GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 10:47:48-04:00 -> 2025-10-03 10:47:48-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:a4195782f509b179bf3bb13971152029 GetCandles
+INFO:__main__:time 2025-10-04 00:52:27.855715: Ticker COST, cond1: False, cond2: True, cond3: False, cond4: True, cond5: False, cond6: False, cond7: True, cond8: False, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: False, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 0.9905, deltaMA5_MA50_b3: 0.9902, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: -6.0111, MACD[-2]: -6.0764, MACD_hist[-1]: 1.1575, MACD_hist[-2]: 1.2050MACD_hist[-3]: 1.4036, MACD_hist[-4]: 1.2492 ['MA30_RSI10'].iloc[-1]: 43.66, ['MA30_RSI10'].iloc[-2]: 43.26, ['MA30_RSI10'].iloc[-3]: 43.07current_gain: 0.9998
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:19d044332a0a5337c8fe2e070eb99288 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 10:57:14-04:00 -> 2025-10-03 10:57:14-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:29a5ff4e798a75bffebd3d980b558b4e GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:c5209af8a7afca553ae75fb3c4ee541a GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 11:01:20-04:00 -> 2025-10-03 11:01:20-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:29f390934e5424110e441a2c0023fe24 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:768ddc82d289d09f1d747e19e05c60b0 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 11:06:59-04:00 -> 2025-10-03 11:06:59-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:20da9848af12468c0580fdc72455eed4 GetCandles
+INFO:__main__:time 2025-10-04 01:13:00.493536: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: True, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: True, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0046, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: 0.1075, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0403, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.85, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9947
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:6b2f5f9f2aa3e169ebee31339cfcddde GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 11:13:11-04:00 -> 2025-10-03 11:13:11-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:c51f80ad87d482010cc34afb0e28b126 GetCandles
+INFO:__main__:time 2025-10-04 01:13:41.121315: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: True, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: True, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 1.25, enable_sellings_cond: False, MACD[-1]: 0.1071, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0396, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.84, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9947
+INFO:__main__:time 2025-10-04 01:14:17.222407: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: 0.1071, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0396, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.84, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9947
+INFO:__main__:time 2025-10-04 01:14:48.502757: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 1.25, enable_sellings_cond: False, MACD[-1]: 0.1069, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0393, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.84, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9946
+INFO:__main__:time 2025-10-04 01:14:53.242491: Ticker EMR, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: False, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: True, grad_MA50_prev: False, deltaMA5_MA50: 1.0229, deltaMA5_MA50_b3: 1.0166, trailing_ratio: 0.31, enable_sellings_cond: True, MACD[-1]: 0.5021, MACD[-2]: 0.3854, MACD_hist[-1]: 0.8852, MACD_hist[-2]: 0.7880MACD_hist[-3]: 0.6953, MACD_hist[-4]: 0.6809 ['MA30_RSI10'].iloc[-1]: 60.00, ['MA30_RSI10'].iloc[-2]: 58.50, ['MA30_RSI10'].iloc[-3]: 57.00current_gain: 1.0213
+INFO:__main__:time 2025-10-04 01:15:23.533911: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: 0.1065, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0387, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.83, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9946
+INFO:__main__:time 2025-10-04 01:15:55.982437: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: True, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: True, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 1.25, enable_sellings_cond: False, MACD[-1]: 0.1063, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0383, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.82, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9943
+INFO:__main__:time 2025-10-04 01:16:36.530650: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: 0.1071, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0396, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.84, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9947
+INFO:__main__:time 2025-10-04 01:17:06.999659: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 1.25, enable_sellings_cond: False, MACD[-1]: 0.1067, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0390, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.83, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9945
+INFO:__main__:time 2025-10-04 01:17:37.610603: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: 0.1067, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0390, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.83, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9945
+INFO:__main__:time 2025-10-04 01:18:08.593349: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 1.25, enable_sellings_cond: False, MACD[-1]: 0.1067, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0390, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.83, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9947
+INFO:__main__:time 2025-10-04 01:18:37.853563: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: 0.1065, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0387, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.83, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9944
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:605c95e5a92411958b637f7df49fd6dc GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 11:18:48-04:00 -> 2025-10-03 11:18:48-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:57cde30d9b279d23010bb643255d0ad7 GetCandles
+INFO:__main__:time 2025-10-04 01:19:15.108815: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 1.25, enable_sellings_cond: False, MACD[-1]: 0.1069, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0393, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.84, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9946
+INFO:__main__:time 2025-10-04 01:19:45.747306: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: 0.1067, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0390, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.83, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9945
+INFO:__main__:time 2025-10-04 01:20:15.740038: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: False, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0046, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 1.25, enable_sellings_cond: False, MACD[-1]: 0.1075, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0403, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.85, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9949
+INFO:__main__:time 2025-10-04 01:21:15.413549: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: 0.1063, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0383, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.82, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9943
+INFO:__main__:time 2025-10-04 01:21:56.939543: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: False, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 1.25, enable_sellings_cond: False, MACD[-1]: 0.1071, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0396, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.84, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9947
+INFO:__main__:time 2025-10-04 01:22:25.940237: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: 0.1065, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0387, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.83, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9944
+INFO:__main__:time 2025-10-04 01:22:55.926870: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: False, cond9: False, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0046, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 1.25, enable_sellings_cond: False, MACD[-1]: 0.1075, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0403, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.85, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9949
+INFO:__main__:time 2025-10-04 01:23:26.035860: Ticker GIS, cond1: False, cond2: True, cond3: False, cond4: False, cond5: False, cond6: False, cond7: True, cond8: False, cond9: False, cond_deltaMA5_MA50_1m: True, grad_MA5: False, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0044, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: 0.1056, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0370, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.80, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9939
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:15ee8dfe4edbbe5a96e20d80baab9f40 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 11:24:04-04:00 -> 2025-10-03 11:24:04-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:9b83adb42d001e9e68b5604e2d3f8b7e GetCandles
+INFO:__main__:time 2025-10-04 01:24:34.375456: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: True, cond9: True, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0044, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 1.25, enable_sellings_cond: False, MACD[-1]: 0.1060, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0377, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.81, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9941
+INFO:__main__:time 2025-10-04 01:25:05.169776: Ticker GIS, cond1: False, cond2: True, cond3: False, cond4: False, cond5: False, cond6: False, cond7: True, cond8: True, cond9: True, cond_deltaMA5_MA50_1m: True, grad_MA5: False, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: 0.1063, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0383, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.82, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9938
+INFO:__main__:time 2025-10-04 01:25:34.326390: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: False, cond9: True, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 1.25, enable_sellings_cond: False, MACD[-1]: 0.1063, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0383, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.82, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9943
+INFO:__main__:time 2025-10-04 01:26:04.185756: Ticker GIS, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: False, cond8: False, cond9: True, cond_deltaMA5_MA50_1m: False, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 1.0045, deltaMA5_MA50_b3: 1.0028, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: 0.1062, MACD[-2]: 0.1102, MACD_hist[-1]: 0.0380, MACD_hist[-2]: 0.0520MACD_hist[-3]: 0.0451, MACD_hist[-4]: 0.0574 ['MA30_RSI10'].iloc[-1]: 54.82, ['MA30_RSI10'].iloc[-2]: 55.01, ['MA30_RSI10'].iloc[-3]: 54.66current_gain: 0.9943
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:7ec2bf9dc701df64bf04bc60893a0bcf GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 11:29:24-04:00 -> 2025-10-03 11:29:24-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:1e288c5972f6df0d2ad8adb152fa27d2 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:a021fe882a7fbfae73fe72bd85d4afac GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 11:34:19-04:00 -> 2025-10-03 11:34:19-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:8791ce636dd0091baaa3a230715e1d64 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:94ad25e89d436525818f3e3c8f1d3adf GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 11:39:12-04:00 -> 2025-10-03 11:39:12-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:d17d834c55198b2cddb9c5565e44bf98 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:90a0b3cf5e345c2b085333916fde1cc0 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 11:44:00-04:00 -> 2025-10-03 11:44:00-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:deca540a8392f06b201b66009424a63f GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:7b49df88e98a00fc6bdb3be20e25da4b GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 11:48:46-04:00 -> 2025-10-03 11:48:46-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:2fd3e936c1dbe6e357a98d38c93bf4e2 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:df47373961bb56cffb6ee88fbb01a9b8 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 11:53:41-04:00 -> 2025-10-03 11:53:41-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:608cfc1a17e25844967a2b7e528d230a GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:f1333a4f5d93a1fdf2b699cc46865978 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 11:58:42-04:00 -> 2025-10-03 11:58:42-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:ce69a5292101c5067f8ed7c6de959191 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:63bab11e733afc0c67f9ef07d89f3664 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 12:03:50-04:00 -> 2025-10-03 12:03:50-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:f49ce6bc3c9c9cfb025c9d8df2a55de2 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:115e3e5a6f12693a1e90bb9c30086389 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 12:08:47-04:00 -> 2025-10-03 12:08:47-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:d4cb353d624a1adad72f6d4aa69d3414 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:0697a5210df94da1384cfbd483b06937 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 12:13:44-04:00 -> 2025-10-03 12:13:44-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:c26f3d03b1f4e3d1d12fd5a08ed0007e GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:3fc958e08c700b147466201ba750adb5 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 12:18:34-04:00 -> 2025-10-03 12:18:34-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:0ee6656ca081ba76af0e52dfff6e0f58 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:b3de69863fdba269eb08dcc062aced84 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 12:23:23-04:00 -> 2025-10-03 12:23:23-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:9f706dc5cfcdb26a288eea16b3a1a9f9 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:c98e55060ef3d674fba268c205b36cc0 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 12:28:18-04:00 -> 2025-10-03 12:28:18-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:221d35e05f4dd7975f55cfb9b1ac68a2 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:24a8381554fa257b2d07c5c07f9c1fb1 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 12:33:15-04:00 -> 2025-10-03 12:33:15-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:a8f33c152cfc037144660c3c18b6dfeb GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:4a2d6285d2ca6343411d00c62771cbea GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 12:38:20-04:00 -> 2025-10-03 12:38:20-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:a71ad14f398c8171b7685fef4cc53bde GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:1693956d98f2476c1c553ce53ed10de3 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 12:43:29-04:00 -> 2025-10-03 12:43:29-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:56d57affffeddf627da3d6785a94a5b9 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:cf71e1761eb38674407608b7e7cd9212 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 12:48:36-04:00 -> 2025-10-03 12:48:36-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:d4becbd246a25c05e499ea3e0b51aacf GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:42a3af8b6497b31d25e82a4ef9bbe097 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 12:53:42-04:00 -> 2025-10-03 12:53:42-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:3f366861eefe096999a7f28f3d250d46 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:61230195ad6991e3f34e8b4f068fcc99 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 12:58:50-04:00 -> 2025-10-03 12:58:50-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:880d17dfa508c2047c63914f46bd5f7a GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:fbf65aebd8f4a2d2ab4b46a49cf979a8 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 13:03:55-04:00 -> 2025-10-03 13:03:55-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:4c54e239907f6d3934b78f670987ff74 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:faefaa9fa14e074810b57cd1bc37c70f GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 13:09:14-04:00 -> 2025-10-03 13:09:14-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:23c76545208d95ac7658900aa3ecf881 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:87a43f2f3d24d2d7ce894a46f72b3ffb GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 13:14:42-04:00 -> 2025-10-03 13:14:42-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:89f2d08b7bd19299a5037016bf43b94e GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:e2f92d0c36fc3c50c91673629d8d762f GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 13:20:00-04:00 -> 2025-10-03 13:20:00-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:4cafed89a746e21b3ec0bea175576358 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:8d9943ac33ced2b3bbe5567d210b0bf3 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 13:25:13-04:00 -> 2025-10-03 13:25:13-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:c080d4402c1bb93213560ac88b39afaa GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:3ed6b38f68ae75f1d75ff1690d04743b GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 13:30:24-04:00 -> 2025-10-03 13:30:24-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:756866e4f55b9e9287fd4f142151182a GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:1bae9e0be4d25bb1bcdc85620a9bcb39 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 13:35:29-04:00 -> 2025-10-03 13:35:29-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:cab04000b4cc35519b5a414b23cd4873 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:7b58c065c15392773146fcc96a50c3ee GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 13:40:39-04:00 -> 2025-10-03 13:40:39-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:b060390c4403fc7555a8bf487d99477e GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:fbdcff6374472419327aac6e32012255 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 13:46:06-04:00 -> 2025-10-03 13:46:06-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:f53119b1042f24b07c108aa331abad32 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:07df9270cdf70f742dbb5595062b0b79 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 13:51:37-04:00 -> 2025-10-03 13:51:37-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:6096491c1c36fc8c4775cf68560a6677 GetCandles
+INFO:__main__:time 2025-10-04 03:54:49.429439: Ticker WFC, cond1: False, cond2: False, cond3: False, cond4: False, cond5: False, cond6: False, cond7: True, cond8: True, cond9: True, cond_deltaMA5_MA50_1m: True, grad_MA5: True, grad_MA50: False, grad_MA50_prev: True, deltaMA5_MA50: 0.9743, deltaMA5_MA50_b3: 0.9710, trailing_ratio: 0.05, enable_sellings_cond: False, MACD[-1]: -0.7832, MACD[-2]: -0.7807, MACD_hist[-1]: -0.3322, MACD_hist[-2]: -0.3783MACD_hist[-3]: -0.4531, MACD_hist[-4]: -0.5363 ['MA30_RSI10'].iloc[-1]: 32.58, ['MA30_RSI10'].iloc[-2]: 32.73, ['MA30_RSI10'].iloc[-3]: 32.63current_gain: 0.9948
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:9f9b479020e4056df515b72489b44a9c GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 13:57:23-04:00 -> 2025-10-03 13:57:23-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:8de47cbf1a6a8604bdad010b01d00a9d GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:6eb131c45020002ee3e667ee71224007 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 14:03:02-04:00 -> 2025-10-03 14:03:02-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:b4b54fc4d9726568ed0bfd8dcae367f5 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:786c02d6de0e1671e71d43326166dd83 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 14:08:29-04:00 -> 2025-10-03 14:08:29-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:32a2a4f9a1bf808abb3e2f0e125870a8 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:293903142603d125dc64d74dacfef0af GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 14:14:01-04:00 -> 2025-10-03 14:14:01-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:b446d2033214e843ea5e6bd575b90132 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:0390907003254cc02113159233f51784 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 14:19:41-04:00 -> 2025-10-03 14:19:41-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:8aa8fd9d72165320a9198282edd13745 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:523f81a15c30f72373bf61cbdbdd423e GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 14:25:19-04:00 -> 2025-10-03 14:25:19-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:ef930e396a1c3f403de1f7020299861b GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (period=3mo) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:aef700576dcae74f0adc3de1fe06e5e5 GetCandles
+ERROR:yfinance:$ANSS: possibly delisted; no price data found  (1m 2025-09-26 14:30:54-04:00 -> 2025-10-03 14:30:54-04:00) (Yahoo error = "No data found, symbol may be delisted")
+INFO:tinkoff.invest.logging:bd113f76bd53c69e01d25bff517863fa GetCandles

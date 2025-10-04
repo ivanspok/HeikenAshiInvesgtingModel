@@ -244,3 +244,128 @@ def version_before():
   #                   alarm.print(f'{ticker2} is in positional list but not in DB!')      
   #           except Exception as e:
   #             alarm.print(traceback.format_exc())   
+  
+    # buy when MACD_hist is positive and increasing and not more 8 greens MACD_hist in a row:
+  MACD_hist_max_amp = df['MACD_hist'].iloc[-50:-2].abs().max()
+  cond_a1  =  df['MACD_hist'].iloc[-1] > 0 \
+            and df['MACD_hist'].iloc[-1] < MACD_hist_max_amp\
+            and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
+            and df['MACD_hist'].iloc[-2] >= df['MACD_hist'].iloc[-3] \
+            and not (df['MACD_hist'].iloc[-8:] > 0).all()
+
+  # buy when MACD_hist is negative and increasing:
+  cond_a2 = df['MACD_hist'].iloc[-1] < 0 \
+           and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
+           and df['MACD_hist'].iloc[-2] > df['MACD_hist'].iloc[-3] \
+          #  and df['MACD_hist'].iloc[-3] > df['MACD_hist'].iloc[-4]   # comment from 12/07/2025        
+  
+  # buy when MACD_hist is negative and heiken ashi is green after red:
+  cond_value_a3 = number_red_candles(df, i, k=10)
+  cond_a3 = df['MACD_hist'].iloc[-1] < 0 \
+            and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
+            and df['ha_colour'].iloc[-1] == 'green' \
+            and cond_value_a3 > 5
+            
+  # buy when MACD_hist is positive and increasing after local minimum:
+  local_min_index = np.argmin(df['MACD_hist'].iloc[-9:]) # 0 is the last candle, 8 is the oldest
+  local_min = df['MACD_hist'].iloc[-9:].iloc[local_min_index]
+  value_before_local_min = df['MACD_hist'].iloc[-9:].iloc[local_min_index - 1] if local_min_index > 0 else local_min
+  cond_a4 = df['MACD_hist'].iloc[-1] > 0 \
+            and df['MACD_hist'].iloc[-1] > df['MACD_hist'].iloc[-2] \
+            and df['MACD_hist'].iloc[-1] > local_min \
+            and value_before_local_min > local_min \
+            and (df['MACD_hist'].iloc[-9:] > 0).all() \
+            and local_min_index < 6 # local minimum should be not more than 6 candles ago
+            
+    # Sum MACD 1 min last 20 cangles should be negative
+  MACD_1m_sum20 = df_1m['MACD'].iloc[-20:].sum()
+  cond_MACD_1m_sum20 = MACD_1m_sum20 < 0
+  
+
+  MACD_hist_1m = df_1m['MACD_hist'].iloc[-1]
+  cond_MACD_hist_1m = MACD_hist_1m < 0 \
+    or ( not (df_1m['MACD_hist'].iloc[-7:] > 0).all() \
+        and df_1m['MACD_hist'].iloc[-1] >= df_1m['MACD_hist'].iloc[-2] \
+        and df_1m['MACD_hist'].iloc[-2] >= df_1m['MACD_hist'].iloc[-3])
+  
+  # cond_9: MACD 1 min is positive and increasing, MACD_hist is negative and increasing
+  cond_positive_MACD_1m = df_1m['MACD'].iloc[-1] > 0.01 \
+           and df_1m['MACD'].iloc[-1] >= df_1m['MACD'].iloc[-2] \
+           and df_1m['MACD_hist'].iloc[-1] < 0 \
+           and df_1m['MACD_hist'].iloc[-1] > df_1m['MACD_hist'].iloc[-2]
+
+  cond2_positive_MACD_1m  = df_1m['MACD'].iloc[-1] > 0.01 \
+            and df_1m['MACD_hist'].iloc[-1] > 0 \
+            and df_1m['MACD_hist'].iloc[-1] > df_1m['MACD_hist'].iloc[-2] \
+            and df_1m['MACD_hist'].iloc[-2] >= df_1m['MACD_hist'].iloc[-3] \
+            and not (df_1m['MACD_hist'].iloc[-30:] > 0).all()     
+            
+  if False:
+    grad_MA5 = df_1m['close'].iloc[-1] >= df['close'].iloc[-6] \
+              and df['MA5'].iloc[-2] >= df['MA5'].iloc[-3] \
+              # and df['MA5'].iloc[-3] >= df['MA5'].iloc[-4] # new from 22/05/2025
+    grad_MA5_1m = df_1m['close'].iloc[-1] >= df_1m['close'].iloc[-6] \
+              and df_1m['MA5'].iloc[-2] >= df_1m['MA5'].iloc[-3]   
+    grad_MA50 = df_1m['close'].iloc[-1] >= df['close'].iloc[-51] \
+                and df['MA50'].iloc[-2] >= df['MA50'].iloc[-3]             
+    grad_MA50_1m = df_1m['close'].iloc[-1] >= df_1m['close'].iloc[-51] \
+                    and df_1m['MA50'].iloc[-2] >= df_1m['MA50'].iloc[-3] \
+                    and df_1m['MA50'].iloc[-3] >= df_1m['MA50'].iloc[-4]         
+    grad_MA50_prev = df['MA50'].iloc[-4] <= df['MA50'].iloc[-5] \
+                  and df['MA50'].iloc[-5] <= df['MA50'].iloc[-6] \
+
+    deltaMA5_MA50 = df['MA5'].iloc[-1] / df['MA50'].iloc[-1]    
+    deltaMA5_MA50_b2 = df['MA5'].iloc[-2] / df['MA50'].iloc[-2]    
+    deltaMA5_MA50_b3 = df['MA5'].iloc[-3] / df['MA50'].iloc[-3]    
+    deltaMA5_MA50_1min = df_1m['MA5'].iloc[-1] / df_1m['MA50'].iloc[-1]
+    deltaMA5_MA50_1min_b3 = df_1m['MA5'].iloc[-3] / df_1m['MA50'].iloc[-3]
+    square_MA5_MA50_30 = (df['MA5'].iloc[-31:] / df['MA50'].iloc[-31:]).sum() - 31
+    
+  MACD_hist_max_amp_1m = df_1m['MACD_hist'].iloc[-50:-2].abs().max()
+  cond_MACD_hist_max_amp_1m =  df_1m['MACD_hist'].iloc[-1] < 0 \
+    or df_1m['MACD_hist'].iloc[-1] < MACD_hist_max_amp_1m * 0.5
+  
+  # cond 8 new from 02/07/2025 !!!
+  if (cond_a1 or cond_a2 or cond_a3 or cond_a4) \
+      and cond_RSI \
+      and cond_grad_MACD \
+      and cond_MACD_hist_speed \
+      and cond_delta_MA50_M120 \
+      and cond_grad_MACD_1m \
+      and cond_MA50_M120_1m_120 \
+      and cond_grad_MA5_1m \
+      and cond_RSI_1m \
+      and cond_MACD_hist_max_amp_1m:
+      # condition = True
+      tt = 1
+      
+  time_cond = datetime.now().astimezone(tzinfo_ny).hour == 9  \
+              and datetime.now().astimezone(tzinfo_ny).minute > 28 \
+              and datetime.now().astimezone(tzinfo_ny).minute < 45       
+              
+
+  delta_MA50_MA120_1m_sum180 = delta_MA50_MA120_1m.iloc[-180:].sum()
+  cond_sum_delta_MA50_MA120_1m = delta_MA50_MA120_1m_sum180 < 0
+  
+    if display and False:
+    warning.print('MA50_MA5 conditions parameters:')
+    c.print('AND CONDITIONS:', color='yellow')
+    c.green_red_print(cond_RSI, f'cond_RSI (MA30_RSI10), {cond_value_RSI:.3f}')
+    c.green_red_print(cond_grad_MACD, f'cond_grad_MACD, {MACD:.3f}')
+    c.green_red_print(cond_delta_MA50_M120, f'cond_delta_MA50_M120, {delta_MA50_M120.iloc[-1]:.3f}')
+    c.green_red_print(cond_MACD_hist_speed, f'(MACD_hist speed more than 1.05), {MACD_hist_speed:.3f}, MACD_hist: {MACD_hist:.3f}')
+    c.green_red_print(cond_grad_MACD_1m, f'grad_MACD_1m > 0, {MACD_1m:.3f}')
+    c.green_red_print(cond_MACD_hist_1m, f'(MACD_hist 1m < 0), {MACD_hist_1m:.3f}')
+    c.green_red_print(cond_RSI_1m, f'cond_RSI_1m, {df_1m["MA30_RSI10"].iloc[-1]:.3f}')
+    c.green_red_print(cond_MA50_M120_1m_120, f'cond_MA50_M120_1m_120, {delta_MA50_MA120_1m.iloc[-1]:.3f}')
+    c.green_red_print(cond_grad_MA5_1m, f'cond_grad_MA5_1m')
+    c.green_red_print(cond_MACD_hist_max_amp_1m, f'cond_MACD_hist_max_amp_1m, {MACD_hist_max_amp_1m:.3f}')
+    c.print('OR CONDITIONS:', color='yellow')
+    c.green_red_print(cond_MACD_1m_sum20, f'MACD 1m sum last 20 < 0, {MACD_1m_sum20:.3f}')
+    c.green_red_print(cond_positive_MACD_1m, f'cond_positive_MACD_1m')
+    c.green_red_print(cond2_positive_MACD_1m, f'cond2_positive_MACD_1m')
+    c.print('OR CONDITIONS:', color='yellow')
+    c.green_red_print(cond_a1, f'cond_a1 (MACD_hist > 0), {MACD_hist:.3f}')
+    c.green_red_print(cond_a2, f'cond_a2 (MACD_hist < 0), {MACD_hist:.3f}')
+    c.green_red_print(cond_a3, f'cond_a3 (number red 1h ha candles > 5), {cond_value_a3:.3f}')
+    c.green_red_print(cond_a4, f'cond_a4 (MACD_hist > 0), {MACD_hist:.3f}')
