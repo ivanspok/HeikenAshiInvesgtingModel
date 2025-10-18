@@ -5,4 +5,4 @@ db
 stats
 historical_data
 logs
-*.logs
+*.log
