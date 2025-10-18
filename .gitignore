@@ -1,8 +1,8 @@
 personal_settings.py
 __pycache__
-.vscode
+*.vscode
 db
 stats
 historical_data
 logs
-.log
+*.logs
