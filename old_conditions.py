@@ -864,3 +864,86 @@ def modify_trailing_stop_limit_MA50_MA5_order_old(df, order, current_price, stoc
     alarm.print(traceback.format_exc())
   return df, order   
 
+def modify_trailing_stop_limit_1230_order(df, order, current_price) -> Tuple[pd.DataFrame, pd.DataFrame]:
+  # Modify order with buy_codition_type = 12:30
+  try:
+    order_id = order['trailing_stop_limit_order_id']
+    current_gain = current_price / order['buy_price']
+    if order['buy_condition_type'] == '1230' \
+      and not(order_id in [None, '', 'FAXXXX'] 
+          or isNaN(order_id)):
+      trail_spread = order['buy_price'] * trail_spread_coef
+
+      trailing_ratio = order['trailing_ratio']
+      if current_gain >= 1.005:
+        trailing_ratio = 0.15
+
+      if current_gain <= 1.005 and order['trailing_ratio'] != 0.15:
+        trailing_ratio = 0.3
+
+      if ((datetime.now().astimezone(tzinfo_ny).hour == 16 and datetime.now().astimezone(tzinfo_ny).minute > 55) \
+        or (datetime.now().astimezone(tzinfo_ny).hour == 17 and datetime.now().astimezone(tzinfo_ny).minute > 55)) \
+          and current_gain >= 0.998:
+        trailing_ratio = 0.02
+  
+      if order['trailing_ratio'] != trailing_ratio:
+        order_id = ma.modify_trailing_stop_limit_order(order=order,
+                                            trail_value=trailing_ratio,
+                                            trail_spread=trail_spread)  
+        if order_id != order['trailing_stop_limit_order_id']:
+          order['trailing_stop_limit_order_id'] = order_id
+        order['trailing_ratio'] = trailing_ratio
+        df = ti.update_order(df, order)
+  except Exception as e:
+    alarm.print(traceback.format_exc())
+  return df, order   
+
+def modify_trailing_stop_limit_MA5_MA120_DS_order(df, order, current_price, stock_df, stock_df_1m) -> Tuple[pd.DataFrame, pd.DataFrame]:
+  try:
+    order_id = order['trailing_stop_limit_order_id']
+    current_gain = current_price / order['buy_price']
+    
+    deltaMA5_MA120_1m = stock_df_1m['MA5'].iloc[-1] / stock_df_1m['MA120'].iloc[-1]    
+    deltaMA5_MA120_1m_b3 = stock_df_1m['MA5'].iloc[-3] / stock_df_1m['MA120'].iloc[-3]   
+    deltaMA5_MA50_1m = stock_df_1m['MA5'].iloc[-1] / stock_df_1m['MA50'].iloc[-1]    
+    deltaMA5_MA50_1m_b3 = stock_df_1m['MA5'].iloc[-3] / stock_df_1m['MA50'].iloc[-3]  
+    
+    if deltaMA5_MA50_1m < 1 and deltaMA5_MA120_1m < 1:
+          df, order = check_sell_order_has_been_placed(df, order, ticker, order_type='trailing_stop_limit')
+              
+    if order['buy_condition_type'] == 'MA5_MA120_DS' \
+      and not(order_id in [None, '', 'FAXXXX'] 
+          or isNaN(order_id)):
+      trail_spread = order['buy_price'] * trail_spread_coef
+      trailing_ratio = order['trailing_ratio']
+
+      # MA5 1m crossing MA120 1m 
+      cond_1 = deltaMA5_MA120_1m_b3 >= 1 and deltaMA5_MA120_1m < 1
+      cond_2 = deltaMA5_MA50_1m_b3 >= 1 and deltaMA5_MA50_1m < 1
+        
+      if (cond_1 or cond_2):
+        if current_gain <= 1.0007:
+          if order['trailing_ratio'] > 0.3:
+            trailing_ratio = 0.3
+        else:
+            trailing_ratio = 0.05
+    
+      if deltaMA5_MA50_1m < 1 and deltaMA5_MA120_1m < 1 \
+        and order['trailing_ratio'] > 0.05:
+          trailing_ratio = 0.05
+          
+      if deltaMA5_MA120_1m >= 1.005 \
+        or deltaMA5_MA50_1m >= 1.0005:
+         trailing_ratio = default.trailing_ratio_MA5_MA120_DS
+      
+      if order['trailing_ratio'] != trailing_ratio:
+        order_id = ma.modify_trailing_stop_limit_order(order=order,
+                                            trail_value=trailing_ratio,
+                                            trail_spread=trail_spread)  
+        if order_id != order['trailing_stop_limit_order_id']:
+          order['trailing_stop_limit_order_id'] = order_id
+        order['trailing_ratio'] = trailing_ratio
+        df = ti.update_order(df, order)
+  except Exception as e:
+    alarm.print(traceback.format_exc())
+  return df, order   

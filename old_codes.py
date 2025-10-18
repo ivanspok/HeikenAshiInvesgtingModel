@@ -369,3 +369,26 @@ def version_before():
     c.green_red_print(cond_a2, f'cond_a2 (MACD_hist < 0), {MACD_hist:.3f}')
     c.green_red_print(cond_a3, f'cond_a3 (number red 1h ha candles > 5), {cond_value_a3:.3f}')
     c.green_red_print(cond_a4, f'cond_a4 (MACD_hist > 0), {MACD_hist:.3f}')
+
+
+# settings for buy condition Version 3.0
+# is_near_global_max_prt = 120
+last_top_ratio = 1
+RIV  = 0.15
+buy_ratio_border = 0
+bull_trend_coef = 1.07
+number_tries_to_submit_order = {}
+
+# orders settings
+lose_coef_1m = 0.995
+lose_coef_1h = 0.995
+
+
+
+and cond_grad_MA50_1m \ +++
+and cond_grad_MACD_1m \ +++
+and cond_grad_MA5_1m \
+and cond_grad_MA20_1m \
+and cond_RSI_1m \
+and cond_VR_1m \  # +++
+and cond_MA5_delta_MA5_MA20_1m:
