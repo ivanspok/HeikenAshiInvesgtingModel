@@ -162,6 +162,37 @@ class Moomoo_API():
             trd_ctx.close()
         return order_id
 
+    def place_afterhours_sell_order(self, ticker, price, qty):
+        order_id = None
+        order = None
+        try:
+            trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
+            self.unlock_trade()
+            stock_code = MARKET + ticker
+            ret, data = trd_ctx.place_order(
+                                    price=price * 0.999,
+                                    qty=qty,
+                                    code=stock_code,
+                                    trd_side=ft.TrdSide.SELL,
+                                    trd_env=self.trd_env,
+                                    order_type=ft.OrderType.NORMAL,
+                                    time_in_force=ft.TimeInForce.GTC,
+                                    adjust_limit=0.01,
+                                    fill_outside_rth=True)
+            print(f'Placing afterhours limit sell order for {stock_code}')
+            print(f'Market response is {ret}, data is {data}')
+            if ret == ft.RET_OK:
+                order_id = data['order_id'].values[0]
+                order = data
+            else:
+                alarm.print(data)
+                return data
+            trd_ctx.close()
+        except Exception as e:
+            alarm.print(e)
+            trd_ctx.close()
+        return order_id
+    
     def place_buy_limit_if_touched_order(self, ticker, price, qty, fill_outside_rth=True):
         order_id = None
         order = None
@@ -311,9 +342,14 @@ class Moomoo_API():
                 status = True
             else:
                 alarm.print(data)
+                if data == 'Modify or Cancel Order is too frequent，request failed, no more than 20 times every 30 seconds.':
+                    warning.print('Sleeping for 30 seconds due to too frequent order modifications/cancellations')
+                    time.sleep(30)
             trd_ctx.close()
         except Exception as e:
             alarm.print(e)
+            if e == 'Modify or Cancel Order is too frequent，request failed, no more than 20 times every 30 seconds.':
+                time.sleep(20)
             trd_ctx.close()
         return status
     
@@ -570,6 +606,7 @@ class Moomoo_API():
         trailing_stop_limit_orders = pd.DataFrame()
         stop_limit_buy_orders = pd.DataFrame()
         stop_limit_sell_orders = pd.DataFrame()
+        limit_sell_orders = pd.DataFrame()
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=ip, port=port, security_firm=ft.SecurityFirm.FUTUAU)
             ret, data = trd_ctx.order_list_query(acc_id=self.acc_id)
@@ -592,7 +629,9 @@ class Moomoo_API():
                                 if row['order_type'] == ft.OrderType.TRAILING_STOP_LIMIT:
                                     trailing_stop_limit_orders = pd.concat([trailing_stop_limit_orders, row], axis = 1)     
                                 if row['order_type'] == ft.OrderType.STOP_LIMIT: 
-                                    stop_limit_sell_orders = pd.concat([stop_limit_sell_orders, row], axis = 1)       
+                                    stop_limit_sell_orders = pd.concat([stop_limit_sell_orders, row], axis = 1)
+                                if row['order_type'] == ft.OrderType.NORMAL: 
+                                    limit_sell_orders = pd.concat([limit_sell_orders, row], axis = 1)       
                                   
                             if row['trd_side'] == ft.TrdSide.BUY:
                                  if row['order_type'] == ft.OrderType.LIMIT_IF_TOUCHED: 
@@ -610,6 +649,7 @@ class Moomoo_API():
                     trailing_stop_limit_orders = trailing_stop_limit_orders.transpose()
                     stop_limit_buy_orders = stop_limit_buy_orders.transpose()
                     stop_limit_sell_orders = stop_limit_sell_orders.transpose()
+                    limit_sell_orders = limit_sell_orders.transpose()
             else:
                 alarm.print('order_list_query error: ', data)
             trd_ctx.close()  # Close the current connection
@@ -618,7 +658,7 @@ class Moomoo_API():
             trd_ctx.close()
         return  limit_if_touched_sell_orders, stop_sell_orders, limit_buy_orders, \
               limit_if_touched_buy_orders, trailing_LIT_orders, trailing_stop_limit_orders,\
-              stop_limit_buy_orders, stop_limit_sell_orders
+              stop_limit_buy_orders, stop_limit_sell_orders, limit_sell_orders
     
     def get_order_commission(self, order_id):
         commission = None

@@ -17,7 +17,7 @@ alarm = colog(TextColor='red')
 float_columns = ['buy_price', 'buy_sum', 'buy_commission', 'sell_price', 'sell_sum', 'sell_commission',
                   'gain_coef', 'lose_coef', 'trailing_LIT_gain_coef', 'profit', 'trailing_ratio']
 str_columns = ['buy_order_id', 'limit_if_touched_order_id', 'stop_order_id', 'trailing_LIT_order_id', 
-               'trailing_stop_limit_order_id', 'stop_limit_order_id']
+               'trailing_stop_limit_order_id', 'stop_limit_order_id', 'afterhours_order_id']
 
 class TradeInterface():
 
@@ -133,8 +133,8 @@ class TradeInterface():
             break
       else:
         if buy_condition_type == 'MA50_MA5':
-          fill_outside_rth = False
-          # fill_outside_rth = True
+        #   fill_outside_rth = False
+          fill_outside_rth = True
         else:
           fill_outside_rth = True
         # moomoo_order, order_id = self.moomoo_api.place_buy_limit_order(ticker, buy_price, stocks_number, fill_outside_rth=fill_outside_rth)
@@ -245,12 +245,13 @@ class TradeInterface():
           'trailing_LIT_gain_coef' : pd.Series(dtype='float'),
           'trailing_ratio': pd.Series(dtype='float'),
           'profit': pd.Series(dtype='float'),
-          'buy_order_id' : pd.Series(dtype='int'), 
-          'limit_if_touched_order_id': pd.Series(dtype='int'),
-          'stop_order_id' : pd.Series(dtype='int'),   
-          'stop_limit_order_id': pd.Series(dtype='int'),   
-          'trailing_LIT_order_id' : pd.Series(dtype='int'),         
-          'trailing_stop_limit_order_id' : pd.Series(dtype='int'),
+          'buy_order_id' : pd.Series(dtype='str'), 
+          'limit_if_touched_order_id': pd.Series(dtype='str'),
+          'stop_order_id' : pd.Series(dtype='str'),   
+          'stop_limit_order_id': pd.Series(dtype='str'),   
+          'trailing_LIT_order_id' : pd.Series(dtype='str'),         
+          'trailing_stop_limit_order_id' : pd.Series(dtype='str'),
+          'afterhours_order_id' : pd.Series(dtype='str'),
           'timezone': pd.Series(dtype='str'),
           'buy_condition_type': pd.Series(dtype='str'),
           'tech_indicators': pd.Series(dtype='str')
@@ -278,6 +279,14 @@ class TradeInterface():
   def __update_sql_db__(self):
     pass
 
+  def update_df_colums_in_db(self, df, column_name, type):
+    try:
+      if type == str:
+        df[column_name] = 'FAXXXX'
+    except Exception as e:
+      alarm.print(e)
+    return df
+    
   def update_order(self, df, order, sim=False):
    
     # index = df.loc[(df['id'] == order['id']) & (df['buy_time'] == order['buy_time'])].index
@@ -288,7 +297,11 @@ class TradeInterface():
       update_line[float_columns] = update_line[float_columns].astype(float)
       update_line[str_columns] = update_line[str_columns].astype(str)
       df.loc[index] = update_line[df.columns].values
-      self.__save_orders__(df)
+      if str(df.loc[index]['afterhours_order_id'].values[0]) == str(order['afterhours_order_id']):
+        self.__save_orders__(df)
+      else:
+        alarm.print(f'''Afterhours order {order['afterhours_order_id']}, ticker {order['ticker']} id not match, df not saved!''')
+      
     except Exception as e:
       alarm.print(e)
 
@@ -335,16 +348,16 @@ class TradeInterface():
     return not(df.empty)
 
 if __name__ == '__main__':
-  ti = TradeInterface(platform='test', df_name='testing')
-  df = ti.load_trade_history()
-  # Tests:
-  order = df[(df['status'] == 'bought')].iloc[0]
-  order['stop_order_id'] = None
-  order['limit_if_touched_order_id'] = 543
-  df = ti.update_order(order)
-  print(ti.stock_is_bought('AAPL', df))
-  print(ti.limit_if_touched_order_set('AAPL', df))
-  print(ti.stop_order_set('AAPL', df))
+    ti = TradeInterface(platform='test', df_name='testing')
+    df = ti.load_trade_history()
+    # Tests:
+    order = df[(df['status'] == 'bought')].iloc[0]
+    order['stop_order_id'] = None
+    order['limit_if_touched_order_id'] = 543
+    df = ti.update_order(df, order)
+    print(ti.stock_is_bought('AAPL', df))
+    print(ti.limit_if_touched_order_set('AAPL', df))
+    print(ti.stop_order_set('AAPL', df))
 
   # order = ti.buy_order(ticker='AAPL', buy_price=100, buy_sum=1000)
   # c.print(f'Place order: {order}', color='red')
