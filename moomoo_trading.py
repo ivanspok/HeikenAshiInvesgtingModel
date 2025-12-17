@@ -123,7 +123,7 @@ clean_cancelled_orders = True
 read_sql_from_df = False
 # should be False for real trading:e
 test_buy_sim = False
-test_modififying_trailing_stop_limit_MA50_MA5 = False   
+test_modififying_trailing_stop_limit_MA50_MA5 = False
 override_time_is_correct = False
 
 #%% FUNCTIONS and CLASSES
@@ -312,7 +312,6 @@ def sum_before_crossing_criteria(df):
     warning.print(f'sum before crosssing is {sum_1}, reference sum is {ref_sum}')
     return sum_1 < ref_sum
     
-
 def is_near_local_min(df, k=30, max_dist=15):
     '''
     Returns True if the local minimum in the last k points is within max_dist ticks from the end,
@@ -1124,6 +1123,10 @@ def stock_buy_condition_MA50_MA5(df, df_pred, df_1m, ticker, display=False):
         
     sum_120_delta_MA5_MA80_1m = delta_MA5_MA80_1m.iloc[-120:].sum()
     cond_sum_120_delta_MA5_MA80_1m = sum_120_delta_MA5_MA80_1m < 120 * 0.2
+    sum_200_delta_MA5_MA80_1m = delta_MA5_MA80_1m.iloc[-200:].sum()
+    cond_sum_200_delta_MA5_MA80_1m = sum_200_delta_MA5_MA80_1m < 200 * 0.1
+    # warning.print(f'sum_120_delta_MA5_MA80_1m: {sum_120_delta_MA5_MA80_1m:.4f}, ' +
+    #       f'sum_200_delta_MA5_MA80_1m: {sum_200_delta_MA5_MA80_1m:.4f}')    
     # delta_MA50_MA120_1m.iloc[-120:].sum()
     cond_MACD_more_DEA = df['MACD_DEA'].iloc[-1] < df['MACD'].iloc[-1]
     cond_MACD_more_DEA_120 = df['MACD_DEA_120'].iloc[-1] < df['MACD_120'].iloc[-1]
@@ -1132,6 +1135,14 @@ def stock_buy_condition_MA50_MA5(df, df_pred, df_1m, ticker, display=False):
             and  df_1m['MACD_hist'].iloc[-1] > df_1m['MACD_hist'].iloc[-2] \
             and  df_1m['MACD_hist'].iloc[-2] > df_1m['MACD_hist'].iloc[-3] \
             and cond_MACD_more_DEA_120
+
+    cond_grad_delta_MA5_MA80_1m = delta_MA5_MA80_1m.iloc[-1] > delta_MA5_MA80_1m.iloc[-2]
+    max_delta_MA5_MA80_1m_window100 = delta_MA5_MA80_1m.iloc[-100:][delta_MA5_MA80_1m.iloc[-100:] < 0].abs().max()
+    max_delta_MA5_MA80_1m_window100 = max(max_delta_MA5_MA80_1m_window100, delta_MA5_MA80_1m.iloc[-100:15].max())
+    cond_max_delta_MA5_MA80_1m_window100 = delta_MA5_MA80_1m.iloc[-1] < 0 \
+        or delta_MA5_MA80_1m.iloc[-1] <= 0.5 * max_delta_MA5_MA80_1m_window100
+        
+
     
     if not market_time:
         # amplitude = df['close'].iloc[-3:].max() / df['close'].iloc[-3:].min()
@@ -1139,6 +1150,8 @@ def stock_buy_condition_MA50_MA5(df, df_pred, df_1m, ticker, display=False):
             cond_grad_MACD_1m = True
             cond_MACD_120_1m = True
             cond_grad_MA5_1m = True
+            
+    # delta_MA5_MA80_1m 
         
     if  (cond_grad_MA80 or cond_delta_MA5_MA80) \
         and cond_grad_MA10Speed14 \
@@ -1157,7 +1170,11 @@ def stock_buy_condition_MA50_MA5(df, df_pred, df_1m, ticker, display=False):
         and cond_grad_MACD_1m \
         and (cond_MACD_120_1m or cond2_MACD_hist_1m) \
         and cond_sum_120_delta_MA5_MA80_1m \
-        and cond_grad_MA5_1m:
+        and cond_sum_200_delta_MA5_MA80_1m \
+        and cond_grad_delta_MA5_MA80_1m \
+        and cond_max_delta_MA5_MA80_1m_window100 \
+        and cond_grad_MA5_1m \
+        and cond_grad_MA20_1m:
         condition = True  
     
     # and abs(df['MACD_hist_120'].iloc[-1]) > 0.002 \ changed with cond_DEA_more_MACD_120 on 18/11/2025
@@ -1191,22 +1208,6 @@ def stock_buy_condition_MA50_MA5(df, df_pred, df_1m, ticker, display=False):
         
     # exclude company from _list optimal list
     is_exlude = False
-    # if df['MA30_RSI10'].iloc[-1]  < 25 \
-    #     or (df['MACD'].iloc[-1] < df['MACD'].iloc[-2] \
-    #         and df['MACD'].iloc[-2] < df['MACD'].iloc[-3] \
-    #         and df['MACD'].iloc[-3] < df['MACD'].iloc[-4] ) \
-    #     or not cond_grad_MACD_120 \
-    #     or (df['MA80'].iloc[-2] < df['MA80'].iloc[-3] \
-    #         and not cond_delta_MA5_MA80):
-    #     is_exlude = True
-    #     exclude_duration_dist[ticker] = 60 * 20 # exclude for 20 minutes
-    
-    # if df['MA30_RSI10'].iloc[-1]  < 25 \
-    #     or (df['MACD'].iloc[-1] < df['MACD'].iloc[-2] \
-    #     and df['MACD'].iloc[-2] < df['MACD'].iloc[-3] \
-    #     and df['MACD'].iloc[-3] < df['MACD'].iloc[-4]):
-    #     is_exlude = True
-    #     exclude_duration_dist[ticker] = 60 * 20 # exclude for 20 minutes
     if not cond_grad_MACD_120 \
         or not cond_grad_MACD_hist:
         is_exlude = True  
@@ -1257,33 +1258,9 @@ def stock_buy_condition_MA50_MA5(df, df_pred, df_1m, ticker, display=False):
         print('and ' + fmt("cond_grad_MACD_1m", cond_grad_MACD_1m))
         print('and ' + fmt("cond_MACD_120_1m", cond_MACD_120_1m) + " or " + fmt("cond2_MACD_hist_1m", cond2_MACD_hist_1m))
         print('and ' + fmt("cond_sum_120_delta_MA5_MA80_1m", cond_sum_120_delta_MA5_MA80_1m))
+        print('and ' + fmt("cond_sum_200_delta_MA5_MA80_1m", cond_sum_200_delta_MA5_MA80_1m))
         print('and ' + fmt("cond_grad_MA5_1m", cond_grad_MA5_1m))
-        
-    if False:
-        print(fmt("cond_MA5_MA50Speed5", cond_MA5_MA50Speed5))
-        print(fmt("and cond_grad_MACD_120", cond_grad_MACD_120))
-        print(fmt("and cond_max_MACD_hist_window100", cond_max_MACD_hist_window100))
-        print(fmt("and cond_max_MACD_hist_120_window100", cond_max_MACD_hist_120_window100))
-        print('and ' + fmt("cond_RSI", cond_RSI) + " or " + fmt("cond_RSI_pred", cond_RSI_pred))
-        print('and ' + fmt("cond_grad_MACD", cond_grad_MACD) + " or " + fmt("cond_grad_MACD_pred", cond_grad_MACD_pred))
-        print('and ' + fmt("cond_grad_MA10", cond_grad_MA10) + " or " + fmt("cond_grad_MA10_pred", cond_grad_MA10_pred))
-        print('and ' + fmt("cond_grad_MA5", cond_grad_MA5) + " or " + fmt("cond_grad_MA5_pred", cond_grad_MA5_pred))
-        print('and ' + fmt("cond_grad_delta_MA5_M10", cond_grad_delta_MA5_M10) + " or " + fmt("cond_grad_delta_MA5_M10_pred", cond_grad_delta_MA5_M10_pred))
-        print('and (' + fmt("ha_cond_1h", ha_cond_1h) + 
-              " or " + fmt("ha_cond_1h_pred", ha_cond_1h_pred) + 
-              " or " + fmt("cond_delta_MA5_M10", cond_delta_MA5_M10) +
-              " or " + fmt("cond_delta_MA5_M10_pred", cond_delta_MA5_M10_pred) 
-              + ')')
-        print('and ' + fmt("cond_grad_delta_MA5_M20", cond_grad_delta_MA5_M20))
-        print('and ' + fmt("no_spikes_cond", no_spikes_cond))
-        # print('and ' + fmt("cond_grad_MA50_1m", cond_grad_MA50_1m))
-        print('and ' + fmt("cond_grad_MACD_1m", cond_grad_MACD_1m))
-        print('and ' + fmt("cond_MACD_hist_1m", cond_MACD_hist_1m))
-        print('and ' + fmt("cond_grad_MA5_1m", cond_grad_MA5_1m))
-        print('and ' + fmt("cond_grad_MA20_1m", cond_grad_MA20_1m))
-        print('and ' + fmt("cond_RSI_1m", cond_RSI_1m))
-        print('and ' + fmt("cond_VR_1m", cond_VR_1m))
-        print('and ' + fmt("cond_MA5_delta_MA5_MA20_1m", cond_MA5_delta_MA5_MA20_1m))
+        print('and ' + fmt("cond_grad_MA20_1m", cond_grad_MA20_1m)) 
 
     conditions_info = log_traiding_parameters(
         cond_MA5_MA5Speed5=cond_MA5_MA50Speed5,
@@ -1306,10 +1283,14 @@ def stock_buy_condition_MA50_MA5(df, df_pred, df_1m, ticker, display=False):
         cond_DEA_more_MACD_120=cond_MACD_more_DEA_120,
         cond_DEA_more_MACD=cond_MACD_more_DEA,
         no_spikes_cond=no_spikes_cond,
+        cond_sum_120_delta_MA5_MA80_1m=cond_sum_120_delta_MA5_MA80_1m,
+        cond_sum_200_delta_MA5_MA80_1m=cond_sum_200_delta_MA5_MA80_1m,
         cond_grad_MACD_1m=cond_grad_MACD_1m,
         cond_MACD_120_1m=cond_MACD_120_1m,
         cond2_MACD_hist_1m=cond2_MACD_hist_1m,
         cond_grad_MA5_1m=cond_grad_MA5_1m,
+        cond_grad_delta_MA5_MA80_1m=cond_grad_delta_MA5_MA80_1m,
+        cond_max_delta_MA5_MA80_1m_window100=cond_max_delta_MA5_MA80_1m_window100,
         MACD_hist_speed = MACD_hist_speed,
         MA5_delta_MA5_MA20 = MA5_delta_MA5_MA20,
         MA5_delta_MA5_MA20_1m = MA5_delta_MA5_MA20_1m,
@@ -1321,6 +1302,8 @@ def stock_buy_condition_MA50_MA5(df, df_pred, df_1m, ticker, display=False):
         delta_MA5_MA20 = delta_MA5_MA20,
         delta_MA5_MA20_1m = delta_MA5_MA20_1m,
         delta_MA5_MA20_pred = delta_MA5_MA20_pred,
+        delta_MA5_MA80 = delta_MA5_MA80,
+        delta_MA5_MA80_1m = delta_MA5_MA80_1m,
         MA10 = df['MA10'],
         MA20 = df['MA20'],
         MA30_RSI10 = df['MA30_RSI10'],
@@ -1344,39 +1327,13 @@ def stock_buy_condition_MA50_MA5(df, df_pred, df_1m, ticker, display=False):
         VRMA_1m = df_1m['VRMA'],
         MA30_RSI10_pred = df_pred['MA30_RSI10'],
         MACD_hist_pred = df_pred['MACD_hist'],
-        sum_120_delta_MA5_MA80 = sum_120_delta_MA5_MA80_1m
+        sum_120_delta_MA5_MA80 = sum_120_delta_MA5_MA80_1m,
+        sum_200_delta_MA5_MA80_1m = sum_200_delta_MA5_MA80_1m
     )
     
     if condition: 
         c.green_red_print(condition, condition_type)
         MA50_MA5_buy_info_logger.info(f'{ticker}::{conditions_info}')
-    
-    if False:
-        pass   
-        # conditions_info =  f'''cond_b1:{cond_b1}, cond_b2:{cond_b2}, cond_b3:{cond_b3}, cond_b4:{cond_b4}, cond_b5:{cond_b5}, cond_b6: {cond_b6}\
-        # cond_RSI:{int(cond_RSI)}, cond_grad_MACD:{int(cond_grad_MACD)}, cond_grad_MA5:{int(cond_grad_MA5)}\
-        # cond_grad_MA10:{int(cond_grad_MA10)}, cond_grad_delta_MA5_M10:{int(cond_grad_delta_MA5_M10)},\
-        # cond_grad_delta_MA5_M20:{int(cond_grad_delta_MA5_M20)}, cond_grad_MA5_delta_MA5_MA20:{int(cond_grad_MA5_delta_MA5_MA20)},\
-        # cond_grad_MACD_120:{int(cond_grad_MACD_120)}, cond_max_MACD_hist_window100:{int(cond_max_MACD_hist_window100)},\
-        # cond_max_MACD_hist_window100:{int(cond_max_MACD_hist_window100)}, cond_max_MACD_hist_120_window100:{int(cond_max_MACD_hist_120_window100)},\
-        # cond_MACD_hist_speed:{int(cond_MACD_hist_speed)},\
-        # cond_delta_MA50_M120:{int(cond_delta_MA50_M120)}, cond_grad_MACD_1m:{int(cond_grad_MACD_1m)},\
-        # no_spikes_cond:{int(no_spikes_cond)}, cond_grad_MA50_M120_1m_120:{int(cond_grad_MA50_M120_1m_120)},\
-        # cond_grad_MA5_1m:{int(cond_grad_MA5_1m)}, cond_RSI_1m:{int(cond_RSI_1m)}, cond_VR:{int(cond_VR_1m)}, ha_cond:{int(ha_cond_1m)},\
-        # permit_1h_cond:{int(permit_1h_cond)},\
-        # df['MACD'].iloc[-1]: {df['MACD'].iloc[-1]:.3f}, df['MACD'].iloc[-2]: {df['MACD'].iloc[-2]:.3f},\
-        # df['MACD_hist'].iloc[-1]: {df['MACD_hist'].iloc[-1]:.3f}, df['MACD_hist'].iloc[-2]: {df['MACD_hist'].iloc[-2]:.3f},\
-        # delta_MA50_M120.iloc[-1]: {delta_MA50_MA120.iloc[-1]:.3f}, delta_MA50_M120.iloc[-2]: {delta_MA50_MA120.iloc[-2]:.3f},\ 
-        # delta_MA5_M20.iloc[-1]: {delta_MA5_MA20.iloc[-1]:.3f}, delta_MA5_M20.iloc[-2]: {delta_MA5_MA20.iloc[-2]:.3f},\
-        # delta_MA5_M10.iloc[-1]: {delta_MA5_MA10.iloc[-1]:.3f}, delta_MA5_M10.iloc[-2]: {delta_MA5_MA10.iloc[-2]:.3f},\
-        # df['MA30_RSI10'].iloc[-1]: {df['MA30_RSI10'].iloc[-1]:.3f}, df['MA30_RSI10'].iloc[-2]: {df['MA30_RSI10'].iloc[-2]:.3f}\
-        # delta_MA50_MA120_1m.iloc[-1]: {delta_MA50_MA120_1m.iloc[-1]:.3f}, delta_MA50_MA120_1m.iloc[-2]: {delta_MA50_MA120_1m.iloc[-2]:.3f}\
-        # df_1m['MA30_RSI10'].iloc[-1]: {df_1m['MA30_RSI10'].iloc[-1]:.3f}, df_1m['MA30_RSI10'].iloc[-2]: {df_1m['MA30_RSI10'].iloc[-2]:.3f}\
-        # df_1m['MACD'].iloc[-1]: {df_1m['MACD'].iloc[-1]:.3f}, df_1m['MACD'].iloc[-2]: {df_1m['MACD'].iloc[-2]:.3f}\
-        # df_1m['MACD_hist'].iloc[-1]: {df_1m['MACD_hist'].iloc[-1]:.3f}, df_1m['MACD_hist'].iloc[-2]: {df_1m['MACD_hist'].iloc[-2]:.3f}\
-        # MACD_hist_speed: {MACD_hist_speed:.3f} (more than 1.07 is good) \
-        # MA5_MA50Speed5.iloc[-1] is {MA5_MA50Speed5.iloc[-1]:.3f}, MA5_MA50Speed5.iloc[-2] is {MA5_MA50Speed5.iloc[-2]:.3f}
-        # '''
     
     return condition, conditions_info
 # version from 13/03/2025 with MA, ha_cond and 
@@ -2140,16 +2097,16 @@ def modify_trailing_stop_limit_MA50_MA5_and_bmo1_order(df, order, ticker, curren
                 and delta_MA5_MA80_1m.iloc[-2] < delta_MA5_MA80_1m.iloc[-3] \
                 and not market_time_5min_after_open \
                 and (enable_sellings_cond or True):
-                if order['trailing_ratio'] > 0.153:            
-                    trailing_ratio = 0.153
+                if order['trailing_ratio'] > 0.063:            
+                    trailing_ratio = 0.063
                     cond_MA5_1m_crossingM80_1m = True
             elif ((delta_MA5_MA80_1m.iloc[-1] > 1.0002
                     and delta_MA5_MA80_1m.iloc[-1] / max60_delta_MA5_MA80_1m > 0.3
                    )
                     or (delta_MA5_MA80_1m.iloc[-1] > delta_MA5_MA80_1m.iloc[-2] \
                         and delta_MA5_MA80_1m.iloc[-2] > delta_MA5_MA80_1m.iloc[-3])
-                ) \
-                and order['trailing_ratio'] == 0.153:    
+                    or market_time_10min_after_open)  \
+                and order['trailing_ratio'] == 0.063:    
                 trailing_ratio = default.trailing_ratio_MA50_MA5
                 
             # if 1h MACD120 is decreasing and high spikes in the prices
@@ -2169,7 +2126,7 @@ def modify_trailing_stop_limit_MA50_MA5_and_bmo1_order(df, order, ticker, curren
             if (max20_1m / min20_1m > 1.008 \
                     and (stock_df_1m['close'].iloc[-1] - min20_1m) / (max20_1m - min20_1m + 0.0001) > 0.5 \
                 ) \
-                and not market_time_10min_after_open \
+                and not market_time_5min_after_open \
                 and stock_df_1m['MA5'].iloc[-1] < stock_df_1m['MA5'].iloc[-2] \
                 and stock_df_1m['MA5'].iloc[-2] <= stock_df_1m['MA5'].iloc[-3]:
                 if order['trailing_ratio'] > 0.201:
@@ -2210,22 +2167,30 @@ def modify_trailing_stop_limit_MA50_MA5_and_bmo1_order(df, order, ticker, curren
             else:
                 if order['trailing_ratio'] == 0.06:
                     trailing_ratio = default.trailing_ratio_MA50_MA5
-            
+            # used to be current_gain <= 0.9985
             if order['buy_condition_type'] in ['MA50_MA5', 'before_market_open_1']:
                 if (cond_5 or cond_6 or cond_7 or cond_8 \
                     or cond_9 or cond_deltaMA5_MA50_1m
                     or cond_MACD120_1m) \
                     and (enable_sellings_cond or \
-                        (current_gain <= 0.9985 and not market_time_30min_after_open and market_time ) \
+                        (current_gain <= 0.99 and not market_time_30min_after_open and market_time ) \
                     ) \
                     and ((MA50_MA120_1m_120.iloc[-1] < MA50_MA120_1m_120.iloc[-2] and
                          MA50_MA120_1m_120.iloc[-2] <= MA50_MA120_1m_120.iloc[-3]) \
-                         or current_gain <= 0.9985):
+                         or current_gain <= 0.99):
                     if order['trailing_ratio'] > 0.05:
                         trailing_ratio = 0.05
                 elif order['trailing_ratio'] == 0.05:
                     trailing_ratio = default.trailing_ratio_MA50_MA5
-                
+
+            # 0.002 * 100 = 0.2%
+            # if current_gain > 1.003 \
+            #     and order['trailing_ratio'] < default.trailing_ratio_MA50_MA5:
+            #     delta_ = (current_gain - 1.001) * 100
+            #     if order['trailing_ratio'] < delta_ \
+                    
+            #         trailing_ratio = delta_
+            
             if order['buy_condition_type'] == 'before_market_open_1' and False:
                 enable_sellings_cond_before_market_open = stock_df['MACD'].iloc[-1] < stock_df['MACD'].iloc[-2] \
                     or (stock_df['MA30_RSI10'].iloc[-1] < stock_df['MA30_RSI10'].iloc[-2]) \
@@ -2248,8 +2213,7 @@ def modify_trailing_stop_limit_MA50_MA5_and_bmo1_order(df, order, ticker, curren
                          MA50_MA120_1m_120.iloc[-2] <= MA50_MA120_1m_120.iloc[-3]):
                     if order['trailing_ratio'] > 0.05:
                         trailing_ratio = 0.05
-                elif order['trailing_ratio'] == 0.05 \
-                    and not order['trailing_ratio'] in [0.32, 0.305, 0.301, 0.3, 0.06]:
+                elif order['trailing_ratio'] == 0.05:
                     trailing_ratio = default.trailing_ratio_before_market_open
                         
             # final condition to set trailing ratio to default if conditions are good
@@ -2281,22 +2245,6 @@ def modify_trailing_stop_limit_MA50_MA5_and_bmo1_order(df, order, ticker, curren
 
             if order['trailing_ratio'] != trailing_ratio:
                 try:
-                    if False:
-                        pass
-                        # info = (
-                        #     f"time {datetime.now()}: Ticker {order['ticker']}, "
-                        #     f"cond1: {cond_1}, cond2: {cond_2}, cond3: {cond_3}, cond4: {cond_4}, "
-                        #     f"cond5: {cond_5}, cond6: {cond_6}, cond7: {cond_7}, cond8: {cond_8}, cond9: {cond_9}, "
-                        #     f"cond_deltaMA5_MA50_1m: {cond_deltaMA5_MA50_1m}, grad_MA5: {grad_MA5}, grad_MA50: {grad_MA50}, grad_MA50_prev: {grad_MA50_prev}, "
-                        #     f"deltaMA5_MA50: {deltaMA5_MA50:.4f}, deltaMA5_MA50_b3: {deltaMA5_MA50_b3:.4f}, trailing_ratio: {trailing_ratio:.2f}, "
-                        #     f"enable_sellings_cond: {enable_sellings_cond}, "
-                        #     f"MACD[-1]: {stock_df['MACD'].iloc[-1]:.4f}, MACD[-2]: {stock_df['MACD'].iloc[-2]:.4f}, "
-                        #     f"MACD_hist[-1]: {stock_df['MACD_hist'].iloc[-1]:.4f}, MACD_hist[-2]: {stock_df['MACD_hist'].iloc[-2]:.4f} "
-                        #     f"MACD_hist[-3]: {stock_df['MACD_hist'].iloc[-3]:.4f}, MACD_hist[-4]: {stock_df['MACD_hist'].iloc[-4]:.4f} "
-                        #     f"['MA30_RSI10'].iloc[-1]: {stock_df['MA30_RSI10'].iloc[-1]:.2f}, ['MA30_RSI10'].iloc[-2]: {stock_df['MA30_RSI10'].iloc[-2]:.2f}, "
-                        #     f"['MA30_RSI10'].iloc[-3]: {stock_df['MA30_RSI10'].iloc[-3]:.2f} "
-                        #     f"current_gain: {current_gain:.4f}"
-                        # )
                     info = log_traiding_parameters(
                         cond_1=cond_1,
                         cond_2=cond_2,
@@ -2312,6 +2260,8 @@ def modify_trailing_stop_limit_MA50_MA5_and_bmo1_order(df, order, ticker, curren
                         cond_deltaMA5_MA50_1m=cond_deltaMA5_MA50_1m,
                         cond_MA5_1m_crossingM80_1m=cond_MA5_1m_crossingM80_1m,
                         cond_MACD120_1m=cond_MACD120_1m,
+                        cond_MA5_crossingM120=cond_MA5_crossingM120,
+                        max60_delta_MA5_MA80_1m=max60_delta_MA5_MA80_1m,
                         grad_MA5=grad_MA5,
                         grad_MA50=grad_MA50,
                         grad_MA50_prev=grad_MA50_prev,
@@ -2346,6 +2296,56 @@ def modify_trailing_stop_limit_MA50_MA5_and_bmo1_order(df, order, ticker, curren
                     order['trailing_stop_limit_order_id'] = order_id
                 order['trailing_ratio'] = trailing_ratio
                 df = ti.update_order(df, order)
+    except Exception as e:
+        alarm.print(traceback.format_exc())
+    return df, order
+
+def modify_stop_limit_order(df, order, current_price) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    try:
+        order_id = order['stop_limit_order_id']
+        current_gain = current_price / order['buy_price']
+
+        if order['buy_condition_type'] in ['MA50_MA5'] \
+            and not (order_id in [None, '', 'FAXXXX'] or isNaN(order_id)):
+
+            lose_coef = order['lose_coef'] # initial lose coef 0.98
+            # lose_coef     0.98 -> 1.001 -> 1.0015 -> 1.002 -> 1.0025 -> 1.003 -> 1.0035 -> 1.004 -> 1.0045 -> 1.005
+            # current gain  1.00 -> 1.003 -> 1.004 -> 1.005 -> 1.006 -> 1.007 -> 1.008 -> 1.009 -> 1.01
+            # don't reduce lose coef after increasing it
+            if current_gain >= 1.003 and order['lose_coef'] >= 0.98 and order['lose_coef'] < 1.001:
+                lose_coef = 1.001
+            elif current_gain >= 1.004 and current_gain < 1.005 \
+                and order['lose_coef'] < 1.0015: 
+                lose_coef = 1.0015
+            elif current_gain >= 1.005 and current_gain < 1.006 \
+                and order['lose_coef'] < 1.002: 
+                lose_coef = 1.002   
+            elif current_gain >= 1.006 and current_gain < 1.007 \
+                and order['lose_coef'] < 1.0025: 
+                lose_coef = 1.0025   
+            elif current_gain >= 1.007 and current_gain < 1.008 \
+                and order['lose_coef'] < 1.003:
+                lose_coef = 1.003
+            elif current_gain >= 1.008 and current_gain < 1.009 \
+                and order['lose_coef'] < 1.0035: 
+                lose_coef = 1.0035
+            elif current_gain >= 1.009 and current_gain < 1.01 \
+                and order['lose_coef'] < 1.004: 
+                lose_coef = 1.004
+            elif current_gain >= 1.01 and current_gain < 1.011 \
+                and order['lose_coef'] < 1.0045:
+                lose_coef = 1.005
+            elif current_gain >= 1.0162 \
+                and order['lose_coef'] < 1.005:
+                lose_coef = 1.01    
+            
+            if order['lose_coef'] != lose_coef:
+                order_id = ma.modify_stop_limit_order(order=order, lose_coef=lose_coef)
+                if order_id != order['stop_limit_order_id']:
+                    order['stop_limit_order_id'] = order_id
+                order['lose_coef'] = lose_coef
+                df = ti.update_order(df, order)
+
     except Exception as e:
         alarm.print(traceback.format_exc())
     return df, order
@@ -2489,7 +2489,8 @@ def buy_price_based_on_condition(df, df_1m, condition_type):
                 elif not market_time_and_1hour_before:
                     buy_price = market_close_price * 0.99
                 elif not market_time_and_30min_before:
-                    buy_price = market_close_price * 0.997
+                    # 0.997
+                    buy_price = market_close_price * 0.985
                 else:
                     buy_price = min(df_1m['close'].iloc[-65:].min(), market_close_price)
 
@@ -2576,6 +2577,7 @@ def check_sell_orders_for_all_bougth_stocks(df):
                         and (market_time \
                              or test_modififying_trailing_stop_limit_MA50_MA5):
                         df, order = modify_trailing_stop_limit_MA50_MA5_and_bmo1_order(df, order, ticker, current_price, stock_df, stock_df_1m)
+                        df, order = modify_stop_limit_order(df, order, current_price)
             else:
                 if not ticker in frozen_stocks_list:
                     alarm.print(f'{ticker} is in positional list but not in bought stock lisk!')
@@ -3061,7 +3063,7 @@ if __name__ == '__main__':
             for ticker in list(set(stock_name_list_opt) - set(placed_stocks_list) 
                                - set(bought_stocks_list) - set(frozen_stocks_list)):
                 print(f'Stock is {ticker}')
-                prepost_1h = False if market_time else True
+                prepost_1h = False if market_time_and_10min_before_open else True
                 order = []    
                 # 3.1 If counter condition:  
                 counter += 1
