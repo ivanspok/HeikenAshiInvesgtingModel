@@ -10,6 +10,7 @@ from zoneinfo import ZoneInfo
 import sql_db
 import numpy as np
 from colog.colog import colog
+import math
 c = colog()
 warning = colog(TextColor='orange')
 alarm = colog(TextColor='red')
@@ -78,6 +79,10 @@ class TradeInterface():
     else:
       gv.ORDERS_ID += 1
       id = gv.ORDERS_ID
+      if math.isnan(id):
+        gv.ORDERS_ID = 1
+        id = gv.ORDERS_ID
+      
     order = {
       'id' : int(id),  # Generate by global ID 
       'ticker' : ticker,
@@ -102,6 +107,7 @@ class TradeInterface():
       'stop_limit_order_id': None,
       'trailing_LIT_order_id': None,
       'trailing_stop_limit_order_id': None,
+      'afterhours_order_id': None,
       'buy_condition_type': buy_condition_type,
       'tech_indicators': {},
       'timezone' : str(current_timezone)
@@ -226,8 +232,7 @@ class TradeInterface():
     else:
       c.print('Trade history does not exist', color='yellow')
       gv.ORDERS_ID = 0
-      df = pd.DataFrame(
-        {
+      dtypes = {
           'id' : pd.Series(dtype='int'),
           'ticker': pd.Series(dtype='str'),
           'buy_time' : pd.Series(dtype='datetime64[ns]'),
@@ -256,7 +261,39 @@ class TradeInterface():
           'buy_condition_type': pd.Series(dtype='str'),
           'tech_indicators': pd.Series(dtype='str')
         }
-      )
+      
+      df =  pd.DataFrame(data = [{
+        'id' : 0,
+        'ticker': 'FAKE',
+        'buy_time' : datetime(1971,1,1,0,0),
+        'buy_price' : 0.0001,
+        'buy_sum' : 0.0001,
+        'buy_commission': 0.0001,
+        'sell_time' : datetime(1971,1,1,0,0),
+        'sell_price' : 0.0001,
+        'sell_sum': 0.0001,
+        'sell_commission': 0.0001,
+        'stocks_number' : 0,
+        'status' : 'completed',
+        'gain_coef': 1.0,
+        'lose_coef' : 1.0,
+        'trailing_LIT_gain_coef' : 1.0,
+        'trailing_ratio': 0.0001,
+        'profit': 0.0001,
+        'buy_order_id' : 'NONE', 
+        'limit_if_touched_order_id': 'NONE',
+        'stop_order_id' : 'NONE',   
+        'stop_limit_order_id': 'NONE',   
+        'trailing_LIT_order_id' : 'NONE',         
+        'trailing_stop_limit_order_id' : 'NONE',
+        'afterhours_order_id' : 'NONE',
+        'timezone': 'UTC',
+        'buy_condition_type': 'NONE',
+        'tech_indicators': 'NONE'
+      }],
+        columns=dtypes.keys()
+    ) 
+    
     return df
 
   def __save_orders__(self, df):

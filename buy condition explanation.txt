@@ -1,0 +1,277 @@
+    if  cond_delta_MA5_MA80 \ - duplication of cond_grad_MA5
+        and cond_max_MACD_hist_window100 \
+        and cond_max_MACD_hist_120_window100 \
+        and cond_grad_MACD_120 \
+        and cond_grad_MACD_hist_120 \
+        and cond_grad_MACD_hist \
+        and not near_MA80_1h_max120 \
+        and cond_MACD_hist \
+        and zigzag_buy_criteria \
+        
+        
+        # condition for that 1 hour MACD grad >0 and MA5 grad > 0 
+        and ( \
+        ( cond_grad_MA10Speed14 \ - currently True
+            and (cond_RSI or cond_RSI_pred) \ - duplicate MA grad condtion with delays
+            and (cond_grad_MACD or cond_grad_MACD_pred) \
+            and (cond_grad_MA10 or cond_grad_MA10_pred) \
+            and (cond_grad_MA5 or cond_grad_MA5_pred) \
+            and (cond_grad_delta_MA5_M10 or cond_grad_delta_MA5_M10_pred) \
+            and cond_grad_delta_MA5_M20 \
+         ) \
+            or (
+                (cond_MACD_more_DEA_1m \
+                or cond_MACD_more_DEA_120_1m) \
+                and market_time_and_5hours_after \
+            ) \
+        ) \
+
+
+        and no_spikes_cond \
+
+        # 1 minute condtions:
+        and cond_grad_MACD_1m \ - MACD50 1m DIF grad is possitive
+        and (cond_MACD_120_1m or cond2_MACD_hist_1m) \ - red MACD hist become green
+        and (cond_sum_120_delta_MA5_MA80_1m or market_time_30min_after_open) \  - buy when not to high trend? 
+        and (cond_sum_200_delta_MA5_MA80_1m or market_time_30min_after_open) \  - buy when not to high trend? 
+        and cond_grad_delta_MA5_MA80_1m \ - duplication of grad MA5_1m for very short time of direction
+        and (cond_max_delta_MA5_MA80_1m_window100 or market_time_30min_after_open) \ - not to buy on spike?
+        and cond_grad_MA5_1m \  - norm
+        and cond_grad_MA20_1m \ - norm 
+        and cond_grad_MA80_1m \ - norm (delaying, but filtering false signals)
+        and cond_delta_MA5_MA80_1m \ duplication, plus limit max  delta_MA5_MA80_1m to 0.321.
+        and not near_MA80_1m_max240: - norm (not to buy close last maximum MA80)
+        condition = True  
+
+    
+    # change history
+    # 16/05/2026: 
+        Removed from buy condition: 
+
+            cond_delta_MA5_MA80 \ - duplication of cond_grad_MA5
+
+            and cond_grad_delta_MA5_MA80_1m \ - duplication of grad MA5_1m for very short time of direction
+            and (cond_max_delta_MA5_MA80_1m_window100 or market_time_30min_after_open) \ - not to buy on spike?
+            and cond_delta_MA5_MA80_1m \ duplication, plus limit max  delta_MA5_MA80_1m to 0.321.
+
+            cond_grad_MA10Speed14 \ - was always true
+            and (cond_RSI or cond_RSI_pred) \ - duplicate MA grad condtion with delays
+        
+        #modified this 
+        ( (cond_grad_MACD or cond_grad_MACD_pred) \
+            and (cond_grad_MA10 or cond_grad_MA10_pred) \
+            and (cond_grad_MA5 or cond_grad_MA5_pred) \
+            and (cond_grad_delta_MA5_M10 or cond_grad_delta_MA5_M10_pred) \
+            and cond_grad_delta_MA5_M20 \
+         ) \
+            or (
+                (cond_MACD_more_DEA_1m \
+                or cond_MACD_more_DEA_120_1m) \
+                and market_time_and_5hours_after \
+            ) \
+        ) \
+        # to this:
+                ( (cond_grad_MACD or cond_grad_MACD_pred) \
+            and (cond_grad_MA5 or cond_grad_MA5_pred) \
+         ) \
+            or (
+                (cond_MACD_more_DEA_1m \
+                or cond_MACD_more_DEA_120_1m) \
+                and market_time_and_5hours_after \
+            ) \
+        ) \
+
+        def no_spikes_present:
+            cond_6 = True 
+    
+    # change from 19/05/2026:
+        removed from buy condition: 
+        and cond_grad_MA20_1m \
+        and cond_grad_MA80_1m \
+
+        added to buy condition: 
+        and cond_max_MACD_hist_1m_window50:
+
+
+    # change from 21/05/2026
+        removed from buy condition: 
+            and cond_grad_MACD_hist_120 \
+            and cond_grad_MACD_hist \
+            and (cond_sum_120_delta_MA5_MA80_1m or market_time_30min_after_open) \
+            and (cond_sum_200_delta_MA5_MA80_1m or market_time_30min_after_open) \
+
+
+            # adjusted coefiecients from 0.65 to 1.236
+                cond_max_MACD_hist_window100 = df['MACD_hist'].iloc[-1] < 0 \
+                or df['MACD_hist'].iloc[-1] <= 0.65 * max_MACD_hist_window100
+            max_MACD_hist_120_window100 = df['MACD_hist_120'].iloc[-100:][df['MACD_hist_120'].iloc[-100:] < 0].abs().max()
+            max_MACD_hist_120_window100 = max(max_MACD_hist_120_window100, df['MACD_hist_120'].iloc[-100:-15].max())
+            cond_max_MACD_hist_120_window100 = df['MACD_hist_120'].iloc[-1] < 0 \
+                or df['MACD_hist_120'].iloc[-1] <= 0.65 * max_MACD_hist_120_window100
+
+                 cond_max_MACD_hist_1m_window50 = df_1m['MACD_hist'].iloc[-1] < 0 \
+                 or df_1m['MACD_hist'].iloc[-1] <= 0.65 * max_MACD_hist_1m_window50
+
+            # removed and market_time_and_5hours_after from:
+            or (
+                (cond_MACD_more_DEA_1m \
+                or cond_MACD_more_DEA_120_1m) \
+                and market_time_and_5hours_after \
+            ) \
+    
+    # change from 22/05/2026
+            and cond_MACD_hist \
+            change with cond_MACD_hist_10 
+
+            ( (cond_grad_MACD or cond_grad_MACD_pred) \  from :
+
+                    ( (cond_grad_MACD or cond_grad_MACD_pred) \
+            and (cond_grad_MA5 or cond_grad_MA5_pred or cond_MA_MID_more_MA5) \
+         ) \
+            or (cond_MACD_more_DEA_1m or cond_MACD_more_DEA_120_1m) \
+
+            removed from buy condition:
+                    and not near_MA80_1h_max120 \ (Was always False in the code )
+                            and (cond_MACD_120_1m or cond2_MACD_hist_1m) \
+
+        # change from 2/06/2026
+        removed         and cond_MACD_hist_10 \ from buy cond
+
+            cond_grad_MACD_1m = df_1m['MACD'].iloc[-1] > df_1m['MACD'].iloc[-2] \
+            and df_1m['MACD'].iloc[-2] > df_1m['MACD'].iloc[-3] \
+            # and df_1m['MACD'].iloc[-3] > df_1m['MACD'].iloc[-4]  !!! comment this line
+
+        # change from 3/06/2026
+
+         if condition_type in ['MA50_MA5', 'MA5_MA120_DS']:
+            if market_time:
+                # 0.37 -> 0.7
+                if prt_from_local_min(df_1m, k=7) > 0.35: ---->>>> 0.8
+                    buy_price = df_1m['close'].iloc[-1] * 0.997 
+                elif prt_from_local_min(df_1m) < 0.7: --->>>>>   1.4
+                    buy_price = df_1m['close'].iloc[-1] * 1.0003
+                # 0.6 -> 0.91
+                elif prt_from_local_min(df_1m, k=60) > 2.01:
+                    buy_price = min(df_1m['close'].iloc[-30:-1].min(), df_1m['open'].iloc[-30:-1].min(), df_1m['close'].iloc[-1]) * 1.0005
+                else: 
+
+               
+            if prt_from_local_min(stock_df_1m) < 0.35 and market_time:    ---> 1.4
+                            buy_order_type = 'limit' 
+                        else:
+                            buy_order_type = 'limit_if_touched'
+
+                #change from 04/06/2025
+                if p1 < p2 - leg * fib_loc_min: # price below fib 0.764 level of p2 
+                cnaged to 
+                if price_now < p2 - leg * fib_loc_min: # price below fib 0.764 level of p2
+                # change from 10/06/2025 reverted back
+            
+            #change from 05/06/2025
+            self.lose_coef_1_MA50_MA5 = 0.9975 # 0.98 -> 0.995 -> 0.9975
+
+            # change from 10/06/2026
+            trend_up = (slope > 0) and (p1 > p3) 
+            change to:
+            trend_up = (slope > 0) 
+
+
+                if trend_up:
+                    if p1 < p2:
+                        if p2 > p3: # p1 < p2 > p3
+                            leg = p2 - p3
+                            if p1 > p3: # we have real up trend
+                                if p1 < p2 - leg * fib_loc_min: # price below fib 0.764 level of p2
+                                    buy_uptrend = True
+        # it was not second part :
+                            else: # p1 < p2 and p1 < p3 - we have local down trend, but slope > 0; we break p3 level;
+                                if (p3 < p4) and (p4 > p5):
+                                    leg2 = abs(p4 - p5) # p1 < p2, p2 > p3, p 
+                                    if p1 < p4  - leg2 * fib_loc_min: # price below fib 0.764 level of p4; want to buy after price drop below p4 - fib 0.764 level, because we have local trend up, and price can go up more after that
+                                        buy_uptrend = True
+                        else: # p1 < p2 < p3 - not zigzag pattern, but we can have local trend up, and want to buy after price drop below p2 - fib 0.382 level
+                            pass 
+
+        cond_5, cond_7 = True, True # change from 19/06/2026
+
+        update from 27/06/2026 
+        for sell condtions aded VWAP condition
+                    and (zizzag_sell_signal or zigzag_sell_signal_2 
+                 or (zigzag_sell_criteria_down_trend_or_breakdown1618 and current_price > stock_df_1m['VWAP'].iloc[-1])
+                 )
+        # changed it back from 30/06/2026
+        
+        added zigzag_1m_1p_has_fib_drop_0p7 to bullish_pattern_criteria
+
+
+# 10/07/2026 remove this condtion from main and exlude!!!!!!!!!
+            if  not cond_grad_MACD_120 \
+
+
+# update from 19/07/2026 (added cone analysis)
+    USED TO BE:
+    if bullish_pattern_last_5_candles and zigzag_buy_criteria_with_bullish_candels \
+        and (zigzag_buy_criteria_1h_2p) \
+        and zigzag_1m_1p_has_fib_drop_0p7 \
+        and df['MA5'].iloc[-1] > df['MA5'].iloc[-2] \
+        and not bearish_last_5_candles \
+        and df_1m['close'].iloc[-1] / df['close'].iloc[-2] < 1.003 \
+        and cond_grad_MA5_1m \
+        and current_price_more_close_1m \
+        and current_candle_green_1m \
+        and df_1m['ha_colour'].iloc[-1] == 'green' \
+        and cond_MA5_more_MA10_1m \
+        and vwap_slope_from_open > 0 \
+        and not no_buy_vwap_reject \
+        and price_below_vwap_1m:
+        print(f'Ticker {ticker} meets bullish pattern criteria with trend up!')
+        bullish_pattern_criteria = True
+    else: 
+        bullish_pattern_criteria = False    
+    
+    if ( (market_time_1hour_before_closing or market_time_after_1130)
+        and zigzag_buy_criteria_1h_2p
+        and zigzag_buy_criteria_1m_2p
+        and zigzag_1m_1p_has_fib_drop_0p7
+        and zigzag_buy_criteria_1m_0p5
+        and vwap_slope_from_open > 0
+        and price_below_vmap_1sigma_dn_1m
+        and current_price_more_close_1m
+        and current_candle_green_1m
+        and df_1m['ha_colour'].iloc[-1] == 'green'
+        and cond_grad_MA5_1m
+        and cond_MA5_more_MA10_1m
+        and cond_MA5_more_MA50_1m
+        and df_1m['MA50'].iloc[-1] > df_1m['MA50'].iloc[-2]
+    ):
+        buy_in_low_VWAP_zone_criteria = True
+    else:
+        buy_in_low_VWAP_zone_criteria = False
+
+        if  cond_max_MACD_hist_window100 \
+        and current_price_more_open_1h \
+        and previous_candle_green_or_current_price_more_open_1h \
+        and cond_max_MACD_hist_120_window100 \
+        and cond_MA5_more_MA10 \
+        and (zigzag_buy_criteria or zigzag_buy_criteria_1h_2p) \
+        and ((cond_grad_MA5 or cond_grad_MA5_pred or cond_MA_MID_more_MA5) \
+            or (cond_MACD_more_DEA_1m or cond_MACD_more_DEA_120_1m) \
+        ) \
+        and no_day_spike \
+        and (no_spikes_cond or not market_time_30min_after_open) \
+        and cond_grad_MACD_1m \
+        and cond_grad_MA5_1m \
+        and not near_MA80_1m_max240 \
+        and cond_max_MACD_hist_1m_window50 \
+        and cond_MA5_more_MA10_1m \
+        and cond_MA5_more_MA50_1m \
+        and current_price_more_close_1m \
+        and df_1m['ha_colour'].iloc[-1] == 'green' \
+        and zigzag_buy_criteria_1m \
+        and zigzag_buy_criteria_1m_0p5 \
+        and not no_buy_vwap_reject \
+        and vwap_slope_5m > 0 \
+        and price_below_vwam_2sigma_up_middle_1m \
+        and price_below_vmap_1sigma_up_1m:
+            
+        condition = True  

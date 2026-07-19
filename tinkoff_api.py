@@ -40,20 +40,23 @@ class Tinkoff_API():
         with Client(TOKEN) as client:
             candles_list = list(client.get_all_candles(
                 instrument_id=instrument_id,
-                from_= datetime.now(datetime.UTC) - timedelta(days=60),
+                from_= datetime.now() - timedelta(days=60),
+                to = datetime.now(),
                 interval=CandleInterval.CANDLE_INTERVAL_HOUR
             ))
-        columns = ['time','open', 'high', 'low', 'close']
+        columns = ['time','open', 'high', 'low', 'close', 'volume']
         df = pd.DataFrame(columns=columns)
         for candle in candles_list:
             open = self._convert_tf_price(candle.open)
             high = self._convert_tf_price(candle.high)
             low = self._convert_tf_price(candle.low)
             close = self._convert_tf_price(candle.close)
+            volume = candle.volume
             time = candle.time
             time = time.astimezone(ZoneInfo('US/Eastern'))
             
-            df = pd.concat([pd.DataFrame([[time, open, high, low, close]], columns=columns), df], ignore_index=True)
+            if open != 0:
+                df.loc[df.shape[0]] = [time, open, high, low, close, volume]
         
         # df['pct'] = np.where(df['open'] < df['close'],  
         #                  (df['close'] / df['open'] - 1) * 100,

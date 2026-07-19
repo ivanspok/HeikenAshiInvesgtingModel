@@ -29,8 +29,10 @@ class Moomoo_API():
         self.port = port
         self.trd_env = trd_env
         self.acc_id = acc_id
-    
+        
     def stock_is_bought(self, ticker):
+        trd_ctx = None
+        bought_stocks = []
         try:
             trd_ctx = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
             ret, data = trd_ctx.position_list_query()
@@ -42,13 +44,16 @@ class Moomoo_API():
                     print(data['stock_name'].values.tolist())  # Convert to list
             else:
                 alarm.print('position_list_query error: ', data)
-            trd_ctx.close()  # Close the current connection
         except Exception as e:
             alarm.print(e)
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return ticker in bought_stocks
 
     def place_market_buy_order(self, ticker, price, qty):
         order_id = None
+        trd_ctx = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
             self.unlock_trade()
@@ -66,13 +71,15 @@ class Moomoo_API():
                 print(f'Placing market buy order for {stock_code}')
             else:
                 alarm.print(data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return data, order_id
     
     def place_buy_limit_order(self, ticker, price, qty, fill_outside_rth=False):
+        trd_ctx = None
         order_id = None
         order = None
         try:
@@ -95,13 +102,15 @@ class Moomoo_API():
                 order = data
             else:
                 alarm.print(data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return order, order_id
 
     def place_stop_limit_buy_order(self, ticker, price, qty):
+        trd_ctx = None
         order_id = None
         order = None
         try:
@@ -125,13 +134,15 @@ class Moomoo_API():
                 order = data
             else:
                 alarm.print(data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return order, order_id
 
     def place_stop_limit_sell_order(self, ticker, price, qty):
+        trd_ctx = None
         order_id = None
         order = None
         try:
@@ -156,13 +167,15 @@ class Moomoo_API():
                 order = data
             else:
                 alarm.print(data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return order_id
 
     def place_afterhours_sell_order(self, ticker, price, qty):
+        trd_ctx = None
         order_id = None
         order = None
         try:
@@ -187,13 +200,15 @@ class Moomoo_API():
             else:
                 alarm.print(data)
                 return data
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return order_id
     
     def place_buy_limit_if_touched_order(self, ticker, price, qty, fill_outside_rth=True):
+        trd_ctx = None
         order_id = None
         order = None
         try:
@@ -219,13 +234,15 @@ class Moomoo_API():
             else:
                 alarm.print(data)
                 order = data
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return order, order_id
 
     def place_limit_if_touched_order(self, ticker, price, qty, aux_price_coef = 1.0001, remark=''):
+        trd_ctx = None
         order_id = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
@@ -249,13 +266,15 @@ class Moomoo_API():
                 order_id = data['order_id'].values[0]
             else:
                 alarm.print(data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return order_id
     
     def place_trailing_stop_limit_order(self, ticker, price, qty, trail_value, trail_spread, remark=''):
+        trd_ctx = None
         order_id = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
@@ -281,16 +300,18 @@ class Moomoo_API():
                 order_id = data['order_id'].values[0]
             else:
                 alarm.print(data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return order_id
     
     def place_stop_order(self, ticker, price, qty):
         '''
         Note: for Market order price can be passed any value
         '''
+        trd_ctx = None
         order_id = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=self.ip, port=self.port, security_firm=ft.SecurityFirm.FUTUAU)
@@ -312,10 +333,11 @@ class Moomoo_API():
                 order_id = data['order_id'].values[0]
             else:
                 alarm.print(data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return order_id
     
     def cancel_order(self, order, order_type):
@@ -323,6 +345,7 @@ class Moomoo_API():
         Cancel order uy type:
          - order_type: buy | limit_if_touch | stop | trailing_LIT | trailing_stop_limit
         '''
+        trd_ctx = None
         status = False        
         ticker = order['ticker']
         order_id_type = order_type + '_order_id'
@@ -345,18 +368,20 @@ class Moomoo_API():
                 if data == 'Modify or Cancel Order is too frequent，request failed, no more than 20 times every 30 seconds.':
                     warning.print('Sleeping for 30 seconds due to too frequent order modifications/cancellations')
                     time.sleep(30)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
             if e == 'Modify or Cancel Order is too frequent，request failed, no more than 20 times every 30 seconds.':
                 time.sleep(20)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return status
     
     def modify_trailing_stop_limit_order(self, order, trail_value, trail_spread):
         '''
         Note: for Market order price can be passed any value
         '''
+        trd_ctx = None
         order_id = order['trailing_stop_limit_order_id']
         price =  order['buy_price'] * 1.1
         aux_price =  order['buy_price'] * 0.9
@@ -386,16 +411,18 @@ class Moomoo_API():
                     order_id = order_id_returned
             else:
                 alarm.print(data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return order_id
 
     def modify_limit_if_touched_order(self, order, gain_coef=1, aux_price_coef = 1.0001, order_type='limit_if_touched', **kwargs):
         '''
         Modify for sell orders: limit_if_touched and trailing_LIT
         '''
+        trd_ctx = None
         order_id = None
         if order_type == 'limit_if_touched':
             order_id = order['limit_if_touched_order_id']
@@ -430,16 +457,18 @@ class Moomoo_API():
                     order_id = order_id_returned
             else:
                 alarm.print(data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return order_id
 
     def modify_stop_order(self, order, lose_coef):
         '''
         Note: for Market order price can be passed any value
         '''
+        trd_ctx = None
         order_id = order['stop_order_id']
         price =  order['buy_price'] * lose_coef
         qty = order['stocks_number']
@@ -465,16 +494,18 @@ class Moomoo_API():
                     order_id = order_id_returned
             else:
                 alarm.print(data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return order_id
 
     def modify_stop_limit_order(self, order, lose_coef):
         '''
         Note: for Market order price can be passed any value
         '''
+        trd_ctx = None
         order_id = order['stop_limit_order_id']
         price =  order['buy_price'] * lose_coef
         qty = order['stocks_number']
@@ -500,14 +531,16 @@ class Moomoo_API():
                     order_id = order_id_returned
             else:
                 alarm.print(data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return order_id    
 
     def get_history_orders(self, code=''):
         data = None
+        trd_ctx = None
         global number_attemps_to_get_data
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=ip, port=port, security_firm=ft.SecurityFirm.FUTUAU)
@@ -534,17 +567,18 @@ class Moomoo_API():
                     print('history orders received successfully')
             else:
                 alarm.print('history_order_list_query error: ', data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         if type(data) == str:
             if data  == 'Get Historical Order List request timed out' \
                 or data == 'PacketErr.Timeout':
                 if number_attemps_to_get_data <=2:
                     alarm.print(f'Number attemps to get data is {number_attemps_to_get_data} ')
-                    alarm.print('''1 second sleep timeout due tue 'Get Historical Order List request timed out' ''')
-                    time.sleep(1)
+                    alarm.print('''5 second sleep timeout due tue 'Get Historical Order List request timed out' ''')
+                    time.sleep(5)
                     data = self.get_history_orders()
                 else:
                     alarm.print('''30 second sleep timeout due tue 'Get Historical Order List request timed out' ''')
@@ -554,6 +588,7 @@ class Moomoo_API():
     
    
     def get_list_of_trading_accounts(self):
+        trd_ctx = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=ip, port=port, security_firm=ft.SecurityFirm.FUTUAU)
             ret, data = trd_ctx.get_acc_list()
@@ -563,13 +598,15 @@ class Moomoo_API():
                 print(data['acc_id'].values.tolist())  # convert to list
             else:
                 alarm.print('get_acc_list error: ', data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return data
     
     def unlock_trade(self, is_unlock=True):
+        trd_ctx = None
         trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=ip, port=port, security_firm=ft.SecurityFirm.FUTUAU)
         ret, data = trd_ctx.unlock_trade(unlock_pwd, is_unlock=is_unlock)
         if ret == ft.RET_OK:
@@ -580,6 +617,7 @@ class Moomoo_API():
 
     def get_positions(self):
         positions = []
+        trd_ctx = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=ip, port=port, security_firm=ft.SecurityFirm.FUTUAU)
             ret, data = trd_ctx.position_list_query(acc_id=self.acc_id)
@@ -590,14 +628,16 @@ class Moomoo_API():
                             positions.append(row['code'].split('.')[1])  
             else:
                 alarm.print('position_list_query error: ', data)
-            trd_ctx.close()  # Close the current connection
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return positions
 
     def get_orders(self):
         'get orders with statuses: SUBMITTED, SUBMITTING, WAITING_SUBMIT'
+        trd_ctx = None
         limit_if_touched_sell_orders = pd.DataFrame()
         stop_sell_orders = pd.DataFrame()
         limit_if_touched_buy_orders = pd.DataFrame()
@@ -652,15 +692,17 @@ class Moomoo_API():
                     limit_sell_orders = limit_sell_orders.transpose()
             else:
                 alarm.print('order_list_query error: ', data)
-            trd_ctx.close()  # Close the current connection
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return  limit_if_touched_sell_orders, stop_sell_orders, limit_buy_orders, \
               limit_if_touched_buy_orders, trailing_LIT_orders, trailing_stop_limit_orders,\
               stop_limit_buy_orders, stop_limit_sell_orders, limit_sell_orders
     
     def get_order_commission(self, order_id):
+        trd_ctx = None
         commission = None
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=ip, port=port, security_firm=ft.SecurityFirm.FUTUAU)
@@ -669,13 +711,15 @@ class Moomoo_API():
                 commission = float(data['fee_amount'].values[0])
             else:
                 alarm.print('order_fee_query error: ', data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return commission
 
     def get_us_cash(self):
+        trd_ctx = None
         us_cash = 0
         try:
             trd_ctx  = ft.OpenSecTradeContext(filter_trdmarket=ft.TrdMarket.US, host=ip, port=port, security_firm=ft.SecurityFirm.FUTUAU)
@@ -687,10 +731,11 @@ class Moomoo_API():
                 us_cash = data['us_cash'].values[0] 
             else:
                 alarm.print('accinfo_query error: ', data)
-            trd_ctx.close()
         except Exception as e:
             alarm.print(e)
-            trd_ctx.close()
+        finally:
+            if trd_ctx is not None:
+                trd_ctx.close()  # Always close the connection
         return float(us_cash)
 
 if __name__ == "__main__":

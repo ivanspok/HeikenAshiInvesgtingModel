@@ -14,7 +14,7 @@ stock_name_list = []
 stock_name_list += ['AAPL', 'GOOG','JPM','XOM','UNH','JNJ','V','AVGO','PG','LLY','MA','HD','CVX','MRK', 
                        'PEP','COST','ABBV','ADBE','KO','CRM','WMT','MCD','CSCO','BAC','PFE','TMO','ACN','NFLX','ABT','AMD','LIN','ORCL','CMCSA',
                        'TXN','DIS','WFC','DHR','PM','NEE','VZ','INTC','RTX','HON','LOW','UPS','INTU','SPGI','NKE','COP','QCOM','BMY','CAT','UNP','BA','ISRG',
-                        'GE','IBM','AMGN','AMAT','MDT','SBUX','PLD','NOW','MS','DE','BLK','GS','T','LMT','AXP','SYK','ADI','TJX','ELV','MDLZ','GILD','ADP','MMC',
+                        'GE','IBM','AMGN','AMAT','MDT','SBUX','PLD','NOW','MS','DE','BLK','GS','T','LMT','AXP','SYK','ADI','TJX','ELV','MDLZ','GILD','ADP',
                         'C','AMT','CVS','VRTX','SCHW','LRCX','MO','TMUS','SLB', 'ETN', 'ZTS', 'CI', 'PYPL']
 
 stock_name_list += ['CB','SO','BSX','EQIX','BDX','PANW','DUK','EOG','MU','AON','ITW','CSX','SNPS','PGR','APD','KLAC','CME','NOC','CDNS','ICE',
@@ -24,13 +24,13 @@ stock_name_list += ['CB','SO','BSX','EQIX','BDX','PANW','DUK','EOG','MU','AON','
                        'BIIB','SPG','MSCI','DHI','ROK']
 # new stockes from 12/07/2025
 stock_name_list += ['ALGN','CDW','ZBRA','VTRS','KHC','CINF','LUMN','BAX','CZR','FANG','HIG','HWM','KEYS','LNT','NDAQ',
-                       'NTRS','ODFL','RMD','SEE','SWK','TROW','VFC','WAT','WST','ZION','AAL','ALB','AMCR',
+                       'NTRS','ODFL','RMD','SWK','TROW','VFC','WAT','WST','ZION','AAL','ALB','AMCR',
                        'ASML','AVY','CAG','CHKP','CHRW','CNP','CTSH','ETSY',
                        'EXPE', 'FTV', 'GWW', 'HII', 'HWM', 'IPGP', 'JCI', 'KEYS', 'KMX', 'LHX',
                        'MASI', 'MORN', 'MSCI', 'PAYX',
                        'PKG', 'PNR', 'PPG', 'PRGO']
 
-stock_name_list += ['QRVO', 'RHI', 'SEE', 'SWK', 'TROW', 'WAT',
+stock_name_list += ['QRVO', 'RHI', 'SWK', 'TROW', 'WAT',
                        'AAL', 'ALB', 'AMCR', 'ASML', 'AVY', 'CAG', 'CHKP', 'CHRW',
                        'CNP', 'CTSH', 'ETSY', 'EXPE', 'FTV', 'GWW', 'HII',
                        'HWM', 'IPGP', 'JCI', 'KEYS', 'KMX']

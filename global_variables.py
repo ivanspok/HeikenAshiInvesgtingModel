@@ -1,2 +1,31 @@
 ORDERS_ID = -1
 ORDERS_ID_test = -1
+
+condition_stats = {
+    "cond_max_MACD_hist_window100": {"true": 0, "false": 0},
+    "cond_max_MACD_hist_120_window100": {"true": 0, "false": 0},
+    "cond_grad_MACD_120": {"true": 0, "false": 0},
+    "cond_grad_MACD_hist_120": {"true": 0, "false": 0},
+    "cond_grad_MACD_hist": {"true": 0, "false": 0},
+    "cond_MACD_hist": {"true": 0, "false": 0},
+    "zigzag_buy_criteria": {"true": 0, "false": 0},
+    "cond_grad_MACD": {"true": 0, "false": 0},
+    "cond_grad_MACD_pred": {"true": 0, "false": 0},
+    "cond_grad_MA5": {"true": 0, "false": 0},
+    "cond_grad_MA5_pred": {"true": 0, "false": 0},
+    "cond_MACD_more_DEA_1m": {"true": 0, "false": 0},
+    "cond_MACD_more_DEA_120_1m": {"true": 0, "false": 0},
+    "market_time_and_5hours_after": {"true": 0, "false": 0},
+    "no_spikes_cond": {"true": 0, "false": 0},
+    "cond_grad_MACD_1m": {"true": 0, "false": 0},
+    "cond_MACD_120_1m": {"true": 0, "false": 0},
+    "cond2_MACD_hist_1m": {"true": 0, "false": 0},
+    "cond_sum_120_delta_MA5_MA80_1m": {"true": 0, "false": 0},
+    "market_time_30min_after_open": {"true": 0, "false": 0},
+    "cond_sum_200_delta_MA5_MA80_1m": {"true": 0, "false": 0},
+    "cond_grad_MA5_1m": {"true": 0, "false": 0},
+    "near_MA80_1m_max240": {"true": 0, "false": 0},
+    "cond_max_MACD_hist_1m_window50": {"true": 0, "false": 0},
+    "zigzag_buy_criteria_1m": {"true": 0, "false": 0},
+    "zigzag_buy_criteria_1m_0p5": {"true": 0, "false": 0},
+}
