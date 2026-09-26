@@ -275,3 +275,10 @@
         and price_below_vmap_1sigma_up_1m:
             
         condition = True  
+
+# removed from 27/07/2026:
+        and not near_MA80_1m_max240 \
+        and cond_max_MACD_hist_1m_window50 \
+         cond_max_MACD_hist_window100 \
+                 and cond_max_MACD_hist_120_window100 \
+                         and cond_MA5_more_MA10 \

@@ -581,6 +581,35 @@ def zigzag_buy_criteria_with_fib(df: pd.DataFrame, zz: pd.Series) -> bool:
     # --- 5. Итоговый сигнал ---
     return buy_signal
 
+def zigzag_buy_permit_for_1m_0p5(df: pd.DataFrame, zz: pd.Series) -> bool:
+    """
+    df: DataFrame with columns ['high','low','close']
+    zz: pandas Series with ZigZag pivots (0 for non-pivot)
+    """
+
+    # --- 1. Базовый ZigZag критерий (как у тебя) ---
+    pivots = zz[zz != 0]
+    
+   # Твой порядок:
+    p1 = pivots.iloc[-1]   # самый новый pivot
+    p2 = pivots.iloc[-2]
+
+    price_now = df["close"].iloc[-1]
+    
+    if len(pivots) < 2:
+        return False
+    
+    if p1 > p2:
+        if df['high'].iloc[-3:].max() >= p1:
+            return True
+    else: # p1 < p2 
+        leg = p2 - p1
+        if price_now > p1 * 1.0012:
+            return True
+    
+    return False
+
+
 def zigzag_buy_criteria_test_3(zz: pd.Series, df: pd.DataFrame, fib_loc_min=0.764, fib_loc_max=1.3,
                                fib_loc_max_p1_less_p3 = 0.764, fib_low_border=0.236, break_classic_type=1) -> bool:
     """
@@ -633,8 +662,8 @@ def zigzag_buy_criteria_test_3(zz: pd.Series, df: pd.DataFrame, fib_loc_min=0.76
     #     break_classic = price_now > min(p3, p5)
     if p1 > p2:
         # break_classic = price_now > p4
-        # leg = abs(p3 - p2)
-        # price_now_less_0p382 = price_now < p2 + leg * 0.382
+        leg = abs(p3 - p2)
+        price_now_less_0p382 = price_now < p2 + leg * 0.382
         break_classic = False
     else:
         break_classic = price_now > min(p3, p5)
@@ -753,8 +782,13 @@ def best_trend_line(points: pd.Series, mode: str, df_index):
     xs = df_index.get_indexer(points.index)
     ys = points.values
 
-    x1, x2, x3 = xs
-    y1, y2, y3 = ys
+    if len(xs) == 3:
+        x1, x2, x3 = xs
+        y1, y2, y3 = ys
+    elif len(xs) == 2:
+        x1, x2 = xs
+        y1, y2 = ys
+        return _line(x1, y1, x2, y2)
 
     # ==========================
     #   HIGH LINE
@@ -795,13 +829,16 @@ def best_trend_line(points: pd.Series, mode: str, df_index):
 
 def zigzag_cone_position(zz: pd.Series, df: pd.DataFrame):
 
-    pivots = zz[zz != 0].iloc[:-1]
-    if len(pivots) < 6:
+    pivots = zz[zz != 0]
+    if len(pivots) < 4:
         return None
 
     highs = pivots[pivots > pivots.shift(1)][-3:]
     lows  = pivots[pivots < pivots.shift(1)][-3:]
 
+    if len(highs) < 2 or len(lows) < 2:
+        return None
+    
     slope_high, (xh1, yh1, xh2, yh2) = best_trend_line(highs, "high", df.index)
     slope_low,  (xl1, yl1, xl2, yl2) = best_trend_line(lows, "low", df.index)
 
@@ -851,6 +888,10 @@ def zigzag_cone_position(zz: pd.Series, df: pd.DataFrame):
         cone_type = "high_down_low_up"
     else:
         cone_type = "flat_mixed"
+    
+    width_y1 = yh1 - yl1
+    width_now = upper_line_now - lower_line_now
+    width_ratio = width_now / width_y1
 
     return {
         "upper_line_now": upper_line_now,
@@ -863,6 +904,7 @@ def zigzag_cone_position(zz: pd.Series, df: pd.DataFrame):
         "slope_low": slope_low,
         "high_points": [yh1, yh2],
         "low_points": [yl1, yl2],
+        "width_ratio": width_ratio
     }
 
 def zigzag_has_fib_drop(zz: pd.Series, df: pd.DataFrame, drop_value=0.7):
@@ -929,7 +971,131 @@ def zigzag_buy_criteria_with_bullish_candels(zz: pd.Series, df: pd.DataFrame) ->
     else:
         return False
 
-    
+def zigzag_acceleration_stage(pivots):
+
+    # выделяем последние 3 high и low
+    highs = pivots[pivots > pivots.shift(1)][-3:]
+    lows  = pivots[pivots < pivots.shift(1)][-3:]
+
+    if len(highs) < 3 or len(lows) < 3:
+        return "unknown"
+
+    # цены пивотов
+    h1, h2, h3 = highs.iloc[-1], highs.iloc[-2], highs.iloc[-3]
+    l1, l2, l3 = lows.iloc[-1],  lows.iloc[-2],  lows.iloc[-3]
+
+    # скорости
+    v_high = h1 - h2
+    v_low  = l1 - l2
+
+    # ускорения
+    a_high = (h1 - h2) - (h2 - h3)
+    a_low  = (l1 - l2) - (l2 - l3)
+
+    # --- режимы рынка ---
+    # 1. разворот вверх (V‑образный)
+    if a_high > 0 and a_low < 0:
+        return "rev_up"
+
+    # 2. разворот вниз
+    if a_high < 0 and a_low > 0:
+        return "rev_down"
+
+    # 3. зрелый восходящий тренд
+    if v_high > 0 and v_low > 0 and abs(a_high) < abs(v_high)*0.3 and abs(a_low) < abs(v_low)*0.3:
+        return "trend_up"
+
+    # 4. затухание тренда
+    if v_high > 0 and v_low > 0 and (a_high < 0 or a_low < 0):
+        return "trend_fading"
+
+    # 5. хаос / расширение волатильности
+    if abs(a_high) > abs(v_high)*0.7 and abs(a_low) > abs(v_low)*0.7:
+        return "chaos"
+
+    return "neutral"
+
+
+def zigzag_buy_permission_1m(zz: pd.Series, df: pd.DataFrame) -> bool:
+    """
+    permission to buy on the rising beam 1m
+    df: DataFrame with 'close'
+    zz: ZigZag Series (pivot prices, 0 for non-pivot)
+    """
+
+    # --- 1. Берём последние пивоты ---
+    pivots = zz[zz != 0]
+    if len(pivots) < 2:
+        return False
+
+    # последний pivot (цена)
+    p1 = pivots.iloc[-1]
+    # предыдущий pivot (цена)
+    p2 = pivots.iloc[-2]
+
+    # --- 2. расстояние в барах от последнего pivot ---
+    last_pivot_idx = pivots.index[-1]
+    last_bar_idx = zz.index[-1]
+
+    distance_from_last_pivot = (last_bar_idx - last_pivot_idx).seconds / 60
+
+    # --- 3. текущая цена ---
+    price_now = df["close"].iloc[-1]
+
+    # --- 4. логика ---
+    if p1 > p2:  # последний pivot — HIGH
+        if distance_from_last_pivot < 10:
+            if price_now < p1 * 0.997:
+                return False
+        else:
+            if price_now < p1 * 0.999:
+                return False
+    else:        # последний pivot — LOW
+        if price_now < p1 * 1.0024:
+            return False
+
+    return True
+ 
+def zigzag_buy_permission_1h(zz: pd.Series, df: pd.DataFrame) -> bool:
+    """
+    permission to buy on the rising beam 1h
+    df: DataFrame with 'close'
+    zz: ZigZag Series (pivot prices, 0 for non-pivot)
+    """
+
+    # --- 1. Берём последние пивоты ---
+    pivots = zz[zz != 0]
+    if len(pivots) < 2:
+        return False
+
+    # последний pivot (цена)
+    p1 = pivots.iloc[-1]
+    # предыдущий pivot (цена)
+    p2 = pivots.iloc[-2]
+
+    # --- 2. расстояние в барах от последнего pivot ---
+    last_pivot_idx = pivots.index[-1]
+    last_bar_idx = zz.index[-1]
+
+    distance_from_last_pivot = (last_bar_idx - last_pivot_idx).seconds / 60 # in minutes
+
+    # --- 3. текущая цена ---
+    price_now = df["close"].iloc[-1]
+
+    # --- 4. логика ---
+    if p1 > p2:  # последний pivot — HIGH
+        if distance_from_last_pivot < 60:
+            if price_now < p1 * 0.9965:
+                return False
+        else:
+            if price_now < p1 * 0.999:
+                return False
+    else:       # p1 < p2 последний pivot — LOW
+        return False
+        # if price_now < p1 * 1.0024:
+        #     return False
+
+    return True
 
 def zigzag_sell_criteria(zz: pd.Series, current_price: float) -> bool:
     # allow to sell if p1 > p2 and p1 more than fib_level 1.618 level (overbought reason)

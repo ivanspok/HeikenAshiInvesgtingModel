@@ -23,11 +23,10 @@ stock_name_list += ['CB','SO','BSX','EQIX','BDX','PANW','DUK','EOG','MU','AON','
                        'OXY','TFC','CARR','D','IDXX','GIS','ON','COF','ADM','MNST','NUE','CTAS','AIG','EXC','VLO','MRNA','ANET','WMB','O','STZ','IQV','HLT','CHTR','WELL',
                        'BIIB','SPG','MSCI','DHI','ROK']
 # new stockes from 12/07/2025
-stock_name_list += ['ALGN','CDW','ZBRA','VTRS','KHC','CINF','LUMN','BAX','CZR','FANG','HIG','HWM','KEYS','LNT','NDAQ',
+stock_name_list += ['ALGN','CDW','ZBRA','VTRS','KHC','CINF','LUMN','BAX','FANG','HIG','HWM','KEYS','LNT','NDAQ',
                        'NTRS','ODFL','RMD','SWK','TROW','VFC','WAT','WST','ZION','AAL','ALB','AMCR',
                        'ASML','AVY','CAG','CHKP','CHRW','CNP','CTSH','ETSY',
-                       'EXPE', 'FTV', 'GWW', 'HII', 'HWM', 'IPGP', 'JCI', 'KEYS', 'KMX', 'LHX',
-                       'MASI', 'MORN', 'MSCI', 'PAYX',
+                       'EXPE', 'FTV', 'GWW', 'HII', 'HWM', 'IPGP', 'JCI', 'KEYS', 'KMX', 'LHX', 'MORN', 'MSCI', 'PAYX',
                        'PKG', 'PNR', 'PPG', 'PRGO']
 
 stock_name_list += ['QRVO', 'RHI', 'SWK', 'TROW', 'WAT',
