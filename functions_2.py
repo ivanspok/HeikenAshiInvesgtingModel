@@ -75,6 +75,144 @@ def rma(x, n):
         a[i] = (a[i-1] * (n - 1) + x[i]) / n
     return a
 
+def calc_svsi_old(df, period=28, ma_period=10):
+    """
+    df: DataFrame с колонками close, volume
+    period: основной период SVSI (рекомендую 28)
+    ma_period: сглаживание SVSI (рекомендую 10)
+    """
+
+    # Изменение цены
+    delta = df['close'].diff()
+
+    # Объём вверх/вниз
+    up_vol = df['volume'].where(delta > 0, 0)
+    down_vol = df['volume'].where(delta < 0, 0)
+
+    # Сглаживание объёма
+    up_ema = up_vol.ewm(span=period, adjust=False).mean()
+    down_ema = down_vol.ewm(span=period, adjust=False).mean()
+
+    # SVSI как RSI по объёму
+    svsi = 100 * up_ema / (up_ema + down_ema)
+
+    # MA(SVSI)
+    svsi_ma = svsi.rolling(ma_period).mean()
+
+    return svsi, svsi_ma
+
+def wma_moomoo(series, period):
+    weights = np.arange(1, period + 1)
+    w = series.rolling(period).apply(
+        lambda x: np.dot(x, weights) / weights.sum(),
+        raw=True
+    )
+    w[:period-1] = 0
+    return w
+
+def calc_svsi_moomoo(df, move_average_cycle=28, calc_cycle=10):
+    ema_close = df['close'].ewm(span=move_average_cycle, adjust=False).mean()
+
+    up_vol = np.where(df['close'] > ema_close, df['volume'], 0)
+    dn_vol = np.where(df['close'] < ema_close, df['volume'], 0)
+
+    up_wma = wma_moomoo(pd.Series(up_vol, index=df.index), calc_cycle)
+    dn_wma = wma_moomoo(pd.Series(dn_vol, index=df.index), calc_cycle)
+
+    vsi = 100 * up_wma / (up_wma + dn_wma + 1e-12)
+    vsi = pd.Series(vsi, index=df.index)
+    vsi = vsi.fillna(0)  # Заполняем NaN нулями, чтобы избежать проблем с вычислениями
+
+
+    return vsi
+
+def avedev(tp: pd.Series, N: int) -> pd.Series:
+    sma = tp.rolling(N, min_periods=N).mean()
+
+    def calc(window: pd.Series):
+        # позиция последнего элемента окна
+        last_pos = window.index[-1]          # это label, не подходит для iloc
+        # правильная позиция через get_loc
+        iloc_pos = tp.index.get_loc(last_pos)
+
+        ma_last = sma.iloc[iloc_pos]         # SMA на правом краю окна
+        return (window - ma_last).abs().mean()
+
+    return tp.rolling(N, min_periods=N).apply(calc, raw=False)
+
+
+def calc_cci(df, N=28, P1=10):
+    """
+    CCI и MA(CCI), эквивалентные формуле moomoo:
+    TYP := (HIGH+LOW+CLOSE)/3
+    CCI := (TYP - MA(TYP,N)) / (0.015 * AVEDEV(TYP,N))
+    MACCI := MA(CCI,P1)
+    """
+
+    # Typical Price
+    tp = (df['high'] + df['low'] + df['close']) / 3
+
+    # MA(TYP, N) — строго по N барам
+    sma_tp = tp.rolling(N, min_periods=N).mean()
+
+    # AVEDEV(TYP, N) = среднее |TYP - MA(TYP,N)| по N барам
+    # md = (tp - sma_tp).abs().rolling(N, min_periods=N).mean()
+    md = avedev(tp, N)
+
+    # CCI
+    cci = (tp - sma_tp) / (0.015 * md)
+
+    # MACCI = MA(CCI, P1) — тоже по полному окну
+    cci_ma = cci.rolling(P1, min_periods=P1).mean()
+
+    return cci, cci_ma
+
+def drawdown_features(df, lookback_period: int, MA_period: int):
+    """
+    Replicates moomoo-style:
+        highest_close = HHV(close, lookback_period)
+        dd = (close - highest_close) / highest_close
+        MA10_dd = SMA(dd, MA_period)
+        max_dd = LLV(dd, lookback_period
+    """
+    close = df['close']
+    # HHV(close, N)
+    highest_close = close.rolling(lookback_period, min_periods=1).max()
+
+    # Drawdown
+    dd = (close - highest_close) / highest_close
+
+    # SMA(dd, MA_period)
+    MA_dd = dd.rolling(MA_period, min_periods=1).mean()
+
+    # LLV(dd, N)
+    max_dd = dd.rolling(lookback_period, min_periods=1).min()
+
+    return MA_dd, max_dd
+
+def drawup_features(df, lookback_period: int, MA_period: int):
+    """
+    Replicates moomoo-style:
+        lowest_close = LLV(close, lookback_period)
+        du = (close - lowest_close) / lowest_close
+        MA10_du = SMA(du, MA_period)
+        max_du = HHV(du, lookback_period
+    """
+    close = df['close']
+    # LLV(close, N)
+    lowest_close = close.rolling(lookback_period, min_periods=1).min()
+
+    # Drawup
+    du = (close - lowest_close) / lowest_close
+
+    # SMA(du, MA_period)
+    MA_du = du.rolling(MA_period, min_periods=1).mean()
+
+    # HHV(du, N)
+    max_du = du.rolling(lookback_period, min_periods=1).max()
+
+    return MA_du, max_du
+
 def data_augmentation(df, trade_type):
     
     df['pct_1'] = df['pct'].shift(1)
@@ -233,9 +371,6 @@ def data_augmentation(df, trade_type):
     X = X.reindex(sorted(X.columns), axis=1)
 
     return X
-
-import numpy as np
-
 
 def vwap_slope_from_open(df: pd.DataFrame, window=5, verbose=False) -> float:
     # 1. Определяем текущий день
@@ -1805,3 +1940,82 @@ def bullish_pattern_last_5_candles(df, ticker='ticker_name', verbal=False):
             return True
 
     return False
+
+def is_rising(values, period=10):
+    if len(values) < period:
+        return False, np.nan
+
+    y = np.asarray(values[-period:])
+    x = np.arange(period)
+
+    slope = np.polyfit(x, y, deg=1)[0]
+
+    return slope > 0
+
+def calculate_lsma_speed_acc(close: pd.Series,
+                             period: int,
+                             diff_step: int = 5):
+    """
+    LSMA и его скорость.
+
+    speed = LSMA(t) - LSMA(t - speed_step)
+
+    Parameters
+    ----------
+    close : pd.Series
+        Цены закрытия
+    period : int
+        Период LSMA
+    speed_step : int
+        Шаг для расчета скорости
+
+    Returns
+    -------
+    lsma : pd.Series
+    speed : pd.Series
+    """
+
+    if period < 2:
+        raise ValueError("period must be >= 2")
+
+    x = np.arange(period)
+    x_mean = x.mean()
+    x_var = ((x - x_mean) ** 2).sum()
+
+    def calc(window):
+        y = np.asarray(window)
+
+        y_mean = y.mean()
+
+        slope = ((x - x_mean) * (y - y_mean)).sum() / x_var
+        intercept = y_mean - slope * x_mean
+
+        return intercept + slope * (period - 1)
+
+    lsma = close.rolling(period).apply(calc, raw=True)
+
+    # скорость за N баров
+    speed = lsma.diff(diff_step)
+    # acceleration
+    acc = speed.diff(diff_step)
+    
+    return lsma, speed, acc
+
+def permit_if_velocity_zero_within_n_bars(velocity, acceleration, max_bars=30):
+    """
+    velocity < 0
+    acceleration > 0
+
+    Возвращает True, если скорость станет >= 0
+    не позже чем через max_bars свечей.
+    """
+
+    if velocity >= 0:
+        return True
+
+    if acceleration <= 0:
+        return False
+
+    bars_to_zero = -velocity / acceleration
+
+    return bars_to_zero <= max_bars

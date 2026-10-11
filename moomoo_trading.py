@@ -92,8 +92,8 @@ MARKET = 'US.'
 # ft.SysConfig.set_all_thread_daemon(True)
 
 # init parameters
-stock_name_list  = init.stock_name_list
-stock_name_list_opt = init.stock_name_list_opt
+stock_name_list  = list(set(init.stock_name_list))
+stock_name_list_opt = list(set(init.stock_name_list_opt))
         
 exclude_time_dist = {}
 exclude_duration_dist = {}
@@ -143,7 +143,7 @@ class Default():
         self.gain_coef_MA50_MA5 = 1.12
         self.gain_coef_MA5_MA120_DS = 1.12
         self.lose_coef_before_market_open = 0.98
-        self.lose_coef_1_MA50_MA5 = 0.996 # 0.98 -> 0.995 -> 0.9975 -> 0.9925 -> 0.9975 -> 0.996
+        self.lose_coef_1_MA50_MA5 = 0.9975 # 0.98 -> 0.995 -> 0.9975 -> 0.9925 -> 0.9975 -> 0.996 -> 0.9975
         self.lose_coef_2_MA50_MA5 = 0.97
         self.lose_coef_MA5_MA120_DS = 0.98
         self.lose_coef_stopmarket_MA50_MA5 = 0.978 # !!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -255,6 +255,14 @@ def augmentate_historical_df(df):
     # df['vwap'] = calc_vwap_by_day(df)
     df = df.join(calc_vwap_with_sigma(df))
     df['vwap_ma10'] = MA(df['vwap'], k=10)
+    df['cci30'], df['cci30_ma10'] = f2.calc_cci(df, 30, 10)
+    df['cci120'], df['cci120_ma10'] = f2.calc_cci(df, 120, 10)
+    df['svsi28']  = f2.calc_svsi_moomoo(df, move_average_cycle=10, calc_cycle=28)
+    df['MA_dd'], df['max_dd'] = f2.drawdown_features(df, lookback_period=100, MA_period=14)
+    df['dd300_ma20'], df['max_dd300'] = f2.drawdown_features(df, lookback_period=300, MA_period=20)
+    df['dd600_ma20'], df['max_dd600'] = f2.drawdown_features(df, lookback_period=600, MA_period=20)
+    df['du300_ma20'], df['max_du300'] = f2.drawup_features(df, lookback_period=300, MA_period=20)
+    df['du600_ma20'], df['max_du600'] = f2.drawup_features(df, lookback_period=600, MA_period=20)
     return df
 
 @number_function_calls
@@ -1440,10 +1448,97 @@ def stock_buy_condition_MA50_MA5(df, df_pred, df_1m, ticker, display=False):
     impulse_buy_filter_result = impulse_buy_filter(df_1m)
     ema_cone_adaptive_result = ema_cone_adaptive(df_1m)
     
+    cci_svsi_cond_1m = (
+        df_1m['cci30'].iloc[-1] < 0 
+        and df_1m["cci30_ma10"].iloc[-1] > df_1m["cci30_ma10"].iloc[-2]
+        and df_1m["svsi28"].iloc[-1] > df_1m["svsi28"].iloc[-2]
+        and df_1m["svsi28"].iloc[-2] >= df_1m["svsi28"].iloc[-3]
+        and (df_1m["svsi28"].iloc[-20:] < 20).any()
+        and (df_1m["svsi28"].iloc[-1] > 10 and df_1m["svsi28"].iloc[-1] < 60)
+    )
+    print(f'cci30 is {df_1m["cci30"].iloc[-1]:.3f}, cci30_ma10 is {df_1m["cci30_ma10"].iloc[-1]:.3f}, svsi28 is {df_1m["svsi28"].iloc[-1]:.3f}')
+
+    delta_dd = df['MA_dd'] - df['max_dd']
+    drawdown_cond_1h = (
+        df['svsi28'].iloc[-1] > df['svsi28'].iloc[-2]
+        and df['svsi28'].iloc[-1] <= 75
+        and df['MA_dd'].iloc[-1] > df['MA_dd'].iloc[-2]
+        and df['max_dd'].iloc[-1] >= df['max_dd'].iloc[-10]
+        and delta_dd.iloc[-1] > delta_dd.iloc[-2]
+        and delta_dd.iloc[-1] > np.abs(df['max_dd'].iloc[-1]) * 0.15
+    )
+    
+
+    delta_dd_1m = df['dd300_ma20'] - df['max_dd300']
+    max_delta_dd_1m_window300 = delta_dd_1m.iloc[-300:].max()
+    
+    #  df_1m['dd300_ma20'].iloc[-1] > df_1m['dd300_ma20'].iloc[-6] ideas!
+    
+    # drawdown_cond_1m = (
+    #     df_1m['dd300_ma20'].iloc[-1] > df_1m['dd300_ma20'].iloc[-2]
+    #     and df_1m['max_dd300'].iloc[-1] >= df_1m['max_dd300'].iloc[-10]
+    #     and delta_dd_1m.iloc[-1] > delta_dd_1m.iloc[-2]
+    #     and delta_dd_1m.iloc[-1] > max_delta_dd_1m_window300 * 0.15
+    # )
+    
+    # cond_7_dd = all(df_1m['dd300_ma20'].iloc[-i] >= df_1m['dd300_ma20'].iloc[-i-1] for i in range(1, 8))
+    # cond_7_du = all(df_1m['du300_ma20'].iloc[-i] >= df_1m['du300_ma20'].iloc[-i-1] for i in range(1, 8))
+    # drawdown_cond_1m = cond_7_dd and cond_7_du
+
+    # drawdown_cond_1m = (
+    #     df_1m['dd300_ma20'].iloc[-1] > df_1m['dd300_ma20'].iloc[-2]
+    #     and df_1m['dd300_ma20'].iloc[-1] >= df_1m['dd300_ma20'].iloc[-3]
+    #     and df_1m['du300_ma20'].iloc[-1] > df_1m['du300_ma20'].iloc[-2]
+    #     and df_1m['du300_ma20'].iloc[-1] >= df_1m['du300_ma20'].iloc[-3]
+    # )
+    
+    # dd_du_signal = df_1m['max_dd600'] + df_1m['max_du600']
+    # drawdown_cond_1m = (
+    #     drawdown_direction_cond(dd_du_signal)
+    #     and df_1m["cci120_ma10"].iloc[-1] > df_1m["cci120_ma10"].iloc[-2]
+    #     and df_1m["cci120_ma10"].iloc[-1] < 100
+    # )
+    
+    dddu300_ma20_signal = df_1m['dd300_ma20'] + df_1m['du300_ma20']
+    position = (dddu300_ma20_signal.iloc[-1] - df_1m['max_dd300'].iloc[-1]) / (df_1m['max_du300'].iloc[-1] - df_1m['max_dd300'].iloc[-1])
+    drawdown_cond_1m = (
+        ((position > 0.05 and position <= 0.15) or (position >= 0.5 and position <= 0.6))
+        and f2.is_rising(dddu300_ma20_signal, 10)
+    )
+    
+    svsi28_ma10_rising_1h = f2.is_rising(df['svsi28'], 10)
+    
+    lsma300_1m, lsma300_speed_1m, lsma300_acc_1m = f2.calculate_lsma_speed_acc(df_1m['close'], 300, 30)
+    lsma900_1m, lsma900_speed_1m, lsma900_acc_1m = f2.calculate_lsma_speed_acc(df_1m['close'], 900, 30)
+    lsma300_permit_if_velocity_zero_within_30_bars = f2.permit_if_velocity_zero_within_n_bars(
+        lsma300_speed_1m.iloc[-1],
+        lsma300_acc_1m.iloc[-1],
+        30
+    )
+    lsma900_permit_if_velocity_zero_within_30_bars = f2.permit_if_velocity_zero_within_n_bars(
+        lsma900_speed_1m.iloc[-1],
+        lsma900_acc_1m.iloc[-1],
+        30
+    )
+    lsma_cond_1m = (
+        lsma300_1m.iloc[-1] > lsma300_1m.iloc[-2]
+        and (lsma300_speed_1m.iloc[-1] > 0 or lsma300_permit_if_velocity_zero_within_30_bars)
+        and lsma300_speed_1m.iloc[-1] > lsma300_speed_1m.iloc[-2]
+        and lsma300_acc_1m.iloc[-1] > 0 
+        and lsma300_acc_1m.iloc[-1] > lsma300_acc_1m.iloc[-2]
+        and lsma900_1m.iloc[-1] > lsma900_1m.iloc[-2]
+        and (lsma900_speed_1m.iloc[-1] > 0 or lsma900_permit_if_velocity_zero_within_30_bars)
+        and lsma900_speed_1m.iloc[-1] > lsma900_speed_1m.iloc[-2]
+        and lsma300_1m.iloc[-1] > lsma900_1m.iloc[-1]
+        and lsma900_acc_1m.iloc[-1] > lsma900_acc_1m.iloc[-2]
+    )
+    
     hl_structure = (
     df['low'].iloc[-1] > df['low'].iloc[-2] or
     (df['low'].iloc[-1] > df['low'].iloc[-3] and df['low'].iloc[-2] > df['low'].iloc[-3] * 0.98)
     )
+    cci120_ma10_grad_positive_1m = df_1m['cci120_ma10'].iloc[-1] > df_1m['cci120_ma10'].iloc[-2] \
+        and df_1m['cci120_ma10'].iloc[-2] >= df_1m['cci120_ma10'].iloc[-3]
 
     # near_MA80_1h_max120 is alwayas False atm because of the condition on MA80 gradient, which is added to avoid buying near the local maximum of MA80, which is a strong resistance level. This condition is added based on the observation that the price often reverses when it approaches the local maximum of MA80. However, this condition may be too strict and may exclude some good buying opportunities. Therefore, it is set to False for now, but it can be adjusted in the future based on further analysis and testing.
     if  angle_positive_360_1h \
@@ -1477,12 +1572,23 @@ def stock_buy_condition_MA50_MA5(df, df_pred, df_1m, ticker, display=False):
     if buy_in_low_VWAP_zone_criteria:
         condition = True
     
-    if (hourly_filter_result
+    # if (hourly_filter_result
+    #     and hl_structure
+    #     and zigzag_cone_criteria_1m
+    #     and ema_cone_adaptive_result
+    #     and macd_filter_120_result_1m
+    #     and cond_grad_MA5_1m):
+    #     condition = True
+    
+    if (drawdown_cond_1h
         and hl_structure
-        and zigzag_cone_criteria_1m
-        and ema_cone_adaptive_result
-        and macd_filter_120_result_1m
-        and cond_grad_MA5_1m):
+        and svsi28_ma10_rising_1h
+        and df['svsi28'].iloc[-1] <= 70
+        and cci_svsi_cond_1m
+        and cond_grad_MA5_1m
+        and cci120_ma10_grad_positive_1m
+        and drawdown_cond_1m
+        and lsma_cond_1m):
         condition = True
         
     # and abs(df['MACD_hist_120'].iloc[-1]) > 0.002 \ changed with cond_DEA_more_MACD_120 on 18/11/2025
@@ -1527,7 +1633,7 @@ def stock_buy_condition_MA50_MA5(df, df_pred, df_1m, ticker, display=False):
     # if (not MNK_buy_permission_1h 
     #     or df['vwap'].iloc[-2] < df['vwap'].iloc[-3]):
     # if not angle_positive_360_1h or not vwap_more_ma10_1h:
-    if not hourly_filter_result:
+    if not drawdown_cond_1h:
         is_exlude = True  
         exclude_duration_dist[ticker] = 60 * 60 + 20 * 60 * np.random.random() # exclude for 60 + 20random minutes
     
@@ -1570,10 +1676,13 @@ def stock_buy_condition_MA50_MA5(df, df_pred, df_1m, ticker, display=False):
         # print(fmt('Can buy', buy_signal_info['can_buy']))
         print(fmt('Hourly filter 1h', hourly_filter_result))
         print(fmt('hl_structure', hl_structure))
-        print(fmt('zigzag_cone_criteria_1m', zigzag_cone_criteria_1m))
-        print(fmt('ema_cone_adaptive_result', ema_cone_adaptive_result))
-        print(fmt('MACD filter 120 1m', macd_filter_120_result_1m))
+        print(fmt('cci_svsi_cond_1m', cci_svsi_cond_1m))
+        # print(fmt('zigzag_cone_criteria_1m', zigzag_cone_criteria_1m))
+        # print(fmt('ema_cone_adaptive_result', ema_cone_adaptive_result))
+        # print(fmt('MACD filter 120 1m', macd_filter_120_result_1m))
         print(fmt('cond_grad_MA5_1m', cond_grad_MA5_1m))
+        print(fmt('cci120_ma10_grad_positive_1m', cci120_ma10_grad_positive_1m))
+        print(fmt('drawdown_cond_1m', drawdown_cond_1m))
         # print(fmt('VWAP momentum filter 1h', vwap_momentum_filter_result))
         # print(fmt('buy_signal_impulse_cross 1m', buy_signal_impulse_cross_result_1m['can_buy']))
         # print(fmt('MA20 momentum filter 1m', ma20_momentum_filter_result_1m))
@@ -3319,8 +3428,8 @@ def modify_trailing_stop_limit_MA50_MA5_and_bmo1_order(
         # 3. MACD SELL-условие
         # -----------------------------
         macd_sell = (
-            (dif[-1] < 0 or dif[-1] < max_positive_dif_120 * 0.5 or hist[-1] < max_positive_hist_50 * 0.999)
-            and hist[-1] < hist[-2]
+            (dif[-1] < 0 or dif[-1] < max_positive_dif_120 * 0.5 or hist.iloc[-1] < max_positive_hist_50 * 0.999)
+            and hist.iloc[-1] < hist.iloc[-2]
             and gap < (mean_gap - std_gap)
             and gap < gap_prev
             and gap < 0
@@ -3344,7 +3453,7 @@ def modify_trailing_stop_limit_MA50_MA5_and_bmo1_order(
             high_60 = stock_df_1m["high"].iloc[-60:]
 
             vwap_1sigma = stock_df_1m["vwap_1_up"].iloc[-60:]    # 1σ
-            vwap_1p5sigma = stock_df_1m["vwap_15_up"].iloc[-60:] # 1.5σ
+            vwap_1p5sigma = (stock_df_1m["vwap_1_up"].iloc[-60:] + stock_df_1m["vwap_2_up"].iloc[-60:]) / 2         # 1.5σ
             vwap_2sigma = stock_df_1m["vwap_2_up"].iloc[-60:]    # 2σ
 
             touched_1sigma_60m = (high_60 >= vwap_1sigma).any()
@@ -3364,15 +3473,60 @@ def modify_trailing_stop_limit_MA50_MA5_and_bmo1_order(
             (touched_2sigma_60m  and sigma_pct > 0.004)     # ~0.4%
         )
 
+        bear_structure = (
+            stock_df_1m['close'].iloc[-1] < stock_df_1m['close'].iloc[-2] and
+            stock_df_1m['close'].iloc[-2] < stock_df_1m['close'].iloc[-3] and
+            stock_df_1m['close'].iloc[-1] < stock_df_1m['low'].iloc[-4]
+        )
+
+        max10_1m = stock_df_1m['high'].iloc[-10:].max()
+        min10_1m = stock_df_1m['low'].iloc[-10:].min()
+        quike_spike_value = max10_1m / min10_1m
+        # проверка что мы не упали слишком низко и надо смотерть другие условия
+        quike_spike = (quike_spike_value > 1.0075) and current_price > min10_1m + (max10_1m - min10_1m) * 0.54 # 1.005 -> 1.009 -> 
+        quike_spike_cond = quike_spike and ((stock_df_1m['ha_colour'].iloc[-5:] == 'red').any() or bear_structure)
+
         # -----------------------------
-        # 7. Активация SELL-условий
+        # CCI SELL-условие
+        # -----------------------------
+        cci_sell = (
+            stock_df_1m["cci120_ma10"].iloc[-1] > 200
+        )
+        
+        #----------------
+        # Drawdonw condtion
+        #---------------------
+        dddu300_ma20_signal = stock_df_1m['dd300_ma20'] + stock_df_1m['du300_ma20']
+        dddu300_ma20_sell = not f2.is_rising(dddu300_ma20_signal, 10)
+        
+        
+        # -----------------------------
+        # Активация SELL-условий
         # -----------------------------
         if macd_sell or (ma5_cross_ma10 and allow_ma_cross):
             sell_conditions_active = True
-            suggested_trailing = 0.25  # например, 0.25 (25%) — твой выбор
+            suggested_trailing = 0.25
+        
+        if dddu300_ma20_sell:
+            sell_conditions_active = True
+            suggested_trailing = 0.24
+        
+        if cci_sell:
+            sell_conditions_active = True
+            suggested_trailing = 0.21
+        
+        if quike_spike_cond:
+            sell_conditions_active = True
+            suggested_trailing = 0.19  
+        
+        # this mean unrevertable condition worked and we don't want to change trailing ratio to higher value
+        if trailing_ratio > 0.2 and trailing_ratio < 0.22:
+            sell_conditions_active = True
+            suggested_trailing = trailing_ratio
 
         if display:
             print("=" * 70 + "\n")
+            print(f"Ticker is {ticker}")
             print(f"💰 Current gain: {current_gain:.4f}")
             print(f"🔧 Old trailing: {trailing_ratio:.4f} → Suggested: {suggested_trailing:.4f}")
             print("\n📊 MACD 120 STRUCTURE")
@@ -5044,24 +5198,21 @@ def hourly_filter(df):
     
     avoid_buy = macd_ratio_slowing(hist)
     # print(fmt(' not avoid buy', not avoid_buy))
-
+    
     can_trade = (
         trend_fast_ok and
         trend_global_ok and
         hist_ok and
         not avoid_buy
     )
+    
+    # can_trade = (
+    #     trend_global_ok and
+    #     hist_ok and
+    #     not avoid_buy
+    # )
 
-    return {
-        "can_trade": can_trade,
-        "trend_fast_ok": trend_fast_ok,
-        "trend_global_ok": trend_global_ok,
-        "hist_ok": hist_ok,
-        "slope_now": slope_now,
-        "slope_prev": slope_prev,
-        "slope_std": slope_std,
-        "avoid_buy": avoid_buy
-    }
+    return can_trade
 
 def macd_ratio_slowing(hist, k=1.2):
     hist = np.asarray(hist)
@@ -5083,9 +5234,10 @@ def macd_ratio_slowing(hist, k=1.2):
     R_std = np.std(R[-20:])
 
     # --- 4. Значимое замедление
-    slowing = R_now < 1 + k * R_std
-
-    return 
+    # slowing = R_now < 1 + k * R_std
+    slowing = R_now < 1.0022
+    
+    return slowing
 
 
 def test_hourly_filter(ticker='AAPL'):
@@ -5218,9 +5370,8 @@ def vwap_momentum_filter(df):
     return trend_up_ok or early_reversal_ok
 
 
-import numpy as np
-
 def macd_filter_120(df):
+    # add dif > 0 then hist should be < 0 and grad hist > 0; or dif < 0: dif > dea???? + grad hist!!
     dif = df['MACD_120'].values
     dea = df['MACD_DEA_120'].values
     hist = df['MACD_hist_120'].values
@@ -5229,7 +5380,16 @@ def macd_filter_120(df):
     impulse_ok = dif[-1] > dif[-2]
 
     # 2. DIF выше сигнальной линии
-    signal_ok = dif[-1] > dea[-1]
+    dif_more_dea = dif[-1] > dea[-1]
+    window_50 = hist[-50:]
+    min_neg_50 = window_50.min()
+    if min_neg_50 < 0 and hist[-1] < 0:
+        neg_hist_less_fib_level = abs(hist[-1]) < abs(min_neg_50) * 0.786
+    else:
+        neg_hist_less_fib_level = True
+    early_signal_ok = neg_hist_less_fib_level and dif[-1] > 0 and impulse_ok
+    
+    signal_ok = dif_more_dea or early_signal_ok
 
     # 3. Замедление импульса
     ratio_slowing = macd_ratio_slowing(hist[-200:])
@@ -5478,14 +5638,33 @@ def test_buy_condition(function, df_type='1m', ticker='AAPL'):
         interval='1m',
         prepost=False
     )
+    df = pd.DataFrame()
     if df_type == '1m': df = df_1m
     if df_type == '1h': df = df_1h
     
-    result = function(df)
-
-    print(fmt(function.__name__, result))
+    if function == 'CCI test':
+        print(f"cci30 is {df['cci30'].iloc[-1]}")
+        print(f'cci30_ma10 is {df["cci30_ma10"].iloc[-1]}')
+        print(f'svsi28 is {df["svsi28"].iloc[-1]}')
+        result = False
+    else:
+        result = function(df)
+        print(fmt(function.__name__, result))
+   
     return result
 
+def drawdown_direction_cond(df):
+    df = df.values
+    if len(df) <= 600:
+        return False
+
+    current = df[-1]
+
+    for shift in range(600, len(df), 300):
+        if current - df[-shift] > 0.01:
+            return True
+
+    return current - df[0] > 0.01
     
 #%% MAIN
 if __name__ == '__main__':
@@ -5503,13 +5682,58 @@ if __name__ == '__main__':
     #     test_zigzag_cone(ticker)
     
     # success_list = []
+    # success_list2 = []
+    # success_list_combine = []
     # for ticker in stock_name_list:
     #     # result = test_hourly_filter(ticker)
-    #     result = test_buy_condition(ma20_momentum_filter, '1m', ticker)
+    #     result = test_buy_condition(macd_filter_120, '1m', ticker)
+    #     result2 = test_buy_condition(hourly_filter, '1h', ticker )
     #     if result: success_list.append(ticker)
+    #     if result2: success_list2.append(ticker)
+    #     if (result and result2): success_list_combine.append(ticker)
     # print(f'Success list is {success_list}')
+    # print(f"Success list len is {len(success_list)}")
+    # print(f'Success list2 is {success_list2}')
+    # print(f"Success list2 len is {len(success_list2)}")
+    # print(f'Success list combine is {success_list_combine}')
+    # print(f"Success list len combine is {len(success_list_combine)}")
     
+    # success_list = []
+    # for ticker in stock_name_list:
+    #     # test_buy_condition('CCI test', '1m', ticker)
+    
+    #     df = get_historical_df(
+    #         ticker=ticker,
+    #         period='3mo',
+    #         interval='1h',
+    #         prepost=False
+    #     )
         
+    #     delta_dd = df['MA_dd'] - df['max_dd']
+    #     drawdown_cond_1h = (
+    #         df['svsi28'].iloc[-1] > df['svsi28'].iloc[-2]
+    #         and df['svsi28'].iloc[-1] < 80
+    #         and df['MA_dd'].iloc[-1] > df['MA_dd'].iloc[-2]
+    #         and df['max_dd'].iloc[-1] >= df['max_dd'].iloc[-10]
+    #         and delta_dd.iloc[-1] > delta_dd.iloc[-2]
+    #         and delta_dd.iloc[-1] > np.abs(df['max_dd'].iloc[-1]) * 0.015
+    #     )
+    #     if drawdown_cond_1h:
+    #         success_list.append(ticker)
+    #     print(fmt(f'{ticker} drawdown_cond_1h', drawdown_cond_1h))
+    # print(f'Success list  is {success_list}')
+    # print(f"Success list len is {len(success_list)}")
+    
+    # for ticker in ['INTU','ADP', 'ROK', 'BA']:
+    #     df_1m = get_historical_df(
+    #     ticker=ticker,
+    #     period='max',
+    #     interval='1m',
+    #     prepost=False
+    # )
+    #     lsma, speed = f2.calculate_lsma_and_speed(df_1m['close'], 300, 30)
+    #     print(f'Ticker is {ticker}, lsma is {lsma.iloc[-1]}, speed is {speed.iloc[-1]}')
+   
     # Interface initialization
     alarm.print('YOU ARE RUNNING REAL TRADE ACCOUNT')
     ma = Moomoo_API(ip, port, trd_env=TRD_ENV, acc_id = ACC_ID)
